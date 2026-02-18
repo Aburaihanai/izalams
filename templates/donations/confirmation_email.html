@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #0d6efd; color: white; padding: 20px; text-align: center; }
+        .content { background: #f8f9fa; padding: 20px; }
+        .footer { background: #343a40; color: white; padding: 20px; text-align: center; }
+        .donation-details { background: white; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .success { color: #198754; }
+        .warning { color: #fd7e14; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Izala Group</h1>
+            <h2>Tabbatar da Taimako</h2>
+        </div>
+        
+        <div class="content">
+            <p>Masoyi {{ donation.donor_name }},</p>
+            
+            <p>Muna jin daɗin sanar da ku cewa an karɓi taimakon ku.</p>
+            
+            <div class="donation-details">
+                <h3 class="success">Bayanan Taimako:</h3>
+                <p><strong>Adadin:</strong> ₦{{ donation.amount }}</p>
+                <p><strong>Dalili:</strong> {{ donation.purpose }}</p>
+                <p><strong>Hanyar Biya:</strong> {{ donation.get_payment_method_display }}</p>
+                <p><strong>Lambar Tabbatarwa:</strong> {{ donation.reference }}</p>
+                <p><strong>Kwanan wata:</strong> {{ donation.created_at|date:"F d, Y" }}</p>
+            </div>
+            
+            <p>Godiya ta kasance ga duk wanda yake taimakawa. Taimakon ku zai taimaka wa al'umma.</p>
+            
+            <p>Idan kuna da wata tambaya, don Allah a amsa wannan imel ɗin ko kuma tuntube mu a:</p>
+            <p>📞 +234 800 000 0000<br>
+               📧 info@izala.org</p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 Izala Group. All rights reserved.</p>
+            <p>Dedicated to serving the community</p>
+        </div>
+    </div>
+</body>
+</html>

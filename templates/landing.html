@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<style>
+    .hero-banner {
+        background: linear-gradient(45deg, #004d00, #006400);
+        color: white;
+        padding: 80px 0;
+        border-radius: 0 0 50px 50px;
+        margin-top: -24px;
+        margin-bottom: 50px;
+    }
+    .video-card {
+        background: #000;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.3s ease;
+        height: 450px;
+        border: 4px solid transparent;
+    }
+    .video-card:hover {
+        transform: scale(1.02);
+        border-color: #ffd700;
+    }
+    .play-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color: rgba(255,255,255,0.7);
+        pointer-events: none;
+    }
+    .pillar-card {
+        border: none;
+        border-bottom: 5px solid #006400;
+        transition: 0.3s;
+    }
+    .pillar-card:hover {
+        background: #f0fff0;
+        transform: translateY(-10px);
+    }
+    .ticker-container {
+        background: #fff;
+        display: flex;
+        overflow: hidden;
+        border-radius: 50px;
+        border: 1px solid #eee;
+    }
+    .ticker-label {
+        background: #d9534f; /* Red for urgency */
+        color: white;
+        padding: 10px 20px;
+        font-weight: bold;
+        white-space: nowrap;
+        z-index: 2;
+    }
+    .ticker-wrap {
+        flex-grow: 1;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+    .ticker-move {
+        white-space: nowrap;
+        display: inline-block;
+        animation: ticker-animation 30s linear infinite;
+        padding-left: 100%;
+    }
+    .ticker-item {
+        display: inline-block;
+        padding: 0 20px;
+        font-weight: 500;
+        color: #006400;
+    }
+    @keyframes ticker-animation {
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-100%, 0, 0); }
+    }
+</style>
+<div id="mainGallery" class="carousel slide carousel-fade mb-5 shadow" data-bs-ride="carousel">
+    <div class="carousel-inner" style="border-radius: 15px; height: 400px;">
+        {% for item in gallery %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="3000">
+            <img src="{{ item.image.url }}" class="d-block w-100" style="object-fit: cover; height: 400px;" alt="{{ item.title }}">
+            {% if item.title %}
+            <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.5); border-radius: 10px;">
+                <h5>{{ item.title }}</h5>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="carousel-item active">
+            <img src="https://via.placeholder.com/1200x400?text=JIBWIS+Nigeria+Activity+Images" class="d-block w-100" style="object-fit: cover; height: 400px;">
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainGallery" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainGallery" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+
+<div class="hero-banner text-center shadow">
+    <div class="container">
+        <div class="logo-box mx-auto mb-4" style="width: 150px; height: 150px; background: white; border-radius: 70%; display: flex; align-items: center; justify-content: center; ">
+                <img src="{% static 'images/izala_logo.png' %}" style="width: 100%;">
+        </div>
+        <h1 class="display-4 fw-bold">{% trans "JIBWIS Digital Portal" %}</h1>
+        <p class="lead">{% trans "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG" %}</p>
+        <div class="mt-4">
+            <a href="{% url 'register' %}" class="btn btn-gold btn-lg px-5 shadow">{% trans "Join Now" %}</a>
+        </div>
+    </div>
+</div>
+
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="card pillar-card shadow-sm p-4">
+                <h1 class="mb-3">🏛️</h1>
+                <h4>{% trans "Administration" %}</h4>
+                <p class="small text-muted">{% trans "National to Ward level leadership coordination." %}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card pillar-card shadow-sm p-4">
+                <h1 class="mb-3">📖</h1>
+                <h4>{% trans "Council of Ulama" %}</h4>
+                <p class="small text-muted">{% trans "Management of scholars and educational backgrounds." %}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card pillar-card shadow-sm p-4">
+                <h1 class="mb-3">🚑</h1>
+                <h4>{% trans "First Aid Group" %}</h4>
+                <p class="small text-muted">{% trans "Divisional, Detachment, and Unit leadership." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+            <div class="col-md-4 bg-success text-white p-5 d-flex flex-column justify-content-center">
+                <h3 class="fw-bold mb-3">{% trans "Visit Us" %}</h3>
+                <p><i class="bi bi-geo-alt-fill"></i> {% trans "JIBWIS National Headquarters," %}<br>{% trans "Kaduna, Kaduna State, Nigeria." %}</p>
+                <p><i class="bi bi-telephone-fill"></i> +234 800 JIBWIS HQ</p>
+                <p><i class="bi bi-envelope-fill"></i> info@jibwiskdnigeria.org</p>
+            </div>
+            <div class="col-md-8">
+                <iframe 
+                    width="100%" 
+                    height="400" 
+                    frameborder="0" 
+                    style="border:0" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15715.766345634!2d8.8916!3d9.9306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10890f0000000001%3A0x0!2zSm9z!5e0!3m2!1sen!2sng!4v1700000000000" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="border-bottom border-success pb-2 text-success">{% trans "Latest Announcements" %}</h3>
+            {% for update in news %}
+            <div class="card mb-3 border-0 shadow-sm">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ update.image.url }}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ update.title }}</h5>
+                            <p class="card-text text-muted small">{{ update.created_at|date:"M d, Y" }}</p>
+                            <p class="card-text">{{ update.content|truncatewords:20 }}</p>
+                            <a href="#" class="btn btn-sm btn-success">{% trans "Read More" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center fw-bold text-success mb-5">{% trans "JIBWIS Media Updates" %}</h2>
+                <div class="row g-4">
+                    {% for video in videos %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                            <div class="ratio ratio-16x9">
+                                <video controls 
+                                    {% if video.thumbnail %} poster="{{ video.thumbnail.url }}" {% endif %} 
+                                    class="rounded-top">
+                                    <source src="{{ video.video_file.url }}" type="video/mp4">
+                                </video>
+                            </div>
+
+                            <div class="card-body">
+                                <h6 class="fw-bold mb-3">{{ video.title }}</h6>
+                                
+                                <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                                    <div class="d-flex gap-3">
+                                        <button class="btn btn-link text-decoration-none p-0 text-dark like-btn" data-id="{{ video.id }}">
+                                            <i class="bi bi-heart{% if user in video.likes.all %}-fill text-danger{% endif %} fs-5"></i>
+                                            <small class="d-block text-center">{{ video.total_likes }}</small>
+                                        </button>
+
+                                        <button class="btn btn-link text-decoration-none p-0 text-dark" onclick="shareVideo('{{ video.title }}', '{{ request.build_absolute_uri }}')">
+                                            <i class="bi bi-share fs-5"></i>
+                                            <small class="d-block text-center">{% trans "Share" %}</small>
+                                        </button>
+                                    </div>
+
+                                    <a href="{{ video.video_file.url }}" download class="btn btn-success btn-sm rounded-pill px-3">
+                                        <i class="bi bi-download me-1"></i> {% trans "Download" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="d-flex gap-3 align-items-center">
+    <div class="text-muted small">
+        <i class="bi bi-eye me-1"></i> {{ video.views_count }}
+    </div>
+    
+    <button class="btn btn-link text-decoration-none p-0 text-dark like-btn" data-id="{{ video.id }}">
+        <i class="bi bi-heart{% if user in video.likes.all %}-fill text-danger{% endif %}"></i>
+        <small>{{ video.total_likes }}</small>
+    </button>
+</div>
+
+<script>
+// Logic to count views when video starts playing
+document.querySelectorAll('video').forEach(videoElement => {
+    videoElement.addEventListener('play', function() {
+        const videoId = this.closest('.card').querySelector('.like-btn').dataset.id;
+        
+        fetch(`/video/view/${videoId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            }
+        });
+    }, { once: true }); // Only count one view per page load
+});
+
+function shareVideo(title, url) {
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            url: url
+        }).catch(console.error);
+    } else {
+        // Fallback: Copy to clipboard
+        navigator.clipboard.writeText(url);
+        alert("Link copied to clipboard!");
+    }
+}
+</script>
+{% endblock %}

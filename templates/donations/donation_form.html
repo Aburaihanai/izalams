@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-donate me-2"></i>Sanya Zakkah/Sadaqa</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form id="donationForm" method="post">
+                        {% csrf_token %}
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5 class="section-title">Bayanan Mai Taimakawa</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.donor_name.id_for_label }}" class="form-label">{{ form.donor_name.label }}</label>
+                                    {{ form.donor_name }}
+                                    {% if form.donor_name.errors %}
+                                        <div class="text-danger small">{{ form.donor_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.donor_email.id_for_label }}" class="form-label">{{ form.donor_email.label }}</label>
+                                    {{ form.donor_email }}
+                                    {% if form.donor_email.errors %}
+                                        <div class="text-danger small">{{ form.donor_email.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.donor_phone.id_for_label }}" class="form-label">{{ form.donor_phone.label }}</label>
+                                    {{ form.donor_phone }}
+                                    {% if form.donor_phone.errors %}
+                                        <div class="text-danger small">{{ form.donor_phone.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5 class="section-title">Bayanan Taimako</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.amount.id_for_label }}" class="form-label">{{ form.amount.label }}</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₦</span>
+                                        {{ form.amount }}
+                                    </div>
+                                    {% if form.amount.errors %}
+                                        <div class="text-danger small">{{ form.amount.errors }}</div>
+                                    {% endif %}
+                                    <div class="form-text">Ƙaramin adadin shine ₦100</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.purpose.id_for_label }}" class="form-label">{{ form.purpose.label }}</label>
+                                    {{ form.purpose }}
+                                    {% if form.purpose.errors %}
+                                        <div class="text-danger small">{{ form.purpose.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.notes.id_for_label }}" class="form-label">{{ form.notes.label }}</label>
+                                    {{ form.notes }}
+                                    {% if form.notes.errors %}
+                                        <div class="text-danger small">{{ form.notes.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="section-title">Hanyan Taimako</h5>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="payment-option" data-method="card">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" 
+                                                       name="payment_method" id="payment_card" 
+                                                       value="card" required>
+                                                <label class="form-check-label d-flex align-items-center" for="payment_card">
+                                                    <i class="fas fa-credit-card payment-icon"></i>
+                                                    <div>
+                                                        <h6 class="mb-1">Katin Biya</h6>
+                                                        <p class="mb-0 text-muted">Yi amfani da katin ku na banki</p>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <div class="payment-option" data-method="transfer">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" 
+                                                       name="payment_method" id="payment_transfer" 
+                                                       value="transfer" required>
+                                                <label class="form-check-label d-flex align-items-center" for="payment_transfer">
+                                                    <i class="fas fa-university payment-icon"></i>
+                                                    <div>
+                                                        <h6 class="mb-1">Tura Kudi</h6>
+                                                        <p class="mb-0 text-muted">Yi amfani da tura kudi ta banki</p>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-paper-plane me-2"></i>Tafi Kai Tsaye Don Taimakawa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.payment-option {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.payment-option:hover {
+    border-color: #0d6efd;
+    background-color: #f8fbff;
+}
+.payment-option.selected {
+    border-color: #0d6efd;
+    background-color: #f0f7ff;
+}
+.payment-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #0d6efd;
+}
+.section-title {
+    color: #495057;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.amount-input {
+    font-size: 18px;
+    font-weight: 600;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    
+    paymentOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove selected class from all options
+            paymentOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            this.classList.add('selected');
+            
+            // Check the radio button inside this option
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+        });
+    });
+    
+    // Form validation
+    const form = document.getElementById('donationForm');
+    form.addEventListener('submit', function(e) {
+        const amount = parseFloat(document.getElementById('id_amount').value);
+        if (amount < 100) {
+            e.preventDefault();
+            alert('Minimum donation amount is ₦100');
+            return;
+        }
+        
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+        if (!paymentMethod) {
+            e.preventDefault();
+            alert('Please select a payment method');
+            return;
+        }
+    });
+});
+</script>
+{% endblock %}

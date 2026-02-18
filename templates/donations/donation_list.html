@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-list me-2"></i>Donation Records</h2>
+        <div>
+            <a href="{% url 'create_manual_donation' %}" class="btn btn-primary me-2">
+                <i class="fas fa-plus me-1"></i>Add Manual Donation
+            </a>
+            <a href="{% url 'payment_gateway_settings' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-cog me-1"></i>Gateway Settings
+            </a>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-2">
+                    <select name="status" class="form-select">
+                        <option value="">All Status</option>
+                        <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+                        <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Completed</option>
+                        <option value="failed" {% if status_filter == 'failed' %}selected{% endif %}>Failed</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="payment_method" class="form-select">
+                        <option value="">All Methods</option>
+                        <option value="manual_cash" {% if payment_method_filter == 'manual_cash' %}selected{% endif %}>Cash</option>
+                        <option value="manual_bank" {% if payment_method_filter == 'manual_bank' %}selected{% endif %}>Bank Transfer</option>
+                        <option value="stripe" {% if payment_method_filter == 'stripe' %}selected{% endif %}>Stripe</option>
+                        <option value="flutterwave" {% if payment_method_filter == 'flutterwave' %}selected{% endif %}>Flutterwave</option>
+                        <option value="paystack" {% if payment_method_filter == 'paystack' %}selected{% endif %}>Paystack</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="date" name="start_date" class="form-control" placeholder="From" value="{{ start_date }}">
+                </div>
+                <div class="col-md-2">
+                    <input type="date" name="end_date" class="form-control" placeholder="To" value="{{ end_date }}">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+                <div class="col-md-2">
+                    <a href="{% url 'donation_list' %}" class="btn btn-outline-secondary w-100">Clear</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Summary Card -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h4 class="mb-0">Total Donations: ₦{{ total_amount|floatformat:2 }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donations Table -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Donor</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Purpose</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donation in donations %}
+                        <tr>
+                            <td>
+                                <strong>{{ donation.donor_name }}</strong><br>
+                                <small class="text-muted">{{ donation.donor_email|default:"No email" }}</small>
+                            </td>
+                            <td>₦{{ donation.amount|floatformat:2 }}</td>
+                            <td>
+                                <span class="badge bg-info">{{ donation.get_payment_method_display }}</span>
+                            </td>
+                            <td>
+                                <span class="badge 
+                                    {% if donation.status == 'completed' %}bg-success
+                                    {% elif donation.status == 'pending' %}bg-warning
+                                    {% elif donation.status == 'failed' %}bg-danger
+                                    {% else %}bg-secondary{% endif %}">
+                                    {{ donation.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ donation.purpose|default:"General" }}</td>
+                            <td>{{ donation.created_at|date:"M j, Y H:i" }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" 
+                                        data-bs-target="#donationModal{{ donation.id }}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="donationModal{{ donation.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Donation Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>Donor:</strong> {{ donation.donor_name }}</p>
+                                        <p><strong>Email:</strong> {{ donation.donor_email|default:"N/A" }}</p>
+                                        <p><strong>Phone:</strong> {{ donation.donor_phone|default:"N/A" }}</p>
+                                        <p><strong>Amount:</strong> ₦{{ donation.amount|floatformat:2 }}</p>
+                                        <p><strong>Method:</strong> {{ donation.get_payment_method_display }}</p>
+                                        <p><strong>Status:</strong> {{ donation.get_status_display }}</p>
+                                        <p><strong>Purpose:</strong> {{ donation.purpose|default:"General" }}</p>
+                                        <p><strong>Notes:</strong> {{ donation.notes|default:"None" }}</p>
+                                        {% if donation.transaction_id %}
+                                            <p><strong>Transaction ID:</strong> {{ donation.transaction_id }}</p>
+                                        {% endif %}
+                                        <p><strong>Date:</strong> {{ donation.created_at|date:"M j, Y H:i" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                <i class="fas fa-inbox fa-2x mb-2"></i><br>
+                                No donations found
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

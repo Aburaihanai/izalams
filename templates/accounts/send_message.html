@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center py-3">
+                <h5 class="mb-0">{% trans "New Official Memo" %}</h5>
+                <a href="javascript:history.back()" class="btn btn-sm btn-outline-light">{% trans "Cancel" %}</a>
+            </div>
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-4 p-3 bg-light rounded">
+                    <div class="fs-3 me-3">📩</div>
+                    <div>
+                        <small class="text-muted d-block">{% trans "Recipient" %}%:</small>
+                        <strong>{{ recipient.username }}</strong> 
+                        <span class="badge bg-secondary ms-2">{{ recipient.phone_number }}</span>
+                    </div>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">{% trans "Subject" %}</label>
+                        <input type="text" name="subject" class="form-control" placeholder="{% trans 'Enter memo title...' %}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">{% trans "Message Body" %}</label>
+                        <textarea name="body" class="form-control" rows="8" placeholder="{% trans 'Type your message here...' %}" required></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg fw-bold">{% trans "Send Message" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

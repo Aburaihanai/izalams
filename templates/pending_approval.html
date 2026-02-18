@@ -1,0 +1,68 @@
+{% load i18n %}
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-bold text-success">{% trans "Pending Member Verifications" %}</h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>{% trans "Full Name" %}</th>
+                    <th>{% trans "Unit/Jurisdiction" %}</th>
+                    <th>{% trans "Registration Date" %}</th>
+                    <th class="text-center">{% trans "Action" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in pending_members %}
+                <tr>
+                    <td>{{ m.username|title }}</td>
+                    <td>{{ m.unit.name }}</td>
+                    <td>{{ m.date_joined|date:"d M, Y" }}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detailModal{{ m.id }}">
+                            <i class="bi bi-eye"></i> {% trans "View Profile" %}
+                        </button>
+                        
+                        <a href="{% url 'approve_member' m.id %}" class="btn btn-sm btn-success">
+                            <i class="bi bi-check-circle"></i> {% trans "Approve" %}
+                        </a>
+                    </td>
+                </tr>
+
+                <div class="modal fade" id="detailModal{{ m.id }}" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header bg-success text-white">
+                                <h5 class="modal-title">Member Credentials: {{ m.username }}</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>{% trans "Phone:" %}</strong> {{ m.phone_number }}</p>
+                                        <p><strong>{% trans "Bank:" %}</strong> {{ m.get_bank_code_display }}</p>
+                                        <p><strong>{% trans "Account Name:" %}</strong> {{ m.account_name }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>{% trans "Education:" %}</strong> {{ m.education_background }}</p>
+                                        <p><strong>{% trans "Position:" %}</strong> {{ m.position }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <p><strong>{% trans "Verified via Moniepoint/Paystack:" %}</strong> 
+                                    {% if m.paystack_recipient_code %}
+                                        <span class="text-success"><i class="bi bi-patch-check-fill"></i> {% trans "Account Validated" %}</span>
+                                    {% else %}
+                                        <span class="text-danger"><i class="bi bi-x-circle"></i> {% trans "Account Not Validated" %}</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

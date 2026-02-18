@@ -1,0 +1,691 @@
+# JIBWIS Portal French Translation.
+# Copyright (C) 2026 JIBWIS Nigeria
+# This file is distributed under the same license as the IzalaMS package.
+# Gemini AI <ai@jibwis.org>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: JIBWIS MS 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-14 19:26+0100\n"
+"PO-Revision-Date: 2026-02-14 19:35+0100\n"
+"Last-Translator: Gemini AI\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\izalams\settings.py:11
+msgid "English"
+msgstr "Anglais"
+
+#: .\izalams\settings.py:12
+msgid "Hausa"
+msgstr "Haoussa"
+
+#: .\izalams\settings.py:13
+msgid "Arabic"
+msgstr "Arabe"
+
+#: .\izalams\settings.py:14
+msgid "French"
+msgstr "Français"
+
+#: .\templates\accounts\confirm_delete.html:2
+msgid "Warning: Delete Account"
+msgstr "Avertissement : Supprimer le compte"
+
+#: .\templates\accounts\confirm_delete.html:3
+msgid ""
+"Are you sure you want to delete your JIBWIS profile? This action cannot be "
+"undone."
+msgstr "Êtes-vous sûr de vouloir supprimer votre profil JIBWIS ? Cette action est irréversible."
+
+#: .\templates\accounts\confirm_delete.html:6
+msgid "Yes, Delete My Account"
+msgstr "Oui, supprimer mon compte"
+
+#: .\templates\accounts\confirm_delete.html:7
+#: .\templates\accounts\send_message.html:9
+#: .\templates\accounts\update_username.html:19
+msgid "Cancel"
+msgstr "Annuler"
+
+#: .\templates\accounts\login.html:2
+msgid "Portal Login"
+msgstr "Connexion au Portail"
+
+#: .\templates\accounts\login.html:6 .\templates\base.html:44
+msgid "Login"
+msgstr "Se connecter"
+
+#: .\templates\accounts\login.html:8 .\templates\login.html:36
+msgid "Forgot Password?"
+msgstr "Mot de passe oublié ?"
+
+#: .\templates\accounts\register.html:108
+msgid "Could not verify account. Please check details."
+msgstr "Impossible de vérifier le compte. Veuillez vérifier les détails."
+
+#: .\templates\accounts\search.html:8
+msgid "← Back"
+msgstr "← Retour"
+
+#: .\templates\accounts\search.html:9 .\templates\base.html:37
+msgid "Dashboard"
+msgstr "Tableau de Bord"
+
+#: .\templates\accounts\search.html:14
+msgid "Filter By Category"
+msgstr "Filtrer par catégorie"
+
+#: .\templates\accounts\search.html:19
+msgid "All Categories"
+msgstr "Toutes les catégories"
+
+#: .\templates\accounts\search.html:20 .\templates\landing.html:126
+msgid "Administration"
+msgstr "Administration"
+
+#: .\templates\accounts\search.html:21 .\templates\landing.html:133
+msgid "Council of Ulama"
+msgstr "Conseil des Oulémas"
+
+#: .\templates\accounts\search.html:22
+msgid "First Aid Group (FAG)"
+msgstr "Groupe de Premiers Secours (FAG)"
+
+#: .\templates\accounts\search.html:25
+msgid "Apply Filter"
+msgstr "Appliquer le filtre"
+
+#: .\templates\accounts\search.html:36
+msgid "Search by name, phone, or education..."
+msgstr "Rechercher par nom, téléphone ou éducation..."
+
+#: .\templates\accounts\search.html:39
+msgid "Search"
+msgstr "Rechercher"
+
+#: .\templates\accounts\search.html:68
+msgid "Message"
+msgstr "Message"
+
+#: .\templates\accounts\search.html:71
+msgid "Pay"
+msgstr "Payer"
+
+#: .\templates\accounts\search.html:88
+msgid "Enter Amount (₦)"
+msgstr "Entrer le montant (₦)"
+
+#: .\templates\accounts\search.html:89
+msgid "e.g. 5000"
+msgstr "ex. 5000"
+
+#: .\templates\accounts\search.html:92
+msgid "Initiate Payroll Transfer"
+msgstr "Initier le transfert de paie"
+
+#: .\templates\accounts\search.html:102
+msgid "No members found matching your criteria."
+msgstr "Aucun membre trouvé correspondant à vos critères."
+
+#: .\templates\accounts\send_message.html:8
+msgid "New Official Memo"
+msgstr "Nouvelle note officielle"
+
+#: .\templates\accounts\send_message.html:15
+msgid "Recipient"
+msgstr "Destinataire"
+
+#: .\templates\accounts\send_message.html:24
+msgid "Subject"
+msgstr "Objet"
+
+#: .\templates\accounts\send_message.html:25
+msgid "Enter memo title..."
+msgstr "Entrer le titre de la note..."
+
+#: .\templates\accounts\send_message.html:28
+msgid "Message Body"
+msgstr "Corps du message"
+
+#: .\templates\accounts\send_message.html:29
+msgid "Type your message here..."
+msgstr "Tapez votre message ici..."
+
+#: .\templates\accounts\send_message.html:32
+msgid "Send Message"
+msgstr "Envoyer le message"
+
+#: .\templates\accounts\update_username.html:8
+msgid "Change Username"
+msgstr "Changer le nom d'utilisateur"
+
+#: .\templates\accounts\update_username.html:14
+msgid "Current Username:"
+msgstr "Nom d'utilisateur actuel :"
+
+#: .\templates\accounts\update_username.html:18
+msgid "Update Username"
+msgstr "Mettre à jour le nom d'utilisateur"
+
+#: .\templates\base.html:8
+msgid "JIBWIS Nigeria Portal"
+msgstr "Portail JIBWIS Nigeria"
+
+#: .\templates\base.html:28
+msgid "PORTAL"
+msgstr "PORTAIL"
+
+#: .\templates\base.html:35
+msgid "Home"
+msgstr "Accueil"
+
+#: .\templates\base.html:40 .\templates\dashboard.html:42
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: .\templates\base.html:45
+msgid "Join Us"
+msgstr "Rejoignez-nous"
+
+#: .\templates\base.html:48
+msgid "Directory"
+msgstr "Annuaire"
+
+#: .\templates\base.html:51
+msgid "Donate"
+msgstr "Faire un don"
+
+#: .\templates\base.html:98
+msgid "Nigeria National Headquarters"
+msgstr "Siège National du Nigeria"
+
+#: .\templates\base.html:99
+msgid "Digital Management System | Developed for JIBWIS Nigeria"
+msgstr "Système de Gestion Numérique | Développé pour JIBWIS Nigeria"
+
+#: .\templates\dashboard.html:21
+msgid "Home Page"
+msgstr "Page d'accueil"
+
+#: .\templates\dashboard.html:22
+msgid "Go Back"
+msgstr "Retour"
+
+#: .\templates\dashboard.html:29
+msgid "Main Menu"
+msgstr "Menu Principal"
+
+#: .\templates\dashboard.html:31
+msgid "Search Members"
+msgstr "Rechercher des membres"
+
+#: .\templates\dashboard.html:34
+msgid "Payroll History"
+msgstr "Historique de paie"
+
+#: .\templates\dashboard.html:38
+msgid "Upload Video"
+msgstr "Télécharger une vidéo"
+
+#: .\templates\dashboard.html:54
+msgid "Active Members"
+msgstr "Membres actifs"
+
+#: .\templates\dashboard.html:65
+msgid "Pending Approval"
+msgstr "En attente d'approbation"
+
+#: .\templates\dashboard.html:76
+msgid "Total Payouts"
+msgstr "Total des paiements"
+
+#: .\templates\dashboard.html:81
+msgid "Download CSV"
+msgstr "Télécharger CSV"
+
+#: .\templates\dashboard.html:89
+msgid "Awaiting Your Confirmation"
+msgstr "En attente de votre confirmation"
+
+#: .\templates\dashboard.html:95
+msgid "Name"
+msgstr "Nom"
+
+#: .\templates\dashboard.html:96
+msgid "Unit"
+msgstr "Unité"
+
+#: .\templates\dashboard.html:97 .\templates\pending_approval.html:13
+msgid "Action"
+msgstr "Action"
+
+#: .\templates\dashboard.html:111
+msgid "Review Details"
+msgstr "Examiner les détails"
+
+#: .\templates\dashboard.html:118
+msgid "Member Profile"
+msgstr "Profil du membre"
+
+#: .\templates\dashboard.html:132 .\templates\pending_approval.html:48
+msgid "Education:"
+msgstr "Éducation :"
+
+#: .\templates\dashboard.html:144
+msgid "Account No:"
+msgstr "N° de compte :"
+
+#: .\templates\dashboard.html:152
+msgid "Approve Membership"
+msgstr "Approuver l'adhésion"
+
+#: .\templates\dashboard.html:153
+msgid "Close Panel"
+msgstr "Fermer le panneau"
+
+#: .\templates\dashboard.html:167
+msgid "Verified Payroll List"
+msgstr "Liste de paie vérifiée"
+
+#: .\templates\dashboard.html:168
+msgid "Moniepoint Integrated"
+msgstr "Intégré à Moniepoint"
+
+#: .\templates\dashboard.html:178
+msgid "Official"
+msgstr "Officiel"
+
+#: .\templates\dashboard.html:179
+msgid "Bank / Account"
+msgstr "Banque / Compte"
+
+#: .\templates\dashboard.html:180
+msgid "Amount (₦)"
+msgstr "Montant (₦)"
+
+#: .\templates\dashboard.html:205
+msgid "Total to Disburse:"
+msgstr "Total à décaisser :"
+
+#: .\templates\dashboard.html:214
+msgid "Execute Disbursement"
+msgstr "Exécuter le décaissement"
+
+#: .\templates\dashboard.html:223
+msgid "Final Confirmation"
+msgstr "Confirmation finale"
+
+#: .\templates\dashboard.html:224
+msgid ""
+"You are about to process bulk payments. This action will initiate bank "
+"transfers and cannot be reversed."
+msgstr "Vous êtes sur le point de traiter des paiements groupés. Cette action initiera des transferts bancaires et ne pourra pas être annulée."
+
+#: .\templates\dashboard.html:226
+msgid "Yes, Process Now"
+msgstr "Oui, traiter maintenant"
+
+#: .\templates\dashboard.html:227
+msgid "Cancel and Go Back"
+msgstr "Annuler et revenir"
+
+#: .\templates\dashboard.html:239
+msgid "Organizational News"
+msgstr "Nouvelles de l'organisation"
+
+#: .\templates\landing.html:114
+msgid "JIBWIS Digital Portal"
+msgstr "Portail numérique JIBWIS"
+
+#: .\templates\landing.html:115
+msgid "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG"
+msgstr "Unifier la Sunna à travers le Nigeria : Admin • Ulama • FAG"
+
+#: .\templates\landing.html:117
+msgid "Join Now"
+msgstr "Inscrivez-vous maintenant"
+
+#: .\templates\landing.html:127
+msgid "National to Ward level leadership coordination."
+msgstr "Coordination du leadership du niveau national au niveau du quartier."
+
+#: .\templates\landing.html:134
+msgid "Management of scholars and educational backgrounds."
+msgstr "Gestion des savants et des parcours éducatifs."
+
+#: .\templates\landing.html:140
+msgid "First Aid Group"
+msgstr "Groupe de Premiers Secours"
+
+#: .\templates\landing.html:141
+msgid "Divisional, Detachment, and Unit leadership."
+msgstr "Direction de division, de détachement et d'unité."
+
+#: .\templates\landing.html:150
+msgid "Visit Us"
+msgstr "Visitez-nous"
+
+#: .\templates\landing.html:151
+msgid "JIBWIS National Headquarters,"
+msgstr "Siège National JIBWIS,"
+
+#: .\templates\landing.html:151
+msgid "Kaduna, Kaduna State, Nigeria."
+msgstr "Kaduna, État de Kaduna, Nigeria."
+
+#: .\templates\landing.html:171
+msgid "Latest Announcements"
+msgstr "Dernières annonces"
+
+#: .\templates\landing.html:183
+msgid "Read More"
+msgstr "Lire la suite"
+
+#: .\templates\landing.html:193
+msgid "JIBWIS Media Updates"
+msgstr "Mises à jour média JIBWIS"
+
+#: .\templates\landing.html:218
+msgid "Share"
+msgstr "Partager"
+
+#: .\templates\landing.html:223
+msgid "Download"
+msgstr "Télécharger"
+
+#: .\templates\leader_directory.html:6
+msgid "Official Leader Directory"
+msgstr "Annuaire officiel des dirigeants"
+
+#: .\templates\leader_directory.html:7
+msgid "Verified National and State Leadership of JIBWIS Nigeria"
+msgstr "Direction nationale et étatique vérifiée de JIBWIS Nigeria"
+
+#: .\templates\leader_directory.html:32
+msgid "Contact Office"
+msgstr "Contacter le bureau"
+
+#: .\templates\leader_directory.html:39
+msgid "The directory is currently being updated. Please check back later."
+msgstr "L'annuaire est actuellement en cours de mise à jour. Veuillez revenir plus tard."
+
+#: .\templates\login.html:19
+msgid "Leader Login"
+msgstr "Connexion Dirigeant"
+
+#: .\templates\login.html:20
+msgid "Access the JIBWIS Management Portal"
+msgstr "Accéder au portail de gestion JIBWIS"
+
+#: .\templates\login.html:25
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: .\templates\login.html:29
+msgid "Password"
+msgstr "Mot de passe"
+
+#: .\templates\login.html:33
+msgid "Login to Account"
+msgstr "Se connecter au compte"
+
+#: .\templates\login.html:41
+msgid "Not registered?"
+msgstr "Pas encore inscrit ?"
+
+#: .\templates\login.html:41
+msgid "Apply Now"
+msgstr "Postulez maintenant"
+
+#: .\templates\password_reset.html:2
+msgid "Reset Your Password"
+msgstr "Réinitialiser votre mot de passe"
+
+#: .\templates\password_reset.html:3
+msgid ""
+"Enter your email address below, and we'll email instructions for setting a "
+"new one."
+msgstr "Entrez votre adresse e-mail ci-dessous, et nous vous enverrons des instructions pour en créer un nouveau."
+
+#: .\templates\password_reset.html:7
+msgid "Send Reset Email"
+msgstr "Envoyer l'e-mail de réinitialisation"
+
+#: .\templates\password_reset_complete.html:6
+msgid "Password Reset Complete"
+msgstr "Réinitialisation du mot de passe terminée"
+
+#: .\templates\password_reset_complete.html:7
+msgid "Your new password has been set. You may go ahead and log in now."
+msgstr "Votre nouveau mot de passe a été configuré. Vous pouvez maintenant vous connecter."
+
+#: .\templates\password_reset_complete.html:8
+msgid "Login to Portal"
+msgstr "Connexion au portail"
+
+#: .\templates\password_reset_confirm.html:8
+msgid "Set New Password"
+msgstr "Définir un nouveau mot de passe"
+
+#: .\templates\password_reset_confirm.html:16
+msgid "Change My Password"
+msgstr "Changer mon mot de passe"
+
+#: .\templates\password_reset_confirm.html:21
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr "Le lien de réinitialisation est invalide ou déjà utilisé. Veuillez faire une nouvelle demande."
+
+#: .\templates\password_reset_confirm.html:23
+msgid "Request New Link"
+msgstr "Demander un nouveau lien"
+
+#: .\templates\password_reset_done.html:6
+msgid "Check Your Email"
+msgstr "Vérifiez votre boîte e-mail"
+
+#: .\templates\password_reset_done.html:7
+msgid ""
+"We've emailed you instructions for setting your password. You should receive "
+"them shortly."
+msgstr "Nous vous avons envoyé les instructions par e-mail. Vous devriez les recevoir sous peu."
+
+#: .\templates\password_reset_done.html:8
+msgid ""
+"If you don't receive an email, please ensure you've entered the address you "
+"registered with and check your spam folder."
+msgstr "Si vous ne recevez rien, vérifiez l'adresse saisie et votre dossier de courriers indésirables."
+
+#: .\templates\password_reset_email.html:3
+msgid ""
+"To initiate the password reset process for your JIBWIS account, click the "
+"link below:"
+msgstr "Pour réinitialiser votre mot de passe JIBWIS, cliquez sur le lien ci-dessous :"
+
+#: .\templates\password_reset_email.html:7
+msgid ""
+"If clicking the link doesn't work, please copy and paste the URL into your "
+"browser."
+msgstr "Si le lien ne fonctionne pas, copiez et collez l'URL dans votre navigateur."
+
+#: .\templates\payroll_history.html:5
+msgid "Payroll Distribution History"
+msgstr "Historique de distribution de paie"
+
+#: .\templates\payroll_history.html:7
+msgid "Back to Dashboard"
+msgstr "Retour au tableau de bord"
+
+#: .\templates\payroll_history.html:17
+msgid "Export PDF"
+msgstr "Exporter en PDF"
+
+#: .\templates\payroll_history.html:22
+msgid "Payments"
+msgstr "Paiements"
+
+#: .\templates\payroll_history.html:27 .\templates\payroll_history.html:53
+msgid "Member"
+msgstr "Membre"
+
+#: .\templates\payroll_history.html:28
+msgid "Account"
+msgstr "Compte"
+
+#: .\templates\payroll_history.html:29 .\templates\payroll_history.html:55
+msgid "Reference"
+msgstr "Référence"
+
+#: .\templates\payroll_history.html:30 .\templates\payroll_history.html:54
+#: .\templates\receipt_pdf.html:35
+msgid "Amount"
+msgstr "Montant"
+
+#: .\templates\payroll_history.html:52
+msgid "Date"
+msgstr "Date"
+
+#: .\templates\payroll_history.html:56
+msgid "Status"
+msgstr "Statut"
+
+#: .\templates\payroll_history.html:68
+msgid "Success"
+msgstr "Succès"
+
+#: .\templates\payroll_history.html:70
+msgid "Pending"
+msgstr "En attente"
+
+#: .\templates\payroll_history.html:72
+msgid "Failed"
+msgstr "Échoué"
+
+#: .\templates\payroll_history.html:77
+msgid "View Receipt"
+msgstr "Voir le reçu"
+
+#: .\templates\payroll_history.html:83
+msgid "No payroll records found."
+msgstr "Aucun enregistrement de paie trouvé."
+
+#: .\templates\pending_approval.html:4
+msgid "Pending Member Verifications"
+msgstr "Vérifications de membres en attente"
+
+#: .\templates\pending_approval.html:10
+msgid "Full Name"
+msgstr "Nom complet"
+
+#: .\templates\pending_approval.html:11
+msgid "Unit/Jurisdiction"
+msgstr "Unité/Juridiction"
+
+#: .\templates\pending_approval.html:12
+msgid "Registration Date"
+msgstr "Date d'inscription"
+
+#: .\templates\pending_approval.html:24
+msgid "View Profile"
+msgstr "Voir le profil"
+
+#: .\templates\pending_approval.html:28
+msgid "Approve"
+msgstr "Approuver"
+
+#: .\templates\pending_approval.html:43
+msgid "Phone:"
+msgstr "Tél :"
+
+#: .\templates\pending_approval.html:44
+msgid "Bank:"
+msgstr "Banque :"
+
+#: .\templates\pending_approval.html:45
+msgid "Account Name:"
+msgstr "Nom du compte :"
+
+#: .\templates\pending_approval.html:49
+msgid "Position:"
+msgstr "Poste :"
+
+#: .\templates\pending_approval.html:53
+msgid "Verified via Moniepoint/Paystack:"
+msgstr "Vérifié via Moniepoint/Paystack :"
+
+#: .\templates\pending_approval.html:55
+msgid "Account Validated"
+msgstr "Compte validé"
+
+#: .\templates\pending_approval.html:57
+msgid "Account Not Validated"
+msgstr "Compte non validé"
+
+#: .\templates\receipt_pdf.html:6
+msgid "Print Receipt"
+msgstr "Imprimer le reçu"
+
+#: .\templates\receipt_pdf.html:7
+msgid "Back"
+msgstr "Retour"
+
+#: .\templates\receipt_pdf.html:13
+msgid "JIBWIS NIGERIA"
+msgstr "JIBWIS NIGERIA"
+
+#: .\templates\receipt_pdf.html:14
+msgid "OFFICIAL PAYMENT RECEIPT"
+msgstr "REÇU DE PAIEMENT OFFICIEL"
+
+#: .\templates\receipt_pdf.html:20
+msgid "PAYMENT TO:"
+msgstr "PAIEMENT À :"
+
+#: .\templates\receipt_pdf.html:25
+msgid "REFERENCE:"
+msgstr "RÉFÉRENCE :"
+
+#: .\templates\receipt_pdf.html:34
+msgid "Description"
+msgstr "Description"
+
+#: .\templates\receipt_pdf.html:40
+msgid "Monthly Allowance"
+msgstr "Allocation mensuelle"
+
+#: .\templates\receipt_pdf.html:46
+msgid "Total Paid"
+msgstr "Total payé"
+
+#: .\templates\receipt_pdf.html:54
+msgid "Authorized Electronic Signature"
+msgstr "Signature électronique autorisée"
+
+#: .\templates\receipt_pdf.html:55
+msgid "JIBWIS PORTAL VERIFIED"
+msgstr "VÉRIFIÉ PAR LE PORTAIL JIBWIS"
+
+#: .\templates\upload_video.html:8
+msgid "Upload Short Video"
+msgstr "Télécharger une courte vidéo"
+
+#: .\templates\upload_video.html:11
+msgid ""
+"Videos will auto-play on hover on the landing page. Recommended format: "
+"Vertical (9:16)."
+msgstr "Les vidéos se lancent au survol sur la page d'accueil. Format recommandé : Vertical (9:16)."
+
+#: .\templates\upload_video.html:16
+msgid "Publish Video"
+msgstr "Publier la vidéo"
+
+#: .\templates\upload_video.html:20
+msgid "Cancel and Return"
+msgstr "Annuler et revenir"

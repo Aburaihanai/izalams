@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3 text-success">{% trans "Navigation" %}</h6>
+                    <a href="{% url 'dashboard' %}" class="btn btn-success w-100 mb-2 text-start">
+                        <i class="bi bi-house-door me-2"></i> {% trans "Dashboard" %}
+                    </a>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary w-100 mb-3 text-start">
+                        <i class="bi bi-arrow-left me-2"></i> {% trans "Back" %}
+                    </a>
+                    
+                    <hr>
+                    
+                    <h6 class="fw-bold mb-3 text-success">{% trans "Filter Directory" %}</h6>
+                    <form method="GET" action="{% url 'member_search' %}">
+                        <input type="hidden" name="q" value="{{ query|default:'' }}">
+                        
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">{% trans "Category" %}</label>
+                            <select name="category" class="form-select form-select-sm">
+                                <option value="">{% trans "All Categories" %}</option>
+                                {% for code, name in categories %}
+                                    <option value="{{ code }}" {% if category == code %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">{% trans "Org Level" %}</label>
+                            <select name="level" class="form-select form-select-sm">
+                                <option value="">{% trans "All Levels" %}</option>
+                                {% for code, name in levels %}
+                                    <option value="{{ code }}" {% if level == code %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark btn-sm w-100 shadow-sm">
+                            <i class="bi bi-funnel me-1"></i> {% trans "Apply Filters" %}
+                        </button>
+                        
+                        {% if category or level %}
+                        <a href="{% url 'member_search' %}?q={{ query|default:'' }}" class="btn btn-link btn-sm w-100 mt-2 text-decoration-none text-danger">
+                            {% trans "Reset Filters" %}
+                        </a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card shadow-sm border-0 mb-4 bg-success text-white">
+                <div class="card-body p-4">
+                    <form method="GET" action="{% url 'member_search' %}" class="row g-2">
+                        <input type="hidden" name="category" value="{{ category|default:'' }}">
+                        <input type="hidden" name="level" value="{{ level|default:'' }}">
+                        
+                        <div class="col-md-10">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text border-0 bg-white"><i class="bi bi-search text-success"></i></span>
+                                <input type="text" name="q" class="form-control border-0" 
+                                       placeholder="{% trans 'Search by name, phone, or username...' %}" value="{{ query|default:'' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold shadow-sm">{% trans "Search" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
+                    <h5 class="mb-0 fw-bold text-dark">
+                        {% trans "Search Results" %} 
+                        <span class="badge bg-success-subtle text-success rounded-pill ms-2">{{ members|length }}</span>
+                    </h5>
+                    <div class="btn-group">
+                        <a href="{% url 'export_members_excel' %}" class="btn btn-sm btn-outline-success">
+                            <i class="bi bi-file-earmark-excel me-1"></i> {% trans "Export Excel" %}
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr class="small text-uppercase">
+                                <th class="ps-4">{% trans "Member" %}</th>
+                                <th>{% trans "Unit / Role" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th class="text-end pe-4">{% trans "Actions" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in members %}
+                            {% with profile=member.profiles.first %}
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm me-3 bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px;">
+                                            {{ member.username|slice:":1"|upper }}
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">{{ member.get_full_name|default:member.username }}</div>
+                                            <div class="text-muted small"><i class="bi bi-telephone me-1"></i>{{ member.phone_number|default:"---" }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if profile %}
+                                        <span class="badge bg-info-subtle text-info border border-info-subtle mb-1">
+                                            {{ profile.unit.get_category_display }}
+                                        </span>
+                                        <div class="small text-muted">{{ profile.position }}</div>
+                                    {% else %}
+                                        <span class="text-danger small italic">{% trans "No Active Profile" %}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if profile and profile.is_active %}
+                                        <span class="badge bg-success-subtle text-success">
+                                            <i class="bi bi-check-circle-fill me-1"></i> {% trans "Active" %}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-warning-subtle text-warning">
+                                            <i class="bi bi-clock-history me-1"></i> {% trans "Pending" %}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="btn-group shadow-sm">
+                                        <a href="{% url 'member_detail' member.id %}" class="btn btn-sm btn-light border" title="{% trans 'View Profile' %}">
+                                            <i class="bi bi-person-lines-fill"></i>
+                                        </a>
+
+                                        {% if profile %}
+                                            <a href="{% url 'send_message' member.id %}" class="btn btn-sm btn-light border" title="{% trans 'Message' %}">
+                                                <i class="bi bi-chat-dots"></i>
+                                            </a>
+                                            
+                                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#payModal{{ member.id }}">
+                                                <i class="bi bi-wallet2"></i> {% trans "Pay" %}
+                                            </button>
+
+                                            {% if not profile.is_active %}
+                                                <a href="{% url 'approve_member' profile.id %}" class="btn btn-sm btn-warning" title="{% trans 'Approve Account' %}">
+                                                    <i class="bi bi-shield-check"></i>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            {% if profile %}
+                            <div class="modal fade" id="payModal{{ member.id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border-0">
+                                        <div class="modal-header bg-success text-white">
+                                            <h5 class="modal-title">{% trans "Disburse Funds" %}</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <form action="{% url 'pay_member' member.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <div class="modal-body text-center p-4">
+                                                <p class="text-muted small">{% trans "Recipient Name" %}</p>
+                                                <h4 class="fw-bold">{{ member.get_full_name|default:member.username }}</h4>
+                                                
+                                                <div class="alert alert-light border small mt-3">
+                                                    <strong>{{ member.get_bank_code_display }}</strong><br>
+                                                    <span class="fs-5 fw-bold text-primary">{{ member.account_number }}</span>
+                                                </div>
+
+                                                <div class="mt-4 text-start">
+                                                    <label class="form-label fw-bold">{% trans "Payment Amount (₦)" %}</label>
+                                                    <div class="input-group input-group-lg">
+                                                        <span class="input-group-text bg-white">₦</span>
+                                                        <input type="number" name="amount" class="form-control" required placeholder="0.00">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-0">
+                                                <button type="submit" class="btn btn-warning w-100 py-2 fw-bold shadow">
+                                                    {% trans "Initiate Payroll Transfer" %}
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% endwith %}
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-5">
+                                    <div class="text-muted">
+                                        <i class="bi bi-person-x" style="font-size: 3rem;"></i>
+                                        <p class="mt-3">{% trans "No members found matching your current filters." %}</p>
+                                        <a href="{% url 'member_search' %}" class="btn btn-sm btn-outline-success">{% trans "Clear Search" %}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .avatar-circle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+    .table thead th {
+        font-weight: 600;
+        color: #666;
+        border-bottom-width: 1px;
+    }
+</style>
+{% endblock %}

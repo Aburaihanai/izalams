@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-hand-holding-heart me-2"></i>
+                        Make a Donation
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="donation_type" class="form-label fw-bold">Donation Type *</label>
+                            <select name="donation_type" id="donation_type" class="form-select" required>
+                                <option value="">Select donation type</option>
+                                <option value="sadaqah">Sadaqah (Voluntary Charity)</option>
+                                <option value="zakat">Zakat (Obligatory Charity)</option>
+                                <option value="fitr">Fitr (Eid Charity)</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label fw-bold">Amount (₦) *</label>
+                            <input type="number" 
+                                   name="amount" 
+                                   id="amount" 
+                                   class="form-control" 
+                                   placeholder="Enter amount"
+                                   min="1"
+                                   step="0.01"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description (Optional)</label>
+                            <textarea name="description" 
+                                      id="description" 
+                                      class="form-control" 
+                                      rows="3"
+                                      placeholder="Any additional information..."></textarea>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Note:</strong> Your donation will be recorded and used for community projects and charitable activities.
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-donate me-2"></i>
+                                Make Donation
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Donation Information Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        About Donations
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Sadaqah</h6>
+                            <p class="small text-muted">Voluntary charity that can be given at any time, in any amount.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Zakat</h6>
+                            <p class="small text-muted">Obligatory charity for Muslims who meet specific criteria.</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h6>Fitr</h6>
+                            <p class="small text-muted">Charity given before Eid prayers, obligatory for every Muslim.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Other</h6>
+                            <p class="small text-muted">General donations for specific projects or needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-hand-holding-heart me-2"></i>
+                        Make a Donation
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="donation_type" class="form-label fw-bold">Donation Type *</label>
+                            <select name="donation_type" id="donation_type" class="form-select" required>
+                                <option value="">Select donation type</option>
+                                <option value="sadaqah">Sadaqah (Voluntary Charity)</option>
+                                <option value="zakat">Zakat (Obligatory Charity)</option>
+                                <option value="fitr">Fitr (Eid Charity)</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label fw-bold">Amount (₦) *</label>
+                            <input type="number" 
+                                   name="amount" 
+                                   id="amount" 
+                                   class="form-control" 
+                                   placeholder="Enter amount"
+                                   min="1"
+                                   step="0.01"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description (Optional)</label>
+                            <textarea name="description" 
+                                      id="description" 
+                                      class="form-control" 
+                                      rows="3"
+                                      placeholder="Any additional information..."></textarea>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Note:</strong> Your donation will be recorded and used for community projects and charitable activities.
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-donate me-2"></i>
+                                Make Donation
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Donation Information Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        About Donations
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Sadaqah</h6>
+                            <p class="small text-muted">Voluntary charity that can be given at any time, in any amount.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Zakat</h6>
+                            <p class="small text-muted">Obligatory charity for Muslims who meet specific criteria.</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h6>Fitr</h6>
+                            <p class="small text-muted">Charity given before Eid prayers, obligatory for every Muslim.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Other</h6>
+                            <p class="small text-muted">General donations for specific projects or needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    
+    form.addEventListener('submit', function(e) {
+        // Log form data for debugging
+        const formData = new FormData(form);
+        console.log('Form data:');
+        for (let [key, value] of formData.entries()) {
+            console.log(key + ': ' + value);
+        }
+    });
+    
+    // Dynamic field showing for employment status
+    const employmentStatus = document.getElementById('employment_status');
+    if (employmentStatus) {
+        function toggleFields() {
+            const employmentFields = document.querySelectorAll('.employment-field');
+            const studentFields = document.querySelectorAll('.student-field');
+            
+            // Hide all fields first
+            employmentFields.forEach(field => {
+                field.closest('.mb-3').style.display = 'none';
+            });
+            studentFields.forEach(field => {
+                field.closest('.mb-3').style.display = 'none';
+            });
+            
+            // Show relevant fields
+            if (employmentStatus.value === 'employed') {
+                employmentFields.forEach(field => {
+                    field.closest('.mb-3').style.display = 'block';
+                });
+            } else if (employmentStatus.value === 'student') {
+                studentFields.forEach(field => {
+                    field.closest('.mb-3').style.display = 'block';
+                });
+            }
+        }
+        
+        employmentStatus.addEventListener('change', toggleFields);
+        toggleFields(); // Initial call
+    }
+});
+</script>
+{% endblock %}

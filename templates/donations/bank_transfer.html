@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load load i18n %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-university me-2"></i>Tura Kudi Ta Banki</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Donation Summary -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">Taƙaice na Taimako</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Sunanka:</strong><br>
+                                    <strong>Adadin:</strong><br>
+                                    <strong>Dalili:</strong><br>
+                                    <strong>Lambar Tabbatarwa:</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ donation.donor_name }}<br>
+                                    <span class="h5 text-primary">₦{{ donation.amount }}</span><br>
+                                    {{ donation.purpose }}<br>
+                                    <code class="h6">{{ donation.reference }}</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank Details -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-university me-2"></i>Bayanan Banki</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="bank-detail-item mb-3">
+                                        <strong class="d-block">Sunan Banki:</strong>
+                                        <span class="h5 text-primary">{{ bank_details.bank_name }}</span>
+                                    </div>
+                                    <div class="bank-detail-item mb-3">
+                                        <strong class="d-block">Sunan Asusu:</strong>
+                                        <span class="h5">{{ bank_details.account_name }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="bank-detail-item mb-3">
+                                        <strong class="d-block">Lambar Asusu:</strong>
+                                        <span class="h4 text-success">{{ bank_details.account_number }}</span>
+                                    </div>
+                                    <div class="bank-detail-item mb-3">
+                                        <strong class="d-block">Madogara:</strong>
+                                        <code class="h6 bg-light p-2 rounded">{{ donation.reference }}</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Instructions -->
+                    <div class="alert alert-warning">
+                        <h6><i class="fas fa-exclamation-triangle me-2"></i>Muhimman Umarni:</h6>
+                        <ul class="mb-0">
+                            <li>Yi amfani da <strong>lambar tabbatarwa ({{ donation.reference }})</strong> a matsayin madogara lokacin tura kuɗi</li>
+                            <li>Za a iya ɗaukar sa'o'i 24 don tabbatar da biyan kuɗi</li>
+                            <li>Ajiye hujjar biyan kuɗi don tabbaci</li>
+                            <li>Idan kuna da wata matsala, tuntubi mu a +234 800 000 0000</li>
+                        </ul>
+                    </div>
+
+                    <!-- Confirmation Form -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h6 class="mb-0">Tabbatar da Biyan Kuɗi</h6>
+                            </div>
+                            <div class="card-body">
+                                <p>Don tabbatar da cewa kun tura kuɗin, danna maɓallin ƙasa:</p>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="confirmTransfer" required>
+                                    <label class="form-check-label" for="confirmTransfer">
+                                        Na tabbata cewa na tura kuɗin ₦{{ donation.amount }} zuwa asusun da ke sama
+                                    </label>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <i class="fas fa-check-circle me-2"></i>Na Tura Kuɗin
+                                    </button>
+                                    <a href="{% url 'donation' %}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-arrow-left me-2"></i>Koma Bayan
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.bank-detail-item {
+    padding: 10px;
+    border-left: 4px solid #0d6efd;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+.card {
+    border: none;
+    border-radius: 12px;
+}
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+}
+</style>
+{% endblock %}

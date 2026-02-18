@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-success mb-0">
+                <i class="bi bi-cash-stack me-2"></i>{% trans "Payroll History" %}
+            </h2>
+            <p class="text-muted mb-0">{% trans "Track all official disbursements and stipends" %}</p>
+        </div>
+        <div class="btn-group shadow-sm">
+            <a href="{% url 'export_payroll_csv' %}" class="btn btn-outline-dark">
+                <i class="bi bi-file-earmark-arrow-down me-1"></i> {% trans "Export CSV" %}
+            </a>
+            <a href="{% url 'dashboard' %}" class="btn btn-success">
+                <i class="bi bi-house-door me-1"></i> {% trans "Dashboard" %}
+            </a>
+        </div>
+    </div>
+
+    {# Grouping records by Month and Year #}
+    {% regroup history by created_at|date:"F Y" as monthly_list %}
+
+    {% for month in monthly_list %}
+        <div class="card mb-5 border-0 shadow-sm overflow-hidden">
+            <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-calendar3 me-2 text-warning"></i>{{ month.grouper }}</h5>
+                <span class="badge bg-success fs-6">
+                    {% trans "Total Transactions" %}: {{ month.list|length }}
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light text-uppercase small fw-bold">
+                        <tr>
+                            <th class="ps-4">{% trans "Date" %}</th>
+                            <th>{% trans "Member" %}</th>
+                            <th>{% trans "Account Info" %}</th>
+                            <th>{% trans "Reference" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th class="text-end">{% trans "Amount" %}</th>
+                            <th class="text-center">{% trans "Receipt" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in month.list %}
+                        <tr>
+                            <td class="ps-4 text-muted">{{ record.created_at|date:"d M, Y" }}</td>
+                            <td>
+                                <div class="fw-bold text-dark">{{ record.member.get_full_name|default:record.member.username }}</div>
+                                <div class="extra-small text-muted">@{{ record.member.username }}</div>
+                            </td>
+                            <td>
+                                <div class="small fw-bold text-primary">{{ record.member.get_bank_code_display }}</div>
+                                <div class="small font-monospace">{{ record.member.account_number }}</div>
+                            </td>
+                            <td><code class="text-muted small">{{ record.reference|truncatechars:12 }}</code></td>
+                            <td>
+                                {% if record.status == 'success' %}
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                        <i class="bi bi-check-circle-fill me-1"></i> {% trans "Success" %}
+                                    </span>
+                                {% elif record.status == 'pending' %}
+                                    <span class="badge bg-warning-subtle text-warning border border-warning-subtle">
+                                        <i class="bi bi-clock-history me-1"></i> {% trans "Pending" %}
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                        <i class="bi bi-x-circle-fill me-1"></i> {% trans "Failed" %}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end fw-bold text-success">
+                                ₦{{ record.amount }}
+                            </td>
+                            <td class="text-center">
+                                {% if record.status == 'success' %}
+                                    <a href="{% url 'payment_receipt' record.reference %}" class="btn btn-sm btn-outline-secondary rounded-pill">
+                                        <i class="bi bi-file-earmark-text"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted">---</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer bg-light text-end py-3">
+                <span class="text-muted me-2">{% trans "Monthly Disbursement" %}:</span>
+                <span class="h5 mb-0 fw-bold text-dark">
+                    {# Note: In a real app, calculate the sum in the view #}
+                    ₦{% trans "Calculated in Admin" %}
+                </span>
+            </div>
+        </div>
+    {% empty %}
+        <div class="text-center py-5 bg-white rounded shadow-sm">
+            <i class="bi bi-journal-x text-muted" style="font-size: 4rem;"></i>
+            <h4 class="mt-3">{% trans "No Payroll Records" %}</h4>
+            <p class="text-muted">{% trans "Disbursements will appear here once processed." %}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-4">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}" class="text-success text-decoration-none">{% trans "Dashboard" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'members_list' %}" class="text-success text-decoration-none">{% trans "Directory" %}</a></li>
+            <li class="breadcrumb-item active">{% trans "Member Profile" %}</li>
+        </ol>
+    </nav>
+
+    {% with profile=member.profiles.first %}
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm text-center p-4">
+                <div class="mb-3">
+                    {% if member.profile_picture %}
+                        <img src="{{ member.profile_picture.url }}" class="rounded-circle img-thumbnail shadow-sm" style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-success-subtle rounded-circle d-inline-block p-4 shadow-sm">
+                            <i class="bi bi-person-fill text-success" style="font-size: 5rem;"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <h4 class="fw-bold text-dark mb-1">{{ member.get_full_name|default:member.username }}</h4>
+                <p class="badge bg-info-subtle text-info fs-6 mb-3">
+                    {% if profile %}{{ profile.unit.get_category_display }}{% else %}{% trans "No Assigned Unit" %}{% endif %}
+                </p>
+                
+                <div class="d-grid gap-2 mt-2">
+                    {% if profile %}
+                        {% if not profile.is_active %}
+                            <a href="{% url 'approve_member' profile.id %}" class="btn btn-warning shadow-sm fw-bold">
+                                <i class="bi bi-shield-check me-2"></i>{% trans "Approve Membership" %}
+                            </a>
+                        {% else %}
+                            <div class="alert alert-success py-2 mb-0 border-0">
+                                <i class="bi bi-patch-check-fill me-1"></i> {% trans "Verified Official" %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    
+                    <a href="{% url 'send_message' member.id %}" class="btn btn-outline-success">
+                        <i class="bi bi-chat-dots me-2"></i>{% trans "Send Official Memo" %}
+                    </a>
+                    
+                    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#payModal{{ member.id }}">
+                        <i class="bi bi-wallet2 me-2"></i>{% trans "Disburse Payroll" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="mb-0 fw-bold text-success"><i class="bi bi-info-circle me-2"></i>{% trans "Official Records" %}</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless align-middle">
+                        <tbody>
+                            <tr>
+                                <th class="text-muted fw-normal" width="35%">{% trans "Official Title" %}:</th>
+                                <td class="fw-bold text-dark">{{ profile.position|default:"---" }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted fw-normal">{% trans "Assigned Unit" %}:</th>
+                                <td>{{ profile.unit.name }} ({{ profile.unit.get_level_display }})</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted fw-normal">{% trans "Phone Number" %}:</th>
+                                <td class="text-dark">{{ member.phone_number|default:"---" }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted fw-normal">{% trans "Email Address" %}:</th>
+                                <td>{{ member.email|default:"---" }}</td>
+                            </tr>
+                            
+                            <tr class="border-top">
+                                <th class="py-3 text-muted fw-normal">{% trans "Bank Institution" %}:</th>
+                                <td class="py-3 fw-bold text-primary">{{ member.get_bank_code_display|default:"---" }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted fw-normal">{% trans "Account Details" %}:</th>
+                                <td>
+                                    <span class="fw-bold fs-5">{{ member.account_number|default:"---" }}</span>
+                                    <div class="small text-muted text-uppercase">{{ member.account_name|default:member.get_full_name }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted fw-normal">{% trans "Payment Status" %}:</th>
+                                <td>
+                                    {% if member.account_number %}
+                                        <span class="text-success small"><i class="bi bi-check-circle me-1"></i>{% trans "Validated for Disbursement" %}</span>
+                                    {% else %}
+                                        <span class="text-danger small"><i class="bi bi-exclamation-triangle me-1"></i>{% trans "Missing Bank Info" %}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    {% if member.education %}
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <h6 class="fw-bold mb-2 text-dark">{% trans "Academic Background" %}</h6>
+                        <p class="text-muted mb-0">{{ member.education }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-white text-end py-3">
+                    <button onclick="window.print()" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-printer me-1"></i> {% trans "Print Member File" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+</div>
+
+<div class="modal fade" id="payModal{{ member.id }}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">{% trans "Confirm Transfer" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{% url 'pay_member' member.id %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body p-4 text-center">
+                    <p class="text-muted mb-1">{% trans "You are paying" %}</p>
+                    <h4 class="fw-bold">{{ member.get_full_name }}</h4>
+                    <div class="p-2 bg-light rounded border mb-3">
+                        <span class="text-primary fw-bold">{{ member.get_bank_code_display }}</span><br>
+                        <span class="fs-4">{{ member.account_number }}</span>
+                    </div>
+                    <div class="text-start">
+                        <label class="form-label fw-bold">{% trans "Amount (₦)" %}</label>
+                        <input type="number" name="amount" class="form-control form-control-lg" required placeholder="0.00">
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="submit" class="btn btn-warning w-100 fw-bold py-2 shadow">{% trans "Process Transfer" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

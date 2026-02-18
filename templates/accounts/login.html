@@ -1,0 +1,8 @@
+{% load i18n %}
+<h2>JIBWIS {% trans "Portal Login" %}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Login" %}</button>
+</form>
+<p><a href="{% url 'password_reset' %}">{% trans "Forgot Password?" %}</a></p>

@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-credit-card me-2"></i>Katin Biya</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Za a tura ku zuwa hanyar biya mai aminci don kammala biyan kuɗi.
+                    </div>
+
+                    <!-- Donation Summary -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">Taƙaice na Taimako</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Sunanka:</strong><br>
+                                    <strong>Adadin:</strong><br>
+                                    <strong>Dalili:</strong><br>
+                                    <strong>Lambar Tabbatarwa:</strong>
+                                </div>
+                                <div class="col-6">
+                                    {{ donation.donor_name }}<br>
+                                    ₦{{ donation.amount }}<br>
+                                    {{ donation.purpose }}<br>
+                                    <code>{{ donation.reference }}</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Payment Form -->
+                    <form method="post" id="cardPaymentForm">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_card_number" class="form-label">Lambar Kati</label>
+                            {{ card_form.card_number }}
+                            {% if card_form.card_number.errors %}
+                                <div class="text-danger small">{{ card_form.card_number.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_expiry_date" class="form-label">Karewa (MM/YY)</label>
+                                {{ card_form.expiry_date }}
+                                {% if card_form.expiry_date.errors %}
+                                    <div class="text-danger small">{{ card_form.expiry_date.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_cvv" class="form-label">CVV</label>
+                                {{ card_form.cvv }}
+                                {% if card_form.cvv.errors %}
+                                    <div class="text-danger small">{{ card_form.cvv.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_card_name" class="form-label">Sunan da ke kan kati</label>
+                            {{ card_form.card_name }}
+                            {% if card_form.card_name.errors %}
+                                <div class="text-danger small">{{ card_form.card_name.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <i class="fas fa-lock me-2"></i>
+                            Bayanan katin ku an tsare su cikin aminci. Ba za mu adana bayanan katin ku ba.
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-lock me-2"></i>Biya ₦{{ donation.amount }}
+                            </button>
+                            <a href="{% url 'donation' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Koma Bayan
+                            </a>
+                        </div>
+                    </form>
+
+                    <!-- Security Badges -->
+                    <div class="text-center mt-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <i class="fas fa-shield-alt fa-2x text-success"></i>
+                                <p class="small mb-0">Amince</p>
+                            </div>
+                            <div class="col-4">
+                                <i class="fas fa-lock fa-2x text-success"></i>
+                                <p class="small mb-0">SSL Kulle</p>
+                            </div>
+                            <div class="col-4">
+                                <i class="fas fa-credit-card fa-2x text-success"></i>
+                                <p class="small mb-0">PCI Masu dacewa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+}
+.btn {
+    border-radius: 8px;
+    padding: 12px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('cardPaymentForm');
+    
+    // Format card number
+    const cardNumber = document.getElementById('id_card_number');
+    cardNumber.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let matches = value.match(/\d{4,16}/g);
+        let match = matches && matches[0] || '';
+        let parts = [];
+        
+        for (let i = 0; i < match.length; i += 4) {
+            parts.push(match.substring(i, i + 4));
+        }
+        
+        if (parts.length) {
+            e.target.value = parts.join(' ');
+        } else {
+            e.target.value = value;
+        }
+    });
+    
+    // Format expiry date
+    const expiryDate = document.getElementById('id_expiry_date');
+    expiryDate.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length >= 2) {
+            e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8 col-lg-7">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="card-header bg-success text-white py-4 text-center border-0" 
+                 style="background: linear-gradient(45deg, #198754, #1ea362);">
+                <h3 class="fw-bold mb-0">{% trans "Member Registration" %}</h3>
+                <p class="small mb-0 opacity-75">{% trans "Join the JIBWIS Digital Management System" %}</p>
+            </div>
+
+            <div class="card-body p-4 p-md-5">
+                <form method="post" class="needs-validation" id="registrationForm" novalidate>
+                    {% csrf_token %}
+                    
+                    <h5 class="text-success fw-bold mb-3 d-flex align-items-center">
+                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:28px; height:28px; font-size: 0.8rem;">1</span>
+                        {% trans "Account Information" %}
+                    </h5>
+                    <div class="row g-3">
+                        {% for field in user_form %}
+                            {% if field.name != 'bank_code' and field.name != 'account_number' %}
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
+                                <div class="django-field-wrapper">{{ field }}</div>
+                                {% if field.errors %}<div class="text-danger extra-small">{{ field.errors }}</div>{% endif %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <hr class="my-4 opacity-25">
+
+                    <h5 class="text-success fw-bold mb-3 d-flex align-items-center">
+                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:28px; height:28px; font-size: 0.8rem;">2</span>
+                        {% trans "Organizational Role" %}
+                    </h5>
+                    <div class="row g-3">
+                        {% for field in profile_form %}
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
+                            <div class="django-field-wrapper">{{ field }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <hr class="my-4 opacity-25">
+
+                    <h5 class="text-success fw-bold mb-3 d-flex align-items-center">
+                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:28px; height:28px; font-size: 0.8rem;">3</span>
+                        {% trans "Payroll & Bank Details" %}
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label small fw-bold">{% trans "Select Bank" %}</label>
+                            <div class="django-field-wrapper">
+                                {{ user_form.bank_code }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label small fw-bold">{% trans "Account Number" %}</label>
+                            <div class="input-group">
+                                {{ user_form.account_number }}
+                                <button type="button" class="btn btn-success fw-bold" id="verifyBtn">
+                                    <span id="btnText">{% trans "Verify" %}</span>
+                                    <span id="verifySpinner" class="spinner-border spinner-border-sm d-none"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small fw-bold">{% trans "Verified Account Name" %}</label>
+                            <input type="text" id="id_account_name" name="account_name" class="form-control bg-light fw-bold text-success" readonly placeholder="{% trans 'Click verify to fetch name' %}">
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <button type="submit" id="submitBtn" class="btn btn-success btn-lg fw-bold shadow-sm py-3 rounded-pill" disabled>
+                            {% trans "Submit Membership Request" %}
+                        </button>
+                        <p class="text-center small text-muted mt-2">
+                            <i class="bi bi-info-circle"></i> {% trans "Button enables after successful bank verification." %}
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .django-field-wrapper input, .django-field-wrapper select {
+        display: block !important; width: 100% !important; padding: 0.75rem 1rem !important;
+        border: 1px solid #dee2e6 !important; border-radius: 0.6rem !important; background-color: #f8f9fa !important;
+    }
+    .django-field-wrapper input:focus { border-color: #198754 !important; background-color: #fff !important; outline: none !important; box-shadow: 0 0 0 0.25rem rgba(25,135,84,0.1) !important;}
+    .extra-small { font-size: 0.75rem; }
+</style>
+
+<script>
+document.getElementById('verifyBtn').addEventListener('click', function() {
+    const bank = document.querySelector('[name="bank_code"]').value;
+    const acct = document.querySelector('[name="account_number"]').value;
+    const nameInput = document.getElementById('id_account_name');
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('verifySpinner');
+    const btnText = document.getElementById('btnText');
+
+    if (!bank || acct.length !== 10) {
+        alert("{% trans 'Please select a bank and enter a valid 10-digit account number.' %}");
+        return;
+    }
+
+    // Start Loading
+    spinner.classList.remove('d-none');
+    btnText.classList.add('d-none');
+    this.disabled = true;
+
+    fetch(`/verify-bank/?bank_code=${bank}&account_number=${acct}`)
+        .then(response => response.json())
+        .then(data => {
+            spinner.classList.add('d-none');
+            btnText.classList.remove('d-none');
+            this.disabled = false;
+
+            if (data.account_name) {
+                nameInput.value = data.account_name;
+                submitBtn.disabled = false; // Enable submit button
+                nameInput.classList.add('is-valid');
+            } else {
+                alert("{% trans 'Verification failed. Please check your details.' %}");
+                nameInput.value = "";
+                submitBtn.disabled = true;
+            }
+        })
+        .catch(error => {
+            spinner.classList.add('d-none');
+            btnText.classList.remove('d-none');
+            this.disabled = false;
+            console.error('Error:', error);
+        });
+});
+</script>
+{% endblock %}

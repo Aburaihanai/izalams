@@ -1,0 +1,682 @@
+# JIBWIS Portal Hausa Translation.
+# Copyright (C) 2026 JIBWIS Nigeria
+# This file is distributed under the same license as the IzalaMS package.
+# Gemini AI <ai@jibwis.org>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: JIBWIS MS 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-14 18:55+0100\n"
+"PO-Revision-Date: 2026-02-14 19:10+0100\n"
+"Last-Translator: Gemini AI\n"
+"Language-Team: Hausa\n"
+"Language: ha\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\izalams\settings.py:11
+msgid "English"
+msgstr "Turanci"
+
+#: .\izalams\settings.py:12
+msgid "Hausa"
+msgstr "Hausa"
+
+#: .\templates\accounts\confirm_delete.html:1
+msgid "Warning: Delete Account"
+msgstr "Gargadi: Goge Akant"
+
+#: .\templates\accounts\confirm_delete.html:2
+msgid ""
+"Are you sure you want to delete your JIBWIS profile? This action cannot be "
+"undone."
+msgstr "Shin kana da tabbacin kana son goge bayanan JIBWIS dinka? Ba za a iya dawo da su ba idan ka goge."
+
+#: .\templates\accounts\confirm_delete.html:5
+msgid "Yes, Delete My Account"
+msgstr "Haka ne, Goge Akant Dina"
+
+#: .\templates\accounts\confirm_delete.html:6
+#: .\templates\accounts\send_message.html:8
+#: .\templates\accounts\update_username.html:18
+msgid "Cancel"
+msgstr "Soke"
+
+#: .\templates\accounts\login.html:1
+msgid "Portal Login"
+msgstr "Shiga Shafin Ma'aikata"
+
+#: .\templates\accounts\login.html:5 .\templates\base.html:43
+msgid "Login"
+msgstr "Shiga"
+
+#: .\templates\accounts\login.html:7 .\templates\login.html:35
+msgid "Forgot Password?"
+msgstr "Ka manta kalmar sirri?"
+
+#: .\templates\accounts\register.html:107
+msgid "Could not verify account. Please check details."
+msgstr "Ba a iya tabbatar da akant ba. Da fatan a sake duba bayanai."
+
+#: .\templates\accounts\search.html:7
+msgid "← Back"
+msgstr "← Koma Baya"
+
+#: .\templates\accounts\search.html:8 .\templates\base.html:36
+msgid "Dashboard"
+msgstr "Shafin Gudanarwa"
+
+#: .\templates\accounts\search.html:13
+msgid "Filter By Category"
+msgstr "Tace ta fannoni"
+
+#: .\templates\accounts\search.html:18
+msgid "All Categories"
+msgstr "Duk Fannoni"
+
+#: .\templates\accounts\search.html:19 .\templates\landing.html:126
+msgid "Administration"
+msgstr "Gudanarwa"
+
+#: .\templates\accounts\search.html:20 .\templates\landing.html:133
+msgid "Council of Ulama"
+msgstr "Majalisar Malamai"
+
+#: .\templates\accounts\search.html:21
+msgid "First Aid Group (FAG)"
+msgstr "Yan Agaji (FAG)"
+
+#: .\templates\accounts\search.html:24
+msgid "Apply Filter"
+msgstr "Tace Bayanan"
+
+#: .\templates\accounts\search.html:35
+msgid "Search by name, phone, or education..."
+msgstr "Nemi sunan, waya, ko karatu..."
+
+#: .\templates\accounts\search.html:38
+msgid "Search"
+msgstr "Nema"
+
+#: .\templates\accounts\search.html:67
+msgid "Message"
+msgstr "Sako"
+
+#: .\templates\accounts\search.html:70
+msgid "Pay"
+msgstr "Biya"
+
+#: .\templates\accounts\search.html:87
+msgid "Enter Amount (₦)"
+msgstr "Shigar da kudi (₦)"
+
+#: .\templates\accounts\search.html:88
+msgid "e.g. 5000"
+msgstr "misali: 5000"
+
+#: .\templates\accounts\search.html:91
+msgid "Initiate Payroll Transfer"
+msgstr "Fara tura albashi"
+
+#: .\templates\accounts\search.html:101
+msgid "No members found matching your criteria."
+msgstr "Ba a sami mambobin da suka dace da bukatarka ba."
+
+#: .\templates\accounts\send_message.html:7
+msgid "New Official Memo"
+msgstr "Sabuwar Takardar Sanarwa"
+
+#: .\templates\accounts\send_message.html:14
+msgid "Recipient"
+msgstr "Wanda zai karba"
+
+#: .\templates\accounts\send_message.html:23
+msgid "Subject"
+msgstr "Maudu'i"
+
+#: .\templates\accounts\send_message.html:24
+msgid "Enter memo title..."
+msgstr "Rubuta kanun sanarwa..."
+
+#: .\templates\accounts\send_message.html:27
+msgid "Message Body"
+msgstr "Abun da sakon ke dauke da shi"
+
+#: .\templates\accounts\send_message.html:28
+msgid "Type your message here..."
+msgstr "Rubuta sakonka anan..."
+
+#: .\templates\accounts\send_message.html:31
+msgid "Send Message"
+msgstr "Aika Sako"
+
+#: .\templates\accounts\update_username.html:7
+msgid "Change Username"
+msgstr "Canza Sunan Shiga"
+
+#: .\templates\accounts\update_username.html:13
+msgid "Current Username:"
+msgstr "Sunan Shiga na yanzu:"
+
+#: .\templates\accounts\update_username.html:17
+msgid "Update Username"
+msgstr "Canza Suna"
+
+#: .\templates\base.html:7
+msgid "Nigeria Portal"
+msgstr "Shafin Najeriya"
+
+#: .\templates\base.html:27
+msgid "PORTAL"
+msgstr "SHAFIN GUDANARWA"
+
+#: .\templates\base.html:34
+msgid "Home"
+msgstr "Gida"
+
+#: .\templates\base.html:39 .\templates\dashboard.html:41
+msgid "Logout"
+msgstr "Fita"
+
+#: .\templates\base.html:44
+msgid "Join Us"
+msgstr "Kasance da Mu"
+
+#: .\templates\base.html:47
+msgid "Directory"
+msgstr "Kundin Membobi"
+
+#: .\templates\base.html:50
+msgid "Donate"
+msgstr "Bayar da Gudunmawa"
+
+#: .\templates\base.html:72
+msgid "Nigeria National Headquarters"
+msgstr "Hedikwatar Kasa ta Najeriya"
+
+#: .\templates\base.html:73
+msgid "Digital Management System | Developed for JIBWIS Nigeria"
+msgstr "Tsarin Gudanarwa na Fasaha | An samar da shi domin JIBWIS Najeriya"
+
+#: .\templates\dashboard.html:20
+msgid "Home Page"
+msgstr "Babban Shafi"
+
+#: .\templates\dashboard.html:21
+msgid "Go Back"
+msgstr "Koma Baya"
+
+#: .\templates\dashboard.html:28
+msgid "Main Menu"
+msgstr "Babban Tsari"
+
+#: .\templates\dashboard.html:30
+msgid "Search Members"
+msgstr "Nemi Membobi"
+
+#: .\templates\dashboard.html:33
+msgid "Payroll History"
+msgstr "Tarihin Biyan Albashi"
+
+#: .\templates\dashboard.html:37
+msgid "Upload Video"
+msgstr "Dora Bidiyo"
+
+#: .\templates\dashboard.html:53
+msgid "Active Members"
+msgstr "Membobi Masu Kyau"
+
+#: .\templates\dashboard.html:64
+msgid "Pending Approval"
+msgstr "Wadanda ke jiran amincewa"
+
+#: .\templates\dashboard.html:75
+msgid "Total Payouts"
+msgstr "Jimillar kudin da aka biya"
+
+#: .\templates\dashboard.html:80
+msgid "Download CSV"
+msgstr "Sauke Takardar CSV"
+
+#: .\templates\dashboard.html:88
+msgid "Awaiting Your Confirmation"
+msgstr "Suna jiran amincewarka"
+
+#: .\templates\dashboard.html:94
+msgid "Name"
+msgstr "Suna"
+
+#: .\templates\dashboard.html:95
+msgid "Unit"
+msgstr "Sashe"
+
+#: .\templates\dashboard.html:96 .\templates\pending_approval.html:12
+msgid "Action"
+msgstr "Mataki"
+
+#: .\templates\dashboard.html:110
+msgid "Review Details"
+msgstr "Duba Bayanai"
+
+#: .\templates\dashboard.html:117
+msgid "Member Profile"
+msgstr "Bayanin Memba"
+
+#: .\templates\dashboard.html:131 .\templates\pending_approval.html:47
+msgid "Education:"
+msgstr "Karatu:"
+
+#: .\templates\dashboard.html:143
+msgid "Account No:"
+msgstr "Lambar Akant:"
+
+#: .\templates\dashboard.html:151
+msgid "Approve Membership"
+msgstr "Amince da Memba"
+
+#: .\templates\dashboard.html:152
+msgid "Close Panel"
+msgstr "Rufe Shafin"
+
+#: .\templates\dashboard.html:166
+msgid "Verified Payroll List"
+msgstr "Jerin Albashin da aka tabbatar"
+
+#: .\templates\dashboard.html:167
+msgid "Moniepoint Integrated"
+msgstr "Hade da Moniepoint"
+
+#: .\templates\dashboard.html:177
+msgid "Official"
+msgstr "Jami'i"
+
+#: .\templates\dashboard.html:178
+msgid "Bank / Account"
+msgstr "Banki / Akant"
+
+#: .\templates\dashboard.html:179
+msgid "Amount (₦)"
+msgstr "Adadin kudi (₦)"
+
+#: .\templates\dashboard.html:204
+msgid "Total to Disburse:"
+msgstr "Jimillar da za a tura:"
+
+#: .\templates\dashboard.html:213
+msgid "Execute Disbursement"
+msgstr "Tura Kudin Albashi"
+
+#: .\templates\dashboard.html:222
+msgid "Final Confirmation"
+msgstr "Tabbatarwa ta Karshe"
+
+#: .\templates\dashboard.html:223
+msgid ""
+"You are about to process bulk payments. This action will initiate bank "
+"transfers and cannot be reversed."
+msgstr "Kana kokarin tura kudi ga mutane da yawa lokaci guda. Wannan zai tura kudin ne daga banki kuma ba za a iya janye shi ba."
+
+#: .\templates\dashboard.html:225
+msgid "Yes, Process Now"
+msgstr "Haka ne, Tura Yanzu"
+
+#: .\templates\dashboard.html:226
+msgid "Cancel and Go Back"
+msgstr "Soke kuma Koma Baya"
+
+#: .\templates\dashboard.html:238
+msgid "Organizational News"
+msgstr "Labaran Kungiya"
+
+#: .\templates\landing.html:114
+msgid "JIBWIS Digital Portal"
+msgstr "Dandalin Fasaha na JIBWIS"
+
+#: .\templates\landing.html:115
+msgid "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG"
+msgstr "Hadin Kan Sunnah a Fadin Najeriya: Gudanarwa • Malamai • Yan Agaji"
+
+#: .\templates\landing.html:117
+msgid "Join Now"
+msgstr "Shiga Yanzu"
+
+#: .\templates\landing.html:127
+msgid "National to Ward level leadership coordination."
+msgstr "Gudanar da shugabanci daga matakin Kasa har zuwa matakin gunduma."
+
+#: .\templates\landing.html:134
+msgid "Management of scholars and educational backgrounds."
+msgstr "Gudanar da malamai da matakan karatunsu."
+
+#: .\templates\landing.html:140
+msgid "First Aid Group"
+msgstr "Yan Agaji"
+
+#: .\templates\landing.html:141
+msgid "Divisional, Detachment, and Unit leadership."
+msgstr "Shugabannin bangarori daban-daban na Yan Agaji."
+
+#: .\templates\landing.html:150
+msgid "Visit Us"
+msgstr "Ziyarce mu"
+
+#: .\templates\landing.html:151
+msgid "JIBWIS National Headquarters,"
+msgstr "Hedikwatar Kasa ta JIBWIS,"
+
+#: .\templates\landing.html:151
+msgid "Kaduna, Kaduna State, Nigeria."
+msgstr "Kaduna, Jihar Kaduna, Najeriya."
+
+#: .\templates\landing.html:171
+msgid "Latest Announcements"
+msgstr "Sanarwar Karshe"
+
+#: .\templates\landing.html:183
+msgid "Read More"
+msgstr "Kara Karantawa"
+
+#: .\templates\landing.html:193
+msgid "JIBWIS Media Updates"
+msgstr "Labarai daga Jibwis Media"
+
+#: .\templates\landing.html:218
+msgid "Share"
+msgstr "Aika"
+
+#: .\templates\landing.html:223
+msgid "Download"
+msgstr "Sauke"
+
+#: .\templates\leader_directory.html:5
+msgid "Official Leader Directory"
+msgstr "Kundin Shugabanni"
+
+#: .\templates\leader_directory.html:6
+msgid "Verified National and State Leadership of JIBWIS Nigeria"
+msgstr "Tabbatattun Shugabannin JIBWIS na Kasa da Jihohi"
+
+#: .\templates\leader_directory.html:31
+msgid "Contact Office"
+msgstr "Tuntubi Ofishin"
+
+#: .\templates\leader_directory.html:38
+msgid "The directory is currently being updated. Please check back later."
+msgstr "Ana kan sabunta kundin shugabanni a halin yanzu. Da fatan a sake dubawa an jima."
+
+#: .\templates\login.html:18
+msgid "Leader Login"
+msgstr "Shigar Shugabanni"
+
+#: .\templates\login.html:19
+msgid "Access the JIBWIS Management Portal"
+msgstr "Shiga Dandalin Gudanarwa na JIBWIS"
+
+#: .\templates\login.html:24
+msgid "Username"
+msgstr "Sunan Shiga"
+
+#: .\templates\login.html:28
+msgid "Password"
+msgstr "Kalmar Sirri"
+
+#: .\templates\login.html:32
+msgid "Login to Account"
+msgstr "Shiga cikin Akant"
+
+#: .\templates\login.html:40
+msgid "Not registered?"
+msgstr "Baka yi rajista ba?"
+
+#: .\templates\login.html:40
+msgid "Apply Now"
+msgstr "Nemi Rajista Yanzu"
+
+#: .\templates\password_reset.html:1
+msgid "Reset Your Password"
+msgstr "Sake canza kalmar sirri"
+
+#: .\templates\password_reset.html:2
+msgid ""
+"Enter your email address below, and we'll email instructions for setting a "
+"new one."
+msgstr "Shigar da adireshin imel dinka a kasa, za mu aika maka da bayanin yadda zaka sa sabuwar kalmar sirri."
+
+#: .\templates\password_reset.html:6
+msgid "Send Reset Email"
+msgstr "Aika imel din sake canza kalmar sirri"
+
+#: .\templates\password_reset_complete.html:5
+msgid "Password Reset Complete"
+msgstr "An kammala canza kalmar sirri"
+
+#: .\templates\password_reset_complete.html:6
+msgid "Your new password has been set. You may go ahead and log in now."
+msgstr "An saita sabuwar kalmar sirrinka. Yanzu zaka iya shiga."
+
+#: .\templates\password_reset_complete.html:7
+msgid "Login to Portal"
+msgstr "Shiga Shafin"
+
+#: .\templates\password_reset_confirm.html:7
+msgid "Set New Password"
+msgstr "Saita sabuwar kalmar sirri"
+
+#: .\templates\password_reset_confirm.html:15
+msgid "Change My Password"
+msgstr "Canza kalmar sirri"
+
+#: .\templates\password_reset_confirm.html:20
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr "Hanyar sake canza kalmar sirrin bata da kyau, kila an riga an yi amfani da ita. Da fatan a sake neman wata."
+
+#: .\templates\password_reset_confirm.html:22
+msgid "Request New Link"
+msgstr "Nemi sabon link"
+
+#: .\templates\password_reset_done.html:5
+msgid "Check Your Email"
+msgstr "Duba Imel dinka"
+
+#: .\templates\password_reset_done.html:6
+msgid ""
+"We've emailed you instructions for setting your password. You should receive "
+"them shortly."
+msgstr "Mun aika maka da bayanin yadda zaka saita kalmar sirrinka. Zaka karba nan ba da dadewa ba."
+
+#: .\templates\password_reset_done.html:7
+msgid ""
+"If you don't receive an email, please ensure you've entered the address you "
+"registered with and check your spam folder."
+msgstr "Idan baka sami imel din ba, ka tabbata ka shigar da adireshin da kayi rajista da shi sannan ka duba babban fayil din 'Spam'."
+
+#: .\templates\password_reset_email.html:2
+msgid ""
+"To initiate the password reset process for your JIBWIS account, click the "
+"link below:"
+msgstr "Domin fara sake canza kalmar sirrin akant dinka na JIBWIS, danna hoton dake kasa:"
+
+#: .\templates\password_reset_email.html:6
+msgid ""
+"If clicking the link doesn't work, please copy and paste the URL into your "
+"browser."
+msgstr "Idan danna link din bai yi aiki ba, kwafo shi ka saka a browser dinka."
+
+#: .\templates\payroll_history.html:4
+msgid "Payroll Distribution History"
+msgstr "Tarihin Raba Albashi"
+
+#: .\templates\payroll_history.html:6
+msgid "Back to Dashboard"
+msgstr "Koma Shafin Gudanarwa"
+
+#: .\templates\payroll_history.html:16
+msgid "Export PDF"
+msgstr "Sauke a PDF"
+
+#: .\templates\payroll_history.html:21
+msgid "Payments"
+msgstr "Biye-biye"
+
+#: .\templates\payroll_history.html:26 .\templates\payroll_history.html:52
+msgid "Member"
+msgstr "Memba"
+
+#: .\templates\payroll_history.html:27
+msgid "Account"
+msgstr "Akant"
+
+#: .\templates\payroll_history.html:28 .\templates\payroll_history.html:54
+msgid "Reference"
+msgstr "Lambar Shaida"
+
+#: .\templates\payroll_history.html:29 .\templates\payroll_history.html:53
+#: .\templates\receipt_pdf.html:34
+msgid "Amount"
+msgstr "Adadi"
+
+#: .\templates\payroll_history.html:51
+msgid "Date"
+msgstr "Kwanan Wata"
+
+#: .\templates\payroll_history.html:55
+msgid "Status"
+msgstr "Yanayin Biya"
+
+#: .\templates\payroll_history.html:67
+msgid "Success"
+msgstr "An yi Nasara"
+
+#: .\templates\payroll_history.html:69
+msgid "Pending"
+msgstr "Yana Jiran Lokaci"
+
+#: .\templates\payroll_history.html:71
+msgid "Failed"
+msgstr "Bai Yi Ba"
+
+#: .\templates\payroll_history.html:76
+msgid "View Receipt"
+msgstr "Duba Takardar Shaida"
+
+#: .\templates\payroll_history.html:82
+msgid "No payroll records found."
+msgstr "Ba a sami tarihin biyan albashi ba."
+
+#: .\templates\pending_approval.html:3
+msgid "Pending Member Verifications"
+msgstr "Membobin dake jiran tabbatarwa"
+
+#: .\templates\pending_approval.html:9
+msgid "Full Name"
+msgstr "Cikakken Suna"
+
+#: .\templates\pending_approval.html:10
+msgid "Unit/Jurisdiction"
+msgstr "Sashe / Yanki"
+
+#: .\templates\pending_approval.html:11
+msgid "Registration Date"
+msgstr "Kwanan watan rajista"
+
+#: .\templates\pending_approval.html:23
+msgid "View Profile"
+msgstr "Duba Bayanai"
+
+#: .\templates\pending_approval.html:27
+msgid "Approve"
+msgstr "Amince"
+
+#: .\templates\pending_approval.html:42
+msgid "Phone:"
+msgstr "Waya:"
+
+#: .\templates\pending_approval.html:43
+msgid "Bank:"
+msgstr "Banki:"
+
+#: .\templates\pending_approval.html:44
+msgid "Account Name:"
+msgstr "Sunan Akant:"
+
+#: .\templates\pending_approval.html:48
+msgid "Position:"
+msgstr "Matsayi:"
+
+#: .\templates\pending_approval.html:52
+msgid "Verified via Moniepoint/Paystack:"
+msgstr "An tabbatar ta hanyar Moniepoint/Paystack:"
+
+#: .\templates\pending_approval.html:54
+msgid "Account Validated"
+msgstr "An tabbatar da akant"
+
+#: .\templates\pending_approval.html:56
+msgid "Account Not Validated"
+msgstr "Ba a tabbatar da akant ba"
+
+#: .\templates\receipt_pdf.html:5
+msgid "Print Receipt"
+msgstr "Buga Takardar Shaida"
+
+#: .\templates\receipt_pdf.html:6
+msgid "Back"
+msgstr "Koma"
+
+#: .\templates\receipt_pdf.html:12
+msgid "JIBWIS NIGERIA"
+msgstr "JIBWIS NAJERIYA"
+
+#: .\templates\receipt_pdf.html:13
+msgid "OFFICIAL PAYMENT RECEIPT"
+msgstr "TAKARDAR SHAIDAR BIYA"
+
+#: .\templates\receipt_pdf.html:19
+msgid "PAYMENT TO:"
+msgstr "WANDA AKA BIYA:"
+
+#: .\templates\receipt_pdf.html:24
+msgid "REFERENCE:"
+msgstr "SHAIDA:"
+
+#: .\templates\receipt_pdf.html:33
+msgid "Description"
+msgstr "Bayanin Biya"
+
+#: .\templates\receipt_pdf.html:39
+msgid "Monthly Allowance"
+msgstr "Albashin Wata"
+
+#: .\templates\receipt_pdf.html:45
+msgid "Total Paid"
+msgstr "Jimillar da aka biya"
+
+#: .\templates\receipt_pdf.html:53
+msgid "Authorized Electronic Signature"
+msgstr "Sa hannun Hukuma ta Fasaha"
+
+#: .\templates\receipt_pdf.html:54
+msgid "JIBWIS PORTAL VERIFIED"
+msgstr "AN TABBATAR DAGA JIBWIS PORTAL"
+
+#: .\templates\upload_video.html:7
+msgid "Upload Short Video"
+msgstr "Dora Gajeren Bidiyo"
+
+#: .\templates\upload_video.html:10
+msgid ""
+"Videos will auto-play on hover on the landing page. Recommended format: "
+"Vertical (9:16)."
+msgstr "Bidiyo za su nuna kansu idan an dora hannu a kai. Tsarin da ake so: Tsaye (9:16)."
+
+#: .\templates\upload_video.html:15
+msgid "Publish Video"
+msgstr "Wallafa Bidiyo"
+
+#: .\templates\upload_video.html:19
+msgid "Cancel and Return"
+msgstr "Soke kuma Koma"
