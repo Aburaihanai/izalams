@@ -1,0 +1,20 @@
+# Secrets and Environment
+.env
+.venv
+env/
+venv/
+
+# Django specific
+db.sqlite3
+staticfiles/
+media/
+*.log
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.vscode/
+.idea/

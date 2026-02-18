@@ -1,7 +1,14 @@
 import os
 from pathlib import Path
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load .env file
+load_dotenv(BASE_DIR / '.env')
 
 from django.utils.translation import gettext_lazy as _
 
@@ -21,8 +28,8 @@ USE_I18N = True
 USE_L10N = True
 
 # --- SECURITY SETTINGS ---
-SECRET_KEY = 'armor-wait-album'
-DEBUG = False
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG') == 'True'
 ALLOWED_HOSTS = ['Aburaihanai.pythonanywhere.com'] 
 
 # --- APPLICATION DEFINITION ---
@@ -104,11 +111,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# --- PRIMARY KEY DEFAULT ---
-# Fixes the (models.W042) warnings
-# PAYSTACK KEYS
-PAYSTACK_SECRET_KEY = 'sk_test_xxxx' # Replace with your real test key
-PAYSTACK_PUBLIC_KEY = 'pk_test_xxxx'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -126,7 +129,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'staisha23@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'reeibbyvkeeywmic'  # The App Password generated
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'JIBWIS Admin <staisha23@gmail.com>'
 
+# Use the variables
+
+
+# Paystack
+PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
+
+# Email
