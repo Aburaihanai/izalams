@@ -203,6 +203,7 @@ def member_detail(request, member_id):
     profile = member.profiles.first() # Getting the primary profile
     return render(request, 'accounts/member_detail.html', {'member': member, 'profile': profile})
 
+
 @login_required
 def approve_member(request, profile_id):
     """Action view to activate a profile."""
@@ -211,6 +212,7 @@ def approve_member(request, profile_id):
     profile.save()
     messages.success(request, _(f"Account for {profile.user.get_full_name()} activated."))
     return redirect('dashboard')
+
 
 
 # --- 3. PAYROLL & DATA ---
@@ -323,30 +325,6 @@ def export_payroll_csv(request):
 
     return response
 
-def verify_bank_account(request):
-    bank_code = request.GET.get('bank_code')
-    account_number = request.GET.get('account_number')
-
-    if not bank_code or not account_number:
-        return JsonResponse({'error': 'Missing data'}, status=400)
-
-    url = f"https://api.paystack.co/bank/resolve?account_number={account_number}&bank_code={bank_code}"
-    headers = {
-        "Authorization": f"Bearer YOUR_PAYSTACK_SECRET_KEY",
-        "Content-Type": "application/json",
-    }
-
-    try:
-        response = requests.get(url, headers=headers, timeout=10)
-        data = response.json()
-
-        if data.get('status'):
-            # Paystack returns account_name inside the 'data' object
-            return JsonResponse({'account_name': data['data']['account_name']})
-        else:
-            return JsonResponse({'error': data.get('message')}, status=400)
-    except requests.exceptions.RequestException:
-        return JsonResponse({'error': 'Connection to Paystack failed'}, status=503)
 
 @login_required
 def member_search(request):

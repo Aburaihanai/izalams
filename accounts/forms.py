@@ -28,9 +28,8 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'phone_number', 'bank_code', 'account_number', 'account_name', 'password']
+        fields = ['username', 'email', 'phone_number', 'password']
         widgets = {
-            'bank_code': forms.Select(attrs={'class': 'form-select'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
 

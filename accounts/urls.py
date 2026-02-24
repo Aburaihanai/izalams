@@ -27,7 +27,6 @@ urlpatterns = [
     path('member-detail/<int:member_id>/', views.member_detail, name='member_detail'),
     path('members/', views.members_list, name='members_list'),
     path('members/export/', views.export_members_excel, name='export_members_excel'),
-    path('verify-bank/', views.verify_bank_account, name='verify_bank'),
     path('password-reset/',
          CustomPasswordResetView.as_view(template_name='password_reset.html'),
          name='password_reset'),
