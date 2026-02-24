@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JIBWIS MS 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 19:26+0100\n"
+"POT-Creation-Date: 2026-02-22 16:37+0100\n"
 "PO-Revision-Date: 2026-02-14 19:35+0100\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: French\n"
@@ -17,675 +17,518 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\izalams\settings.py:11
-msgid "English"
-msgstr "Anglais"
-
-#: .\izalams\settings.py:12
-msgid "Hausa"
-msgstr "Haoussa"
-
-#: .\izalams\settings.py:13
-msgid "Arabic"
-msgstr "Arabe"
-
-#: .\izalams\settings.py:14
-msgid "French"
-msgstr "Français"
-
-#: .\templates\accounts\confirm_delete.html:2
-msgid "Warning: Delete Account"
-msgstr "Avertissement : Supprimer le compte"
-
-#: .\templates\accounts\confirm_delete.html:3
+#: accounts/views.py:62
 msgid ""
-"Are you sure you want to delete your JIBWIS profile? This action cannot be "
-"undone."
-msgstr "Êtes-vous sûr de vouloir supprimer votre profil JIBWIS ? Cette action est irréversible."
-
-#: .\templates\accounts\confirm_delete.html:6
-msgid "Yes, Delete My Account"
-msgstr "Oui, supprimer mon compte"
-
-#: .\templates\accounts\confirm_delete.html:7
-#: .\templates\accounts\send_message.html:9
-#: .\templates\accounts\update_username.html:19
-msgid "Cancel"
-msgstr "Annuler"
-
-#: .\templates\accounts\login.html:2
-msgid "Portal Login"
-msgstr "Connexion au Portail"
-
-#: .\templates\accounts\login.html:6 .\templates\base.html:44
-msgid "Login"
-msgstr "Se connecter"
-
-#: .\templates\accounts\login.html:8 .\templates\login.html:36
-msgid "Forgot Password?"
-msgstr "Mot de passe oublié ?"
-
-#: .\templates\accounts\register.html:108
-msgid "Could not verify account. Please check details."
-msgstr "Impossible de vérifier le compte. Veuillez vérifier les détails."
-
-#: .\templates\accounts\search.html:8
-msgid "← Back"
-msgstr "← Retour"
-
-#: .\templates\accounts\search.html:9 .\templates\base.html:37
-msgid "Dashboard"
-msgstr "Tableau de Bord"
-
-#: .\templates\accounts\search.html:14
-msgid "Filter By Category"
-msgstr "Filtrer par catégorie"
-
-#: .\templates\accounts\search.html:19
-msgid "All Categories"
-msgstr "Toutes les catégories"
-
-#: .\templates\accounts\search.html:20 .\templates\landing.html:126
-msgid "Administration"
-msgstr "Administration"
-
-#: .\templates\accounts\search.html:21 .\templates\landing.html:133
-msgid "Council of Ulama"
-msgstr "Conseil des Oulémas"
-
-#: .\templates\accounts\search.html:22
-msgid "First Aid Group (FAG)"
-msgstr "Groupe de Premiers Secours (FAG)"
-
-#: .\templates\accounts\search.html:25
-msgid "Apply Filter"
-msgstr "Appliquer le filtre"
-
-#: .\templates\accounts\search.html:36
-msgid "Search by name, phone, or education..."
-msgstr "Rechercher par nom, téléphone ou éducation..."
-
-#: .\templates\accounts\search.html:39
-msgid "Search"
-msgstr "Rechercher"
-
-#: .\templates\accounts\search.html:68
-msgid "Message"
-msgstr "Message"
-
-#: .\templates\accounts\search.html:71
-msgid "Pay"
-msgstr "Payer"
-
-#: .\templates\accounts\search.html:88
-msgid "Enter Amount (₦)"
-msgstr "Entrer le montant (₦)"
-
-#: .\templates\accounts\search.html:89
-msgid "e.g. 5000"
-msgstr "ex. 5000"
-
-#: .\templates\accounts\search.html:92
-msgid "Initiate Payroll Transfer"
-msgstr "Initier le transfert de paie"
-
-#: .\templates\accounts\search.html:102
-msgid "No members found matching your criteria."
-msgstr "Aucun membre trouvé correspondant à vos critères."
-
-#: .\templates\accounts\send_message.html:8
-msgid "New Official Memo"
-msgstr "Nouvelle note officielle"
-
-#: .\templates\accounts\send_message.html:15
-msgid "Recipient"
-msgstr "Destinataire"
-
-#: .\templates\accounts\send_message.html:24
-msgid "Subject"
-msgstr "Objet"
-
-#: .\templates\accounts\send_message.html:25
-msgid "Enter memo title..."
-msgstr "Entrer le titre de la note..."
-
-#: .\templates\accounts\send_message.html:28
-msgid "Message Body"
-msgstr "Corps du message"
-
-#: .\templates\accounts\send_message.html:29
-msgid "Type your message here..."
-msgstr "Tapez votre message ici..."
-
-#: .\templates\accounts\send_message.html:32
-msgid "Send Message"
-msgstr "Envoyer le message"
-
-#: .\templates\accounts\update_username.html:8
-msgid "Change Username"
-msgstr "Changer le nom d'utilisateur"
-
-#: .\templates\accounts\update_username.html:14
-msgid "Current Username:"
-msgstr "Nom d'utilisateur actuel :"
-
-#: .\templates\accounts\update_username.html:18
-msgid "Update Username"
-msgstr "Mettre à jour le nom d'utilisateur"
-
-#: .\templates\base.html:8
-msgid "JIBWIS Nigeria Portal"
-msgstr "Portail JIBWIS Nigeria"
-
-#: .\templates\base.html:28
-msgid "PORTAL"
-msgstr "PORTAIL"
-
-#: .\templates\base.html:35
-msgid "Home"
-msgstr "Accueil"
-
-#: .\templates\base.html:40 .\templates\dashboard.html:42
-msgid "Logout"
-msgstr "Déconnexion"
-
-#: .\templates\base.html:45
-msgid "Join Us"
-msgstr "Rejoignez-nous"
-
-#: .\templates\base.html:48
-msgid "Directory"
-msgstr "Annuaire"
-
-#: .\templates\base.html:51
-msgid "Donate"
-msgstr "Faire un don"
-
-#: .\templates\base.html:98
-msgid "Nigeria National Headquarters"
-msgstr "Siège National du Nigeria"
-
-#: .\templates\base.html:99
-msgid "Digital Management System | Developed for JIBWIS Nigeria"
-msgstr "Système de Gestion Numérique | Développé pour JIBWIS Nigeria"
-
-#: .\templates\dashboard.html:21
-msgid "Home Page"
-msgstr "Page d'accueil"
-
-#: .\templates\dashboard.html:22
-msgid "Go Back"
-msgstr "Retour"
-
-#: .\templates\dashboard.html:29
-msgid "Main Menu"
-msgstr "Menu Principal"
-
-#: .\templates\dashboard.html:31
-msgid "Search Members"
-msgstr "Rechercher des membres"
+"Registration successful! Your branch leader must activate your account "
+"before you can login."
+msgstr ""
+"Inscription réussie ! Le responsable de votre branche doit activer votre compte "
+"avant que vous puissiez vous connecter."
+
+#: accounts/views.py:174
+msgid "Account for {profile.user.get_full_name()} activated."
+msgstr "Le compte de {profile.user.get_full_name()} a été activé."
+
+#: accounts/views.py:187
+msgid "Bank Code"
+msgstr "Code banque"
+
+#: accounts/views.py:227
+msgid "Video published to feed."
+msgstr "Vidéo publiée dans le fil d'actualité."
+
+#: accounts/views.py:245
+msgid "Username already taken."
+msgstr "Ce nom d'utilisateur est déjà utilisé."
+
+#: donations/forms.py:20
+msgid "Enter your full name"
+msgstr "Entrez votre nom complet"
+
+#: donations/forms.py:24
+msgid "Enter your email address"
+msgstr "Entrez votre adresse e-mail"
+
+#: donations/forms.py:28
+msgid "Enter your phone number"
+msgstr "Entrez votre numéro de téléphone"
+
+#: donations/forms.py:38
+msgid "e.g., Zakat"
+msgstr "ex: Zakat"
+
+#: donations/forms.py:43
+msgid "Enter any additional notes (optional)"
+msgstr "Entrez des notes supplémentaires (facultatif)"
+
+#: donations/forms.py:51
+msgid "Email"
+msgstr "E-mail"
+
+#: donations/forms.py:52 templates/accounts/member_detail.html:74
+msgid "Phone Number"
+msgstr "Numéro de téléphone"
+
+#: donations/forms.py:54 templates/donations/donation_list.html:75
+msgid "Purpose"
+msgstr "Motif / Objet"
+
+#: donations/forms.py:55
+msgid "Notes (Optional)"
+msgstr "Notes (Facultatif)"
+
+#: donations/forms.py:61 templates/donations/card_payment.html:44
+msgid "Card Number"
+msgstr "Numéro de carte"
+
+#: donations/forms.py:69
+msgid "Expiry Date"
+msgstr "Date d'expiration"
+
+#: donations/forms.py:85
+msgid "Cardholder Name"
+msgstr "Nom du titulaire"
+
+#: donations/forms.py:89
+msgid "Name as it appears on card"
+msgstr "Nom tel qu'il apparaît sur la carte"
+
+#: templates/accounts/member_detail.html:30
+msgid "No Assigned Unit"
+msgstr "Aucune unité assignée"
+
+#: templates/accounts/member_detail.html:51
+msgid "Disburse Payroll"
+msgstr "Décaisser la paie"
+
+#: templates/accounts/member_detail.html:70
+msgid "Assigned Unit"
+msgstr "Unité assignée"
+
+#: templates/accounts/member_detail.html:78
+msgid "Email Address"
+msgstr "Adresse e-mail"
+
+#: templates/accounts/member_detail.html:83
+msgid "Bank Institution"
+msgstr "Institution bancaire"
+
+#: templates/accounts/member_detail.html:99
+msgid "Missing Bank Info"
+msgstr "Informations bancaires manquantes"
+
+#: templates/accounts/member_detail.html:108
+msgid "Academic Background"
+msgstr "Parcours académique"
 
-#: .\templates\dashboard.html:34
-msgid "Payroll History"
-msgstr "Historique de paie"
+#: templates/accounts/member_detail.html:128
+msgid "Confirm Transfer"
+msgstr "Confirmer le transfert"
 
-#: .\templates\dashboard.html:38
-msgid "Upload Video"
-msgstr "Télécharger une vidéo"
+#: templates/accounts/member_detail.html:134
+msgid "You are paying"
+msgstr "Vous payez"
 
-#: .\templates\dashboard.html:54
-msgid "Active Members"
-msgstr "Membres actifs"
+#: templates/accounts/member_detail.html:146
+msgid "Process Transfer"
+msgstr "Traiter le transfert"
 
-#: .\templates\dashboard.html:65
-msgid "Pending Approval"
-msgstr "En attente d'approbation"
+#: templates/accounts/members_list.html:9
+msgid "Manage and view all registered personnel"
+msgstr "Gérer et visualiser tout le personnel enregistré"
 
-#: .\templates\dashboard.html:76
-msgid "Total Payouts"
-msgstr "Total des paiements"
+#: templates/accounts/members_list.html:31
+msgid "All Units (Ulama, Admin, FAG)"
+msgstr "Toutes les unités (Oulémas, Admin, FAG)"
 
-#: .\templates\dashboard.html:81
-msgid "Download CSV"
-msgstr "Télécharger CSV"
+#: templates/accounts/members_list.html:51
+msgid "Level"
+msgstr "Niveau"
 
-#: .\templates\dashboard.html:89
-msgid "Awaiting Your Confirmation"
-msgstr "En attente de votre confirmation"
+#: templates/accounts/members_list.html:104
+msgid "View"
+msgstr "Voir"
 
-#: .\templates\dashboard.html:95
-msgid "Name"
-msgstr "Nom"
+#: templates/accounts/members_list.html:120
+msgid "Clear all filters"
+msgstr "Effacer tous les filtres"
 
-#: .\templates\dashboard.html:96
-msgid "Unit"
-msgstr "Unité"
+#: templates/accounts/register.html:53
+msgid "Payroll & Bank Details"
+msgstr "Détails de paie et bancaires"
 
-#: .\templates\dashboard.html:97 .\templates\pending_approval.html:13
-msgid "Action"
-msgstr "Action"
+#: templates/accounts/register.html:57
+msgid "Select Bank"
+msgstr "Sélectionner une banque"
 
-#: .\templates\dashboard.html:111
-msgid "Review Details"
-msgstr "Examiner les détails"
+#: templates/accounts/register.html:67
+msgid "Verify"
+msgstr "Vérifier"
 
-#: .\templates\dashboard.html:118
-msgid "Member Profile"
-msgstr "Profil du membre"
+#: templates/accounts/register.html:74
+msgid "Click verify to fetch name"
+msgstr "Cliquez sur vérifier pour obtenir le nom"
 
-#: .\templates\dashboard.html:132 .\templates\pending_approval.html:48
-msgid "Education:"
-msgstr "Éducation :"
+#: templates/accounts/register.html:80
+msgid "Submit Membership Request"
+msgstr "Soumettre la demande d'adhésion"
 
-#: .\templates\dashboard.html:144
-msgid "Account No:"
-msgstr "N° de compte :"
+#: templates/accounts/register.html:83
+msgid "Button enables after successful bank verification."
+msgstr "Le bouton s'active après une vérification bancaire réussie."
 
-#: .\templates\dashboard.html:152
-msgid "Approve Membership"
-msgstr "Approuver l'adhésion"
+#: templates/accounts/register.html:111
+msgid "Please select a bank and enter a valid 10-digit account number."
+msgstr "Veuillez sélectionner une banque et entrer un numéro de compte valide à 10 chiffres."
 
-#: .\templates\dashboard.html:153
-msgid "Close Panel"
-msgstr "Fermer le panneau"
+#: templates/accounts/search.html:10
+msgid "Navigation"
+msgstr "Navigation"
 
-#: .\templates\dashboard.html:167
-msgid "Verified Payroll List"
-msgstr "Liste de paie vérifiée"
+#: templates/accounts/search.html:35
+msgid "Org Level"
+msgstr "Niveau hiérarchique"
 
-#: .\templates\dashboard.html:168
-msgid "Moniepoint Integrated"
-msgstr "Intégré à Moniepoint"
+#: templates/accounts/search.html:37
+msgid "All Levels"
+msgstr "Tous les niveaux"
 
-#: .\templates\dashboard.html:178
-msgid "Official"
-msgstr "Officiel"
+#: templates/accounts/search.html:50
+msgid "Reset Filters"
+msgstr "Réinitialiser les filtres"
 
-#: .\templates\dashboard.html:179
-msgid "Bank / Account"
-msgstr "Banque / Compte"
+#: templates/accounts/search.html:97
+msgid "Unit / Role"
+msgstr "Unité / Rôle"
 
-#: .\templates\dashboard.html:180
-msgid "Amount (₦)"
-msgstr "Montant (₦)"
+#: templates/accounts/search.html:154
+msgid "Approve Account"
+msgstr "Approuver le compte"
 
-#: .\templates\dashboard.html:205
-msgid "Total to Disburse:"
-msgstr "Total à décaisser :"
+#: templates/accounts/search.html:168
+msgid "Disburse Funds"
+msgstr "Décaisser des fonds"
 
-#: .\templates\dashboard.html:214
-msgid "Execute Disbursement"
-msgstr "Exécuter le décaissement"
-
-#: .\templates\dashboard.html:223
-msgid "Final Confirmation"
-msgstr "Confirmation finale"
-
-#: .\templates\dashboard.html:224
+#: templates/dashboard.html:215
 msgid ""
-"You are about to process bulk payments. This action will initiate bank "
-"transfers and cannot be reversed."
-msgstr "Vous êtes sur le point de traiter des paiements groupés. Cette action initiera des transferts bancaires et ne pourra pas être annulée."
+"Process payments for your selected unit members. This cannot be reversed."
+msgstr ""
+"Traiter les paiements pour les membres de l'unité sélectionnés. Cette action est irréversible."
 
-#: .\templates\dashboard.html:226
-msgid "Yes, Process Now"
-msgstr "Oui, traiter maintenant"
+#: templates/donations/bank_transfer.html:11
+msgid "Bank Transfer Payment"
+msgstr "Paiement par virement bancaire"
 
-#: .\templates\dashboard.html:227
-msgid "Cancel and Go Back"
-msgstr "Annuler et revenir"
+#: templates/donations/bank_transfer.html:17
+msgid "Contribution Summary"
+msgstr "Résumé de la contribution"
 
-#: .\templates\dashboard.html:239
-msgid "Organizational News"
-msgstr "Nouvelles de l'organisation"
+#: templates/donations/bank_transfer.html:24
+msgid "Purpose:"
+msgstr "Objet :"
 
-#: .\templates\landing.html:114
-msgid "JIBWIS Digital Portal"
-msgstr "Portail numérique JIBWIS"
+#: templates/donations/bank_transfer.html:25
+msgid "Verification Reference:"
+msgstr "Référence de vérification :"
 
-#: .\templates\landing.html:115
-msgid "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG"
-msgstr "Unifier la Sunna à travers le Nigeria : Admin • Ulama • FAG"
+#: templates/donations/bank_transfer.html:39
+msgid "Bank Account Details"
+msgstr "Coordonnées bancaires"
 
-#: .\templates\landing.html:117
-msgid "Join Now"
-msgstr "Inscrivez-vous maintenant"
+#: templates/donations/bank_transfer.html:45
+msgid "Bank Name:"
+msgstr "Nom de la banque :"
 
-#: .\templates\landing.html:127
-msgid "National to Ward level leadership coordination."
-msgstr "Coordination du leadership du niveau national au niveau du quartier."
+#: templates/donations/bank_transfer.html:55
+msgid "Account Number:"
+msgstr "Numéro de compte :"
 
-#: .\templates\landing.html:134
-msgid "Management of scholars and educational backgrounds."
-msgstr "Gestion des savants et des parcours éducatifs."
+#: templates/donations/bank_transfer.html:59
+msgid "Reference Note:"
+msgstr "Note de référence :"
 
-#: .\templates\landing.html:140
-msgid "First Aid Group"
-msgstr "Groupe de Premiers Secours"
+#: templates/donations/bank_transfer.html:68
+msgid "Important Instructions:"
+msgstr "Instructions importantes :"
 
-#: .\templates\landing.html:141
-msgid "Divisional, Detachment, and Unit leadership."
-msgstr "Direction de division, de détachement et d'unité."
+#: templates/donations/bank_transfer.html:75
+msgid "Verification may take up to 24 hours to reflect."
+msgstr "La vérification peut prendre jusqu'à 24 heures pour apparaître."
 
-#: .\templates\landing.html:150
-msgid "Visit Us"
-msgstr "Visitez-nous"
+#: templates/donations/bank_transfer.html:76
+msgid "Please keep your transfer receipt for your records."
+msgstr "Veuillez conserver votre reçu de transfert pour vos archives."
 
-#: .\templates\landing.html:151
-msgid "JIBWIS National Headquarters,"
-msgstr "Siège National JIBWIS,"
+#: templates/donations/bank_transfer.html:77
+msgid "For support, contact us at +234 800 000 0000."
+msgstr "Pour toute assistance, contactez-nous au +234 800 000 0000."
 
-#: .\templates\landing.html:151
-msgid "Kaduna, Kaduna State, Nigeria."
-msgstr "Kaduna, État de Kaduna, Nigeria."
+#: templates/donations/bank_transfer.html:88
+msgid "To confirm that you have made the transfer, please check the box below:"
+msgstr "Pour confirmer que vous avez effectué le transfert, veuillez cocher la case ci-dessous :"
 
-#: .\templates\landing.html:171
-msgid "Latest Announcements"
-msgstr "Dernières annonces"
+#: templates/donations/bank_transfer.html:99
+msgid "I Have Sent the Money"
+msgstr "J'ai envoyé l'argent"
 
-#: .\templates\landing.html:183
-msgid "Read More"
-msgstr "Lire la suite"
-
-#: .\templates\landing.html:193
-msgid "JIBWIS Media Updates"
-msgstr "Mises à jour média JIBWIS"
-
-#: .\templates\landing.html:218
-msgid "Share"
-msgstr "Partager"
-
-#: .\templates\landing.html:223
-msgid "Download"
-msgstr "Télécharger"
-
-#: .\templates\leader_directory.html:6
-msgid "Official Leader Directory"
-msgstr "Annuaire officiel des dirigeants"
-
-#: .\templates\leader_directory.html:7
-msgid "Verified National and State Leadership of JIBWIS Nigeria"
-msgstr "Direction nationale et étatique vérifiée de JIBWIS Nigeria"
-
-#: .\templates\leader_directory.html:32
-msgid "Contact Office"
-msgstr "Contacter le bureau"
-
-#: .\templates\leader_directory.html:39
-msgid "The directory is currently being updated. Please check back later."
-msgstr "L'annuaire est actuellement en cours de mise à jour. Veuillez revenir plus tard."
-
-#: .\templates\login.html:19
-msgid "Leader Login"
-msgstr "Connexion Dirigeant"
-
-#: .\templates\login.html:20
-msgid "Access the JIBWIS Management Portal"
-msgstr "Accéder au portail de gestion JIBWIS"
-
-#: .\templates\login.html:25
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: .\templates\login.html:29
-msgid "Password"
-msgstr "Mot de passe"
-
-#: .\templates\login.html:33
-msgid "Login to Account"
-msgstr "Se connecter au compte"
-
-#: .\templates\login.html:41
-msgid "Not registered?"
-msgstr "Pas encore inscrit ?"
-
-#: .\templates\login.html:41
-msgid "Apply Now"
-msgstr "Postulez maintenant"
-
-#: .\templates\password_reset.html:2
-msgid "Reset Your Password"
-msgstr "Réinitialiser votre mot de passe"
-
-#: .\templates\password_reset.html:3
+#: templates/donations/card_payment.html:15
 msgid ""
-"Enter your email address below, and we'll email instructions for setting a "
-"new one."
-msgstr "Entrez votre adresse e-mail ci-dessous, et nous vous enverrons des instructions pour en créer un nouveau."
+"You will be redirected to a secure payment gateway to complete your "
+"transaction."
+msgstr ""
+"Vous allez être redirigé vers une passerelle de paiement sécurisée pour finaliser votre transaction."
 
-#: .\templates\password_reset.html:7
-msgid "Send Reset Email"
-msgstr "Envoyer l'e-mail de réinitialisation"
+#: templates/donations/card_payment.html:53
+msgid "Expiry (MM/YY)"
+msgstr "Expiration (MM/AA)"
 
-#: .\templates\password_reset_complete.html:6
-msgid "Password Reset Complete"
-msgstr "Réinitialisation du mot de passe terminée"
+#: templates/donations/card_payment.html:69
+msgid "Name on Card"
+msgstr "Nom sur la carte"
 
-#: .\templates\password_reset_complete.html:7
-msgid "Your new password has been set. You may go ahead and log in now."
-msgstr "Votre nouveau mot de passe a été configuré. Vous pouvez maintenant vous connecter."
-
-#: .\templates\password_reset_complete.html:8
-msgid "Login to Portal"
-msgstr "Connexion au portail"
-
-#: .\templates\password_reset_confirm.html:8
-msgid "Set New Password"
-msgstr "Définir un nouveau mot de passe"
-
-#: .\templates\password_reset_confirm.html:16
-msgid "Change My Password"
-msgstr "Changer mon mot de passe"
-
-#: .\templates\password_reset_confirm.html:21
+#: templates/donations/card_payment.html:78
 msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used. Please request a new password reset."
-msgstr "Le lien de réinitialisation est invalide ou déjà utilisé. Veuillez faire une nouvelle demande."
+"Your card details are securely encrypted. We do not store your full card "
+"information on our servers."
+msgstr ""
+"Les données de votre carte sont cryptées en toute sécurité. Nous ne stockons pas vos informations de carte complètes sur nos serveurs."
 
-#: .\templates\password_reset_confirm.html:23
-msgid "Request New Link"
-msgstr "Demander un nouveau lien"
+#: templates/donations/card_payment.html:95
+msgid "Secure"
+msgstr "Sécurisé"
 
-#: .\templates\password_reset_done.html:6
-msgid "Check Your Email"
-msgstr "Vérifiez votre boîte e-mail"
+#: templates/donations/card_payment.html:99
+msgid "SSL Encrypted"
+msgstr "Cryptage SSL"
 
-#: .\templates\password_reset_done.html:7
+#: templates/donations/card_payment.html:103
+msgid "PCI Compliant"
+msgstr "Conforme PCI"
+
+#: templates/donations/confirmation_email.html:20
+msgid "Izala Group"
+msgstr "Groupe Izala"
+
+#: templates/donations/confirmation_email.html:31
+msgid "We are pleased to inform you that your contribution has been received."
+msgstr "Nous avons le plaisir de vous informer que votre contribution a été reçue."
+
+#: templates/donations/confirmation_email.html:34
+msgid "Contribution Details:"
+msgstr "Détails de la contribution :"
+
+#: templates/donations/confirmation_email.html:42
 msgid ""
-"We've emailed you instructions for setting your password. You should receive "
-"them shortly."
-msgstr "Nous vous avons envoyé les instructions par e-mail. Vous devriez les recevoir sous peu."
+"Our sincere gratitude goes to everyone who contributes. Your support will "
+"greatly help the community."
+msgstr ""
+"Notre sincère gratitude s'adresse à tous les contributeurs. Votre soutien aidera grandement la communauté."
 
-#: .\templates\password_reset_done.html:8
-msgid ""
-"If you don't receive an email, please ensure you've entered the address you "
-"registered with and check your spam folder."
-msgstr "Si vous ne recevez rien, vérifiez l'adresse saisie et votre dossier de courriers indésirables."
+#: templates/donations/confirmation_email.html:44
+msgid "If you have any questions, please reply to this email or contact us at:"
+msgstr "Si vous avez des questions, veuillez répondre à cet e-mail ou nous contacter à :"
 
-#: .\templates\password_reset_email.html:3
-msgid ""
-"To initiate the password reset process for your JIBWIS account, click the "
-"link below:"
-msgstr "Pour réinitialiser votre mot de passe JIBWIS, cliquez sur le lien ci-dessous :"
+#: templates/donations/confirmation_email.html:50
+msgid "Izala Group. All rights reserved."
+msgstr "Groupe Izala. Tous droits réservés."
 
-#: .\templates\password_reset_email.html:7
-msgid ""
-"If clicking the link doesn't work, please copy and paste the URL into your "
-"browser."
-msgstr "Si le lien ne fonctionne pas, copiez et collez l'URL dans votre navigateur."
+#: templates/donations/confirmation_email.html:51
+msgid "Dedicated to serving the community"
+msgstr "Dédié au service de la communauté"
 
-#: .\templates\payroll_history.html:5
-msgid "Payroll Distribution History"
-msgstr "Historique de distribution de paie"
+#: templates/donations/donation.html:11
+msgid "Contribute Zakat/Sadaqah"
+msgstr "Contribuer à la Zakat/Sadaqah"
 
-#: .\templates\payroll_history.html:7
-msgid "Back to Dashboard"
-msgstr "Retour au tableau de bord"
+#: templates/donations/donation.html:56
+msgid "Contribution Details"
+msgstr "Détails de la contribution"
 
-#: .\templates\payroll_history.html:17
-msgid "Export PDF"
-msgstr "Exporter en PDF"
+#: templates/donations/donation.html:67
+msgid "Minimum amount is ₦100"
+msgstr "Le montant minimum est de 100 ₦"
 
-#: .\templates\payroll_history.html:22
-msgid "Payments"
-msgstr "Paiements"
+#: templates/donations/donation.html:103
+msgid "Use your bank debit/credit card"
+msgstr "Utilisez votre carte de débit/crédit bancaire"
 
-#: .\templates\payroll_history.html:27 .\templates\payroll_history.html:53
-msgid "Member"
-msgstr "Membre"
+#: templates/donations/donation.html:120
+msgid "Transfer directly from your bank app"
+msgstr "Transférer directement depuis votre application bancaire"
 
-#: .\templates\payroll_history.html:28
-msgid "Account"
-msgstr "Compte"
+#: templates/donations/donation.html:132
+msgid "Proceed to Contribute"
+msgstr "Procéder à la contribution"
 
-#: .\templates\payroll_history.html:29 .\templates\payroll_history.html:55
-msgid "Reference"
-msgstr "Référence"
+#: templates/donations/donation_list.html:7
+msgid "Donation Records"
+msgstr "Registres des dons"
 
-#: .\templates\payroll_history.html:30 .\templates\payroll_history.html:54
-#: .\templates\receipt_pdf.html:35
-msgid "Amount"
-msgstr "Montant"
+#: templates/donations/donation_list.html:10
+msgid "Add Manual Donation"
+msgstr "Ajouter un don manuel"
 
-#: .\templates\payroll_history.html:52
-msgid "Date"
-msgstr "Date"
+#: templates/donations/donation_list.html:13
+msgid "Gateway Settings"
+msgstr "Paramètres de la passerelle"
 
-#: .\templates\payroll_history.html:56
-msgid "Status"
-msgstr "Statut"
+#: templates/donations/donation_list.html:25
+msgid "Completed"
+msgstr "Terminé"
 
-#: .\templates\payroll_history.html:68
-msgid "Success"
-msgstr "Succès"
+#: templates/donations/donation_list.html:31
+msgid "All Methods"
+msgstr "Toutes les méthodes"
 
-#: .\templates\payroll_history.html:70
-msgid "Pending"
-msgstr "En attente"
+#: templates/donations/donation_list.html:32
+msgid "Cash"
+msgstr "Espèces"
 
-#: .\templates\payroll_history.html:72
-msgid "Failed"
-msgstr "Échoué"
+#: templates/donations/donation_list.html:40
+msgid "From"
+msgstr "Du"
 
-#: .\templates\payroll_history.html:77
-msgid "View Receipt"
-msgstr "Voir le reçu"
+#: templates/donations/donation_list.html:43
+msgid "To"
+msgstr "Au"
 
-#: .\templates\payroll_history.html:83
-msgid "No payroll records found."
-msgstr "Aucun enregistrement de paie trouvé."
+#: templates/donations/donation_list.html:49
+msgid "Clear"
+msgstr "Effacer"
 
-#: .\templates\pending_approval.html:4
-msgid "Pending Member Verifications"
-msgstr "Vérifications de membres en attente"
+#: templates/donations/donation_list.html:71
+msgid "Donor"
+msgstr "Donateur"
 
-#: .\templates\pending_approval.html:10
-msgid "Full Name"
-msgstr "Nom complet"
+#: templates/donations/donation_list.html:73
+msgid "Method"
+msgstr "Méthode"
 
-#: .\templates\pending_approval.html:11
-msgid "Unit/Jurisdiction"
-msgstr "Unité/Juridiction"
+#: templates/donations/donation_list.html:85
+msgid "No email"
+msgstr "Pas d'e-mail"
 
-#: .\templates\pending_approval.html:12
-msgid "Registration Date"
-msgstr "Date d'inscription"
+#: templates/donations/donation_list.html:100
+msgid "General"
+msgstr "Général"
 
-#: .\templates\pending_approval.html:24
-msgid "View Profile"
-msgstr "Voir le profil"
+#: templates/donations/donation_list.html:114
+msgid "Donation Details"
+msgstr "Détails du don"
 
-#: .\templates\pending_approval.html:28
-msgid "Approve"
-msgstr "Approuver"
+#: templates/donations/donation_list.html:118
+msgid "Donor:"
+msgstr "Donateur :"
 
-#: .\templates\pending_approval.html:43
-msgid "Phone:"
-msgstr "Tél :"
+#: templates/donations/donation_list.html:119
+msgid "Email:"
+msgstr "E-mail :"
 
-#: .\templates\pending_approval.html:44
-msgid "Bank:"
-msgstr "Banque :"
+#: templates/donations/donation_list.html:122
+msgid "Method:"
+msgstr "Méthode :"
 
-#: .\templates\pending_approval.html:45
-msgid "Account Name:"
-msgstr "Nom du compte :"
+#: templates/donations/donation_list.html:125
+msgid "Notes:"
+msgstr "Notes :"
 
-#: .\templates\pending_approval.html:49
-msgid "Position:"
-msgstr "Poste :"
+#: templates/donations/donation_list.html:125
+msgid "None"
+msgstr "Aucune"
 
-#: .\templates\pending_approval.html:53
-msgid "Verified via Moniepoint/Paystack:"
-msgstr "Vérifié via Moniepoint/Paystack :"
+#: templates/donations/donation_list.html:127
+msgid "Transaction ID:"
+msgstr "ID de transaction :"
 
-#: .\templates\pending_approval.html:55
-msgid "Account Validated"
-msgstr "Compte validé"
+#: templates/donations/donation_list.html:138
+msgid "No donations found"
+msgstr "Aucun don trouvé"
 
-#: .\templates\pending_approval.html:57
-msgid "Account Not Validated"
-msgstr "Compte non validé"
+#: templates/donations/payment_pending.html:15
+msgid "We are waiting to confirm your contribution"
+msgstr "Nous sommes en attente de la confirmation de votre contribution"
 
-#: .\templates\receipt_pdf.html:6
-msgid "Print Receipt"
-msgstr "Imprimer le reçu"
+#: templates/donations/payment_pending.html:39
+msgid "What happens next?"
+msgstr "Que se passe-t-il ensuite ?"
 
-#: .\templates\receipt_pdf.html:7
-msgid "Back"
-msgstr "Retour"
+#: templates/donations/payment_pending.html:41
+msgid "We will verify the bank records for your payment."
+msgstr "Nous vérifierons les relevés bancaires pour votre paiement."
 
-#: .\templates\receipt_pdf.html:13
-msgid "JIBWIS NIGERIA"
-msgstr "JIBWIS NIGERIA"
+#: templates/donations/payment_pending.html:42
+msgid "This process may take up to 24 hours."
+msgstr "Ce processus peut prendre jusqu'à 24 heures."
 
-#: .\templates\receipt_pdf.html:14
-msgid "OFFICIAL PAYMENT RECEIPT"
-msgstr "REÇU DE PAIEMENT OFFICIEL"
+#: templates/donations/payment_pending.html:43
+msgid "You will receive a confirmation email once the status is updated."
+msgstr "Vous recevrez un e-mail de confirmation une fois le statut mis à jour."
 
-#: .\templates\receipt_pdf.html:20
-msgid "PAYMENT TO:"
-msgstr "PAIEMENT À :"
+#: templates/donations/payment_pending.html:44
+msgid "If not confirmed within 2 days, please contact our support."
+msgstr "Si ce n'est pas confirmé dans les 2 jours, veuillez contacter notre support."
 
-#: .\templates\receipt_pdf.html:25
-msgid "REFERENCE:"
-msgstr "RÉFÉRENCE :"
+#: templates/donations/payment_pending.html:59
+msgid "For inquiries, contact us at"
+msgstr "Pour toute demande, contactez-nous à"
 
-#: .\templates\receipt_pdf.html:34
-msgid "Description"
-msgstr "Description"
+#: templates/donations/payment_pending.html:60
+#: templates/donations/payment_success.html:60
+msgid "or"
+msgstr "ou"
 
-#: .\templates\receipt_pdf.html:40
-msgid "Monthly Allowance"
-msgstr "Allocation mensuelle"
+#: templates/donations/payment_status.html:10
+msgid "Check Payment Status"
+msgstr "Vérifier le statut du paiement"
 
-#: .\templates\receipt_pdf.html:46
-msgid "Total Paid"
-msgstr "Total payé"
+#: templates/donations/payment_status.html:17
+msgid "Checking payment status..."
+msgstr "Vérification du statut du paiement..."
 
-#: .\templates\receipt_pdf.html:54
-msgid "Authorized Electronic Signature"
-msgstr "Signature électronique autorisée"
+#: templates/donations/payment_status.html:43
+msgid "Refresh"
+msgstr "Actualiser"
 
-#: .\templates\receipt_pdf.html:55
-msgid "JIBWIS PORTAL VERIFIED"
-msgstr "VÉRIFIÉ PAR LE PORTAIL JIBWIS"
+#: templates/donations/payment_status.html:63
+msgid "Payment Successful!"
+msgstr "Paiement réussi !"
 
-#: .\templates\upload_video.html:8
-msgid "Upload Short Video"
-msgstr "Télécharger une courte vidéo"
+#: templates/donations/payment_status.html:64
+msgid "Your payment was confirmed on"
+msgstr "Votre paiement a été confirmé le"
 
-#: .\templates\upload_video.html:11
-msgid ""
-"Videos will auto-play on hover on the landing page. Recommended format: "
-"Vertical (9:16)."
-msgstr "Les vidéos se lancent au survol sur la page d'accueil. Format recommandé : Vertical (9:16)."
+#: templates/donations/payment_status.html:75
+msgid "We are still waiting to confirm your payment"
+msgstr "Nous attendons toujours la confirmation de votre paiement"
 
-#: .\templates\upload_video.html:16
-msgid "Publish Video"
-msgstr "Publier la vidéo"
+#: templates/donations/payment_status.html:82
+msgid "No Update Found"
+msgstr "Aucune mise à jour trouvée"
 
-#: .\templates\upload_video.html:20
-msgid "Cancel and Return"
-msgstr "Annuler et revenir"
+#: templates/donations/payment_status.html:83
+msgid "There is no new information regarding your payment"
+msgstr "Il n'y a pas de nouvelle information concernant votre paiement"
+
+#: templates/donations/payment_success.html:14
+msgid "Thank You!"
+msgstr "Merci !"
+
+#: templates/donations/payment_success.html:15
+msgid "Your contribution was successful"
+msgstr "Votre contribution a été effectuée avec succès"
+
+#: templates/donations/payment_success.html:40
+msgid "We will send a confirmation receipt to your email"
+msgstr "Nous enverrons un reçu de confirmation à votre e-mail"
+
+#: templates/donations/payment_success.html:44
+msgid "once the transaction is fully processed"
+msgstr "une fois que la transaction sera entièrement traitée"
+
+#: templates/donations/payment_success.html:59
+msgid "If you have any questions regarding this contribution,"
+msgstr "Si vous avez des questions concernant cette contribution,"
+
+#: templates/donations/payment_success.html:60
+msgid "please contact us at"
+msgstr "veuillez nous contacter à"

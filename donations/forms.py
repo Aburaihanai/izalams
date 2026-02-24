@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from .models import Donation
 
 class DonationForm(forms.ModelForm):
@@ -16,15 +17,15 @@ class DonationForm(forms.ModelForm):
         widgets = {
             'donor_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Shigar da sunan ka'
+                'placeholder': _('Enter your full name')
             }),
             'donor_email': forms.EmailInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'shigar da imel ɗinka'
+                'placeholder': _('Enter your email address')
             }),
             'donor_phone': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Shigar da lambar wayarka'
+                'placeholder': _('Enter your phone number')
             }),
             'amount': forms.NumberInput(attrs={
                 'class': 'form-control amount-input',
@@ -34,29 +35,30 @@ class DonationForm(forms.ModelForm):
             }),
             'purpose': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Zakka'
+                'placeholder': _('e.g., Zakat')
             }),
             'notes': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 3,
-                'placeholder': 'Shigar da kowane bayani (na zaɓi)'
+                'placeholder': _('Enter any additional notes (optional)')
             }),
             'payment_method': forms.RadioSelect(attrs={
                 'class': 'form-check-input'
             })
         }
         labels = {
-            'donor_name': 'Sunanka',
-            'donor_email': 'Imel',
-            'donor_phone': 'Lambar Wayarka',
-            'amount': 'Yawan Kudi (₦)',
-            'purpose': 'Dalili',
-            'notes': 'Bayani (Na zaɓi)',
-            'payment_method': 'Hanyar Biya'
+            'donor_name': _('Full Name'),
+            'donor_email': _('Email'),
+            'donor_phone': _('Phone Number'),
+            'amount': _('Amount (₦)'),
+            'purpose': _('Purpose'),
+            'notes': _('Notes (Optional)'),
+            'payment_method': _('Payment Method')
         }
 
 class CardPaymentForm(forms.Form):
     card_number = forms.CharField(
+        label=_('Card Number'),
         max_length=19,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -64,6 +66,7 @@ class CardPaymentForm(forms.Form):
         })
     )
     expiry_date = forms.CharField(
+        label=_('Expiry Date'),
         max_length=5,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -71,6 +74,7 @@ class CardPaymentForm(forms.Form):
         })
     )
     cvv = forms.CharField(
+        label=_('CVV'),
         max_length=3,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -78,9 +82,10 @@ class CardPaymentForm(forms.Form):
         })
     )
     card_name = forms.CharField(
+        label=_('Cardholder Name'),
         max_length=255,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Sunan da ke kan kati'
+            'placeholder': _('Name as it appears on card')
         })
     )

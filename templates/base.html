@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root { --jibwis-green: #006400; --jibwis-gold: #ffd700; }
-        body { background-color: #f4f7f6; font-family: 'Inter', sans-serif; }
+        body { background-color: #f4f7f6; font-family: 'Inter', sans-serif; padding-bottom: 50px; }
         .navbar { background-color: var(--jibwis-green); border-bottom: 4px solid var(--jibwis-gold); }
         .btn-gold { background-color: var(--jibwis-gold); color: #000; fw-bold; }
         .btn-gold:hover { background-color: #e6c200; }
@@ -49,7 +49,7 @@
                         <a class="nav-link" href="{% url 'leader_directory' %}">{% trans "Directory" %}</a>
                     </li>
                     <li class="nav-item ms-lg-3">
-                        <a href="{% url 'donations:donation' %}" class="btn btn-danger btn-sm shadow-sm"><i class="bi bi-heart-fill"></i> {% trans "Donate" %}</a>
+                        <a href="{% url 'donation' %}" class="btn btn-danger btn-sm shadow-sm"><i class="bi bi-heart-fill"></i> {% trans "Donate" %}</a>
                     </li>
 
                     {% load i18n %}
@@ -57,17 +57,17 @@
                         <form action="{% url 'set_language' %}" method="post" id="langForm">
                             {% csrf_token %}
                             <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                            
-                            <button class="btn btn-outline-success dropdown-toggle btn-sm rounded-pill px-3" 
+
+                            <button class="btn btn-outline-success dropdown-toggle btn-sm rounded-pill px-3"
                                     type="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-translate me-1"></i> 
+                                <i class="bi bi-translate me-1"></i>
                                 {% get_current_language as CURRENT_LANG %}
                                 {% if CURRENT_LANG == 'ha' %}Hausa
                                 {% elif CURRENT_LANG == 'ar' %}العربية
                                 {% elif CURRENT_LANG == 'fr' %}Français
                                 {% else %}English{% endif %}
                             </button>
-                            
+
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                 <li><button name="language" value="ha" type="submit" class="dropdown-item">Hausa</button></li>
                                 <li><button name="language" value="en" type="submit" class="dropdown-item">English</button></li>

@@ -1,62 +1,63 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-6">
-            <div class="card shadow">
+            <div class="card shadow border-0">
                 <div class="card-body text-center py-5">
                     <div class="mb-4">
                         <i class="fas fa-clock fa-5x text-warning"></i>
                     </div>
                     
-                    <h1 class="display-4 text-warning mb-3">Biyan Kuɗi Yana Jira</h1>
-                    <h3 class="text-muted mb-4">Muna jiran tabbatar da biyan kuɗin ku</h3>
+                    <h1 class="display-5 text-warning mb-3">{% trans "Payment Pending" %}</h1>
+                    <h5 class="text-muted mb-4">{% trans "We are waiting to confirm your contribution" %}</h5>
                     
-                    <div class="card mb-4">
+                    <div class="card mb-4 bg-light border-0">
                         <div class="card-body">
                             <div class="row text-start">
-                                <div class="col-6">
-                                    <strong>Sunanka:</strong><br>
-                                    <strong>Adadin:</strong><br>
-                                    <strong>Hanyar Biya:</strong><br>
-                                    <strong>Lambar Tabbatarwa:</strong><br>
-                                    <strong>Kwanan wata:</strong>
+                                <div class="col-6 text-muted">
+                                    {% trans "Donor Name:" %}<br>
+                                    {% trans "Amount:" %}<br>
+                                    {% trans "Payment Method:" %}<br>
+                                    {% trans "Reference Number:" %}<br>
+                                    {% trans "Date:" %}
                                 </div>
                                 <div class="col-6">
-                                    {{ donation.donor_name }}<br>
-                                    <span class="h5 text-primary">₦{{ donation.amount }}</span><br>
+                                    <strong>{{ donation.donor_name }}</strong><br>
+                                    <span class="fw-bold text-primary">₦{{ donation.amount }}</span><br>
                                     {{ donation.get_payment_method_display }}<br>
-                                    <code>{{ donation.reference }}</code><br>
+                                    <code class="text-dark">{{ donation.reference }}</code><br>
                                     {{ donation.created_at|date:"M d, Y" }}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="alert alert-info">
-                        <h6><i class="fas fa-info-circle me-2"></i>Abin da zai biyo baya:</h6>
-                        <ul class="mb-0 text-start">
-                            <li>Za mu duba asusun banki don biyan kuɗin ku</li>
-                            <li>Wannan na iya ɗaukar sa'o'i 24</li>
-                            <li>Za mu aika da imel ɗin tabbatarwa da zarar an gama biyan kuɗi</li>
-                            <li>Idan ba a tabbatar da biyan kuɗi ba cikin kwanaki 2, tuntubi mu</li>
+                    <div class="alert alert-info border-0 shadow-sm">
+                        <h6 class="fw-bold text-start"><i class="fas fa-info-circle me-2"></i>{% trans "What happens next?" %}</h6>
+                        <ul class="mb-0 text-start small">
+                            <li>{% trans "We will verify the bank records for your payment." %}</li>
+                            <li>{% trans "This process may take up to 24 hours." %}</li>
+                            <li>{% trans "You will receive a confirmation email once the status is updated." %}</li>
+                            <li>{% trans "If not confirmed within 2 days, please contact our support." %}</li>
                         </ul>
                     </div>
 
-                    <div class="d-grid gap-2 d-md-block">
-                        <a href="{% url 'donation' %}" class="btn btn-primary btn-lg me-md-2">
-                            <i class="fas fa-donate me-2"></i>Yi Ɗon Taimako
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{% url 'donation' %}" class="btn btn-primary btn-lg px-4">
+                            <i class="fas fa-donate me-2"></i>{% trans "Make Another Contribution" %}
                         </a>
-                        <a href="{% url 'payment_status' donation.reference %}" class="btn btn-outline-info btn-lg">
-                            <i class="fas fa-sync me-2"></i>Duba Matsayi
+                        <a href="{% url 'payment_status' donation.reference %}" class="btn btn-outline-info btn-lg px-4">
+                            <i class="fas fa-sync me-2"></i>{% trans "Check Status" %}
                         </a>
                     </div>
 
                     <div class="mt-4">
-                        <p class="text-muted">
-                            Don tambayoyi, tuntubi mu a<br>
-                            <strong>+234 7065420214</strong> ko <strong>info@techtrail.com</strong>
+                        <p class="text-muted small">
+                            {% trans "For inquiries, contact us at" %}<br>
+                            <strong>+234 7065420214</strong> {% trans "or" %} <strong>info@techtrail.com</strong>
                         </p>
                     </div>
                 </div>
@@ -66,9 +67,9 @@
 </div>
 
 <script>
-// Auto-check status every 30 seconds
+// Auto-check status every 30 seconds to provide a seamless experience
 setTimeout(function() {
-    window.location.href = "{% url 'payment_status' donation.reference %}";
+    window.location.reload(); 
 }, 30000);
 </script>
 {% endblock %}

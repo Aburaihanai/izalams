@@ -1,8 +1,7 @@
 import os
 from pathlib import Path
-import os
-from pathlib import Path
 from dotenv import load_dotenv
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,8 +28,8 @@ USE_L10N = True
 
 # --- SECURITY SETTINGS ---
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG') == 'True'
-ALLOWED_HOSTS = ['Aburaihanai.pythonanywhere.com'] 
+DEBUG = os.getenv('DEBUG') == 'False'
+ALLOWED_HOSTS = ['Aburaihanai.pythonanywhere.com']
 
 # --- APPLICATION DEFINITION ---
 INSTALLED_APPS = [
@@ -42,7 +41,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'donations',
+    'axes',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Configure the lockout behavior
+AXES_FAILURE_LIMIT = 5
+AXES_LOCKOUT_CALLABLE = None
+AXES_LOCKOUT_URL = reverse_lazy('password_reset')  # Redirect here after 5 fails
+AXES_RESET_ON_SUCCESS = True
+AXES_COOLOFF_TIME = 0.05  # Time in hours
+AXES_STRATEGY = 'axes.strategies.UsernameStrategy'
+AXES_IP_LOOKUP_PARAMETERS = ['HTTP_X_FORWARDED_FOR']
+AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
+AXES_ONLY_USER_FAILURES = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware'
 ]
 
 ROOT_URLCONF = 'izalams.urls'
@@ -89,6 +106,7 @@ DATABASES = {
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'landing'
 LOGIN_URL = 'login'
+PASSWORD_RESET_COMPLETE_URL = 'login'
 
 # --- PASSWORD VALIDATION ---
 AUTH_PASSWORD_VALIDATORS = [
@@ -109,7 +127,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # This handles your Image Gallery and TikTok Videos
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = '/home/Aburaihanai/izalams/izalams/media'
 
 
 
@@ -131,7 +149,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = 'JIBWIS Admin <staisha23@gmail.com>'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Use the variables
 

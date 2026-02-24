@@ -5,21 +5,24 @@ from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.utils.translation import gettext as _
-from django.contrib.auth import login as auth_login
 import csv
 import requests
-from django.conf import settings
-
+from axes.utils import reset
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import PasswordResetView
+from axes.models import AccessAttempt
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.db.models import Sum
 # Import all your models
 from .models import (
-    User, Profile, OrganizationUnit, Message, 
+    User, Profile, OrganizationUnit,
     VideoPost, PayrollRecord, Announcement, NewsUpdate, GalleryImage
 )
 
 # Import all your forms
 from .forms import (
-    RegistrationForm, ProfileForm, VideoUploadForm, 
-    MessageForm, ApprovedOnlyLoginForm
+    RegistrationForm, ProfileForm, VideoUploadForm,
+    MessageForm
 )
 
 # --- 1. PUBLIC VIEWS ---
@@ -30,7 +33,7 @@ def landing_page(request):
     news = NewsUpdate.objects.all()[:3]
     videos = VideoPost.objects.all().order_by('-created_at')[:4]
     gallery = GalleryImage.objects.all()[:6]
-    
+
     return render(request, 'landing.html', {
         'announcements': announcements,
         'news': news,
@@ -43,29 +46,71 @@ def register(request):
     if request.method == 'POST':
         user_form = RegistrationForm(request.POST)
         profile_form = ProfileForm(request.POST)
-        
+
         if user_form.is_valid() and profile_form.is_valid():
             # Save User
             user = user_form.save(commit=False)
             user.set_password(user_form.cleaned_data['password'])
             user.save()
-            
+
             # Save Profile linked to User
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.is_active = False # Requires admin approval
             profile.save()
-            
+
             messages.success(request, _("Registration successful! Your branch leader must activate your account before you can login."))
             return redirect('login')
     else:
         user_form = RegistrationForm()
         profile_form = ProfileForm()
-    
+
     return render(request, 'accounts/register.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Standard IP lookup
+        x_fwd = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        ip = x_fwd.split(',')[0] if x_fwd else self.request.META.get('REMOTE_ADDR')
+
+        # Use the correct field name found in your console
+        attempt = AccessAttempt.objects.filter(ip_address=ip).first()
+
+        # Fix: access 'failures_since_start' instead of 'failures'
+        failures = attempt.failures_since_start if attempt else 0
+
+        limit = 5
+        context['remaining_attempts'] = max(0, limit - failures)
+        context['show_warning'] = failures > 0
+        context['lockout_expires'] = attempt.expiration if attempt else None
+        return context
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'password_reset.html'
+
+    def form_valid(self, form):
+        # Pass the request directly without 'request='
+        reset(username=User.username)
+        return super().form_valid(form)
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+
+    def form_valid(self, form):
+        # 1. This actually saves the new password to the database
+        response = super().form_valid(form)
+
+        # 2. This clears the Axes lockout so the user can log in immediately
+        reset(self.request)
+
+        return response
 
 def leader_directory(request):
     """Public directory showing only verified/active leaders."""
@@ -77,14 +122,52 @@ def leader_directory(request):
 
 @login_required
 def dashboard(request):
-    """Admin/Leader overview: manage pending approvals and view stats."""
-    # Profiles awaiting activation
-    pending_profiles = Profile.objects.filter(is_active=False).select_related('user', 'unit')
-    
+    user = request.user
+
+    # 1. Handle Staff Actions (Adding Gallery/Announcements)
+    if request.method == 'POST' and user.is_staff:
+        if 'add_announcement' in request.POST:
+            content = request.POST.get('content')
+            if content:
+                Announcement.objects.create(content=content)
+            return redirect('dashboard')
+
+        if 'add_gallery' in request.POST:
+            title = request.POST.get('title')
+            image = request.FILES.get('image')
+            if image:
+                GalleryImage.objects.create(title=title, image=image)
+            return redirect('dashboard')
+
+    # 2. Safe Profile Fetching
+    # We use .filter().first() so it returns None instead of crashing if no profile exists
+    user_profile = Profile.objects.filter(user=user, is_active=True).first()
+
+    # 3. Initialize default data (empty if no profile/unit)
+    members = []
+    pending = []
+    total_spent = 0
+
+    if user_profile and user_profile.unit:
+        # Get active members for this unit
+        members = Profile.objects.filter(unit=user_profile.unit, is_active=True)
+        # Get pending members for this unit
+        pending = Profile.objects.filter(unit=user_profile.unit, is_active=False)
+        # Calculate total payouts for this unit
+        total_spent = PayrollRecord.objects.filter(
+            member__profiles__unit=user_profile.unit,
+            status='paid'
+        ).aggregate(Sum('amount'))['amount__sum'] or 0
+
+    # 4. Global Data (Announcements for the ticker)
+    announcements = Announcement.objects.filter(is_active=True).order_by('-created_at')
+
     context = {
-        'pending_profiles': pending_profiles,
-        'total_members': User.objects.count(),
-        'active_profiles_count': Profile.objects.filter(is_active=True).count(),
+        'leader_profile': user_profile, # Keep name same as your template
+        'members': members,
+        'pending': pending,
+        'total_spent': total_spent,
+        'announcements': announcements,
     }
     return render(request, 'dashboard.html', context)
 
@@ -93,18 +176,18 @@ def members_list(request):
     """The full list of users with search and category filtering."""
     query = request.GET.get('q')
     category_filter = request.GET.get('category')
-    
+
     # Capital 'U' User.objects avoids your previous AttributeError
     members = User.objects.all().prefetch_related('profiles__unit')
 
     if query:
         members = members.filter(
-            Q(first_name__icontains=query) | 
-            Q(last_name__icontains=query) | 
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
             Q(phone_number__icontains=query) |
             Q(username__icontains=query)
         )
-    
+
     if category_filter:
         members = members.filter(profiles__unit__category=category_filter)
 
@@ -138,12 +221,12 @@ def export_members_excel(request):
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "JIBWIS Directory"
-    
+
     ws.append([_("Username"), _("Full Name"), _("Phone"), _("Bank Code"), _("Account No")])
-    
+
     for u in User.objects.all():
         ws.append([u.username, u.get_full_name(), u.phone_number, u.bank_code, u.account_number])
-    
+
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=JIBWIS_Export.xlsx'
     wb.save(response)
@@ -208,13 +291,13 @@ def delete_account(request):
     return render(request, 'accounts/confirm_delete.html')
 
 # Payment Stubs (Integration points)
-def initiate_payment(request, member_id): 
+def initiate_payment(request, member_id):
     return HttpResponse("Redirecting to Gateway...")
-def verify_payment(request): 
+def verify_payment(request):
     return JsonResponse({'status': 'pending'})
-def bulk_payroll(request): 
+def bulk_payroll(request):
     return HttpResponse("Processing Bulk Transfers...")
-def payment_receipt(request, reference): 
+def payment_receipt(request, reference):
     return render(request, 'receipt_pdf.html', {'ref': reference})
 
 @login_required
@@ -243,7 +326,7 @@ def export_payroll_csv(request):
 def verify_bank_account(request):
     bank_code = request.GET.get('bank_code')
     account_number = request.GET.get('account_number')
-    
+
     if not bank_code or not account_number:
         return JsonResponse({'error': 'Missing data'}, status=400)
 
@@ -256,7 +339,7 @@ def verify_bank_account(request):
     try:
         response = requests.get(url, headers=headers, timeout=10)
         data = response.json()
-        
+
         if data.get('status'):
             # Paystack returns account_name inside the 'data' object
             return JsonResponse({'account_name': data['data']['account_name']})
@@ -268,7 +351,7 @@ def verify_bank_account(request):
 @login_required
 def member_search(request):
     """
-    Advanced filtering for members based on User details and 
+    Advanced filtering for members based on User details and
     OrganizationUnit categories/levels.
     """
     query = request.GET.get('q', '')
@@ -281,8 +364,8 @@ def member_search(request):
     # 1. Text Search (Name, Phone, Email)
     if query:
         results = results.filter(
-            Q(first_name__icontains=query) | 
-            Q(last_name__icontains=query) | 
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
             Q(phone_number__icontains=query) |
             Q(email__icontains=query)
         )
@@ -306,5 +389,5 @@ def member_search(request):
         'categories': OrganizationUnit.CATEGORY_CHOICES,
         'levels': OrganizationUnit.LEVEL_CHOICES,
     }
-    
+
     return render(request, 'accounts/search.html', context)

@@ -13,7 +13,7 @@ class ApprovedOnlyLoginForm(AuthenticationForm):
                 "Your account is pending approval. Please wait for your superior to activate your profile.",
                 code='inactive',
             )
-            
+
 class VideoUploadForm(forms.ModelForm):
     class Meta:
         model = VideoPost
@@ -42,8 +42,36 @@ class ProfileForm(forms.ModelForm):
             'unit': 'Assigned Unit (Branch/Level)',
             'position': 'Your Official Title'
         }
-        
+
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['subject', 'body']
+
+from .models import GalleryImage
+
+class GalleryForm(forms.ModelForm):
+    class Meta:
+        model = GalleryImage
+        fields = ['title', 'image', 'order']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter image title'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'order': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+from .models import Announcement
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcement
+        fields = ['content', 'is_active']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Write your announcement here...'
+            }),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="container py-5">
@@ -7,7 +8,7 @@
         <div class="col-lg-8">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><i class="fas fa-donate me-2"></i>Sanya Zakkah/Sadaqa</h3>
+                    <h3 class="mb-0"><i class="fas fa-donate me-2"></i>{% trans "Contribute Zakat/Sadaqah" %}</h3>
                 </div>
                 <div class="card-body">
                     {% if messages %}
@@ -24,7 +25,7 @@
                         
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <h5 class="section-title">Bayanan Mai Taimakawa</h5>
+                                <h5 class="section-title">{% trans "Donor Information" %}</h5>
                                 
                                 <div class="mb-3">
                                     <label for="{{ form.donor_name.id_for_label }}" class="form-label">{{ form.donor_name.label }}</label>
@@ -52,7 +53,7 @@
                             </div>
                             
                             <div class="col-md-6">
-                                <h5 class="section-title">Bayanan Taimako</h5>
+                                <h5 class="section-title">{% trans "Contribution Details" %}</h5>
                                 
                                 <div class="mb-3">
                                     <label for="{{ form.amount.id_for_label }}" class="form-label">{{ form.amount.label }}</label>
@@ -63,7 +64,7 @@
                                     {% if form.amount.errors %}
                                         <div class="text-danger small">{{ form.amount.errors }}</div>
                                     {% endif %}
-                                    <div class="form-text">Ƙaramin adadin shine ₦100</div>
+                                    <div class="form-text">{% trans "Minimum amount is ₦100" %}</div>
                                 </div>
                                 
                                 <div class="mb-3">
@@ -86,7 +87,7 @@
 
                         <div class="row mb-4">
                             <div class="col-12">
-                                <h5 class="section-title">Hanyan Taimako</h5>
+                                <h5 class="section-title">{% trans "Payment Method" %}</h5>
                                 
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
@@ -98,8 +99,8 @@
                                                 <label class="form-check-label d-flex align-items-center" for="payment_card">
                                                     <i class="fas fa-credit-card payment-icon"></i>
                                                     <div>
-                                                        <h6 class="mb-1">Katin Biya</h6>
-                                                        <p class="mb-0 text-muted">Yi amfani da katin ku na banki</p>
+                                                        <h6 class="mb-1">{% trans "Card Payment" %}</h6>
+                                                        <p class="mb-0 text-muted">{% trans "Use your bank debit/credit card" %}</p>
                                                     </div>
                                                 </label>
                                             </div>
@@ -115,8 +116,8 @@
                                                 <label class="form-check-label d-flex align-items-center" for="payment_transfer">
                                                     <i class="fas fa-university payment-icon"></i>
                                                     <div>
-                                                        <h6 class="mb-1">Tura Kudi</h6>
-                                                        <p class="mb-0 text-muted">Yi amfani da tura kudi ta banki</p>
+                                                        <h6 class="mb-1">{% trans "Bank Transfer" %}</h6>
+                                                        <p class="mb-0 text-muted">{% trans "Transfer directly from your bank app" %}</p>
                                                     </div>
                                                 </label>
                                             </div>
@@ -128,7 +129,7 @@
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-lg px-5">
-                                <i class="fas fa-paper-plane me-2"></i>Tafi Kai Tsaye Don Taimakawa
+                                <i class="fas fa-paper-plane me-2"></i>{% trans "Proceed to Contribute" %}
                             </button>
                         </div>
                     </form>
@@ -156,7 +157,7 @@
 }
 .payment-icon {
     font-size: 24px;
-    margin-right: 10px;
+    margin-right: 15px;
     color: #0d6efd;
 }
 .section-title {
@@ -164,10 +165,6 @@
     border-bottom: 2px solid #e9ecef;
     padding-bottom: 10px;
     margin-bottom: 20px;
-}
-.amount-input {
-    font-size: 18px;
-    font-weight: 600;
 }
 </style>
 
@@ -177,32 +174,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     paymentOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Remove selected class from all options
             paymentOptions.forEach(opt => opt.classList.remove('selected'));
-            
-            // Add selected class to clicked option
             this.classList.add('selected');
-            
-            // Check the radio button inside this option
             const radio = this.querySelector('input[type="radio"]');
             radio.checked = true;
         });
     });
     
-    // Form validation
     const form = document.getElementById('donationForm');
     form.addEventListener('submit', function(e) {
-        const amount = parseFloat(document.getElementById('id_amount').value);
+        const amountField = document.querySelector('input[name="amount"]');
+        const amount = parseFloat(amountField.value);
+        
         if (amount < 100) {
             e.preventDefault();
-            alert('Minimum donation amount is ₦100');
+            // Note: These alerts are hardcoded in JS. 
+            // In a production app, you might want to use a hidden div with translated text.
+            alert("{% trans 'Minimum donation amount is ₦100' %}");
             return;
         }
         
         const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
         if (!paymentMethod) {
             e.preventDefault();
-            alert('Please select a payment method');
+            alert("{% trans 'Please select a payment method' %}");
             return;
         }
     });

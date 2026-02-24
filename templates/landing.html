@@ -79,7 +79,63 @@
         0% { transform: translate3d(0, 0, 0); }
         100% { transform: translate3d(-100%, 0, 0); }
     }
+    /* 1. Make the container stay at the BOTTOM of the screen */
+    .sticky-ticker-container {
+        position: fixed;
+        bottom: 0; /* Change to 'top: 0' if you prefer it at the very top */
+        left: 0;
+        width: 100%;
+        z-index: 1050; /* Ensures it stays above all other content */
+        border-top: 2px solid #dc3545; /* Adds a nice red accent line */
+    }
+
+    /* 2. The Sliding Animation */
+    .landing-ticker-move {
+        display: inline-block;
+        white-space: nowrap;
+        padding-left: 100%;
+        animation: landingMarquee 40s linear infinite; /* 40s is smoother for long text */
+    }
+
+    /* Pause on hover so people can actually read the news */
+    .landing-ticker-move:hover {
+        animation-play-state: paused;
+        cursor: pointer;
+    }
+
+    @keyframes landingMarquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* 3. Mobile Adjustments */
+    @media (max-width: 768px) {
+        .sticky-ticker-container {
+            height: 40px; /* Slightly slimmer on mobile */
+        }
+        .landing-ticker-move {
+            animation-duration: 25s; /* Moves slightly faster on small screens to keep interest */
+            font-size: 0.85rem;
+        }
+    }
 </style>
+<div class="sticky-ticker-container shadow-lg">
+    <div class="d-flex align-items-center bg-dark overflow-hidden" style="height: 45px;">
+        <div class="bg-danger text-white px-3 py-2 fw-bold small text-uppercase h-100 d-flex align-items-center" style="z-index: 10; position: relative; box-shadow: 5px 0 15px rgba(0,0,0,0.3);">
+            {% trans "Updates" %}
+        </div>
+
+        <div class="flex-grow-1 position-relative overflow-hidden">
+            <div class="landing-ticker-move text-white">
+                {% for a in announcements %}
+                    <span class="mx-4 fw-medium"><i class="bi bi-megaphone-fill me-2 text-warning"></i>{{ a.content }}</span>
+                {% empty %}
+                    <span class="mx-4">{% trans "Welcome to our official portal. Stay tuned for live updates." %}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 <div id="mainGallery" class="carousel slide carousel-fade mb-5 shadow" data-bs-ride="carousel">
     <div class="carousel-inner" style="border-radius: 15px; height: 400px;">
         {% for item in gallery %}
@@ -152,15 +208,7 @@
                 <p><i class="bi bi-telephone-fill"></i> +234 800 JIBWIS HQ</p>
                 <p><i class="bi bi-envelope-fill"></i> info@jibwiskdnigeria.org</p>
             </div>
-            <div class="col-md-8">
-                <iframe 
-                    width="100%" 
-                    height="400" 
-                    frameborder="0" 
-                    style="border:0" 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15715.766345634!2d8.8916!3d9.9306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10890f0000000001%3A0x0!2zSm9z!5e0!3m2!1sen!2sng!4v1700000000000" 
-                    allowfullscreen>
-                </iframe>
+            <div class="embed-map-fixed"><div class="embed-map-container"><iframe class="embed-map-frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&height=400&hl=en&q=JIBWIS%20HQ%20ABUJA&t=h&z=9&ie=UTF8&iwloc=B&output=embed"></iframe><a href="https://funclicker.org" style="font-size:2px!important;color:gray!important;position:absolute;bottom:0;left:0;z-index:1;max-height:1px;overflow:hidden">Fun Clicker</a></div><style>.embed-map-fixed{position:relative;text-align:right;width:600px;height:400px;}.embed-map-container{overflow:hidden;background:none!important;width:600px;height:400px;}.embed-map-frame{width:600px!important;height:400px!important;}</style>
             </div>
         </div>
     </div>
@@ -187,7 +235,7 @@
             </div>
             {% endfor %}
         </div>
-        
+
         <section class="py-5 bg-light">
             <div class="container">
                 <h2 class="text-center fw-bold text-success mb-5">{% trans "JIBWIS Media Updates" %}</h2>
@@ -196,8 +244,8 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
                             <div class="ratio ratio-16x9">
-                                <video controls 
-                                    {% if video.thumbnail %} poster="{{ video.thumbnail.url }}" {% endif %} 
+                                <video controls
+                                    {% if video.thumbnail %} poster="{{ video.thumbnail.url }}" {% endif %}
                                     class="rounded-top">
                                     <source src="{{ video.video_file.url }}" type="video/mp4">
                                 </video>
@@ -205,7 +253,7 @@
 
                             <div class="card-body">
                                 <h6 class="fw-bold mb-3">{{ video.title }}</h6>
-                                
+
                                 <div class="d-flex justify-content-between align-items-center border-top pt-3">
                                     <div class="d-flex gap-3">
                                         <button class="btn btn-link text-decoration-none p-0 text-dark like-btn" data-id="{{ video.id }}">
@@ -236,7 +284,7 @@
     <div class="text-muted small">
         <i class="bi bi-eye me-1"></i> {{ video.views_count }}
     </div>
-    
+
     <button class="btn btn-link text-decoration-none p-0 text-dark like-btn" data-id="{{ video.id }}">
         <i class="bi bi-heart{% if user in video.likes.all %}-fill text-danger{% endif %}"></i>
         <small>{{ video.total_likes }}</small>
@@ -248,7 +296,7 @@
 document.querySelectorAll('video').forEach(videoElement => {
     videoElement.addEventListener('play', function() {
         const videoId = this.closest('.card').querySelector('.like-btn').dataset.id;
-        
+
         fetch(`/video/view/${videoId}/`, {
             method: 'POST',
             headers: {

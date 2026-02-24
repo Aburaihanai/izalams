@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JIBWIS MS 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 19:25+0100\n"
-"PO-Revision-Date: 2026-02-14 19:30+0100\n"
+"POT-Creation-Date: 2026-02-22 16:37+0100\n"
+"PO-Revision-Date: 2026-02-22 17:00+0100\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -18,675 +18,1233 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: .\izalams\settings.py:11
-msgid "English"
-msgstr "الإنجليزية"
-
-#: .\izalams\settings.py:12
-msgid "Hausa"
-msgstr "الهوسا"
-
-#: .\izalams\settings.py:13
-msgid "Arabic"
-msgstr "العربية"
-
-#: .\izalams\settings.py:14
-msgid "French"
-msgstr "الفرنسية"
-
-#: .\templates\accounts\confirm_delete.html:2
-msgid "Warning: Delete Account"
-msgstr "تحذير: حذف الحساب"
-
-#: .\templates\accounts\confirm_delete.html:3
+#: accounts/views.py:62
 msgid ""
-"Are you sure you want to delete your JIBWIS profile? This action cannot be "
-"undone."
-msgstr "هل أنت متأكد أنك تريد حذف ملف تعريف جماعة إزالة البدعة الخاص بك؟ لا يمكن التراجع عن هذا الإجراء."
-
-#: .\templates\accounts\confirm_delete.html:6
-msgid "Yes, Delete My Account"
-msgstr "نعم، احذف حسابي"
-
-#: .\templates\accounts\confirm_delete.html:7
-#: .\templates\accounts\send_message.html:9
-#: .\templates\accounts\update_username.html:19
-msgid "Cancel"
-msgstr "إلغاء"
-
-#: .\templates\accounts\login.html:2
-msgid "Portal Login"
-msgstr "تسجيل الدخول إلى البوابة"
-
-#: .\templates\accounts\login.html:6 .\templates\base.html:44
-msgid "Login"
-msgstr "تسجيل الدخول"
-
-#: .\templates\accounts\login.html:8 .\templates\login.html:36
-msgid "Forgot Password?"
-msgstr "هل نسيت كلمة السر؟"
-
-#: .\templates\accounts\register.html:108
-msgid "Could not verify account. Please check details."
-msgstr "تعذر التحقق من الحساب. يرجى التحقق من التفاصيل."
-
-#: .\templates\accounts\search.html:8
-msgid "← Back"
-msgstr "← العودة"
-
-#: .\templates\accounts\search.html:9 .\templates\base.html:37
-msgid "Dashboard"
-msgstr "لوحة التحكم"
-
-#: .\templates\accounts\search.html:14
-msgid "Filter By Category"
-msgstr "تصفية حسب الفئة"
-
-#: .\templates\accounts\search.html:19
-msgid "All Categories"
-msgstr "جميع الفئات"
-
-#: .\templates\accounts\search.html:20 .\templates\landing.html:126
-msgid "Administration"
-msgstr "الإدارة"
-
-#: .\templates\accounts\search.html:21 .\templates\landing.html:133
-msgid "Council of Ulama"
-msgstr "مجلس العلماء"
-
-#: .\templates\accounts\search.html:22
-msgid "First Aid Group (FAG)"
-msgstr "جماعة الإسعاف الأولية"
-
-#: .\templates\accounts\search.html:25
-msgid "Apply Filter"
-msgstr "تطبيق التصفية"
-
-#: .\templates\accounts\search.html:36
-msgid "Search by name, phone, or education..."
-msgstr "البحث بالاسم أو الهاتف أو المؤهل التعليمي..."
-
-#: .\templates\accounts\search.html:39
-msgid "Search"
-msgstr "بحث"
-
-#: .\templates\accounts\search.html:68
-msgid "Message"
-msgstr "رسالة"
-
-#: .\templates\accounts\search.html:71
-msgid "Pay"
-msgstr "دفع"
-
-#: .\templates\accounts\search.html:88
-msgid "Enter Amount (₦)"
-msgstr "أدخل المبلغ (₦)"
-
-#: .\templates\accounts\search.html:89
-msgid "e.g. 5000"
-msgstr "مثال: 5000"
-
-#: .\templates\accounts\search.html:92
-msgid "Initiate Payroll Transfer"
-msgstr "بدء تحويل الرواتب"
-
-#: .\templates\accounts\search.html:102
-msgid "No members found matching your criteria."
-msgstr "لم يتم العثور على أعضاء يطابقون معايير البحث."
-
-#: .\templates\accounts\send_message.html:8
-msgid "New Official Memo"
-msgstr "مذكرة رسمية جديدة"
-
-#: .\templates\accounts\send_message.html:15
-msgid "Recipient"
-msgstr "المستلم"
-
-#: .\templates\accounts\send_message.html:24
-msgid "Subject"
-msgstr "الموضوع"
-
-#: .\templates\accounts\send_message.html:25
-msgid "Enter memo title..."
-msgstr "أدخل عنوان المذكرة..."
-
-#: .\templates\accounts\send_message.html:28
-msgid "Message Body"
-msgstr "نص الرسالة"
-
-#: .\templates\accounts\send_message.html:29
-msgid "Type your message here..."
-msgstr "اكتب رسالتك هنا..."
-
-#: .\templates\accounts\send_message.html:32
-msgid "Send Message"
-msgstr "إرسال الرسالة"
-
-#: .\templates\accounts\update_username.html:8
-msgid "Change Username"
-msgstr "تغيير اسم المستخدم"
-
-#: .\templates\accounts\update_username.html:14
-msgid "Current Username:"
-msgstr "اسم المستخدم الحالي:"
-
-#: .\templates\accounts\update_username.html:18
-msgid "Update Username"
-msgstr "تحديث اسم المستخدم"
-
-#: .\templates\base.html:8
-msgid "JIBWIS Nigeria Portal"
-msgstr "بوابة جماعة إزالة البدعة - نيجيريا"
-
-#: .\templates\base.html:28
-msgid "PORTAL"
-msgstr "البوابة"
-
-#: .\templates\base.html:35
-msgid "Home"
-msgstr "الرئيسية"
-
-#: .\templates\base.html:40 .\templates\dashboard.html:42
-msgid "Logout"
-msgstr "تسجيل الخروج"
-
-#: .\templates\base.html:45
-msgid "Join Us"
-msgstr "انضم إلينا"
-
-#: .\templates\base.html:48
-msgid "Directory"
-msgstr "الدليل"
-
-#: .\templates\base.html:51
-msgid "Donate"
-msgstr "تبرع"
-
-#: .\templates\base.html:98
-msgid "Nigeria National Headquarters"
-msgstr "المقر الوطني العام - نيجيريا"
-
-#: .\templates\base.html:99
-msgid "Digital Management System | Developed for JIBWIS Nigeria"
-msgstr "نظام الإدارة الرقمي | تم تطويره لجماعة إزالة البدعة نيجيريا"
-
-#: .\templates\dashboard.html:21
-msgid "Home Page"
-msgstr "الصفحة الرئيسية"
-
-#: .\templates\dashboard.html:22
-msgid "Go Back"
-msgstr "رجوع"
-
-#: .\templates\dashboard.html:29
-msgid "Main Menu"
-msgstr "القائمة الرئيسية"
-
-#: .\templates\dashboard.html:31
-msgid "Search Members"
-msgstr "البحث عن الأعضاء"
-
-#: .\templates\dashboard.html:34
-msgid "Payroll History"
-msgstr "تاريخ الرواتب"
-
-#: .\templates\dashboard.html:38
-msgid "Upload Video"
-msgstr "رفع فيديو"
-
-#: .\templates\dashboard.html:54
-msgid "Active Members"
-msgstr "الأعضاء النشطون"
-
-#: .\templates\dashboard.html:65
-msgid "Pending Approval"
-msgstr "في انتظار الموافقة"
-
-#: .\templates\dashboard.html:76
-msgid "Total Payouts"
-msgstr "إجمالي المدفوعات"
-
-#: .\templates\dashboard.html:81
-msgid "Download CSV"
-msgstr "تحميل ملف CSV"
-
-#: .\templates\dashboard.html:89
-msgid "Awaiting Your Confirmation"
-msgstr "في انتظار تأكيدك"
-
-#: .\templates\dashboard.html:95
-msgid "Name"
-msgstr "الاسم"
-
-#: .\templates\dashboard.html:96
-msgid "Unit"
-msgstr "الوحدة"
-
-#: .\templates\dashboard.html:97 .\templates\pending_approval.html:13
-msgid "Action"
-msgstr "إجراء"
-
-#: .\templates\dashboard.html:111
-msgid "Review Details"
-msgstr "مراجعة التفاصيل"
-
-#: .\templates\dashboard.html:118
-msgid "Member Profile"
-msgstr "ملف العضو"
-
-#: .\templates\dashboard.html:132 .\templates\pending_approval.html:48
-msgid "Education:"
-msgstr "التعليم:"
-
-#: .\templates\dashboard.html:144
-msgid "Account No:"
-msgstr "رقم الحساب:"
-
-#: .\templates\dashboard.html:152
-msgid "Approve Membership"
-msgstr "الموافقة على العضوية"
-
-#: .\templates\dashboard.html:153
-msgid "Close Panel"
-msgstr "إغلاق اللوحة"
-
-#: .\templates\dashboard.html:167
-msgid "Verified Payroll List"
-msgstr "قائمة الرواتب المعتمدة"
-
-#: .\templates\dashboard.html:168
-msgid "Moniepoint Integrated"
-msgstr "متكامل مع Moniepoint"
-
-#: .\templates\dashboard.html:178
-msgid "Official"
-msgstr "مسؤول"
-
-#: .\templates\dashboard.html:179
-msgid "Bank / Account"
-msgstr "البنك / الحساب"
-
-#: .\templates\dashboard.html:180
-msgid "Amount (₦)"
-msgstr "المبلغ (₦)"
-
-#: .\templates\dashboard.html:205
-msgid "Total to Disburse:"
-msgstr "إجمالي المراد صرفه:"
-
-#: .\templates\dashboard.html:214
-msgid "Execute Disbursement"
-msgstr "تنفيذ الصرف"
-
-#: .\templates\dashboard.html:223
-msgid "Final Confirmation"
-msgstr "التأكيد النهائي"
-
-#: .\templates\dashboard.html:224
-msgid ""
-"You are about to process bulk payments. This action will initiate bank "
-"transfers and cannot be reversed."
-msgstr "أنت على وشك معالجة دفعات جماعية. سيؤدي هذا الإجراء إلى بدء تحويلات بنكية ولا يمكن التراجع عنها."
-
-#: .\templates\dashboard.html:226
-msgid "Yes, Process Now"
-msgstr "نعم، قم بالمعالجة الآن"
-
-#: .\templates\dashboard.html:227
-msgid "Cancel and Go Back"
-msgstr "إلغاء والرجوع"
-
-#: .\templates\dashboard.html:239
-msgid "Organizational News"
-msgstr "أخبار المؤسسة"
-
-#: .\templates\landing.html:114
-msgid "JIBWIS Digital Portal"
-msgstr "بوابة جماعة إزالة البدعة الرقمية"
-
-#: .\templates\landing.html:115
-msgid "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG"
-msgstr "توحيد أهل السنة في نيجيريا: الإدارة • العلماء • جماعة الإسعاف"
-
-#: .\templates\landing.html:117
-msgid "Join Now"
-msgstr "انضم الآن"
-
-#: .\templates\landing.html:127
-msgid "National to Ward level leadership coordination."
-msgstr "تنسيق القيادة من المستوى الوطني إلى مستوى الدائرة."
-
-#: .\templates\landing.html:134
-msgid "Management of scholars and educational backgrounds."
-msgstr "إدارة العلماء والمؤهلات التعليمية."
-
-#: .\templates\landing.html:140
-msgid "First Aid Group"
-msgstr "جماعة الإسعاف الأولية"
-
-#: .\templates\landing.html:141
-msgid "Divisional, Detachment, and Unit leadership."
-msgstr "القيادة على مستوى الأقسام والمفرزة والوحدات."
-
-#: .\templates\landing.html:150
-msgid "Visit Us"
-msgstr "قم بزيارتنا"
-
-#: .\templates\landing.html:151
-msgid "JIBWIS National Headquarters,"
-msgstr "المقر الوطني لجماعة إزالة البدعة،"
-
-#: .\templates\landing.html:151
-msgid "Kaduna, Kaduna State, Nigeria."
-msgstr "كادونا، ولاية كادونا، نيجيريا."
-
-#: .\templates\landing.html:171
-msgid "Latest Announcements"
-msgstr "أحدث الإعلانات"
-
-#: .\templates\landing.html:183
-msgid "Read More"
-msgstr "اقرأ المزيد"
-
-#: .\templates\landing.html:193
-msgid "JIBWIS Media Updates"
-msgstr "تحديثات إعلام جماعة إزالة البدعة"
-
-#: .\templates\landing.html:218
-msgid "Share"
-msgstr "مشاركة"
-
-#: .\templates\landing.html:223
-msgid "Download"
-msgstr "تحميل"
-
-#: .\templates\leader_directory.html:6
-msgid "Official Leader Directory"
-msgstr "دليل القادة الرسمي"
-
-#: .\templates\leader_directory.html:7
-msgid "Verified National and State Leadership of JIBWIS Nigeria"
-msgstr "القيادة الوطنية والولائية المعتمدة لجماعة إزالة البدعة نيجيريا"
-
-#: .\templates\leader_directory.html:32
-msgid "Contact Office"
-msgstr "اتصل بالمكتب"
-
-#: .\templates\leader_directory.html:39
-msgid "The directory is currently being updated. Please check back later."
-msgstr "الدليل قيد التحديث حالياً. يرجى التحقق لاحقاً."
-
-#: .\templates\login.html:19
-msgid "Leader Login"
-msgstr "دخول القادة"
-
-#: .\templates\login.html:20
-msgid "Access the JIBWIS Management Portal"
-msgstr "الدخول إلى بوابة إدارة جماعة إزالة البدعة"
-
-#: .\templates\login.html:25
+"Registration successful! Your branch leader must activate your account "
+"before you can login."
+msgstr "تم التسجيل بنجاح! يجب على رئيس الفرع تفعيل حسابك قبل أن تتمكن من تسجيل الدخول."
+
+#: accounts/views.py:174
+msgid "Account for {profile.user.get_full_name()} activated."
+msgstr "تم تفعيل حساب {profile.user.get_full_name()}."
+
+#: accounts/views.py:187 templates/login.html:38
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: .\templates\login.html:29
-msgid "Password"
-msgstr "كلمة السر"
-
-#: .\templates\login.html:33
-msgid "Login to Account"
-msgstr "تسجيل الدخول إلى الحساب"
-
-#: .\templates\login.html:41
-msgid "Not registered?"
-msgstr "غير مسجل؟"
-
-#: .\templates\login.html:41
-msgid "Apply Now"
-msgstr "قدم الآن"
-
-#: .\templates\password_reset.html:2
-msgid "Reset Your Password"
-msgstr "إعادة تعيين كلمة السر"
-
-#: .\templates\password_reset.html:3
-msgid ""
-"Enter your email address below, and we'll email instructions for setting a "
-"new one."
-msgstr "أدخل عنوان بريدك الإلكتروني أدناه، وسنرسل لك تعليمات لتعيين كلمة سر جديدة."
-
-#: .\templates\password_reset.html:7
-msgid "Send Reset Email"
-msgstr "إرسال بريد إعادة التعيين"
-
-#: .\templates\password_reset_complete.html:6
-msgid "Password Reset Complete"
-msgstr "اكتمل إعادة تعيين كلمة السر"
-
-#: .\templates\password_reset_complete.html:7
-msgid "Your new password has been set. You may go ahead and log in now."
-msgstr "تم تعيين كلمة السر الجديدة. يمكنك المتابعة وتسجيل الدخول الآن."
-
-#: .\templates\password_reset_complete.html:8
-msgid "Login to Portal"
-msgstr "دخول البوابة"
-
-#: .\templates\password_reset_confirm.html:8
-msgid "Set New Password"
-msgstr "تعيين كلمة سر جديدة"
-
-#: .\templates\password_reset_confirm.html:16
-msgid "Change My Password"
-msgstr "تغيير كلمة السر"
-
-#: .\templates\password_reset_confirm.html:21
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used. Please request a new password reset."
-msgstr "رابط إعادة تعيين كلمة السر غير صالح، ربما لأنه استُخدم بالفعل. يرجى طلب إعادة تعيين جديدة."
-
-#: .\templates\password_reset_confirm.html:23
-msgid "Request New Link"
-msgstr "طلب رابط جديد"
-
-#: .\templates\password_reset_done.html:6
-msgid "Check Your Email"
-msgstr "تحقق من بريدك الإلكتروني"
-
-#: .\templates\password_reset_done.html:7
-msgid ""
-"We've emailed you instructions for setting your password. You should receive "
-"them shortly."
-msgstr "لقد أرسلنا لك تعليمات لتعيين كلمة السر. ستصلك قريباً."
-
-#: .\templates\password_reset_done.html:8
-msgid ""
-"If you don't receive an email, please ensure you've entered the address you "
-"registered with and check your spam folder."
-msgstr "إذا لم تصلك الرسالة، يرجى التأكد من إدخال البريد الذي سجلت به والتحقق من صندوق الرسائل غير المرغوب فيها."
-
-#: .\templates\password_reset_email.html:3
-msgid ""
-"To initiate the password reset process for your JIBWIS account, click the "
-"link below:"
-msgstr "لبدء عملية إعادة تعيين كلمة السر لحساب جماعة إزالة البدعة الخاص بك، انقر على الرابط أدناه:"
-
-#: .\templates\password_reset_email.html:7
-msgid ""
-"If clicking the link doesn't work, please copy and paste the URL into your "
-"browser."
-msgstr "إذا لم يعمل الرابط، يرجى نسخ عنوان URL ولصقه في متصفحك."
-
-#: .\templates\payroll_history.html:5
-msgid "Payroll Distribution History"
-msgstr "سجل توزيع الرواتب"
-
-#: .\templates\payroll_history.html:7
-msgid "Back to Dashboard"
-msgstr "العودة إلى لوحة التحكم"
-
-#: .\templates\payroll_history.html:17
-msgid "Export PDF"
-msgstr "تصدير كـ PDF"
-
-#: .\templates\payroll_history.html:22
-msgid "Payments"
-msgstr "المدفوعات"
-
-#: .\templates\payroll_history.html:27 .\templates\payroll_history.html:53
-msgid "Member"
-msgstr "العضو"
-
-#: .\templates\payroll_history.html:28
-msgid "Account"
-msgstr "الحساب"
-
-#: .\templates\payroll_history.html:29 .\templates\payroll_history.html:55
-msgid "Reference"
-msgstr "المرجع"
-
-#: .\templates\payroll_history.html:30 .\templates\payroll_history.html:54
-#: .\templates\receipt_pdf.html:35
-msgid "Amount"
-msgstr "المبلغ"
-
-#: .\templates\payroll_history.html:52
-msgid "Date"
-msgstr "التاريخ"
-
-#: .\templates\payroll_history.html:56
-msgid "Status"
-msgstr "الحالة"
-
-#: .\templates\payroll_history.html:68
-msgid "Success"
-msgstr "نجاح"
-
-#: .\templates\payroll_history.html:70
-msgid "Pending"
-msgstr "قيد الانتظار"
-
-#: .\templates\payroll_history.html:72
-msgid "Failed"
-msgstr "فشل"
-
-#: .\templates\payroll_history.html:77
-msgid "View Receipt"
-msgstr "عرض الإيصال"
-
-#: .\templates\payroll_history.html:83
-msgid "No payroll records found."
-msgstr "لم يتم العثور على سجلات رواتب."
-
-#: .\templates\pending_approval.html:4
-msgid "Pending Member Verifications"
-msgstr "تحققات الأعضاء المعلقة"
-
-#: .\templates\pending_approval.html:10
+#: accounts/views.py:187 donations/forms.py:50
+#: templates/pending_approval.html:10
 msgid "Full Name"
 msgstr "الاسم الكامل"
 
-#: .\templates\pending_approval.html:11
-msgid "Unit/Jurisdiction"
-msgstr "الوحدة / الولاية القضائية"
+#: accounts/views.py:187
+msgid "Phone"
+msgstr "الهاتف"
 
-#: .\templates\pending_approval.html:12
-msgid "Registration Date"
-msgstr "تاريخ التسجيل"
+#: accounts/views.py:187
+msgid "Bank Code"
+msgstr "رمز البنك"
 
-#: .\templates\pending_approval.html:24
-msgid "View Profile"
-msgstr "عرض الملف الشخصي"
+#: accounts/views.py:187
+msgid "Account No"
+msgstr "رقم الحساب"
 
-#: .\templates\pending_approval.html:28
+#: accounts/views.py:215
+msgid "Official memo sent."
+msgstr "تم إرسال المذكرة الرسمية."
+
+#: accounts/views.py:227
+msgid "Video published to feed."
+msgstr "تم نشر الفيديو في الخلاصة."
+
+#: accounts/views.py:243
+msgid "Username updated."
+msgstr "تم تحديث اسم المستخدم."
+
+#: accounts/views.py:245
+msgid "Username already taken."
+msgstr "اسم المستخدم محجوز بالفعل."
+
+#: accounts/views.py:273 templates/accounts/members_list.html:49
+#: templates/accounts/search.html:96 templates/payroll_history.html:40
+msgid "Member"
+msgstr "العضو"
+
+#: accounts/views.py:273 templates/donations/donation_list.html:72
+#: templates/payroll_history.html:44 templates/receipt_pdf.html:35
+msgid "Amount"
+msgstr "المبلغ"
+
+#: accounts/views.py:273 templates/payroll_history.html:42
+msgid "Reference"
+msgstr "المرجع"
+
+#: accounts/views.py:273 templates/accounts/members_list.html:52
+#: templates/accounts/search.html:98 templates/donations/donation_list.html:74
+#: templates/payroll_history.html:43
+msgid "Status"
+msgstr "الحالة"
+
+#: accounts/views.py:273 templates/donations/donation_list.html:76
+#: templates/payroll_history.html:39
+msgid "Date"
+msgstr "التاريخ"
+
+#: donations/forms.py:20
+msgid "Enter your full name"
+msgstr "أدخل اسمك الكامل"
+
+#: donations/forms.py:24
+msgid "Enter your email address"
+msgstr "أدخل بريدك الإلكتروني"
+
+#: donations/forms.py:28
+msgid "Enter your phone number"
+msgstr "أدخل رقم هاتفك"
+
+#: donations/forms.py:38
+msgid "e.g., Zakat"
+msgstr "مثال: زكاة"
+
+#: donations/forms.py:43
+msgid "Enter any additional notes (optional)"
+msgstr "أدخل أي ملاحظات إضافية (اختياري)"
+
+#: donations/forms.py:51
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: donations/forms.py:52 templates/accounts/member_detail.html:74
+msgid "Phone Number"
+msgstr "رقم الهاتف"
+
+#: donations/forms.py:53 templates/accounts/member_detail.html:141
+#: templates/dashboard.html:179
+msgid "Amount (₦)"
+msgstr "المبلغ (₦)"
+
+#: donations/forms.py:54 templates/donations/donation_list.html:75
+msgid "Purpose"
+msgstr "الغرض"
+
+#: donations/forms.py:55
+msgid "Notes (Optional)"
+msgstr "ملاحظات (اختياري)"
+
+#: donations/forms.py:56 templates/donations/donation.html:90
+#: templates/donations/donation_form.html:90
+msgid "Payment Method"
+msgstr "طريقة الدفع"
+
+#: donations/forms.py:61 templates/donations/card_payment.html:44
+msgid "Card Number"
+msgstr "رقم البطاقة"
+
+#: donations/forms.py:69
+msgid "Expiry Date"
+msgstr "تاريخ الانتهاء"
+
+#: donations/forms.py:77 templates/donations/card_payment.html:60
+msgid "CVV"
+msgstr "رمز التحقق (CVV)"
+
+#: donations/forms.py:85
+msgid "Cardholder Name"
+msgstr "اسم صاحب البطاقة"
+
+#: donations/forms.py:89
+msgid "Name as it appears on card"
+msgstr "الاسم كما يظهر على البطاقة"
+
+#: izalams/settings.py:17
+msgid "English"
+msgstr "الإنجليزية"
+
+#: izalams/settings.py:18
+msgid "Hausa"
+msgstr "الهوسا"
+
+#: izalams/settings.py:19
+msgid "Arabic"
+msgstr "العربية"
+
+#: izalams/settings.py:20
+msgid "French"
+msgstr "الفرنسية"
+
+#: templates/accounts/confirm_delete.html:2
+msgid "Warning: Delete Account"
+msgstr "تحذير: حذف الحساب"
+
+#: templates/accounts/confirm_delete.html:3
+msgid ""
+"Are you sure you want to delete your JIBWIS profile? This action cannot be "
+"undone."
+msgstr ""
+"هل أنت متأكد أنك تريد حذف ملف تعريف جماعة إزالة البدعة الخاص بك؟ لا يمكن "
+"التراجع عن هذا الإجراء."
+
+#: templates/accounts/confirm_delete.html:6
+msgid "Yes, Delete My Account"
+msgstr "نعم، احذف حسابي"
+
+#: templates/accounts/confirm_delete.html:7
+#: templates/accounts/send_message.html:9
+#: templates/accounts/update_username.html:19 templates/dashboard.html:218
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: templates/accounts/login.html:2
+msgid "Portal Login"
+msgstr "تسجيل الدخول إلى البوابة"
+
+#: templates/accounts/login.html:6 templates/base.html:45
+#: templates/login.html:20
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: templates/accounts/login.html:8 templates/login.html:63
+msgid "Forgot Password?"
+msgstr "هل نسيت كلمة السر؟"
+
+#: templates/accounts/member_detail.html:8 templates/accounts/search.html:12
+#: templates/base.html:38 templates/payroll_history.html:18
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: templates/accounts/member_detail.html:9 templates/base.html:49
+msgid "Directory"
+msgstr "الدليل"
+
+#: templates/accounts/member_detail.html:10 templates/dashboard.html:125
+msgid "Member Profile"
+msgstr "ملف العضو"
+
+#: templates/accounts/member_detail.html:30
+msgid "No Assigned Unit"
+msgstr "لا توجد وحدة معينة"
+
+#: templates/accounts/member_detail.html:37 templates/dashboard.html:150
+msgid "Approve Membership"
+msgstr "الموافقة على العضوية"
+
+#: templates/accounts/member_detail.html:41
+msgid "Verified Official"
+msgstr "مسؤول معتمد"
+
+#: templates/accounts/member_detail.html:47
+msgid "Send Official Memo"
+msgstr "إرسال مذكرة رسمية"
+
+#: templates/accounts/member_detail.html:51
+msgid "Disburse Payroll"
+msgstr "صرف الرواتب"
+
+#: templates/accounts/member_detail.html:60
+msgid "Official Records"
+msgstr "السجلات الرسمية"
+
+#: templates/accounts/member_detail.html:66
+msgid "Official Title"
+msgstr "المسمى الوظيفي الرسمي"
+
+#: templates/accounts/member_detail.html:70
+msgid "Assigned Unit"
+msgstr "الوحدة المعينة"
+
+#: templates/accounts/member_detail.html:78
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: templates/accounts/member_detail.html:83
+msgid "Bank Institution"
+msgstr "المؤسسة المصرفية"
+
+#: templates/accounts/member_detail.html:87
+msgid "Account Details"
+msgstr "تفاصيل الحساب"
+
+#: templates/accounts/member_detail.html:94
+msgid "Payment Status"
+msgstr "حالة الدفع"
+
+#: templates/accounts/member_detail.html:97
+msgid "Validated for Disbursement"
+msgstr "تم التحقق للصرف"
+
+#: templates/accounts/member_detail.html:99
+msgid "Missing Bank Info"
+msgstr "بيانات البنك مفقودة"
+
+#: templates/accounts/member_detail.html:108
+msgid "Academic Background"
+msgstr "الخلفية الأكاديمية"
+
+#: templates/accounts/member_detail.html:115
+msgid "Print Member File"
+msgstr "طباعة ملف العضو"
+
+#: templates/accounts/member_detail.html:128
+msgid "Confirm Transfer"
+msgstr "تأكيد التحويل"
+
+#: templates/accounts/member_detail.html:134
+msgid "You are paying"
+msgstr "أنت تدفع لـ"
+
+#: templates/accounts/member_detail.html:146
+msgid "Process Transfer"
+msgstr "معالجة التحويل"
+
+#: templates/accounts/members_list.html:8
+msgid "Official Directory"
+msgstr "الدليل الرسمي"
+
+#: templates/accounts/members_list.html:9
+msgid "Manage and view all registered personnel"
+msgstr "إدارة وعرض جميع الموظفين المسجلين"
+
+#: templates/accounts/members_list.html:13 templates/accounts/search.html:87
+msgid "Export Excel"
+msgstr "تصدير Excel"
+
+#: templates/accounts/members_list.html:15
+msgid "Members Total"
+msgstr "إجمالي الأعضاء"
+
+#: templates/accounts/members_list.html:26 templates/accounts/search.html:69
+msgid "Search by name, phone, or username..."
+msgstr "البحث بالاسم، الهاتف، أو اسم المستخدم..."
+
+#: templates/accounts/members_list.html:31
+msgid "All Units (Ulama, Admin, FAG)"
+msgstr "جميع الوحدات (العلماء، الإدارة، الإسعاف)"
+
+#: templates/accounts/members_list.html:32 templates/landing.html:133
+msgid "Council of Ulama"
+msgstr "مجلس العلماء"
+
+#: templates/accounts/members_list.html:33 templates/landing.html:126
+msgid "Administration"
+msgstr "الإدارة"
+
+#: templates/accounts/members_list.html:34
+msgid "First Aid Group (FAG)"
+msgstr "جماعة الإسعاف الأولية"
+
+#: templates/accounts/members_list.html:38
+#: templates/donations/donation_list.html:46
+msgid "Filter"
+msgstr "تصفية"
+
+#: templates/accounts/members_list.html:50
+msgid "Unit / Position"
+msgstr "الوحدة / المنصب"
+
+#: templates/accounts/members_list.html:51
+msgid "Level"
+msgstr "المستوى"
+
+#: templates/accounts/members_list.html:53 templates/accounts/search.html:99
+#: templates/donations/donation_list.html:77
+msgid "Actions"
+msgstr "إجراءات"
+
+#: templates/accounts/members_list.html:79
+msgid "No Profile"
+msgstr "لا يوجد ملف تعريف"
+
+#: templates/accounts/members_list.html:93 templates/accounts/search.html:130
+msgid "Active"
+msgstr "نشط"
+
+#: templates/accounts/members_list.html:97 templates/accounts/search.html:134
+#: templates/donations/donation_list.html:24 templates/payroll_history.html:68
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: templates/accounts/members_list.html:104
+msgid "View"
+msgstr "عرض"
+
+#: templates/accounts/members_list.html:108 templates/pending_approval.html:28
 msgid "Approve"
 msgstr "موافقة"
 
-#: .\templates\pending_approval.html:43
-msgid "Phone:"
-msgstr "الهاتف:"
+#: templates/accounts/members_list.html:119
+msgid "No members found matching your search."
+msgstr "لم يتم العثور على أعضاء يطابقون بحثك."
 
-#: .\templates\pending_approval.html:44
-msgid "Bank:"
-msgstr "البنك:"
+#: templates/accounts/members_list.html:120
+msgid "Clear all filters"
+msgstr "مسح جميع الفلاتر"
 
-#: .\templates\pending_approval.html:45
-msgid "Account Name:"
-msgstr "اسم الحساب:"
+#: templates/accounts/register.html:10
+msgid "Member Registration"
+msgstr "تسجيل الأعضاء"
 
-#: .\templates\pending_approval.html:49
-msgid "Position:"
-msgstr "المنصب:"
+#: templates/accounts/register.html:11
+msgid "Join the JIBWIS Digital Management System"
+msgstr "انضم إلى نظام الإدارة الرقمي لجماعة إزالة البدعة"
 
-#: .\templates\pending_approval.html:53
-msgid "Verified via Moniepoint/Paystack:"
-msgstr "تم التحقق عبر Moniepoint/Paystack:"
+#: templates/accounts/register.html:20
+msgid "Account Information"
+msgstr "معلومات الحساب"
 
-#: .\templates\pending_approval.html:55
-msgid "Account Validated"
-msgstr "تم التحقق من الحساب"
+#: templates/accounts/register.html:38
+msgid "Organizational Role"
+msgstr "الدور التنظيمي"
 
-#: .\templates\pending_approval.html:57
-msgid "Account Not Validated"
-msgstr "لم يتم التحقق من الحساب"
+#: templates/accounts/register.html:53
+msgid "Payroll & Bank Details"
+msgstr "تفاصيل الرواتب والبنك"
 
-#: .\templates\receipt_pdf.html:6
-msgid "Print Receipt"
-msgstr "طباعة الإيصال"
+#: templates/accounts/register.html:57
+msgid "Select Bank"
+msgstr "اختر البنك"
 
-#: .\templates\receipt_pdf.html:7
+#: templates/accounts/register.html:63
+msgid "Account Number"
+msgstr "رقم الحساب"
+
+#: templates/accounts/register.html:67
+msgid "Verify"
+msgstr "تحقق"
+
+#: templates/accounts/register.html:73
+msgid "Verified Account Name"
+msgstr "اسم الحساب المعتمد"
+
+#: templates/accounts/register.html:74
+msgid "Click verify to fetch name"
+msgstr "انقر فوق تحقق لجلب الاسم"
+
+#: templates/accounts/register.html:80
+msgid "Submit Membership Request"
+msgstr "إرسال طلب العضوية"
+
+#: templates/accounts/register.html:83
+msgid "Button enables after successful bank verification."
+msgstr "يتم تفعيل الزر بعد التحقق بنجاح من البنك."
+
+#: templates/accounts/register.html:111
+msgid "Please select a bank and enter a valid 10-digit account number."
+msgstr "يرجى اختيار بنك وإدخال رقم حساب صحيح مكون من 10 أرقام."
+
+#: templates/accounts/register.html:132
+msgid "Verification failed. Please check your details."
+msgstr "فشل التحقق. يرجى مراجعة بياناتك."
+
+#: templates/accounts/search.html:10
+msgid "Navigation"
+msgstr "التنقل"
+
+#: templates/accounts/search.html:15 templates/receipt_pdf.html:7
 msgid "Back"
 msgstr "رجوع"
 
-#: .\templates\receipt_pdf.html:13
-msgid "JIBWIS NIGERIA"
-msgstr "جماعة إزالة البدعة نيجيريا"
+#: templates/accounts/search.html:20
+msgid "Filter Directory"
+msgstr "تصفية الدليل"
 
-#: .\templates\receipt_pdf.html:14
-msgid "OFFICIAL PAYMENT RECEIPT"
-msgstr "إيصال دفع رسمي"
+#: templates/accounts/search.html:25
+msgid "Category"
+msgstr "الفئة"
 
-#: .\templates\receipt_pdf.html:20
-msgid "PAYMENT TO:"
-msgstr "الدفع لـ:"
+#: templates/accounts/search.html:27
+msgid "All Categories"
+msgstr "جميع الفئات"
 
-#: .\templates\receipt_pdf.html:25
-msgid "REFERENCE:"
-msgstr "المرجع:"
+#: templates/accounts/search.html:35
+msgid "Org Level"
+msgstr "المستوى التنظيمي"
 
-#: .\templates\receipt_pdf.html:34
-msgid "Description"
-msgstr "الوصف"
+#: templates/accounts/search.html:37
+msgid "All Levels"
+msgstr "جميع المستويات"
 
-#: .\templates\receipt_pdf.html:40
-msgid "Monthly Allowance"
-msgstr "العلاوة الشهرية"
+#: templates/accounts/search.html:45
+msgid "Apply Filters"
+msgstr "تطبيق الفلاتر"
 
-#: .\templates\receipt_pdf.html:46
-msgid "Total Paid"
-msgstr "إجمالي المدفوع"
+#: templates/accounts/search.html:50
+msgid "Reset Filters"
+msgstr "إعادة ضبط الفلاتر"
 
-#: .\templates\receipt_pdf.html:54
-msgid "Authorized Electronic Signature"
-msgstr "توقيع إلكتروني مفوض"
+#: templates/accounts/search.html:73
+msgid "Search"
+msgstr "بحث"
 
-#: .\templates\receipt_pdf.html:55
-msgid "JIBWIS PORTAL VERIFIED"
-msgstr "موثق عبر بوابة جماعة إزالة البدعة"
+#: templates/accounts/search.html:82
+msgid "Search Results"
+msgstr "نتائج البحث"
 
-#: .\templates\upload_video.html:8
-msgid "Upload Short Video"
-msgstr "رفع فيديو قصير"
+#: templates/accounts/search.html:97
+msgid "Unit / Role"
+msgstr "الوحدة / الدور"
 
-#: .\templates\upload_video.html:11
+#: templates/accounts/search.html:124
+msgid "No Active Profile"
+msgstr "لا يوجد ملف تعريف نشط"
+
+#: templates/accounts/search.html:140 templates/leader_directory.html:47
+#: templates/pending_approval.html:24
+msgid "View Profile"
+msgstr "عرض الملف الشخصي"
+
+#: templates/accounts/search.html:145
+msgid "Message"
+msgstr "رسالة"
+
+#: templates/accounts/search.html:150
+msgid "Pay"
+msgstr "دفع"
+
+#: templates/accounts/search.html:154
+msgid "Approve Account"
+msgstr "الموافقة على الحساب"
+
+#: templates/accounts/search.html:168
+msgid "Disburse Funds"
+msgstr "صرف الأموال"
+
+#: templates/accounts/search.html:174
+msgid "Recipient Name"
+msgstr "اسم المستلم"
+
+#: templates/accounts/search.html:183
+msgid "Payment Amount (₦)"
+msgstr "مبلغ الدفع (₦)"
+
+#: templates/accounts/search.html:192
+msgid "Initiate Payroll Transfer"
+msgstr "بدء تحويل الرواتب"
+
+#: templates/accounts/search.html:207
+msgid "No members found matching your current filters."
+msgstr "لم يتم العثور على أعضاء يطابقون الفلاتر الحالية."
+
+#: templates/accounts/search.html:208
+msgid "Clear Search"
+msgstr "مسح البحث"
+
+#: templates/accounts/send_message.html:8
+msgid "New Official Memo"
+msgstr "مذكرة رسمية جديدة"
+
+#: templates/accounts/send_message.html:15
+msgid "Recipient"
+msgstr "المستلم"
+
+#: templates/accounts/send_message.html:24
+msgid "Subject"
+msgstr "الموضوع"
+
+#: templates/accounts/send_message.html:25
+msgid "Enter memo title..."
+msgstr "أدخل عنوان المذكرة..."
+
+#: templates/accounts/send_message.html:28
+msgid "Message Body"
+msgstr "نص الرسالة"
+
+#: templates/accounts/send_message.html:29
+msgid "Type your message here..."
+msgstr "اكتب رسالتك هنا..."
+
+#: templates/accounts/send_message.html:32
+msgid "Send Message"
+msgstr "إرسال الرسالة"
+
+#: templates/accounts/update_username.html:8
+msgid "Change Username"
+msgstr "تغيير اسم المستخدم"
+
+#: templates/accounts/update_username.html:14
+msgid "Current Username:"
+msgstr "اسم المستخدم الحالي:"
+
+#: templates/accounts/update_username.html:18
+msgid "Update Username"
+msgstr "تحديث اسم المستخدم"
+
+#: templates/base.html:9
+msgid "JIBWIS Nigeria Portal"
+msgstr "بوابة جماعة إزالة البدعة - نيجيريا"
+
+#: templates/base.html:29
+msgid "PORTAL"
+msgstr "البوابة"
+
+#: templates/base.html:36
+msgid "Home"
+msgstr "الرئيسية"
+
+#: templates/base.html:41 templates/dashboard.html:49
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: templates/base.html:46
+msgid "Join Us"
+msgstr "انضم إلينا"
+
+#: templates/base.html:52
+msgid "Donate"
+msgstr "تبرع"
+
+#: templates/base.html:108
+msgid "Nigeria National Headquarters"
+msgstr "المقر الوطني العام - نيجيريا"
+
+#: templates/base.html:109
+msgid "Digital Management System | Developed for JIBWIS Nigeria"
+msgstr "نظام الإدارة الرقمي | تم تطويره لجماعة إزالة البدعة نيجيريا"
+
+#: templates/dashboard.html:25
+msgid "Home Page"
+msgstr "الصفحة الرئيسية"
+
+#: templates/dashboard.html:26 templates/donations/bank_transfer.html:102
+#: templates/donations/card_payment.html:86
+msgid "Go Back"
+msgstr "رجوع"
+
+#: templates/dashboard.html:33
+msgid "Main Menu"
+msgstr "القائمة الرئيسية"
+
+#: templates/dashboard.html:35
+msgid "Search Members"
+msgstr "البحث عن الأعضاء"
+
+#: templates/dashboard.html:38
+msgid "Members Directory"
+msgstr "دليل الأعضاء"
+
+#: templates/dashboard.html:41 templates/payroll_history.html:9
+msgid "Payroll History"
+msgstr "تاريخ الرواتب"
+
+#: templates/dashboard.html:45
+msgid "Upload Video"
+msgstr "رفع فيديو"
+
+#: templates/dashboard.html:61
+msgid "Active Members"
+msgstr "الأعضاء النشطون"
+
+#: templates/dashboard.html:72
+msgid "Pending Approval"
+msgstr "في انتظار الموافقة"
+
+#: templates/dashboard.html:83
+msgid "Total Payouts"
+msgstr "إجمالي المدفوعات"
+
+#: templates/dashboard.html:88
+msgid "Download CSV"
+msgstr "تحميل ملف CSV"
+
+#: templates/dashboard.html:96
+msgid "Awaiting Your Confirmation"
+msgstr "في انتظار تأكيدك"
+
+#: templates/dashboard.html:102
+msgid "Name"
+msgstr "الاسم"
+
+#: templates/dashboard.html:103
+msgid "Unit"
+msgstr "الوحدة"
+
+#: templates/dashboard.html:104 templates/pending_approval.html:13
+msgid "Action"
+msgstr "إجراء"
+
+#: templates/dashboard.html:118
+msgid "Review"
+msgstr "مراجعة"
+
+#: templates/dashboard.html:165
+msgid "Verified Payroll Management"
+msgstr "إدارة الرواتب المعتمدة"
+
+#: templates/dashboard.html:167
+msgid "Search members..."
+msgstr "بحث عن أعضاء..."
+
+#: templates/dashboard.html:177
+msgid "Official"
+msgstr "مسؤول"
+
+#: templates/dashboard.html:178
+msgid "Bank / Account"
+msgstr "البنك / الحساب"
+
+#: templates/dashboard.html:197
+msgid "Total to Disburse:"
+msgstr "إجمالي المراد صرفه:"
+
+#: templates/dashboard.html:205
+msgid "Execute Disbursement"
+msgstr "تنفيذ الصرف"
+
+#: templates/dashboard.html:214
+msgid "Final Confirmation"
+msgstr "التأكيد النهائي"
+
+#: templates/dashboard.html:215
 msgid ""
-"Videos will auto-play on hover on the landing page. Recommended format: "
-"Vertical (9:16)."
-msgstr "سيتم تشغيل الفيديوهات تلقائياً عند التمرير في الصفحة الرئيسية. التنسيق الموصى به: رأسي (9:16)."
+"Process payments for your selected unit members. This cannot be reversed."
+msgstr "معالجة المدفوعات لأعضاء الوحدة المختارين. لا يمكن التراجع عن هذا الإجراء."
 
-#: .\templates\upload_video.html:16
-msgid "Publish Video"
-msgstr "نشر الفيديو"
+#: templates/dashboard.html:217
+msgid "Yes, Process Now"
+msgstr "نعم، قم بالمعالجة الآن"
 
-#: .\templates\upload_video.html:20
-msgid "Cancel and Return"
-msgstr "إلغاء والعودة"
+#: templates/dashboard.html:228
+msgid "Organizational News"
+msgstr "أخبار المؤسسة"
+
+#: templates/donations/bank_transfer.html:11
+msgid "Bank Transfer Payment"
+msgstr "الدفع عبر التحويل البنكي"
+
+#: templates/donations/bank_transfer.html:17
+#: templates/donations/card_payment.html:20
+msgid "Contribution Summary"
+msgstr "ملخص التبرع"
+
+#: templates/donations/bank_transfer.html:22
+#: templates/donations/card_payment.html:25
+msgid "Your Name:"
+msgstr "اسمك:"
+
+#: templates/donations/bank_transfer.html:23
+#: templates/donations/card_payment.html:26
+#: templates/donations/confirmation_email.html:35
+#: templates/donations/donation_list.html:121
+#: templates/donations/payment_pending.html:22
+#: templates/donations/payment_status.html:26
+#: templates/donations/payment_success.html:22
+msgid "Amount:"
+msgstr "المبلغ:"
+
+#: templates/donations/bank_transfer.html:24
+#: templates/donations/card_payment.html:27
+#: templates/donations/confirmation_email.html:36
+#: templates/donations/donation_list.html:124
+msgid "Purpose:"
+msgstr "الغرض:"
+
+#: templates/donations/bank_transfer.html:25
+#: templates/donations/confirmation_email.html:38
+msgid "Verification Reference:"
+msgstr "مرجع التحقق:"
+
+#: templates/donations/bank_transfer.html:39
+msgid "Bank Account Details"
+msgstr "تفاصيل الحساب البنكي"
+
+#: templates/donations/bank_transfer.html:45
+msgid "Bank Name:"
+msgstr "اسم البنك:"
+
+#: templates/donations/bank_transfer.html:49 templates/pending_approval.html:45
+msgid "Account Name:"
+msgstr "اسم الحساب:"
+
+#: templates/donations/bank_transfer.html:55
+msgid "Account Number:"
+msgstr "رقم الحساب:"
+
+#: templates/donations/bank_transfer.html:59
+msgid "Reference Note:"
+msgstr "ملاحظة المرجع:"
+
+#: templates/donations/bank_transfer.html:68
+msgid "Important Instructions:"
+msgstr "تعليمات هامة:"
+
+#: templates/donations/bank_transfer.html:71
+#, python-format
+msgid ""
+"\n"
+"                                 Please use the <strong>reference code "
+"(%(ref)s)</strong> as the payment narration/memo.\n"
+"                                 "
+msgstr ""
+"\n"
+"يرجى استخدام <strong>رمز المرجع (%(ref)s)</strong> في خانة ملاحظات/بيان الدفع.\n"
+"                                 "
+
+#: templates/donations/bank_transfer.html:75
+msgid "Verification may take up to 24 hours to reflect."
+msgstr "قد يستغرق التحقق ما يصل إلى 24 ساعة ليظهر في النظام."
+
+#: templates/donations/bank_transfer.html:76
+msgid "Please keep your transfer receipt for your records."
+msgstr "يرجى الاحتفاظ بإيصال التحويل لسجلاتك."
+
+#: templates/donations/bank_transfer.html:77
+msgid "For support, contact us at +234 800 000 0000."
+msgstr "للدعم، اتصل بنا على 0000 000 800 234+."
+
+#: templates/donations/bank_transfer.html:85
+msgid "Confirm Payment"
+msgstr "تأكيد الدفع"
+
+#: templates/donations/bank_transfer.html:88
+msgid "To confirm that you have made the transfer, please check the box below:"
+msgstr "لتأكيد قيامك بالتحويل، يرجى تفعيل المربع أدناه:"
+
+#: templates/donations/bank_transfer.html:92
+#, python-format
+msgid ""
+"\n"
+"                                         I confirm that I have sent ₦%(amt)s "
+"to the account stated above.\n"
+"                                         "
+msgstr ""
+"\n"
+"أؤكد أنني أرسلت مبلغ ₦%(amt)s إلى الحساب المذكور أعلاه.\n"
+"                                         "
+
+#: templates/donations/bank_transfer.html:99
+msgid "I Have Sent the Money"
+msgstr "لقد قمت بإرسال المبلغ"
+
+#: templates/donations/card_payment.html:10
+#: templates/donations/donation.html:102
+#: templates/donations/donation_form.html:102
+msgid "Card Payment"
+msgstr "الدفع بالبطاقة"
+
+#: templates/donations/card_payment.html:15
+msgid ""
+"You will be redirected to a secure payment gateway to complete your "
+"transaction."
+msgstr "سيتم توجيهك إلى بوابة دفع آمنة لإكمال المعاملة."
+
+#: templates/donations/card_payment.html:28
+msgid "Reference Code:"
+msgstr "رمز المرجع:"
+
+#: templates/donations/card_payment.html:53
+msgid "Expiry (MM/YY)"
+msgstr "الانتهاء (شهر/سنة)"
+
+#: templates/donations/card_payment.html:69
+msgid "Name on Card"
+msgstr "الاسم على البطاقة"
+
+#: templates/donations/card_payment.html:78
+msgid ""
+"Your card details are securely encrypted. We do not store your full card "
+"information on our servers."
+msgstr "تفاصيل بطاقتك مشفرة بشكل آمن. نحن لا نخزن معلومات بطاقتك الكاملة على خوادمنا."
+
+#: templates/donations/card_payment.html:83
+#, python-format
+msgid "Pay ₦%(amt)s"
+msgstr "دفع ₦%(amt)s"
+
+#: templates/donations/card_payment.html:95
+msgid "Secure"
+msgstr "آمن"
+
+#: templates/donations/card_payment.html:99
+msgid "SSL Encrypted"
+msgstr "مشفر عبر SSL"
+
+#: templates/donations/card_payment.html:103
+msgid "PCI Compliant"
+msgstr "متوافق مع معايير PCI"
+
+#: templates/donations/confirmation_email.html:20
+msgid "Izala Group"
+msgstr "جماعة إزالة البدعة"
+
+#: templates/donations/confirmation_email.html:21
+msgid "Contribution Confirmation"
+msgstr "تأكيد التبرع"
+
+#: templates/donations/confirmation_email.html:26
+#, python-format
+msgid ""
+"\n"
+"                    Dear %(name)s,\n"
+"                "
+msgstr ""
+"\n"
+"عزيزي/عزيزتي %(name)s،\n"
+"                "
+
+#: templates/donations/confirmation_email.html:31
+msgid "We are pleased to inform you that your contribution has been received."
+msgstr "يسرنا إبلاغك بأنه قد تم استلام تبرعك."
+
+#: templates/donations/confirmation_email.html:34
+msgid "Contribution Details:"
+msgstr "تفاصيل التبرع:"
+
+#: templates/donations/confirmation_email.html:37
+#: templates/donations/payment_pending.html:23
+#: templates/donations/payment_status.html:27
+#: templates/donations/payment_success.html:23
+msgid "Payment Method:"
+msgstr "طريقة الدفع:"
+
+#: templates/donations/confirmation_email.html:39
+#: templates/donations/donation_list.html:129
+#: templates/donations/payment_pending.html:25
+#: templates/donations/payment_success.html:25
+msgid "Date:"
+msgstr "التاريخ:"
+
+#: templates/donations/confirmation_email.html:42
+msgid ""
+"Our sincere gratitude goes to everyone who contributes. Your support will "
+"greatly help the community."
+msgstr "خالص امتناننا لكل من يساهم. دعمكم سيساعد المجتمع بشكل كبير."
+
+#: templates/donations/confirmation_email.html:44
+msgid "If you have any questions, please reply to this email or contact us at:"
+msgstr "إذا كان لديك أي أسئلة، يرجى الرد على هذا البريد الإلكتروني أو الاتصال بنا عبر:"
+
+#: templates/donations/confirmation_email.html:50
+msgid "Izala Group. All rights reserved."
+msgstr "جماعة إزالة البدعة. جميع الحقوق محفوظة."
+
+#: templates/donations/confirmation_email.html:51
+msgid "Dedicated to serving the community"
+msgstr "مكرسون لخدمة المجتمع"
+
+#: templates/donations/donation.html:11
+#: templates/donations/donation_form.html:11
+msgid "Contribute Zakat/Sadaqah"
+msgstr "تبرع بالزكاة/الصدقة"
+
+#: templates/donations/donation.html:28
+#: templates/donations/donation_form.html:28
+msgid "Donor Information"
+msgstr "معلومات المتبرع"
+
+#: templates/donations/donation.html:56
+#: templates/donations/donation_form.html:56
+msgid "Contribution Details"
+msgstr "تفاصيل المساهمة"
+
+#: templates/donations/donation.html:67
+#: templates/donations/donation_form.html:67
+msgid "Minimum amount is ₦100"
+msgstr "الحد الأدنى للمبلغ هو ₦100"
+
+#: templates/donations/donation.html:103
+#: templates/donations/donation_form.html:103
+msgid "Use your bank debit/credit card"
+msgstr "استخدم بطاقة الخصم أو الائتمان البنكية الخاصة بك"
+
+#: templates/donations/donation.html:119
+#: templates/donations/donation_form.html:119
+#: templates/donations/donation_list.html:33
+msgid "Bank Transfer"
+msgstr "التحويل البنكي"
+
+#: templates/donations/donation.html:120
+#: templates/donations/donation_form.html:120
+msgid "Transfer directly from your bank app"
+msgstr "تحويل مباشر من تطبيق البنك الخاص بك"
+
+#: templates/donations/donation.html:132
+#: templates/donations/donation_form.html:132
+msgid "Proceed to Contribute"
+msgstr "المتابعة للتبرع"
+
+#: templates/donations/donation.html:193
+#: templates/donations/donation_form.html:193
+msgid "Minimum donation amount is ₦100"
+msgstr "الحد الأدنى لمبلغ التبرع هو ₦100"
+
+#: templates/donations/donation.html:200
+#: templates/donations/donation_form.html:200
+msgid "Please select a payment method"
+msgstr "يرجى اختيار طريقة الدفع"
+
+#: templates/donations/donation_list.html:7
+msgid "Donation Records"
+msgstr "سجلات التبرعات"
+
+#: templates/donations/donation_list.html:10
+msgid "Add Manual Donation"
+msgstr "إضافة تبرع يدوي"
+
+#: templates/donations/donation_list.html:13
+msgid "Gateway Settings"
+msgstr "إعدادات البوابة"
+
+#: templates/donations/donation_list.html:23
+msgid "All Statuses"
+msgstr "جميع الحالات"
+
+#: templates/donations/donation_list.html:25
+msgid "Completed"
+msgstr "مكتمل"
+
+#: templates/donations/donation_list.html:26 templates/payroll_history.html:72
+msgid "Failed"
+msgstr "فشل"
+
+#: templates/donations/donation_list.html:31
+msgid "All Methods"
+msgstr "جميع الطرق"
+
+#: templates/donations/donation_list.html:32
+msgid "Cash"
+msgstr "نقدي"
+
+#: templates/donations/donation_list.html:40
+msgid "From"
+msgstr "من"
+
+#: templates/donations/donation_list.html:43
+msgid "To"
+msgstr "إلى"
+
+#: templates/donations/donation_list.html:49
+msgid "Clear"
+msgstr "مسح"
+
+#: templates/donations/donation_list.html:59
+msgid "Total Donations:"
+msgstr "إجمالي التبرعات:"
+
+#: templates/donations/donation_list.html:71
+msgid "Donor"
+msgstr "المتبرع"
+
+#: templates/donations/donation_list.html:73
+msgid "Method"
+msgstr "الطريقة"
+
+#: templates/donations/donation_list.html:85
+msgid "No email"
+msgstr "لا يوجد بريد"
+
+#: templates/donations/donation_list.html:100
+#: templates/donations/donation_list.html:124
+msgid "General"
+msgstr "عام"
+
+#: templates/donations/donation_list.html:114
+msgid "Donation Details"
+msgstr "تفاصيل التبرع"
+
+#: templates/donations/donation_list.html:118
+msgid "Donor:"
+msgstr "المتبرع:"
+
+#: templates/donations/donation_list.html:119
+msgid "Email:"
+msgstr "البريد الإلكتروني:"
+
+#: templates/donations/donation_list.html:120
+#: templates/pending_approval.html:43
+msgid "Phone:"
+msgstr "الهاتف:"
+
+#: templates/donations/donation_list.html:122
+msgid "Method:"
+msgstr "الطريقة:"
+
+#: templates/donations/donation_list.html:123
+msgid "Status:"
+msgstr "الحالة:"
+
+#: templates/donations/donation_list.html:125
+msgid "Notes:"
+msgstr "ملاحظات:"
+
+#: templates/donations/donation_list.html:125
+msgid "None"
+msgstr "لا يوجد"
+
+#: templates/donations/donation_list.html:127
+msgid "Transaction ID:"
+msgstr "رقم المعاملة:"
+
+#: templates/donations/donation_list.html:138
+msgid "No donations found"
+msgstr "لم يتم العثور على تبرعات"
+
+#: templates/donations/payment_pending.html:14
+#: templates/donations/payment_status.html:74
+msgid "Payment Pending"
+msgstr "الدفع قيد الانتظار"
+
+#: templates/donations/payment_pending.html:15
+msgid "We are waiting to confirm your contribution"
+msgstr "نحن بانتظار تأكيد مساهمتكم"
+
+#: templates/donations/payment_pending.html:21
+#: templates/donations/payment_status.html:25
+#: templates/donations/payment_success.html:21
+msgid "Donor Name:"
+msgstr "اسم المتبرع:"
+
+#: templates/donations/payment_pending.html:24
+#: templates/donations/payment_status.html:18
+#: templates/donations/payment_success.html:24
+msgid "Reference Number:"
+msgstr "رقم المرجع:"
+
+#: templates/donations/payment_pending.html:39
+msgid "What happens next?"
+msgstr "ماذا سيحدث بعد ذلك؟"
+
+#: templates/donations/payment_pending.html:41
+msgid "We will verify the bank records for your payment."
+msgstr "سنتحقق من السجلات البنكية لدفعتك."
+
+#: templates/donations/payment_pending.html:42
+msgid "This process may take up to 24 hours."
+msgstr "قد تستغرق هذه العملية ما يصل إلى 24 ساعة."
+
+#: templates/donations/payment_pending.html:43
+msgid "You will receive a confirmation email once the status is updated."
+msgstr "ستتلقى بريدًا إلكترونيًا للتأكيد بمجرد تحديث الحالة."
+
+#: templates/donations/payment_pending.html:44
+msgid "If not confirmed within 2 days, please contact our support."
+msgstr "إذا لم يتم التأكيد خلال يومين، يرجى الاتصال بالدعم لدينا."
+
+#: templates/donations/payment_pending.html:50
+#: templates/donations/payment_status.html:40
+#: templates/donations/payment_success.html:50
+msgid "Make Another Contribution"
+msgstr "تقديم مساهمة أخرى"
+
+#: templates/donations/payment_pending.html:53
+msgid "Check Status"
+msgstr "التحقق من الحالة"
+
+#: templates/donations/payment_pending.html:59
+msgid "For inquiries, contact us at"
+msgstr "للاستفسارات، اتصل بنا عبر"
+
+#: templates/donations/payment_pending.html:60
+#: templates/donations/payment_success.html:60
+msgid "or"
+msgstr "أو"
+
+#: templates/donations/payment_status.html:10
+msgid "Check Payment Status"
+msgstr "التحقق من حالة الدفع"
+
+#: templates/donations/payment_status.html:17
+msgid "Checking payment status..."
+msgstr "جاري التحقق من حالة الدفع..."
+
+#: templates/donations/payment_status.html:43
+msgid "Refresh"
+msgstr "تحديث"
+
+#: templates/donations/payment_status.html:63
+msgid "Payment Successful!"
+msgstr "تم الدفع بنجاح!"
+
+#: templates/donations/payment_status.html:64
+msgid "Your payment was confirmed on"
+msgstr "تم تأكيد دفعتك في تاريخ"
+
+#: templates/donations/payment_status.html:66
+msgid "View Confirmation"
+msgstr "عرض التأكيد"
+
+#: templates/donations/payment_status.html:75
+msgid "We are still waiting to confirm your payment"
+msgstr "ما زلنا بانتظار تأكيد دفعتكم"
+
+#: templates/donations/payment_status.html:82
+msgid "No Update Found"
+msgstr "لم يتم العثور على تحديث"
+
+#: templates/donations/payment_status.html:83
+msgid "There is no new information regarding your payment"
+msgstr "لا توجد معلومات جديدة بخصوص دفعتكم"
+
+#: templates/donations/payment_success.html:14
+msgid "Thank You!"
+msgstr "شكراً لك!"
+
+#: templates/donations/payment_success.html:15
+msgid "Your contribution was successful"
+msgstr "لقد تمت مساهمتك بنجاح"
+
+#: templates/donations/payment_success.html:40
+msgid "We will send a confirmation receipt to your email"
+msgstr "سنقوم بإرسال إيصال تأكيد إلى بريدك الإلكتروني"
+
+#: templates/donations/payment_success.html:44
+msgid "once the transaction is fully processed"
+msgstr "بمجرد معالجة المعاملة بالكامل"
+
+#: templates/donations/payment_success.html:53 templates/receipt_pdf.html:6
+msgid "Print Receipt"
+msgstr "طباعة الإيصال"
+
+#: templates/donations/payment_success.html:59
+msgid "If you have any questions regarding this contribution,"
+msgstr "إذا كان لديك أي أسئلة بخصوص هذه المساهمة،"
+
+#: templates/donations/payment_success.html:60
+msgid "please contact us at"
+msgstr "يرجى الاتصال بنا عبر"
+
+#: templates/landing.html:114
+msgid "JIBWIS Digital Portal"
+msgstr "بوابة جماعة إزالة البدعة الرقمية"
+
+#: templates/landing.html:115
+msgid "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG"
+msgstr "توحيد أهل السنة في نيجيريا: الإدارة • العلماء • الإسعاف"
+
+#: templates/landing.html:117
+msgid "Join Now"
+msgstr "انضم الآن"
+
+#: templates/landing.html:127
+msgid "National to Ward level leadership coordination."
+msgstr "تنسيق القيادة من المستوى الوطني إلى مستوى الدائرة."
+
+#: templates/landing.html:134
+msgid "Management of scholars and educational backgrounds."
+msgstr "إدارة العلماء والمؤهلات التعليمية."
+
+#: templates/landing.html:140
+msgid "First Aid Group"
+msgstr "جماعة الإسعاف الأولية"
+
+#: templates/landing.html:141
+msgid "Divisional, Detachment, and Unit leadership."
+msgstr "القيادة على مستوى الأقسام والمفرزة والوحدات."
+
+#: templates/landing.html:150
+msgid "Visit Us"
+msgstr "قم بزيارتنا"
+
+#: templates/landing.html:151
+msgid "JIBWIS National Headquarters,"
+msgstr "المقر الوطني لجماعة إزالة البدعة،"
+
+#: templates/landing.html:151
+msgid "Kaduna, Kaduna State, Nigeria."
+msgstr "كادونا، ولاية كادونا، نيجيريا."
+
+#: templates/landing.html:171
+msgid "Latest Announcements"
+msgstr "أحدث الإعلانات"
+
+#: templates/landing.html:183
+msgid "Read More"
+msgstr "اقرأ المزيد"

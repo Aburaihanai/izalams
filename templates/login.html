@@ -1,47 +1,91 @@
 {% extends 'base.html' %}
 {% load i18n %}
+
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    
-    {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {% for error in form.non_field_errors %}
-                {{ error }}
-            {% endfor %}
-        </div>
-    {% endif %}
-<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="col-md-5 col-lg-4">
+        {% if show_warning %}
+            <div class="alert alert-warning border-0 shadow-sm rounded-4 mb-3">
+                <strong>{% trans "Warning:" %}</strong>
+                You have {{ remaining_attempts }} attempts left.
+                {% if lockout_expires %}
+                    <br><small>Records clear at: {{ lockout_expires|time:"H:i" }}</small>
+                {% endif %}
+            </div>
+        {% endif %}
+
         <div class="card shadow-lg border-0 rounded-4">
             <div class="card-body p-5">
                 <div class="text-center mb-4">
-                    <h3 class="fw-bold text-success">{% trans "Leader Login" %}</h3>
+                    <h3 class="fw-bold text-success">{% trans "Login" %}</h3>
                     <p class="text-muted small">{% trans "Access the JIBWIS Management Portal" %}</p>
                 </div>
+
+                {# 2. Error Display: Changed class slightly for better padding #}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger py-2 px-3 small border-0 rounded-3 mb-4">
+                        {% for error in form.non_field_errors %}
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-x-circle-fill me-2"></i> {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <form method="post">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label class="form-label small fw-bold">{% trans "Username" %}</label>
-                        <input type="text" name="username" class="form-control form-control-lg bg-light border-0" required>
+                        {# Added value="{{ form.username.value|default:'' }}" so the user doesn't have to re-type it #}
+                        <input type="text" name="username" value="{{ form.username.value|default:'' }}"
+                               class="form-control form-control-lg bg-light border-0" required>
                     </div>
+
                     <div class="mb-4">
                         <label class="form-label small fw-bold">{% trans "Password" %}</label>
-                        <input type="password" name="password" class="form-control form-control-lg bg-light border-0" required>
+                        <div class="input-group">
+                            <input type="password" name="password" id="passwordField"
+                                   class="form-control form-control-lg bg-light border-0" required>
+                            <button class="btn btn-light border-0" type="button" onclick="togglePassword()">
+                                <i class="bi bi-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
                     </div>
+
                     <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-success btn-lg shadow-sm fw-bold">{% trans "Login to Account" %}</button>
+                        <button type="submit" class="btn btn-success btn-lg shadow-sm fw-bold">
+                            {% trans "Login to Account" %}
+                        </button>
                     </div>
+
                     <div class="text-center">
-                        <a href="{% url 'password_reset' %}" class="text-decoration-none small text-muted">{% trans "Forgot Password?" %}</a>
+                        <a href="{% url 'password_reset' %}" class="text-decoration-none small text-muted">
+                            {% trans "Forgot Password?" %}
+                        </a>
                     </div>
                 </form>
             </div>
+
             <div class="card-footer bg-light border-0 text-center py-3">
-                <span class="small">{% trans "Not registered?" %} <a href="{% url 'register' %}" class="text-success fw-bold">{% trans "Apply Now" %}</a></span>
+                <span class="small">{% trans "Not registered?" %}
+                    <a href="{% url 'register' %}" class="text-success fw-bold">{% trans "Apply Now" %}</a>
+                </span>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+function togglePassword() {
+    const passwordField = document.getElementById("passwordField");
+    const toggleIcon = document.getElementById("toggleIcon");
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleIcon.classList.replace("bi-eye", "bi-eye-slash");
+    } else {
+        passwordField.type = "password";
+        toggleIcon.classList.replace("bi-eye-slash", "bi-eye");
+    }
+}
+</script>
 {% endblock %}

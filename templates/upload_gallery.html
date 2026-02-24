@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Add New Image to Gallery</h2>
+    <hr>
+    <form method="post" enctype="multipart/form-data" class="bg-light p-4 border rounded">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Upload to Gallery</button>
+        <a href="{% url 'gallery_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,62 +1,63 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-6">
-            <div class="card shadow">
+            <div class="card shadow border-0">
                 <div class="card-body text-center py-5">
                     <div class="mb-4">
                         <i class="fas fa-check-circle fa-5x text-success"></i>
                     </div>
                     
-                    <h1 class="display-4 text-success mb-3">Na gode!</h1>
-                    <h3 class="text-muted mb-4">Biyan kuɗin ku ya yi nasara</h3>
+                    <h1 class="display-4 text-success mb-3">{% trans "Thank You!" %}</h1>
+                    <h3 class="text-muted mb-4">{% trans "Your contribution was successful" %}</h3>
                     
-                    <div class="card mb-4">
+                    <div class="card mb-4 bg-light border-0">
                         <div class="card-body">
                             <div class="row text-start">
-                                <div class="col-6">
-                                    <strong>Sunanka:</strong><br>
-                                    <strong>Adadin:</strong><br>
-                                    <strong>Hanyar Biya:</strong><br>
-                                    <strong>Lambar Tabbatarwa:</strong><br>
-                                    <strong>Kwanan wata:</strong>
+                                <div class="col-6 text-muted">
+                                    {% trans "Donor Name:" %}<br>
+                                    {% trans "Amount:" %}<br>
+                                    {% trans "Payment Method:" %}<br>
+                                    {% trans "Reference Number:" %}<br>
+                                    {% trans "Date:" %}
                                 </div>
                                 <div class="col-6">
-                                    {{ donation.donor_name }}<br>
-                                    <span class="h5 text-primary">₦{{ donation.amount }}</span><br>
+                                    <strong>{{ donation.donor_name }}</strong><br>
+                                    <span class="fw-bold text-primary">₦{{ donation.amount }}</span><br>
                                     {{ donation.get_payment_method_display }}<br>
-                                    <code>{{ donation.reference }}</code><br>
+                                    <code class="text-dark">{{ donation.reference }}</code><br>
                                     {{ donation.created_at|date:"M d, Y" }}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="alert alert-info">
+                    <div class="alert alert-info border-0 shadow-sm">
                         <i class="fas fa-envelope me-2"></i>
-                        Za mu aika da takardar tabbatarwa zuwa imel ɗinka 
+                        {% trans "We will send a confirmation receipt to your email" %} 
                         {% if donation.donor_email %}
                             <strong>{{ donation.donor_email }}</strong>
                         {% else %}
-                            da zarar an tabbatar da biyan kuɗi
+                            {% trans "once the transaction is fully processed" %}
                         {% endif %}
                     </div>
 
-                    <div class="d-grid gap-2 d-md-block">
-                        <a href="{% url 'donation' %}" class="btn btn-primary btn-lg me-md-2">
-                            <i class="fas fa-donate me-2"></i>Yi Ɗon Taimako
+                    <div class="d-grid gap-2 d-md-block no-print">
+                        <a href="{% url 'donation' %}" class="btn btn-primary btn-lg me-md-2 px-4">
+                            <i class="fas fa-donate me-2"></i>{% trans "Make Another Contribution" %}
                         </a>
-                        <button onclick="window.print()" class="btn btn-outline-secondary btn-lg">
-                            <i class="fas fa-print me-2"></i>Buga Tabbatarwa
+                        <button onclick="window.print()" class="btn btn-outline-secondary btn-lg px-4">
+                            <i class="fas fa-print me-2"></i>{% trans "Print Receipt" %}
                         </button>
                     </div>
 
-                    <div class="mt-4">
-                        <p class="text-muted">
-                            Idan kuna da wata tambaya game da biyan kuɗi,<br>
-                            tuntubi mu a <strong>+234 800 000 0000</strong> ko 
+                    <div class="mt-4 no-print">
+                        <p class="text-muted small">
+                            {% trans "If you have any questions regarding this contribution," %}<br>
+                            {% trans "please contact us at" %} <strong>+234 800 000 0000</strong> {% trans "or" %} 
                             <strong>info@izala.org</strong>
                         </p>
                     </div>
@@ -68,12 +69,22 @@
 
 <style>
 @media print {
-    .btn, .navbar, .footer {
+    .no-print, .btn, .navbar, .footer, .alert-info {
         display: none !important;
+    }
+    .container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
     }
     .card {
         box-shadow: none !important;
         border: 1px solid #dee2e6 !important;
+        margin-top: 20px;
+    }
+    body {
+        background-color: white !important;
     }
 }
 </style>
