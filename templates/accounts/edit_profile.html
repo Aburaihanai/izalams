@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg" style="border-radius: 15px;">
+                <div class="card-header bg-success text-white p-4" style="border-radius: 15px 15px 0 0;">
+                    <h4 class="mb-0 fw-bold"><i class="bi bi-person-gear me-2"></i> {% trans "Edit Profile Details" %}</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <h6 class="text-uppercase text-muted fw-bold small mb-3">{% trans "Personal Info" %}</h6>
+                        <div class="row g-3 mb-4">
+                            {% for field in u_form %}
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <hr>
+
+                        <h6 class="text-uppercase text-muted fw-bold small mb-3">{% trans "Organization & Payment" %}</h6>
+                        <div class="row g-3 mb-4">
+                            {% for field in p_form %}
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'dashboard' %}" class="btn btn-light px-4">{% trans "Cancel" %}</a>
+                            <button type="submit" class="btn btn-success px-5 fw-bold">{% trans "Update Records" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styling Django generated fields to look like Bootstrap */
+    input, select, textarea {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        transition: border-color .15s ease-in-out;
+    }
+    input:focus { border-color: #198754; outline: 0; box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25); }
+</style>
+{% endblock %}

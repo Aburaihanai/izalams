@@ -3,55 +3,80 @@
 
 {% block content %}
 <div class="row justify-content-center py-5">
-    <div class="col-md-8 col-lg-7">
+    <div class="col-md-8 col-lg-6">
         <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
             <div class="card-header bg-success text-white py-4 text-center border-0"
                  style="background: linear-gradient(45deg, #198754, #1ea362);">
+                <i class="bi bi-person-plus-fill fs-1 mb-2"></i>
                 <h3 class="fw-bold mb-0">{% trans "Member Registration" %}</h3>
-                <p class="small mb-0 opacity-75">{% trans "Join the JIBWIS Digital Management System" %}</p>
+                <p class="small mb-0 opacity-75">{% trans "Provide your details for leader verification" %}</p>
             </div>
 
             <div class="card-body p-4 p-md-5">
+                <div class="alert alert-warning border-0 shadow-sm rounded-3 mb-4 d-flex align-items-center">
+                    <i class="bi bi-shield-exclamation fs-4 me-3"></i>
+                    <small>
+                        {% trans "After submission, your Unit Leader will review your profile. You will be able to log in once they activate your account." %}
+                    </small>
+                </div>
+
                 <form method="post" class="needs-validation" id="registrationForm" novalidate>
                     {% csrf_token %}
 
                     <h5 class="text-success fw-bold mb-3 d-flex align-items-center">
-                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:28px; height:28px; font-size: 0.8rem;">1</span>
-                        {% trans "Account Information" %}
+                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:24px; height:24px; font-size: 0.75rem;">1</span>
+                        {% trans "Account Credentials" %}
                     </h5>
+                    
                     <div class="row g-3">
                         {% for field in user_form %}
-                            {# Exclude bank fields from rendering #}
-                            {% if field.name != 'bank_code' and field.name != 'account_number' and field.name != 'account_name' %}
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
-                                <div class="django-field-wrapper">{{ field }}</div>
-                                {% if field.errors %}<div class="text-danger extra-small">{{ field.errors }}</div>{% endif %}
+                        <div class="col-md-12 mb-2">
+                            <label class="form-label small fw-bold text-secondary">{{ field.label }}</label>
+                            <div class="django-field-wrapper">
+                                {{ field }}
                             </div>
+                            {% if field.help_text %}
+                                <div class="form-text extra-small">{{ field.help_text }}</div>
                             {% endif %}
+                            {% if field.errors %}
+                                <div class="text-danger extra-small mt-1">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
                         {% endfor %}
                     </div>
 
                     <hr class="my-4 opacity-25">
 
                     <h5 class="text-success fw-bold mb-3 d-flex align-items-center">
-                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:28px; height:28px; font-size: 0.8rem;">2</span>
-                        {% trans "Organizational Role" %}
+                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:24px; height:24px; font-size: 0.75rem;">2</span>
+                        {% trans "Organization & Unit" %}
                     </h5>
+                    <p class="text-muted extra-small mb-3">
+                        {% trans "Accurate selection ensures your request goes to the correct Unit Leader." %}
+                    </p>
+
                     <div class="row g-3">
                         {% for field in profile_form %}
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
-                            <div class="django-field-wrapper">{{ field }}</div>
-                            {% if field.errors %}<div class="text-danger extra-small">{{ field.errors }}</div>{% endif %}
+                        <div class="col-md-12 mb-2">
+                            <label class="form-label small fw-bold text-secondary">{{ field.label }}</label>
+                            <div class="django-field-wrapper">
+                                {{ field }}
+                            </div>
+                            {% if field.errors %}
+                                <div class="text-danger extra-small mt-1">{{ field.errors }}</div>
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </div>
 
                     <div class="d-grid gap-2 mt-5">
-                        <button type="submit" id="submitBtn" class="btn btn-success btn-lg fw-bold shadow-sm py-3 rounded-pill">
-                            {% trans "Submit Membership Request" %}
+                        <button type="submit" id="submitBtn" class="btn btn-success btn-lg fw-bold shadow-sm py-3 rounded-pill transition-all">
+                            {% trans "Submit for Approval" %}
                         </button>
+                        <p class="text-center mt-3 small">
+                            {% trans "Already have an account?" %} 
+                            <a href="{% url 'login' %}" class="text-success fw-bold text-decoration-none">{% trans "Login here" %}</a>
+                        </p>
                     </div>
                 </form>
             </div>
@@ -59,12 +84,52 @@
     </div>
 </div>
 
+
+
 <style>
-    .django-field-wrapper input, .django-field-wrapper select {
-        display: block !important; width: 100% !important; padding: 0.75rem 1rem !important;
-        border: 1px solid #dee2e6 !important; border-radius: 0.6rem !important; background-color: #f8f9fa !important;
+    /* Styling for Django-generated widgets */
+    .django-field-wrapper input, 
+    .django-field-wrapper select, 
+    .django-field-wrapper textarea {
+        display: block !important; 
+        width: 100% !important; 
+        padding: 0.75rem 1rem !important;
+        border: 1px solid #dee2e6 !important; 
+        border-radius: 0.75rem !important; 
+        background-color: #fcfcfc !important;
+        transition: all 0.2s ease-in-out;
     }
-    .django-field-wrapper input:focus { border-color: #198754 !important; background-color: #fff !important; outline: none !important; box-shadow: 0 0 0 0.25rem rgba(25,135,84,0.1) !important;}
+
+    .django-field-wrapper input:focus, 
+    .django-field-wrapper select:focus { 
+        border-color: #198754 !important; 
+        background-color: #fff !important; 
+        outline: none !important; 
+        box-shadow: 0 0 0 0.25rem rgba(25,135,84,0.1) !important;
+    }
+
     .extra-small { font-size: 0.75rem; }
+    .transition-all { transition: 0.3s; }
+    .transition-all:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    
+    /* Ensure help text doesn't break layout */
+    ul.errorlist { list-style: none; padding: 0; margin: 0; color: #dc3545; font-size: 0.75rem; }
 </style>
+
+<script>
+    // Simple frontend validation for better UX
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
 {% endblock %}

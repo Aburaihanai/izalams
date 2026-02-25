@@ -18,6 +18,8 @@ LANGUAGES = [
     ('ha', _('Hausa')),
     ('ar', _('Arabic')),
     ('fr', _('French')),
+    ('yo', _('Yoruba')),
+    ('ig', _('Igbo')),
 ]
 
 LOCALE_PATHS = [
@@ -58,7 +60,6 @@ AXES_COOLOFF_TIME = 0.05  # Time in hours
 AXES_STRATEGY = 'axes.strategies.UsernameStrategy'
 AXES_IP_LOOKUP_PARAMETERS = ['HTTP_X_FORWARDED_FOR']
 AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
-AXES_ONLY_USER_FAILURES = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

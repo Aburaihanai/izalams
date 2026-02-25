@@ -1,0 +1,1540 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-25 14:38+0100\n"
+"PO-Revision-Date: 2026-02-25 14:40+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Igbo <ig@li.org>\n"
+"Language: ig\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: accounts/views.py:66
+msgid ""
+"Registration successful! Your branch leader must activate your account "
+"before you can login."
+msgstr ""
+"Ndebanye aha gara nke ọma! Onye ndu alaka gị ga-arụrịrị ọrụ asusu gị tupu ị "
+"banye."
+
+#: accounts/views.py:230
+msgid "Account for {profile.user.get_full_name()} activated."
+msgstr "Emeela ka asusu maka {profile.user.get_full_name()} rụọ ọrụ."
+
+#: accounts/views.py:242 templates/login.html:38
+msgid "Username"
+msgstr "Aha njirimara"
+
+#: accounts/views.py:242 donations/forms.py:50
+#: templates/pending_approval.html:10
+msgid "Full Name"
+msgstr "Aha zuru ezu"
+
+#: accounts/views.py:242
+msgid "Phone"
+msgstr "Ekwentị"
+
+#: accounts/views.py:242
+msgid "Bank Code"
+msgstr "Koodu ụlọ akụ"
+
+#: accounts/views.py:242
+msgid "Account No"
+msgstr "Nọmba asusu"
+
+#: accounts/views.py:279
+msgid "Official memo sent."
+msgstr "E zigala ozi gọọmentị."
+
+#: accounts/views.py:291
+msgid "Video published to feed."
+msgstr "Ebipụtala vidiyo na feed."
+
+#: accounts/views.py:305
+msgid "Username updated."
+msgstr "Emegharịrị aha njirimara."
+
+#: accounts/views.py:307
+msgid "Username already taken."
+msgstr "E jiri aha njirimara a mee ihe."
+
+#: accounts/views.py:437
+msgid "Member"
+msgstr "Onye otu"
+
+#: accounts/views.py:437 templates/bulk_payroll.html:83
+#: templates/donations/donation_list.html:72 templates/payroll_history.html:27
+msgid "Amount"
+msgstr "Ego ole"
+
+#: accounts/views.py:437
+msgid "Reference"
+msgstr "Ntụaka"
+
+#: accounts/views.py:437 templates/accounts/members_list.html:33
+#: templates/accounts/search.html:84 templates/disciplinary_list.html:20
+#: templates/donations/donation_list.html:74 templates/payroll_history.html:28
+msgid "Status"
+msgstr "Ọnọdụ"
+
+#: accounts/views.py:437 templates/disciplinary_list.html:16
+#: templates/donations/donation_list.html:76
+msgid "Date"
+msgstr "Ụbọchị"
+
+#: donations/forms.py:20
+msgid "Enter your full name"
+msgstr "Tinye aha gị zuru ezu"
+
+#: donations/forms.py:24
+msgid "Enter your email address"
+msgstr "Tinye adresị ozi-e gị"
+
+#: donations/forms.py:28
+msgid "Enter your phone number"
+msgstr "Tinye nọmba ekwentị gị"
+
+#: donations/forms.py:38
+msgid "e.g., Zakat"
+msgstr "dịka ọmụmaatụ, Zakat"
+
+#: donations/forms.py:43
+msgid "Enter any additional notes (optional)"
+msgstr "Tinye ihe edeturu ọ bụla ọzọ (nhọrọ)"
+
+#: donations/forms.py:51
+msgid "Email"
+msgstr "Ozi-e"
+
+#: donations/forms.py:52
+msgid "Phone Number"
+msgstr "Nọmba ekwentị"
+
+#: donations/forms.py:53
+msgid "Amount (₦)"
+msgstr "Ego ole (₦)"
+
+#: donations/forms.py:54 templates/donations/donation_list.html:75
+msgid "Purpose"
+msgstr "Ebumnuche"
+
+#: donations/forms.py:55
+msgid "Notes (Optional)"
+msgstr "Ihe edeturu (Nhọrọ)"
+
+#: donations/forms.py:56 templates/donations/donation.html:90
+#: templates/donations/donation_form.html:90
+msgid "Payment Method"
+msgstr "Ụzọ ịkwụ ụgwọ"
+
+#: donations/forms.py:69
+msgid "Expiry Date"
+msgstr "Ụbọchị njedebe"
+
+#: donations/forms.py:77 templates/donations/card_payment.html:60
+msgid "CVV"
+msgstr "CVV"
+
+#: donations/forms.py:85
+msgid "Cardholder Name"
+msgstr "Aha onye nwe kaadị"
+
+#: donations/forms.py:89
+msgid "Name as it appears on card"
+msgstr "Aha dịka ọ dị na kaadị"
+
+#: izalams/settings.py:17
+msgid "English"
+msgstr "Bekee"
+
+#: izalams/settings.py:18
+msgid "Hausa"
+msgstr "Awụsa"
+
+#: izalams/settings.py:19
+msgid "Arabic"
+msgstr "Arabụ"
+
+#: izalams/settings.py:20
+msgid "French"
+msgstr "Faranse"
+
+#: izalams/settings.py:21
+msgid "Yoruba"
+msgstr "Yoruba"
+
+#: izalams/settings.py:22
+msgid "Igbo"
+msgstr "Igbo"
+
+#: templates/accounts/confirm_delete.html:2
+msgid "Warning: Delete Account"
+msgstr "Ịdọ aka ná ntị: Hichapụ asusu"
+
+#: templates/accounts/confirm_delete.html:3
+msgid ""
+"Are you sure you want to delete your JIBWIS profile? This action cannot be "
+"undone."
+msgstr ""
+"Ị doro anya na ị chọrọ ihichapụ profaịlụ JIBWIS gị? Enweghị ike ịkagbu ihe a "
+"emeela."
+
+#: templates/accounts/confirm_delete.html:6
+msgid "Yes, Delete My Account"
+msgstr "Ee, hichapụ asusu m"
+
+#: templates/accounts/confirm_delete.html:7
+#: templates/accounts/edit_profile.html:41
+#: templates/accounts/send_message.html:9
+#: templates/accounts/update_username.html:19
+msgid "Cancel"
+msgstr "Kagbuo"
+
+#: templates/accounts/edit_profile.html:10
+msgid "Edit Profile Details"
+msgstr "Dezie nkọwa profaịlụ"
+
+#: templates/accounts/edit_profile.html:16
+msgid "Personal Info"
+msgstr "Ozi gbasara onwe gị"
+
+#: templates/accounts/edit_profile.html:29
+msgid "Organization & Payment"
+msgstr "Nzukọ na Ịkwụ ụgwọ"
+
+#: templates/accounts/edit_profile.html:42
+msgid "Update Records"
+msgstr "Megharịa ndekọ"
+
+#: templates/accounts/login.html:2
+msgid "Portal Login"
+msgstr "Nbanye Portal"
+
+#: templates/accounts/login.html:6 templates/base.html:45
+#: templates/login.html:20
+msgid "Login"
+msgstr "Banye"
+
+#: templates/accounts/login.html:8 templates/login.html:63
+msgid "Forgot Password?"
+msgstr "I chefuru paswọọdụ gị?"
+
+#: templates/accounts/member_detail.html:8 templates/accounts/search.html:12
+#: templates/base.html:38 templates/includes/sidebar.html:15
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/accounts/member_detail.html:9
+msgid "Unit Directory"
+msgstr "Ndekọ Nkeji"
+
+#: templates/accounts/member_detail.html:10
+msgid "Official File"
+msgstr "Faịlụ Gọọmentị"
+
+#: templates/accounts/member_detail.html:40
+msgid "Suspend Member"
+msgstr "Kwụsịtụ onye otu"
+
+#: templates/accounts/member_detail.html:44
+msgid "Restore/Activate"
+msgstr "Weghachi/Mee ka ọ rụọ ọrụ"
+
+#: templates/accounts/member_detail.html:49
+msgid "Direct Memo"
+msgstr "Ozi ozugbo"
+
+#: templates/accounts/member_detail.html:54
+msgid "Disburse Payment"
+msgstr "Kwụọ ụgwọ"
+
+#: templates/accounts/member_detail.html:58
+msgid "Payment Locked"
+msgstr "Akpọchiri ịkwụ ụgwọ"
+
+#: templates/accounts/member_detail.html:70
+msgid "Account Currently Suspended"
+msgstr "Akụsịtụla asusu ugbu a"
+
+#: templates/accounts/member_detail.html:71
+msgid ""
+"This member cannot receive payments or access unit resources until restored."
+msgstr ""
+"Onye otu a enweghị ike ịnweta ego ma ọ bụ ihe onwunwe nkeji ruo mgbe eweghachiri ya."
+
+#: templates/accounts/member_detail.html:78
+msgid "Official Personnel File"
+msgstr "Faịlụ ndị ọrụ gọọmentị"
+
+#: templates/accounts/member_detail.html:84
+msgid "Assigned Position"
+msgstr "Ọkwá e kenyere"
+
+#: templates/accounts/member_detail.html:88
+msgid "Contact Number"
+msgstr "Nọmba ekwentị"
+
+#: templates/accounts/member_detail.html:93
+msgid "Verified Banking Data"
+msgstr "Data ụlọ akụ enyochara"
+
+#: templates/accounts/member_detail.html:96
+msgid "Bank Name"
+msgstr "Aha ụlọ akụ"
+
+#: templates/accounts/member_detail.html:100
+msgid "Account Number"
+msgstr "Nọmba asusu"
+
+#: templates/accounts/member_detail.html:107
+msgid "Credentials"
+msgstr "Asambodo"
+
+#: templates/accounts/member_detail.html:113
+msgid "Export Official PDF"
+msgstr "Bupụ PDF gọọmentị"
+
+#: templates/accounts/member_detail.html:116
+msgid "Remove Record"
+msgstr "Wepụ ndekọ"
+
+#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
+msgid "Reason for suspending"
+msgstr "Ihe kpatara nkwụsịtụ"
+
+#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
+msgid "Violation of rules"
+msgstr "Mmebi iwu"
+
+#: templates/accounts/member_detail.html:134
+msgid "PERMANENT REMOVAL: Are you sure you want to delete the records for"
+msgstr "IWEPỤ KAUPỤ: Ị doro anya na ị chọrọ ihichapụ ndekọ maka"
+
+#: templates/accounts/member_detail.html:134
+msgid "This is only for deceased members or permanent resignations."
+msgstr "Nke a bụ naanị maka ndị otu nwụrụ anwụ ma ọ bụ ndị gbara arụkwaghịm kpamkpam."
+
+#: templates/accounts/members_list.html:8 templates/base.html:49
+#: templates/dashboard.html:35 templates/includes/sidebar.html:19
+msgid "Directory"
+msgstr "Ndekọ"
+
+#: templates/accounts/members_list.html:9
+msgid "Select members to send bulk notifications or manage accounts."
+msgstr "Họrọ ndị otu ka e zigara ozi igwe ma ọ bụ jikwaa asusu ha."
+
+#: templates/accounts/members_list.html:13
+msgid "Message Selected"
+msgstr "Ozi ahọpụtara"
+
+#: templates/accounts/members_list.html:31 templates/accounts/search.html:82
+#: templates/bulk_payroll.html:80
+msgid "Personnel"
+msgstr "Ndị ọrụ"
+
+#: templates/accounts/members_list.html:32
+msgid "Position"
+msgstr "Ọkwá"
+
+#: templates/accounts/members_list.html:34
+#: templates/donations/donation_list.html:77
+msgid "Actions"
+msgstr "Omume"
+
+#: templates/accounts/members_list.html:58
+msgid "Reactivate"
+msgstr "Mee ka ọ rụọ ọrụ ọzọ"
+
+#: templates/accounts/members_list.html:96
+msgid "Send Bulk Message"
+msgstr "Zipụ ozi igwe"
+
+#: templates/accounts/members_list.html:101
+#: templates/accounts/send_message.html:24
+msgid "Subject"
+msgstr "Isiokwu"
+
+#: templates/accounts/members_list.html:105
+#: templates/accounts/send_message.html:28
+msgid "Message Body"
+msgstr "Isi ozi"
+
+#: templates/accounts/members_list.html:110
+msgid "Send to Selected Members"
+msgstr "Zigara ndị otu ahọpụtara"
+
+#: templates/accounts/register.html:10
+msgid "Member Registration"
+msgstr "Ndebanye aha onye otu"
+
+#: templates/accounts/register.html:11
+msgid "Join the JIBWIS Digital Management System"
+msgstr "Soro na JIBWIS Digital Management System"
+
+#: templates/accounts/register.html:20
+msgid "Account Information"
+msgstr "Ozi asusu"
+
+#: templates/accounts/register.html:39
+msgid "Organizational Role"
+msgstr "Ọrụ na nzukọ"
+
+#: templates/accounts/register.html:53
+msgid "Submit Membership Request"
+msgstr "Nyefee arịrịọ onye otu"
+
+#: templates/accounts/search.html:10
+msgid "Navigation"
+msgstr "Ntughari"
+
+#: templates/accounts/search.html:15
+msgid "Full Directory"
+msgstr "Ndekọ zuru ezu"
+
+#: templates/accounts/search.html:20
+msgid "Unit Filters"
+msgstr "Ihe nzacha nkeji"
+
+#: templates/accounts/search.html:25
+msgid "Member Status"
+msgstr "Ọnọdụ onye otu"
+
+#: templates/accounts/search.html:27
+msgid "All Members"
+msgstr "Ndị otu niile"
+
+#: templates/accounts/search.html:28
+msgid "Active Only"
+msgstr "Naanị ndị nọ n'ọrụ"
+
+#: templates/accounts/search.html:29 templates/accounts/search.html:116
+msgid "Suspended"
+msgstr "Ndị a kwụsịrị"
+
+#: templates/accounts/search.html:34
+msgid "Position/Role"
+msgstr "Ọkwá/Ọrụ"
+
+#: templates/accounts/search.html:39
+msgid "Apply Filters"
+msgstr "Tinye ihe nzacha"
+
+#: templates/accounts/search.html:44
+msgid "Reset All"
+msgstr "Tọgharịa niile"
+
+#: templates/accounts/search.html:60
+msgid "Search by name or phone in your unit..."
+msgstr "Chọọ site n'aha ma ọ bụ ekwentị na nkeji gị..."
+
+#: templates/accounts/search.html:64 templates/includes/sidebar.html:23
+msgid "Search"
+msgstr "Chọọ"
+
+#: templates/accounts/search.html:73
+msgid "Results for"
+msgstr "Nsonaazụ maka"
+
+#: templates/accounts/search.html:83
+msgid "Account Info"
+msgstr "Ozi asusu"
+
+#: templates/accounts/search.html:85
+msgid "Management"
+msgstr "Nlekọta"
+
+#: templates/accounts/search.html:112
+msgid "Active"
+msgstr "Ọrụ"
+
+#: templates/accounts/search.html:122 templates/disciplinary_list.html:48
+msgid "View File"
+msgstr "Lelee faịlụ"
+
+#: templates/accounts/search.html:127
+msgid "Suspend"
+msgstr "Kwụsịtụ"
+
+#: templates/accounts/search.html:134
+msgid "Activate"
+msgstr "Mee ka ọ rụọ ọrụ"
+
+#: templates/accounts/search.html:140
+msgid "Permanent Removal"
+msgstr "Iwepụ kpamkpam"
+
+#: templates/accounts/search.html:152
+msgid "No members found in your unit matching this criteria."
+msgstr "Ahụghị ndị otu n'ime nkeji gị dabara na njirisi a."
+
+#: templates/accounts/search.html:179
+msgid "WARNING: This will PERMANENTLY delete"
+msgstr "ỊDỌ AKA NÁ NTỊ: Nke a ga-ehichapụ kpamkpam"
+
+#: templates/accounts/search.html:179
+msgid "from JIBWIS records. Proceed?"
+msgstr "site na ndekọ JIBWIS. Gaa n'ihu?"
+
+#: templates/accounts/send_message.html:8
+msgid "New Official Memo"
+msgstr "Ozi gọọmentị ọhụrụ"
+
+#: templates/accounts/send_message.html:15 templates/payroll_history.html:25
+msgid "Recipient"
+msgstr "Onye natara ya"
+
+#: templates/accounts/send_message.html:25
+msgid "Enter memo title..."
+msgstr "Tinye isiokwu ozi..."
+
+#: templates/accounts/send_message.html:29
+msgid "Type your message here..."
+msgstr "Dee ozi gị ebe a..."
+
+#: templates/accounts/send_message.html:32
+msgid "Send Message"
+msgstr "Zipụ ozi"
+
+#: templates/accounts/update_username.html:8
+msgid "Change Username"
+msgstr "Gbanwee aha njirimara"
+
+#: templates/accounts/update_username.html:14
+msgid "Current Username:"
+msgstr "Aha njirimara ugbu a:"
+
+#: templates/accounts/update_username.html:18
+msgid "Update Username"
+msgstr "Megharịa aha njirimara"
+
+#: templates/base.html:9
+msgid "JIBWIS Nigeria Portal"
+msgstr "Portal JIBWIS Nigeria"
+
+#: templates/base.html:29
+msgid "PORTAL"
+msgstr "PORTAL"
+
+#: templates/base.html:36
+msgid "Home"
+msgstr "Ụlọ"
+
+#: templates/base.html:41 templates/includes/sidebar.html:39
+msgid "Logout"
+msgstr "Pụọ"
+
+#: templates/base.html:46
+msgid "Join Us"
+msgstr "Soro anyị"
+
+#: templates/base.html:52
+msgid "Donate"
+msgstr "Nye onyinye"
+
+#: templates/base.html:102
+msgid "Nigeria National Headquarters"
+msgstr "Isi ụlọ ọrụ mba Nigeria"
+
+#: templates/base.html:103
+msgid "Digital Management System | Developed for JIBWIS Nigeria"
+msgstr "Digital Management System | Emepụtara maka JIBWIS Nigeria"
+
+#: templates/bulk_payroll.html:12
+msgid "Paystack Transfer Balance"
+msgstr "Ego nnyefe Paystack fọdụrụ"
+
+#: templates/bulk_payroll.html:15
+msgid "Funds available for immediate disbursement."
+msgstr "Ego dị maka ịkwụ ụgwọ ozugbo."
+
+#: templates/bulk_payroll.html:21
+msgid "Refresh Balance"
+msgstr "Megharịa ego fọdụrụ"
+
+#: templates/bulk_payroll.html:39 templates/bulk_payroll.html:59
+msgid "Category Payroll"
+msgstr "Payroll otu"
+
+#: templates/bulk_payroll.html:40
+msgid "Managing"
+msgstr "Na-achịkwa"
+
+#: templates/bulk_payroll.html:47
+msgid "Search by name or unit/state..."
+msgstr "Chọọ site n'aha ma ọ bụ nkeji/steeti..."
+
+#: templates/bulk_payroll.html:48 templates/donations/donation_list.html:46
+msgid "Filter"
+msgstr "Nzacha"
+
+#: templates/bulk_payroll.html:61
+msgid "Scope"
+msgstr "Ohere"
+
+#: templates/bulk_payroll.html:64
+msgid "Full Hierarchy (National)"
+msgstr "Sistemu zuru ezu (Mba)"
+
+#: templates/bulk_payroll.html:66
+msgid "Restricted"
+msgstr "E gbochiri"
+
+#: templates/bulk_payroll.html:81 templates/payroll_history.html:26
+msgid "Unit / Level"
+msgstr "Nkeji / Ọkwa"
+
+#: templates/bulk_payroll.html:82
+msgid "Account"
+msgstr "Asusu"
+
+#: templates/bulk_payroll.html:131
+msgid "No matches found for"
+msgstr "Ahụghị ihe dabara na"
+
+#: templates/bulk_payroll.html:140
+msgid "Selected"
+msgstr "Ahọpụtara"
+
+#: templates/bulk_payroll.html:142
+msgid "Execute Disbursement"
+msgstr "Mee ịkwụ ụgwọ"
+
+#: templates/dashboard.html:12
+msgid "Command Center"
+msgstr "Ebe njikwa"
+
+#: templates/dashboard.html:22 templates/includes/sidebar.html:28
+msgid "Bulk Payroll"
+msgstr "Bulk Payroll"
+
+#: templates/dashboard.html:23
+msgid "Process unit disbursements and allowances."
+msgstr "Mee ịkwụ ụgwọ nkeji na ego nkwado."
+
+#: templates/dashboard.html:36
+msgid "View and manage all registered members."
+msgstr "Lelee ma jikwaa ndị otu niile debanyere aha."
+
+#: templates/dashboard.html:47
+msgid "My Inbox"
+msgstr "Igbe ozi m"
+
+#: templates/dashboard.html:48
+msgid "Check communications and unit updates."
+msgstr "Lelee nkwukọrịta na mmelite nkeji."
+
+#: templates/dashboard.html:50
+msgid "New"
+msgstr "Ọhụrụ"
+
+#: templates/dashboard.html:59
+msgid "Recent Messages"
+msgstr "Ozi nso nso a"
+
+#: templates/dashboard.html:69
+msgid "No new messages."
+msgstr "Enweghị ozi ọhụrụ."
+
+#: templates/disciplinary_list.html:7
+msgid "National Disciplinary Portal"
+msgstr "Portal ịdọ aka ná ntị mba"
+
+#: templates/disciplinary_list.html:8
+msgid "High Clearance Only"
+msgstr "Naanị maka ndị nwere ikike dị elu"
+
+#: templates/disciplinary_list.html:17
+msgid "Reporter (Member)"
+msgstr "Onye mkpesa (Onye otu)"
+
+#: templates/disciplinary_list.html:18
+msgid "Subject (Leader)"
+msgstr "Isiokwu (Onye ndu)"
+
+#: templates/disciplinary_list.html:19
+msgid "Complaint Summary"
+msgstr "Nchịkọta mkpesa"
+
+#: templates/disciplinary_list.html:21 templates/pending_approval.html:13
+msgid "Action"
+msgstr "Omume"
+
+#: templates/disciplinary_list.html:39
+msgid "Pending Review"
+msgstr "Na-echere nyocha"
+
+#: templates/disciplinary_list.html:41
+msgid "Under Investigation"
+msgstr "A na-enyocha ya"
+
+#: templates/disciplinary_list.html:43
+msgid "Resolved"
+msgstr "E doziela"
+
+#: templates/disciplinary_list.html:54
+msgid "No active reports found."
+msgstr "Ahụghị mkpesa ọ bụla na-arụ ọrụ."
+
+#: templates/donations/bank_transfer.html:11
+msgid "Bank Transfer Payment"
+msgstr "Ịkwụ ụgwọ nnyefe ụlọ akụ"
+
+#: templates/donations/bank_transfer.html:17
+#: templates/donations/card_payment.html:20
+msgid "Contribution Summary"
+msgstr "Nchịkọta onyinye"
+
+#: templates/donations/bank_transfer.html:22
+#: templates/donations/card_payment.html:25
+msgid "Your Name:"
+msgstr "Aha gị:"
+
+#: templates/donations/bank_transfer.html:23
+#: templates/donations/card_payment.html:26
+#: templates/donations/confirmation_email.html:35
+#: templates/donations/donation_list.html:121
+#: templates/donations/payment_pending.html:22
+#: templates/donations/payment_status.html:26
+#: templates/donations/payment_success.html:22
+msgid "Amount:"
+msgstr "Ego ole:"
+
+#: templates/donations/bank_transfer.html:24
+#: templates/donations/card_payment.html:27
+#: templates/donations/confirmation_email.html:36
+#: templates/donations/donation_list.html:124
+msgid "Purpose:"
+msgstr "Ebumnuche:"
+
+#: templates/donations/bank_transfer.html:25
+#: templates/donations/confirmation_email.html:38
+msgid "Verification Reference:"
+msgstr "Ntụaka nkwenye:"
+
+#: templates/donations/bank_transfer.html:39
+msgid "Bank Account Details"
+msgstr "Nkọwa asusu ụlọ akụ"
+
+#: templates/donations/bank_transfer.html:45
+msgid "Bank Name:"
+msgstr "Aha ụlọ akụ:"
+
+#: templates/donations/bank_transfer.html:49 templates/pending_approval.html:45
+msgid "Account Name:"
+msgstr "Aha asusu:"
+
+#: templates/donations/bank_transfer.html:55
+msgid "Account Number:"
+msgstr "Nọmba asusu:"
+
+#: templates/donations/bank_transfer.html:59
+msgid "Reference Note:"
+msgstr "Ihe edeturu maka ntụaka:"
+
+#: templates/donations/bank_transfer.html:68
+msgid "Important Instructions:"
+msgstr "Ntuziaka dị mkpa:"
+
+#: templates/donations/bank_transfer.html:71
+#, python-format
+msgid ""
+"\n"
+"                                Please use the <strong>reference code "
+"(%(ref)s)</strong> as the payment narration/memo.\n"
+"                                "
+msgstr ""
+"\n"
+"                                Biko jiri <strong>koodu ntụaka "
+"(%(ref)s)</strong> dịka nkọwa ịkwụ ụgwọ.\n"
+"                                "
+
+#: templates/donations/bank_transfer.html:75
+msgid "Verification may take up to 24 hours to reflect."
+msgstr "Nkwenye nwere ike iwe ruru awa iri abụọ na anọ tupu ọ pụta."
+
+#: templates/donations/bank_transfer.html:76
+msgid "Please keep your transfer receipt for your records."
+msgstr "Biko debe nnata nnyefe gị maka ndekọ gị."
+
+#: templates/donations/bank_transfer.html:77
+msgid "For support, contact us at +234 800 000 0000."
+msgstr "Maka nkwado, kpọtụrụ anyị na +234 800 000 0000."
+
+#: templates/donations/bank_transfer.html:85
+msgid "Confirm Payment"
+msgstr "Tabbatar da ịkwụ ụgwọ"
+
+#: templates/donations/bank_transfer.html:88
+msgid "To confirm that you have made the transfer, please check the box below:"
+msgstr "Iji gosi na i meela nnyefe, biko gaa na igbe dị n'okpuru a:"
+
+#: templates/donations/bank_transfer.html:92
+#, python-format
+msgid ""
+"\n"
+"                                        I confirm that I have sent ₦%(amt)s "
+"to the account stated above.\n"
+"                                        "
+msgstr ""
+"\n"
+"                                        Agosiri m na e zigara m ₦%(amt)s "
+"na asusu ahụ a kọwara n'elu.\n"
+"                                        "
+
+#: templates/donations/bank_transfer.html:99
+msgid "I Have Sent the Money"
+msgstr "E zigara m ego ahụ"
+
+#: templates/donations/bank_transfer.html:102
+#: templates/donations/card_payment.html:86
+msgid "Go Back"
+msgstr "Laghachi azụ"
+
+#: templates/donations/card_payment.html:10
+#: templates/donations/donation.html:102
+#: templates/donations/donation_form.html:102
+msgid "Card Payment"
+msgstr "Ịkwụ ụgwọ kaadị"
+
+#: templates/donations/card_payment.html:15
+msgid ""
+"You will be redirected to a secure payment gateway to complete your "
+"transaction."
+msgstr ""
+"A ga-atụgharị gị gaa na ebe ịkwụ ụgwọ nchekwa iji mechaa azụmahịa gị."
+
+#: templates/donations/card_payment.html:28
+msgid "Reference Code:"
+msgstr "Koodu ntụaka:"
+
+#: templates/donations/card_payment.html:44
+msgid "Card Number"
+msgstr "Nọmba kaadị"
+
+#: templates/donations/card_payment.html:53
+msgid "Expiry (MM/YY)"
+msgstr "Njedbe (ỌN/AF)"
+
+#: templates/donations/card_payment.html:69
+msgid "Name on Card"
+msgstr "Aha dị na kaadị"
+
+#: templates/donations/card_payment.html:78
+msgid ""
+"Your card details are securely encrypted. We do not store your full card "
+"information on our servers."
+msgstr ""
+"A kpuru nkọwa kaadị gị na nchekwa. Anyị anaghị echekwa nkọwa kaadị gị zuru ezu na sava anyị."
+
+#: templates/donations/card_payment.html:83
+#, python-format
+msgid "Pay ₦%(amt)s"
+msgstr "Kwụọ ₦%(amt)s"
+
+#: templates/donations/card_payment.html:95
+msgid "Secure"
+msgstr "Nchekwa"
+
+#: templates/donations/card_payment.html:99
+msgid "SSL Encrypted"
+msgstr "SSL Encrypted"
+
+#: templates/donations/card_payment.html:103
+msgid "PCI Compliant"
+msgstr "PCI Compliant"
+
+#: templates/donations/confirmation_email.html:20
+msgid "Izala Group"
+msgstr "Izala Group"
+
+#: templates/donations/confirmation_email.html:21
+msgid "Contribution Confirmation"
+msgstr "Nkwenye onyinye"
+
+#: templates/donations/confirmation_email.html:26
+#, python-format
+msgid ""
+"\n"
+"                    Dear %(name)s,\n"
+"                "
+msgstr ""
+"\n"
+"                    %(name)s ọ hụrụ n'anya,\n"
+"                "
+
+#: templates/donations/confirmation_email.html:31
+msgid "We are pleased to inform you that your contribution has been received."
+msgstr "Obi dị anyị ụtọ ịgwa gị na anyị anatala onyinye gị."
+
+#: templates/donations/confirmation_email.html:34
+msgid "Contribution Details:"
+msgstr "Nkọwa onyinye:"
+
+#: templates/donations/confirmation_email.html:37
+#: templates/donations/payment_pending.html:23
+#: templates/donations/payment_status.html:27
+#: templates/donations/payment_success.html:23
+msgid "Payment Method:"
+msgstr "Ụzọ ịkwụ ụgwọ:"
+
+#: templates/donations/confirmation_email.html:39
+#: templates/donations/donation_list.html:129
+#: templates/donations/payment_pending.html:25
+#: templates/donations/payment_success.html:25
+msgid "Date:"
+msgstr "Ụbọchị:"
+
+#: templates/donations/confirmation_email.html:42
+msgid ""
+"Our sincere gratitude goes to everyone who contributes. Your support will "
+"greatly help the community."
+msgstr ""
+"Ekele anyị sitere n'obi na-aga n'ebe onye ọ bụla na-enye onyinye nọ. Nkwado gị ga-enyere obodo aka nke ukwuu."
+
+#: templates/donations/confirmation_email.html:44
+msgid "If you have any questions, please reply to this email or contact us at:"
+msgstr "Ọ bụrụ na ị nwere ajụjụ ọ bụla, biko zaa ozi-e a ma ọ bụ kpọtụrụ anyị na:"
+
+#: templates/donations/confirmation_email.html:50
+msgid "Izala Group. All rights reserved."
+msgstr "Izala Group. Ikike niile echekwara."
+
+#: templates/donations/confirmation_email.html:51
+msgid "Dedicated to serving the community"
+msgstr "Raara onwe ya nye ijere obodo ozi"
+
+#: templates/donations/donation.html:11
+#: templates/donations/donation_form.html:11
+msgid "Contribute Zakat/Sadaqah"
+msgstr "Nye onyinye Zakat/Sadaqah"
+
+#: templates/donations/donation.html:28
+#: templates/donations/donation_form.html:28
+msgid "Donor Information"
+msgstr "Ozi onye nyere onyinye"
+
+#: templates/donations/donation.html:56
+#: templates/donations/donation_form.html:56
+msgid "Contribution Details"
+msgstr "Nkọwa onyinye"
+
+#: templates/donations/donation.html:67
+#: templates/donations/donation_form.html:67
+msgid "Minimum amount is ₦100"
+msgstr "Ego kacha nta bụ ₦100"
+
+#: templates/donations/donation.html:103
+#: templates/donations/donation_form.html:103
+msgid "Use your bank debit/credit card"
+msgstr "Jiri kaadị ụlọ akụ gị"
+
+#: templates/donations/donation.html:119
+#: templates/donations/donation_form.html:119
+#: templates/donations/donation_list.html:33
+msgid "Bank Transfer"
+msgstr "Nnyefe ụlọ akụ"
+
+#: templates/donations/donation.html:120
+#: templates/donations/donation_form.html:120
+msgid "Transfer directly from your bank app"
+msgstr "Nyefee ego ozugbo site na app ụlọ akụ gị"
+
+#: templates/donations/donation.html:132
+#: templates/donations/donation_form.html:132
+msgid "Proceed to Contribute"
+msgstr "Gaa n'ihu inye onyinye"
+
+#: templates/donations/donation.html:193
+#: templates/donations/donation_form.html:193
+msgid "Minimum donation amount is ₦100"
+msgstr "Ego onyinye kacha nta bụ ₦100"
+
+#: templates/donations/donation.html:200
+#: templates/donations/donation_form.html:200
+msgid "Please select a payment method"
+msgstr "Biko họrọ ụzọ ịkwụ ụgwọ"
+
+#: templates/donations/donation_list.html:7
+msgid "Donation Records"
+msgstr "Ndekọ onyinye"
+
+#: templates/donations/donation_list.html:10
+msgid "Add Manual Donation"
+msgstr "Tinye onyinye site n'aka"
+
+#: templates/donations/donation_list.html:13
+msgid "Gateway Settings"
+msgstr "Ntọala Gateway"
+
+#: templates/donations/donation_list.html:23
+msgid "All Statuses"
+msgstr "Ọnọdụ niile"
+
+#: templates/donations/donation_list.html:24
+msgid "Pending"
+msgstr "Na-echere"
+
+#: templates/donations/donation_list.html:25
+msgid "Completed"
+msgstr "Emechaala"
+
+#: templates/donations/donation_list.html:26
+msgid "Failed"
+msgstr "O nweghị isi"
+
+#: templates/donations/donation_list.html:31
+msgid "All Methods"
+msgstr "Ụzọ niile"
+
+#: templates/donations/donation_list.html:32
+msgid "Cash"
+msgstr "Ego kachapụ"
+
+#: templates/donations/donation_list.html:40
+msgid "From"
+msgstr "Site na"
+
+#: templates/donations/donation_list.html:43
+msgid "To"
+msgstr "Gaa na"
+
+#: templates/donations/donation_list.html:49
+msgid "Clear"
+msgstr "Hichapụ"
+
+#: templates/donations/donation_list.html:59
+msgid "Total Donations:"
+msgstr "Onyinye niile:"
+
+#: templates/donations/donation_list.html:71
+msgid "Donor"
+msgstr "Onye nyere onyinye"
+
+#: templates/donations/donation_list.html:73
+msgid "Method"
+msgstr "Ụzọ"
+
+#: templates/donations/donation_list.html:85
+msgid "No email"
+msgstr "Enweghị ozi-e"
+
+#: templates/donations/donation_list.html:100
+#: templates/donations/donation_list.html:124
+msgid "General"
+msgstr "Izugbe"
+
+#: templates/donations/donation_list.html:114
+msgid "Donation Details"
+msgstr "Nkọwa onyinye"
+
+#: templates/donations/donation_list.html:118
+msgid "Donor:"
+msgstr "Onye nyere onyinye:"
+
+#: templates/donations/donation_list.html:119
+msgid "Email:"
+msgstr "Ozi-e:"
+
+#: templates/donations/donation_list.html:120
+#: templates/pending_approval.html:43
+msgid "Phone:"
+msgstr "Ekwentị:"
+
+#: templates/donations/donation_list.html:122
+msgid "Method:"
+msgstr "Ụzọ:"
+
+#: templates/donations/donation_list.html:123
+msgid "Status:"
+msgstr "Ọnọdụ:"
+
+#: templates/donations/donation_list.html:125
+msgid "Notes:"
+msgstr "Ihe edeturu:"
+
+#: templates/donations/donation_list.html:125
+msgid "None"
+msgstr "Ọ dịghị"
+
+#: templates/donations/donation_list.html:127
+msgid "Transaction ID:"
+msgstr "ID Azụmahịa:"
+
+#: templates/donations/donation_list.html:138
+msgid "No donations found"
+msgstr "Ahụghị onyinye ọ bụla"
+
+#: templates/donations/payment_pending.html:14
+#: templates/donations/payment_status.html:74
+msgid "Payment Pending"
+msgstr "Ịkwụ ụgwọ na-echere"
+
+#: templates/donations/payment_pending.html:15
+msgid "We are waiting to confirm your contribution"
+msgstr "Anyị na-eche nkwenye nke onyinye gị"
+
+#: templates/donations/payment_pending.html:21
+#: templates/donations/payment_status.html:25
+#: templates/donations/payment_success.html:21
+msgid "Donor Name:"
+msgstr "Aha onye nyere onyinye:"
+
+#: templates/donations/payment_pending.html:24
+#: templates/donations/payment_status.html:18
+#: templates/donations/payment_success.html:24
+msgid "Reference Number:"
+msgstr "Nọmba ntụaka:"
+
+#: templates/donations/payment_pending.html:39
+msgid "What happens next?"
+msgstr "Gịnị ga-eme ọzọ?"
+
+#: templates/donations/payment_pending.html:41
+msgid "We will verify the bank records for your payment."
+msgstr "Anyị ga-enyocha ndekọ ụlọ akụ maka ịkwụ ụgwọ gị."
+
+#: templates/donations/payment_pending.html:42
+msgid "This process may take up to 24 hours."
+msgstr "Ihe a nwere ike iwe ruru awa iri abụọ na anọ."
+
+#: templates/donations/payment_pending.html:43
+msgid "You will receive a confirmation email once the status is updated."
+msgstr "Ị ga-enweta ozi-e nkwenye ozugbo emelitere ọnọdụ ya."
+
+#: templates/donations/payment_pending.html:44
+msgid "If not confirmed within 2 days, please contact our support."
+msgstr "Ọ bụrụ na akwadoghị ya n'ime ụbọchị abụọ, biko kpọtụrụ ndị nkwado anyị."
+
+#: templates/donations/payment_pending.html:50
+#: templates/donations/payment_status.html:40
+#: templates/donations/payment_success.html:50
+msgid "Make Another Contribution"
+msgstr "Nye onyinye ọzọ"
+
+#: templates/donations/payment_pending.html:53
+msgid "Check Status"
+msgstr "Lelee ọnọdụ"
+
+#: templates/donations/payment_pending.html:59
+msgid "For inquiries, contact us at"
+msgstr "Maka ajụjụ, kpọtụrụ anyị na"
+
+#: templates/donations/payment_pending.html:60
+#: templates/donations/payment_success.html:60
+msgid "or"
+msgstr "ma ọ bụ"
+
+#: templates/donations/payment_status.html:10
+msgid "Check Payment Status"
+msgstr "Lelee ọnọdụ ịkwụ ụgwọ"
+
+#: templates/donations/payment_status.html:17
+msgid "Checking payment status..."
+msgstr "Na-elele ọnọdụ ịkwụ ụgwọ..."
+
+#: templates/donations/payment_status.html:43
+msgid "Refresh"
+msgstr "Megharịa"
+
+#: templates/donations/payment_status.html:63
+msgid "Payment Successful!"
+msgstr "Ịkwụ ụgwọ gara nke ọma!"
+
+#: templates/donations/payment_status.html:64
+msgid "Your payment was confirmed on"
+msgstr "A kwadoro ịkwụ ụgwọ gị na"
+
+#: templates/donations/payment_status.html:66
+msgid "View Confirmation"
+msgstr "Lelee nkwenye"
+
+#: templates/donations/payment_status.html:75
+msgid "We are still waiting to confirm your payment"
+msgstr "Anyị ka na-eche nkwenye nke ịkwụ ụgwọ gị"
+
+#: templates/donations/payment_status.html:82
+msgid "No Update Found"
+msgstr "Ahụghị mmelite ọ bụla"
+
+#: templates/donations/payment_status.html:83
+msgid "There is no new information regarding your payment"
+msgstr "Enweghị ozi ọhụrụ gbasara ịkwụ ụgwọ gị"
+
+#: templates/donations/payment_success.html:14
+msgid "Thank You!"
+msgstr "Daalụ!"
+
+#: templates/donations/payment_success.html:15
+msgid "Your contribution was successful"
+msgstr "Onyinye gị gara nke ọma"
+
+#: templates/donations/payment_success.html:40
+msgid "We will send a confirmation receipt to your email"
+msgstr "Anyị ga-eziga nnata nkwenye na ozi-e gị"
+
+#: templates/donations/payment_success.html:44
+msgid "once the transaction is fully processed"
+msgstr "ozugbo emechara azụmahịa ahụ"
+
+#: templates/donations/payment_success.html:53
+msgid "Print Receipt"
+msgstr "Bipụta nnata"
+
+#: templates/donations/payment_success.html:59
+msgid "If you have any questions regarding this contribution,"
+msgstr "Ọ bụrụ na ị nwere ajụjụ ọ bụla gbasara onyinye a,"
+
+#: templates/donations/payment_success.html:60
+msgid "please contact us at"
+msgstr "biko kpọtụrụ anyị na"
+
+#: templates/includes/bulk_pay_modal.html:8
+msgid "Authorize Disbursement"
+msgstr "Nye ikike ịkwụ ụgwọ"
+
+#: templates/includes/bulk_pay_modal.html:18
+msgid "Confirm Unit Payroll"
+msgstr "Tabbatar na Payroll nkeji"
+
+#: templates/includes/bulk_pay_modal.html:20
+#, python-format
+msgid ""
+"\n"
+"                    You are about to process payments for selected members "
+"of <strong>%(unit)s</strong>. \n"
+"                    This action will trigger bank transfers and cannot be "
+"reversed once executed.\n"
+"                    "
+msgstr ""
+"\n"
+"                    Ị na-achọ ịkwụ ụgwọ maka ndị otu ahọpụtara na <strong>%(unit)s</strong>. \n"
+"                    Ihe a ga-ebido nnyefe ego n'ụlọ akụ ma enweghị ike ịkagbu ya ozugbo emeela ya.\n"
+"                    "
+
+#: templates/includes/bulk_pay_modal.html:28
+msgid "Only 'Active' members selected in the table will be processed."
+msgstr "Naanị ndị otu 'Active' ahọpụtara na tebụl ka a ga-akwụ ụgwọ."
+
+#: templates/includes/bulk_pay_modal.html:36
+msgid "Review List"
+msgstr "Nyochaa ndepụta"
+
+#: templates/includes/bulk_pay_modal.html:41
+msgid "Process Now"
+msgstr "Mee ya ugbu a"
+
+#: templates/includes/sidebar.html:8
+msgid "Unit Leader"
+msgstr "Onye ndu nkeji"
+
+#: templates/includes/sidebar.html:12
+msgid "NAVIGATION"
+msgstr "NAVIGATION"
+
+#: templates/includes/sidebar.html:32
+msgid "SETTINGS"
+msgstr "SETTINGS"
+
+#: templates/includes/sidebar.html:35
+msgid "My Profile"
+msgstr "Profaịlụ m"
+
+#: templates/includes/sidebar.html:42
+msgid "Payroll History"
+msgstr "Akụkọ ịkwụ ụgwọ"
+
+#: templates/landing.html:125
+msgid "Updates"
+msgstr "Mmelite"
+
+#: templates/landing.html:133
+msgid "Welcome to our official portal. Stay tuned for live updates."
+msgstr "Nabata na portal gọọmentị anyị. Na-eche mmelite dị ndụ."
+
+#: templates/landing.html:170
+msgid "JIBWIS Digital Portal"
+msgstr "JIBWIS Digital Portal"
+
+#: templates/landing.html:171
+msgid "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG"
+msgstr "Ịdị n'otu nke Sunnah n'ofe Nigeria: Admin • Ulama • FAG"
+
+#: templates/landing.html:173
+msgid "Join Now"
+msgstr "Soro ugbu a"
+
+#: templates/landing.html:182
+msgid "Administration"
+msgstr "Nchịkwa"
+
+#: templates/landing.html:183
+msgid "National to Ward level leadership coordination."
+msgstr "Nhazi ndị ndu site n'ọkwa Mba ruo Ward."
+
+#: templates/landing.html:189
+msgid "Council of Ulama"
+msgstr "Council of Ulama"
+
+#: templates/landing.html:190
+msgid "Management of scholars and educational backgrounds."
+msgstr "Nlekọta nke ndị ọkà mmụta na agụmakwụkwọ ha."
+
+#: templates/landing.html:196
+msgid "First Aid Group"
+msgstr "First Aid Group"
+
+#: templates/landing.html:197
+msgid "Divisional, Detachment, and Unit leadership."
+msgstr "Ndị ndu Divisional, Detachment, na Unit."
+
+#: templates/landing.html:206
+msgid "Visit Us"
+msgstr "Leta anyị"
+
+#: templates/landing.html:207
+msgid "JIBWIS National Headquarters,"
+msgstr "Isi ụlọ ọrụ JIBWIS Mba,"
+
+#: templates/landing.html:207
+msgid "Kaduna, Kaduna State, Nigeria."
+msgstr "Kaduna, Kaduna State, Nigeria."
+
+#: templates/landing.html:219
+msgid "Latest Announcements"
+msgstr "Ọkwa ọhụrụ"
+
+#: templates/landing.html:231
+msgid "Read More"
+msgstr "Gụkwuo"
+
+#: templates/landing.html:241
+msgid "JIBWIS Media Updates"
+msgstr "JIBWIS Media Updates"
+
+#: templates/landing.html:268
+msgid "Share"
+msgstr "Kekọrịta"
+
+#: templates/landing.html:273
+msgid "Download"
+msgstr "Budata"
+
+#: templates/leader_directory.html:7
+msgid "Official Leader Directory"
+msgstr "Ndekọ ndị ndu gọọmentị"
+
+#: templates/leader_directory.html:8
+msgid "Verified National and State Leadership of JIBWIS Nigeria"
+msgstr "Ndị ndu Mba na Steeti nke JIBWIS Nigeria enyochara"
+
+#: templates/leader_directory.html:16
+msgid "Search by name, position, or unit..."
+msgstr "Chọọ site n'aha, ọkwa, ma ọ bụ nkeji..."
+
+#: templates/leader_directory.html:56 templates/pending_approval.html:24
+msgid "View Profile"
+msgstr "Lelee profaịlụ"
+
+#: templates/leader_directory.html:80
+msgid "Directory Updating"
+msgstr "Na-emelite ndekọ"
+
+#: templates/leader_directory.html:81
+msgid "The leadership directory is currently being synchronized."
+msgstr "A na-emelite ndekọ ndị ndu ugbu a."
+
+#: templates/leader_directory.html:82
+msgid "Return to Dashboard"
+msgstr "Laghachi na Dashboard"
+
+#: templates/login.html:9
+msgid "Warning:"
+msgstr "Ịdọ aka ná ntị:"
+
+#: templates/login.html:21
+msgid "Access the JIBWIS Management Portal"
+msgstr "Banye na JIBWIS Management Portal"
+
+#: templates/login.html:45
+msgid "Password"
+msgstr "Paswọọdụ"
+
+#: templates/login.html:57
+msgid "Login to Account"
+msgstr "Banye na asusu"
+
+#: templates/login.html:70
+msgid "Not registered?"
+msgstr "Ị debanyeghị aha?"
+
+#: templates/login.html:71
+msgid "Apply Now"
+msgstr "Tinye akwụkwọ ugbu a"
+
+#: templates/password_reset.html:2
+msgid "Reset Your Password"
+msgstr "Tọgharịa paswọọdụ gị"
+
+#: templates/password_reset.html:3
+msgid ""
+"Enter your email address below, and we'll email instructions for setting a "
+"new one."
+msgstr ""
+"Tinye adresị ozi-e gị n'okpuru, anyị ga-ezitere gị ntuziaka maka ịtọ paswọọdụ ọhụrụ."
+
+#: templates/password_reset.html:7
+msgid "Send Reset Email"
+msgstr "Zipụ ozi-e ntọgharị"
+
+#: templates/password_reset_complete.html:6
+msgid "Password Reset Complete"
+msgstr "Ntọgharị paswọọdụ agwụla"
+
+#: templates/password_reset_complete.html:7
+msgid "Your new password has been set. You may go ahead and log in now."
+msgstr "Edobela paswọọdụ ọhụrụ gị. Ị nwere ike ịga n'ihu banye ugbu a."
+
+#: templates/password_reset_complete.html:8
+msgid "Login to Portal"
+msgstr "Banye na Portal"
+
+#: templates/password_reset_confirm.html:10
+msgid "New Password"
+msgstr "Paswọọdụ ọhụrụ"
+
+#: templates/password_reset_confirm.html:11
+msgid "Please enter your new password below."
+msgstr "Biko tinye paswọọdụ ọhụrụ gị n'okpuru."
+
+#: templates/password_reset_confirm.html:33
+msgid "Reset Password"
+msgstr "Tọgharịa paswọọdụ"
+
+#: templates/password_reset_confirm.html:49
+msgid "This password reset link is invalid or has expired."
+msgstr "Link ntọgharị paswọọdụ a adịghị mma ma ọ bụ na ọ gwụla."
+
+#: templates/password_reset_confirm.html:52
+msgid "Request a new link"
+msgstr "Rịọ maka link ọhụrụ"
+
+#: templates/password_reset_done.html:6
+msgid "Check Your Email"
+msgstr "Lelee ozi-e gị"
+
+#: templates/password_reset_done.html:7
+msgid ""
+"We've emailed you instructions for setting your password. You should receive "
+"them shortly."
+msgstr ""
+"Anyị ezitere gị ozi-e nwere ntuziaka maka ịtọ paswọọdụ gị. Ị ga-enweta ya n'oge na-adịghị anya."
+
+#: templates/password_reset_done.html:8
+msgid ""
+"If you don't receive an email, please ensure you've entered the address you "
+"registered with and check your spam folder."
+msgstr ""
+"Ọ bụrụ na ị nataghị ozi-e, biko hụ na itinye adresị i debanyere aha na ya ma lelee igbe spam gị."
+
+#: templates/password_reset_email.html:3
+msgid ""
+"To initiate the password reset process for your JIBWIS account, click the "
+"link below:"
+msgstr ""
+"Iji malite usoro ntọgharị paswọọdụ maka asusu JIBWIS gị, pịa link dị n'okpuru a:"
+
+#: templates/password_reset_email.html:7
+msgid ""
+"If clicking the link doesn't work, please copy and paste the URL into your "
+"browser."
+msgstr ""
+"Ọ bụrụ na ịpị link ahụ anaghị arụ ọrụ, biko detuo na mado URL ahụ na ihe nchọgharị gị."
+
+#: templates/payroll_history.html:13
+msgid "Disbursement Ledger"
+msgstr "Ndekọ ịkwụ ụgwọ"
+
+#: templates/payroll_history.html:15
+msgid "New Disbursement"
+msgstr "Ịkwụ ụgwọ ọhụrụ"
+
+#: templates/payroll_history.html:24
+msgid "Date & Time"
+msgstr "Ụbọchị na Oge"
+
+#: templates/payroll_history.html:59
+msgid "Paid"
+msgstr "Akpụọla"
+
+#: templates/payroll_history.html:67
+msgid "No disbursement records found."
+msgstr "Ahụghị ndekọ ịkwụ ụgwọ ọ bụla."
+
+#: templates/pending_approval.html:4
+msgid "Pending Member Verifications"
+msgstr "Nkwenye ndị otu na-echere"
+
+#: templates/pending_approval.html:11
+msgid "Unit/Jurisdiction"
+msgstr "Nkeji/Ikike"
+
+#: templates/pending_approval.html:12
+msgid "Registration Date"
+msgstr "Ụbọchị ndebanye aha"
+
+#: templates/pending_approval.html:28
+msgid "Approve"
+msgstr "Kwado"
+
+#: templates/pending_approval.html:44
+msgid "Bank:"
+msgstr "Banki:"
+
+#: templates/pending_approval.html:48
+msgid "Education:"
+msgstr "Agụmakwụkwọ:"
+
+#: templates/pending_approval.html:49
+msgid "Position:"
+msgstr "Ọkwa:"
+
+#: templates/pending_approval.html:53
+msgid "Verified via Moniepoint/Paystack:"
+msgstr "Enyochara site na Moniepoint/Paystack:"
+
+#: templates/pending_approval.html:55
+msgid "Account Validated"
+msgstr "Asusu enyochara"
+
+#: templates/pending_approval.html:57
+msgid "Account Not Validated"
+msgstr "Asusu anaghị enyocha"
+
+#: templates/upload_video.html:8
+msgid "Upload Short Video"
+msgstr "Bulite obere vidiyo"
+
+#: templates/upload_video.html:11
+msgid ""
+"Videos will auto-play on hover on the landing page. Recommended format: "
+"Vertical (9:16)."
+msgstr ""
+"Vidiyo ga-amalite n'onwe ya mgbe aka kpara ya na peeji mbụ. Ụdị a tụrụ aro: "
+"N'ogologo (9:16)."
+
+#: templates/upload_video.html:16
+msgid "Publish Video"
+msgstr "Bipụta vidiyo"
+
+#: templates/upload_video.html:20
+msgid "Cancel and Return"
+msgstr "Kagbuo ma laghachi azụ"

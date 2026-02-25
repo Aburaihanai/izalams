@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm bg-dark text-white overflow-hidden">
+                <div class="card-body p-4 position-relative">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h6 class="text-uppercase small opacity-75 mb-1">{% trans "Paystack Transfer Balance" %}</h6>
+                            <h2 class="fw-bold mb-0">₦{{ paystack_balance|floatformat:2 }}</h2>
+                            <p class="small mb-0 mt-2 text-info">
+                                <i class="bi bi-info-circle"></i> {% trans "Funds available for immediate disbursement." %}
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <i class="bi bi-wallet2 opacity-25" style="font-size: 4rem; position: absolute; right: 20px; top: 10px;"></i>
+                            <button type="button" onclick="location.reload()" class="btn btn-sm btn-outline-light rounded-pill">
+                                <i class="bi bi-arrow-clockwise"></i> {% trans "Refresh Balance" %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            {% include 'includes/sidebar.html' %}
+        </div>
+
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h4 class="fw-bold mb-1">{% trans "Category Payroll" %}</h4>
+                            <p class="text-muted small mb-0">{% trans "Managing" %}: <span class="badge bg-primary">{{ category_name }}</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <form method="GET" class="d-flex">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                                    <input type="text" name="q" class="form-control border-start-0 shadow-none"
+                                           placeholder="{% trans 'Search by name or unit/state...' %}" value="{{ search_query }}">
+                                    <button class="btn btn-dark px-4" type="submit">{% trans "Filter" %}</button>
+                                </div>
+                                {% if search_query %}
+                                    <a href="{% url 'bulk_payroll' %}" class="btn btn-link text-danger ms-2"><i class="bi bi-x-circle"></i></a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="fw-bold mb-1">{% trans "Category Payroll" %}</h4>
+                <p class="text-muted small mb-0">
+                    {% trans "Scope" %}:
+                    <span class="badge bg-dark">
+                        {% if leader_profile.unit.level == 'NATIONAL' %}
+                            {% trans "Full Hierarchy (National)" %}
+                        {% else %}
+                            {{ leader_profile.unit.name }} ({% trans "Restricted" %})
+                        {% endif %}
+                    </span>
+                </p>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <form action="{% url 'process_payroll' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                        <table class="table align-middle mb-0">
+                            <thead class="table-light sticky-top">
+                                <tr class="small text-uppercase">
+                                    <th class="ps-4" style="width: 40px;"><input type="checkbox" id="selectAll" class="form-check-input"></th>
+                                    <th>{% trans "Personnel" %}</th>
+                                    <th>{% trans "Unit / Level" %}</th>
+                                    <th>{% trans "Account" %}</th>
+                                    <th class="pe-4" style="width: 150px;">{% trans "Amount" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for person in members %}
+                                {% with p=person.profiles.first %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <input type="checkbox" name="selected_members" value="{{ person.id }}" class="member-checkbox form-check-input">
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold">{{ person.get_full_name|default:person.username }}</div>
+                                        <div class="text-muted" style="font-size: 0.75rem;">{{ p.position|default:"Staff" }}</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info-subtle text-info small">
+                                            {{ p.unit.name }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="font-monospace small text-primary">{{ person.account_number|default:"---" }}</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">{{ person.get_bank_code_display }}</div>
+                                    </td>
+                                    <td class="pe-4">
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-light">₦</span>
+                                            <input type="number" name="amount_{{ person.id }}" value="5000" class="form-control fw-bold">
+                                        </div>
+                                    </td>
+                                    <td id="verify-cell-{{ person.id }}">
+                                        <div class="font-monospace small text-primary">{{ person.account_number|default:"---" }}</div>
+                                        {% if person.account_number and person.bank_code %}
+                                            <button type="button"
+                                                    onclick="verifyAccount('{{ person.id }}', '{{ person.account_number }}', '{{ person.bank_code }}')"
+                                                    class="btn btn-sm btn-outline-secondary py-0 px-1 mt-1"
+                                                    style="font-size: 0.65rem;">
+                                                <i class="bi bi-shield-check"></i> Verify Name
+                                            </button>
+                                        {% else %}
+                                            <span class="badge bg-danger-subtle text-danger small" style="font-size: 0.6rem;">Missing Info</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endwith %}
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center py-5">
+                                        <i class="bi bi-person-exclamation fs-1 text-muted"></i>
+                                        <p class="mt-2 text-muted">{% trans "No matches found for" %} "{{ search_query }}"</p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer bg-white text-end py-3 border-top">
+                        <span class="small text-muted me-3">{% trans "Selected" %}: <strong id="checkCount">0</strong></span>
+                        <button type="button" class="btn btn-success fw-bold rounded-pill px-5 shadow" data-bs-toggle="modal" data-bs-target="#confirmPayModal">
+                            {% trans "Execute Disbursement" %} <i class="bi bi-lightning-fill ms-1"></i>
+                        </button>
+                    </div>
+
+                    {% include 'includes/bulk_pay_modal.html' %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const selectAll = document.getElementById('selectAll');
+    const checkboxes = document.querySelectorAll('.member-checkbox');
+    const checkCount = document.getElementById('checkCount');
+
+    selectAll?.addEventListener('change', function() {
+        checkboxes.forEach(c => c.checked = this.checked);
+        updateUI();
+    });
+
+    checkboxes.forEach(c => {
+        c.addEventListener('change', updateUI);
+    });
+
+    function updateUI() {
+        const count = document.querySelectorAll('.member-checkbox:checked').length;
+        checkCount.innerText = count;
+    }
+
+    function verifyAccount(userId, accNo, bankCd) {
+        // 1. Find the table cell and save the original content in case of error
+        const cell = document.getElementById(`verify-cell-${userId}`);
+        const originalContent = cell.innerHTML;
+
+        // 2. Show a loading spinner
+        cell.innerHTML = `
+            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <span class="small text-muted ms-1">Verifying...</span>
+        `;
+
+        // 3. Fetch data from our new view
+        fetch(`/verify-account-ajax/?acc=${accNo}&bank=${bankCd}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Success: Show the official bank name in green
+                    cell.innerHTML = `
+                        <div class="text-success fw-bold small">
+                            <i class="bi bi-check-circle-fill"></i> ${data.account_name}
+                        </div>
+                        <div class="text-muted small font-monospace">${accNo}</div>
+                    `;
+                } else {
+                    // Fail: Revert and show error
+                    alert("Verification failed: " + data.message);
+                    cell.innerHTML = originalContent;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                cell.innerHTML = originalContent;
+            });
+    }
+    function calculateTotal() {
+        let total = 0;
+        const selectedCheckboxes = document.querySelectorAll('.member-checkbox:checked');
+        const balance = parseFloat("{{ paystack_balance }}");
+
+        selectedCheckboxes.forEach(cb => {
+            const amountInput = document.querySelector(`input[name="amount_${cb.value}"]`);
+            total += parseFloat(amountInput.value);
+        });
+
+        const executeBtn = document.getElementById('executeBtn');
+        if (total > balance) {
+            executeBtn.disabled = true;
+            executeBtn.classList.replace('btn-success', 'btn-danger');
+            executeBtn.innerHTML = `Insufficient Balance (₦${total})`;
+        } else {
+            executeBtn.disabled = false;
+            executeBtn.classList.replace('btn-danger', 'btn-success');
+            executeBtn.innerHTML = `Execute Disbursement (₦${total})`;
+        }
+    }
+
+    // Add event listeners to all checkboxes and amount inputs
+    document.querySelectorAll('.member-checkbox, .form-control').forEach(el => {
+        el.addEventListener('change', calculateTotal);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load i18n %}
+
+<div class="modal fade" id="confirmPayModal" tabindex="-1" aria-labelledby="confirmPayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header border-0 {% if leader_profile.unit.category == 'ULAMA' %}bg-success{% elif leader_profile.unit.category == 'ADMIN' %}bg-primary{% elif leader_profile.unit.category == 'FAG' %}bg-danger{% else %}bg-dark{% endif %} text-white">
+                <h5 class="modal-title fw-bold" id="confirmPayModalLabel">
+                    <i class="bi bi-shield-lock me-2"></i>{% trans "Authorize Disbursement" %}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center p-5">
+                <div class="mb-4">
+                    <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size: 4rem;"></i>
+                </div>
+
+                <h4 class="fw-bold text-dark">{% trans "Confirm Unit Payroll" %}</h4>
+                <p class="text-muted px-3">
+                    {% blocktrans with unit=leader_profile.unit.name %}
+                    You are about to process payments for selected members of <strong>{{ unit }}</strong>. 
+                    This action will trigger bank transfers and cannot be reversed once executed.
+                    {% endblocktrans %}
+                </p>
+
+                <div class="alert alert-info border-0 small d-flex align-items-center">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    {% trans "Only 'Active' members selected in the table will be processed." %}
+                </div>
+            </div>
+
+            <div class="modal-footer border-0 p-4">
+                <div class="row w-100 g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-light w-100 fw-bold py-2 border" data-bs-dismiss="modal">
+                            {% trans "Review List" %}
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn fw-bold w-100 py-2 shadow-sm {% if leader_profile.unit.category == 'ULAMA' %}btn-success{% elif leader_profile.unit.category == 'ADMIN' %}btn-primary{% elif leader_profile.unit.category == 'FAG' %}btn-danger{% else %}btn-dark{% endif %}">
+                            {% trans "Process Now" %} <i class="bi bi-check-all ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

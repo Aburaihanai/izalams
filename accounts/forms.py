@@ -5,6 +5,7 @@ from .models import VideoPost
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
+
 class ApprovedOnlyLoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
         # Check if any of the user's profiles are active
@@ -74,3 +75,20 @@ class AnnouncementForm(forms.ModelForm):
             'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        # Include all the fields you just added to the User model
+        fields = [
+            'first_name', 'last_name', 'email', 'phone_number',
+            'education', 'bank_code', 'account_number', 'account_name'
+        ]
+        widgets = {
+            'bank_code': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['account_number', 'bank_name', 'unit', 'position']

@@ -3,234 +3,148 @@
 
 {% block content %}
 <div class="container-fluid py-4">
-
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex align-items-center bg-dark rounded shadow-sm overflow-hidden" style="height: 40px;">
-                <div class="bg-danger text-white px-3 py-2 fw-bold small text-uppercase" style="z-index: 2; white-space: nowrap;">
-                    {% trans "Live Updates" %}
-                </div>
-                <div class="flex-grow-1 position-relative overflow-hidden">
-                    <div class="ticker-text-move text-white">
-                        {% for a in announcements %}
-                            <span class="mx-4"><i class="bi bi-dot"></i> {{ a.content }}</span>
-                        {% empty %}
-                            <span class="mx-4">{% trans "Welcome to the Dashboard." %}</span>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-lg-3">
-            <div class="card border-0 shadow-sm mb-4 overflow-hidden
-                {% if leader_profile %}{% if leader_profile.unit.category == 'ULAMA' %}bg-success{% elif leader_profile.unit.category == 'ADMIN' %}bg-primary{% else %}bg-danger{% endif %}{% else %}bg-dark{% endif %} text-white">
-                <div class="card-body p-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-white fw-bold d-flex align-items-center justify-content-center shadow-sm text-dark" style="width: 55px; height: 55px; border-radius: 12px;">
-                             {{ leader_profile.unit.short_name|default:"HQ" }}
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0 fw-bold">{{ user.username|title }}</h6>
-                            <small class="opacity-75">{{ leader_profile.unit.name|default:"Administrator" }}</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="list-group list-group-flush rounded">
-                    <div class="list-group-item bg-light small fw-bold text-muted text-uppercase">{% trans "Main Menu" %}</div>
-                    <a href="{% url 'member_search' %}" class="list-group-item list-group-item-action border-0"><i class="bi bi-search me-2 text-primary"></i> {% trans "Search Members" %}</a>
-                    <a href="{% url 'members_list' %}" class="list-group-item list-group-item-action border-0"><i class="bi bi-people me-2 text-success"></i> {% trans "Member Directory" %}</a>
-                    <a href="{% url 'landing' %}" class="list-group-item list-group-item-action border-0"><i class="bi bi-house me-2"></i> {% trans "View Landing Page" %}</a>
-                </div>
-            </div>
-
-            {% if user.is_staff %}
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="list-group list-group-flush rounded">
-                    <div class="list-group-item bg-light small fw-bold text-muted text-uppercase">{% trans "Staff Tools" %}</div>
-                    <button class="list-group-item list-group-item-action border-0" data-bs-toggle="modal" data-bs-target="#announcementModal"><i class="bi bi-megaphone me-2 text-danger"></i> {% trans "Post Announcement" %}</button>
-                    <button class="list-group-item list-group-item-action border-0" data-bs-toggle="modal" data-bs-target="#galleryModal"><i class="bi bi-image me-2 text-primary"></i> {% trans "Upload Gallery Image" %}</button>
-                    <button class="list-group-item list-group-item-action border-0" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-play-btn me-2 text-info"></i> {% trans "Post New Video" %}</button>
-                </div>
-            </div>
-            {% endif %}
-
-            <a href="{% url 'logout' %}" class="btn btn-outline-danger w-100 mb-4 border-0 text-start"><i class="bi bi-box-arrow-right me-2"></i> {% trans "Logout" %}</a>
+            {% include 'includes/sidebar.html' %}
         </div>
 
         <div class="col-lg-9">
-            <div class="row g-3 mb-4 text-center">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm p-3 border-bottom border-4 border-primary">
-                        <small class="text-muted fw-bold">{% trans "TOTAL MEMBERS" %}</small>
-                        <h2 class="fw-bold mb-0">{{ members|length }}</h2>
-                    </div>
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <h2 class="fw-bold text-dark mb-0">{% trans "Command Center" %}</h2>
+                    <p class="text-muted mb-0">
+                        {{ leader_profile.unit.name }} | {% trans "Leader" %}: {{ user.get_full_name|default:user.username }}
+                    </p>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm p-3 border-bottom border-4 border-warning">
-                        <small class="text-muted fw-bold">{% trans "PENDING" %}</small>
-                        <h2 class="fw-bold mb-0">{{ pending|length }}</h2>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm p-3 border-bottom border-4 border-success">
-                        <small class="text-muted fw-bold">{% trans "TOTAL SPENT" %}</small>
-                        <h2 class="fw-bold mb-0">₦{{ total_spent }}</h2>
-                    </div>
-                </div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
+                    <i class="bi bi-shield-check me-1"></i> {% trans "Authorized Access" %}
+                </span>
             </div>
 
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0 fw-bold"><i class="bi bi-wallet2 me-2"></i>{% trans "Unit Payroll Disbursement" %}</h6>
-                </div>
-
-                <form action="{% url 'bulk_payroll' %}" method="POST" id="payrollForm">
-                    {% csrf_token %}
-                    <div class="table-responsive">
-                        <table class="table align-middle" id="payrollTable">
-                            <thead class="table-light small">
-                                <tr>
-                                    <th class="ps-3"><input type="checkbox" id="selectAll" class="form-check-input"></th>
-                                    <th>{% trans "Official" %}</th>
-                                    <th>{% trans "Bank / Account" %}</th>
-                                    <th style="width: 150px;" class="pe-3">{% trans "Amount (₦)" %}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for m in members %}
-                                <tr class="payroll-row">
-                                    <td class="ps-3"><input type="checkbox" name="selected_members" value="{{ m.user.id }}" class="member-checkbox form-check-input"></td>
-                                    <td class="fw-bold member-name">{{ m.user.username|title }} <br><small class="text-muted fw-normal">{{ m.unit.short_name }}</small></td>
-                                    <td>
-                                        <div class="small">{{ m.user.get_bank_code_display }}</div>
-                                        <div class="font-monospace small member-acc {% if leader_profile.unit.category == 'ULAMA' %}text-success{% elif leader_profile.unit.category == 'ADMIN' %}text-primary{% else %}text-danger{% endif %}">{{ m.user.account_number }}</div>
-                                    </td>
-                                    <td class="pe-3"><input type="number" name="amount_{{ m.user.id }}" value="5000" class="form-control form-control-sm"></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                            <tfoot class="table-dark">
-                                <tr>
-                                    <td colspan="3" class="text-end fw-bold py-3">{% trans "Total to Disburse:" %}</td>
-                                    <td class="fw-bold py-3 pe-3">₦<span id="grandTotal">0.00</span></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+            {% if user.is_staff %}
+                <div class="card border-0 shadow-sm mb-5 overflow-hidden">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h6 class="mb-0 fw-bold text-warning">
+                            <i class="bi bi-hourglass-split me-2"></i>{% trans "Pending Unit Verifications" %}
+                        </h6>
                     </div>
-                    <div class="card-footer bg-white text-end py-3 border-0">
-                        <button type="button" class="btn fw-bold rounded-pill px-4 shadow-sm {% if leader_profile.unit.category == 'ULAMA' %}btn-success{% elif leader_profile.unit.category == 'ADMIN' %}btn-primary{% elif leader_profile.unit.category == 'FAG' %}btn-danger{% else %}btn-dark{% endif %}" data-bs-toggle="modal" data-bs-target="#confirmPayModal">
-                            {% trans "Execute Disbursement" %} <i class="bi bi-lightning-fill ms-1"></i>
-                        </button>
-                    </div>
-
-                    <div class="modal fade" id="confirmPayModal" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content border-0 shadow">
-                                <div class="modal-body text-center p-5">
-                                    <div class="display-1 text-warning mb-3"><i class="bi bi-exclamation-circle"></i></div>
-                                    <h4 class="fw-bold">{% trans "Final Confirmation" %}</h4>
-                                    <p class="text-muted">{% trans "Process payments for your selected unit members. This cannot be reversed." %}</p>
-                                    <div class="d-grid gap-2 mt-4">
-                                        <button type="submit" class="btn btn-lg fw-bold rounded-pill {% if leader_profile.unit.category == 'ULAMA' %}btn-success{% elif leader_profile.unit.category == 'ADMIN' %}btn-primary{% else %}btn-danger{% endif %}">{% trans "Yes, Process Now" %}</button>
-                                        <button type="button" class="btn btn-link text-muted" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                    <div class="list-group list-group-flush">
+                        {% for member in pending %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded-circle p-2 me-3">
+                                        <i class="bi bi-person text-secondary"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">{{ member.user.get_full_name|default:member.user.username }}</h6>
+                                        <small class="text-muted">{{ member.category }} • {{ member.user.email|default:"No email" }}</small>
                                     </div>
                                 </div>
+                                <div class="d-flex gap-2">
+                                    <form action="{% url 'approve_member' member.id %}" method="POST" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-success px-3 rounded-pill">
+                                            <i class="bi bi-check-lg me-1"></i> {% trans "Approve" %}
+                                        </button>
+                                    </form>
+                                    <form action="{% url 'delete_member_permanent' member.user.id %}" method="POST" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('{% trans "Reject and delete this application?" %}')">
+                                            <i class="bi bi-x"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="p-4 text-center">
+                                <p class="text-muted small mb-0">{% trans "Your unit is currently up to date. No pending requests." %}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="row g-4 mb-5">
+                {% if user.is_staff %}
+                <div class="col-md-4">
+                    <a href="{% url 'bulk_payroll' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-warning-subtle text-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="bi bi-lightning-charge-fill fs-3"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark">{% trans "Bulk Payroll" %}</h5>
+                            <p class="small text-muted mb-0">{% trans "Process unit disbursements." %}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+
+                <div class="col-md-4">
+                    <a href="{% url 'members_list' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="bi bi-people-fill fs-3"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark">{% trans "Directory" %}</h5>
+                            <p class="small text-muted mb-0">{% trans "Manage unit personnel records." %}</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="#inboxSection" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-success-subtle text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="bi bi-envelope-paper-fill fs-3"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark">{% trans "My Inbox" %}</h5>
+                            <p class="small text-muted mb-0">{% trans "Unit communications." %}</p>
+                            {% if messages_received.count > 0 %}
+                                <span class="badge bg-danger rounded-pill mt-2">{{ messages_received.count }} {% trans "New" %}</span>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div id="inboxSection" class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 fw-bold">{% trans "Recent Messages" %}</h6>
+                    <a href="{% url 'inbox' %}" class="btn btn-sm btn-light text-success px-3">{% trans "View All" %}</a>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for msg in messages_received|slice:":5" %}
+                        <div class="list-group-item p-3 border-start border-4 {% if not msg.is_read %}border-success bg-light-subtle{% else %}border-transparent{% endif %}">
+                            <small class="text-muted float-end">{{ msg.timestamp|date:"d M" }}</small>
+                            <h6 class="fw-bold mb-1">
+                                {% if not msg.is_read %}<span class="badge bg-success p-1 me-1"> </span>{% endif %}
+                                {{ msg.subject }}
+                            </h6>
+                            <p class="small text-muted mb-2 text-truncate">{{ msg.body }}</p>
+
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2" data-bs-toggle="modal" data-bs-target="#preview{{ msg.id }}">
+                                    <i class="bi bi-eye small"></i> {% trans "Preview" %}
+                                </button>
+                                <a href="{% url 'bulk_message_send' %}?recipient={{ msg.sender.id }}&subject=RE: {{ msg.subject }}" class="btn btn-sm btn-outline-success py-0 px-2">
+                                    <i class="bi bi-reply small"></i> {% trans "Reply" %}
+                                </a>
                             </div>
                         </div>
-                    </div>
-                </form>
+
+                        {% empty %}
+                        <div class="p-4 text-center text-muted">{% trans "No new messages." %}</div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="modal fade" id="videoModal" tabindex="-1">
-    <div class="modal-dialog">
-        <form method="POST" enctype="multipart/form-data" action="{% url 'upload_video' %}">
-            {% csrf_token %}
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-info text-white"><h5>Post Video Update</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body">
-                    <input type="text" name="title" class="form-control mb-3" placeholder="Video Title" required>
-                    <label class="small fw-bold">Video File</label>
-                    <input type="file" name="video_file" class="form-control mb-3" accept="video/*" required>
-                    <label class="small fw-bold">Thumbnail (Optional)</label>
-                    <input type="file" name="thumbnail" class="form-control" accept="image/*">
-                </div>
-                <div class="modal-footer"><button type="submit" class="btn btn-info w-100 text-white fw-bold">Upload Video</button></div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="modal fade" id="announcementModal" tabindex="-1">
-    <div class="modal-dialog">
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="add_announcement" value="1">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-danger text-white"><h5>Update Ticker</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body">
-                    <textarea name="content" class="form-control" rows="3" placeholder="Enter scrolling news text..." required></textarea>
-                </div>
-                <div class="modal-footer"><button type="submit" class="btn btn-danger w-100">Publish News</button></div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="modal fade" id="galleryModal" tabindex="-1">
-    <div class="modal-dialog">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="add_gallery" value="1">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-primary text-white"><h5>Add Landing Photo</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body">
-                    <input type="text" name="title" class="form-control mb-2" placeholder="Photo Caption">
-                    <input type="file" name="image" class="form-control" accept="image/*" required>
-                </div>
-                <div class="modal-footer"><button type="submit" class="btn btn-primary w-100">Upload to Gallery</button></div>
-            </div>
-        </form>
     </div>
 </div>
 
 <style>
-.ticker-text-move { display: inline-block; white-space: nowrap; padding-left: 100%; animation: marquee 30s linear infinite; }
-@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    .transition-up { transition: transform 0.2s ease; }
+    .transition-up:hover { transform: translateY(-5px); border: 1px solid #198754 !important; }
+    .list-group-item { transition: background 0.2s; }
+    .list-group-item:hover { background-color: #fcfcfc; }
 </style>
-
-<script>
-    const checks = document.querySelectorAll('.member-checkbox');
-    const display = document.getElementById('grandTotalDisplay');
-    const selectAll = document.getElementById('selectAll');
-
-    function calculate() {
-        let total = 0;
-        checks.forEach(c => {
-            if(c.checked) {
-                const amt = document.querySelector(`input[name="amount_${c.value}"]`).value;
-                total += parseFloat(amt || 0);
-            }
-        });
-        display.innerText = total.toLocaleString('en-NG', {minimumFractionDigits: 2});
-    }
-
-    if(selectAll) {
-        selectAll.addEventListener('change', function() {
-            checks.forEach(c => c.checked = this.checked);
-            calculate();
-        });
-    }
-
-    checks.forEach(c => c.addEventListener('change', calculate));
-    document.querySelectorAll('.amount-input').forEach(i => i.addEventListener('input', calculate));
-</script>
 {% endblock %}

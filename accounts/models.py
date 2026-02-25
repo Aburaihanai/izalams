@@ -56,7 +56,7 @@ class OrganizationUnit(models.Model):
     level = models.CharField(max_length=10, choices=LEVEL_CHOICES)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='sub_units')
     def __str__(self): return f"{self.category} - {self.name}"
-    
+
     @property
     def short_name(self):
         return "".join([word[0].upper() for word in self.name.split()])
@@ -65,6 +65,9 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles')
     unit = models.ForeignKey(OrganizationUnit, on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
+    account_number = models.CharField(max_length=10, null=True, blank=True)
+    bank_name = models.CharField(max_length=100, null=True, blank=True)
+    bank_code = models.CharField(max_length=3, null=True, blank=True)
     is_active = models.BooleanField(default=False)
 
 class Message(models.Model):
@@ -72,7 +75,10 @@ class Message(models.Model):
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_msgs')
     subject = models.CharField(max_length=255)
     body = models.TextField()
+    is_read = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
+    recipient_deleted = models.BooleanField(default=False)
+    sender_deleted = models.BooleanField(default=False)
 
 class VideoPost(models.Model):
     title = models.CharField(max_length=200)
@@ -84,7 +90,7 @@ class VideoPost(models.Model):
 
     def total_likes(self):
         return self.likes.count()
-    
+
     def __str__(self):
         return self.title
 
@@ -92,8 +98,8 @@ class VideoPost(models.Model):
 class PayrollRecord(models.Model):
     member = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_date = models.DateTimeField(auto_now_add=True) 
-    month = models.CharField(max_length=20, blank=True, null=True) 
+    payment_date = models.DateTimeField(auto_now_add=True)
+    month = models.CharField(max_length=20, blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=20, default='pending')
     reference = models.CharField(max_length=100, unique=True)
@@ -115,6 +121,7 @@ class Announcement(models.Model):
     content = models.CharField(max_length=255) # The scrolling text
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    unit = models.ForeignKey('OrganizationUnit', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.content[:50]
@@ -125,9 +132,27 @@ class NewsUpdate(models.Model):
     tiktok_url = models.URLField(blank=True, help_text="Paste TikTok video link here")
     created_at = models.DateTimeField(auto_now_add=True)
     is_pinned = models.BooleanField(default=False)
-    
+
     class Meta:
         ordering = ['-is_pinned', '-created_at']
-        
+
     def __str__(self):
         return self.title
+
+class DisciplinaryReport(models.Model):
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reports_made")
+    subject_leader = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reports_against")
+    complaint = models.TextField()
+    evidence = models.FileField(upload_to='reports/', null=True, blank=True)
+    status = models.CharField(max_length=20, default='pending') # pending, investigating, resolved
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Disbursement(models.Model):
+    authorized_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='authorizations')
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_payments')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, default='SUCCESS')
+
+    def __str__(self):
+        return f"{self.recipient.username} - {self.amount}"

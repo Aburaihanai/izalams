@@ -1,0 +1,44 @@
+{% load i18n %}
+<div class="card border-0 shadow-sm mb-4 bg-primary text-white text-center p-4">
+    <div class="bg-white text-dark d-inline-flex align-items-center justify-content-center mb-3 shadow mx-auto"
+         style="width: 60px; height: 60px; border-radius: 50%; font-size: 1.2rem; font-weight: bold;">
+        {{ user.username|slice:":1"|upper }}
+    </div>
+    <h6 class="fw-bold mb-0 text-truncate">{{ user.get_full_name|default:user.username }}</h6>
+    <p class="small opacity-75 mb-0">{% trans "Unit Leader" %}</p>
+</div>
+
+<div class="list-group shadow-sm border-0 mb-4">
+    <div class="list-group-item bg-light small fw-bold text-muted">{% trans "NAVIGATION" %}</div>
+
+    <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action border-0">
+        <i class="bi bi-speedometer2 me-2 text-primary"></i> {% trans "Dashboard" %}
+    </a>
+
+    <a href="{% url 'members_list' %}" class="list-group-item list-group-item-action border-0">
+        <i class="bi bi-people me-2 text-success"></i> {% trans "Directory" %}
+    </a>
+
+    <a href="{% url 'member_search' %}" class="list-group-item list-group-item-action border-0">
+        <i class="bi bi-search me-2 text-info"></i> {% trans "Search" %}
+    </a>
+
+    {% if user.is_staff %}
+    <a href="{% url 'bulk_payroll' %}" class="list-group-item list-group-item-action border-0">
+        <i class="bi bi-lightning-charge me-2 text-warning"></i> {% trans "Bulk Payroll" %}
+    </a>
+    {% endif %}
+
+    <div class="list-group-item bg-light small fw-bold text-muted mt-2">{% trans "SETTINGS" %}</div>
+
+    <a href="{% url 'edit_profile' %}" class="list-group-item list-group-item-action border-0">
+        <i class="bi bi-person-gear me-2"></i> {% trans "My Profile" %}
+    </a>
+
+    <a href="{% url 'logout' %}" class="list-group-item list-group-item-action border-0 text-danger">
+        <i class="bi bi-box-arrow-right me-2"></i> {% trans "Logout" %}
+    </a>
+    <a href="{% url 'payroll_history' %}" class="list-group-item list-group-item-action border-0">
+        <i class="bi bi-clock-history me-2 text-dark"></i> {% trans "Payroll History" %}
+    </a>
+</div>

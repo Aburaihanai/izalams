@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold text-success">
+                    <i class="bi bi-mailbox2 me-2"></i>{% trans "Official Inbox" %}
+                </h3>
+                <span class="badge bg-success rounded-pill px-3 py-2">
+                    {{ messages_received.count }} {% trans "Messages" %}
+                </span>
+            </div>
+
+            <div class="card border-0 shadow-sm overflow-hidden">
+                <div class="list-group list-group-flush">
+                    {% for msg in messages_received %}
+                        <div class="list-group-item p-4 border-start border-4 {% if not msg.is_read %}border-success bg-light-subtle{% else %}border-transparent{% endif %}">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h5 class="mb-1 fw-bold {% if not msg.is_read %}text-success{% endif %}">
+                                        {{ msg.subject }}
+                                    </h5>
+                                    <div class="text-muted small">
+                                        <i class="bi bi-person-circle me-1"></i>
+                                        <strong>{% trans "From" %}:</strong> {{ msg.sender.get_full_name|default:msg.sender.username }} 
+                                        <span class="mx-2">|</span>
+                                        <i class="bi bi-clock me-1"></i>
+                                        {{ msg.timestamp|date:"D, d M Y | H:i" }}
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-light btn-sm rounded-circle" data-bs-toggle="dropdown">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                                        <li>
+                                            <form action="{% url 'delete_message' msg.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="dropdown-item text-danger" onclick="return confirm('{% trans "Are you sure you want to delete this memo?" %}')">
+                                                    <i class="bi bi-trash me-2"></i>{% trans "Delete" %}
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <p class="text-secondary mb-3 text-truncate" style="max-width: 90%;">{{ msg.body }}</p>
+
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-success px-3" data-bs-toggle="modal" data-bs-target="#msgModal{{ msg.id }}">
+                                    <i class="bi bi-eye me-1"></i> {% trans "Preview" %}
+                                </button>
+
+                                {% if user.is_staff %}
+                                    <a href="{% url 'official_memo' %}?recipient={{ msg.sender.id }}&subject={{ msg.subject }}" class="btn btn-sm btn-outline-success px-3">
+                                        <i class="bi bi-reply-fill me-1"></i> {% trans "Reply" %}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="msgModal{{ msg.id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 shadow-lg">
+                                    <div class="modal-header bg-success text-white border-0">
+                                        <h6 class="modal-title">{{ msg.subject }}</h6>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body p-4">
+                                        <div class="mb-4 bg-light p-3 rounded">
+                                            <div class="row small">
+                                                <div class="col-3 text-muted">{% trans "Sender" %}:</div>
+                                                <div class="col-9 fw-bold">{{ msg.sender.get_full_name }}</div>
+                                                <div class="col-3 text-muted">{% trans "Date" %}:</div>
+                                                <div class="col-9">{{ msg.timestamp }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="message-content" style="white-space: pre-wrap; line-height: 1.6;">{{ msg.body }}</div>
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% trans "Close" %}</button>
+                                        {% if user.is_staff %}
+                                            <a href="{% url 'official_memo' %}?recipient={{ msg.sender.id }}&subject={{ msg.subject }}" class="btn btn-success">
+                                                {% trans "Reply Now" %}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="text-center py-5">
+                            <div class="display-1 text-muted mb-3"><i class="bi bi-envelope-open"></i></div>
+                            <h5 class="text-muted">{% trans "No messages in your inbox." %}</h5>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

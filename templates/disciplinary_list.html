@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-danger"><i class="bi bi-shield-shaded"></i> {% trans "National Disciplinary Portal" %}</h3>
+        <span class="badge bg-dark px-3 py-2">{% trans "High Clearance Only" %}</span>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Reporter (Member)" %}</th>
+                        <th>{% trans "Subject (Leader)" %}</th>
+                        <th>{% trans "Complaint Summary" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th class="text-end">{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                    <tr>
+                        <td>{{ report.created_at|date:"d M Y" }}</td>
+                        <td>
+                            <strong>{{ report.reporter.get_full_name }}</strong><br>
+                            <small class="text-muted">{{ report.reporter.profiles.first.unit.name }}</small>
+                        </td>
+                        <td>
+                            <span class="text-danger fw-bold">{{ report.subject_leader.get_full_name }}</span><br>
+                            <small class="badge bg-light text-dark">{{ report.subject_leader.profiles.first.position }}</small>
+                        </td>
+                        <td><p class="small mb-0 text-truncate" style="max-width: 200px;">{{ report.complaint }}</p></td>
+                        <td>
+                            {% if report.status == 'pending' %}
+                                <span class="badge rounded-pill bg-warning text-dark">{% trans "Pending Review" %}</span>
+                            {% elif report.status == 'investigating' %}
+                                <span class="badge rounded-pill bg-info">{% trans "Under Investigation" %}</span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-success">{% trans "Resolved" %}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewReport{{ report.id }}">
+                                {% trans "View File" %}
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">{% trans "No active reports found." %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
