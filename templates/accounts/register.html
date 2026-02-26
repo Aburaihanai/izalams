@@ -2,83 +2,90 @@
 {% load i18n %}
 
 {% block content %}
-<div class="row justify-content-center py-5">
-    <div class="col-md-8 col-lg-6">
-        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-            <div class="card-header bg-success text-white py-4 text-center border-0"
-                 style="background: linear-gradient(45deg, #198754, #1ea362);">
-                <i class="bi bi-person-plus-fill fs-1 mb-2"></i>
-                <h3 class="fw-bold mb-0">{% trans "Member Registration" %}</h3>
-                <p class="small mb-0 opacity-75">{% trans "Provide your details for leader verification" %}</p>
-            </div>
-
-            <div class="card-body p-4 p-md-5">
-                <div class="alert alert-warning border-0 shadow-sm rounded-3 mb-4 d-flex align-items-center">
-                    <i class="bi bi-shield-exclamation fs-4 me-3"></i>
-                    <small>
-                        {% trans "After submission, your Unit Leader will review your profile. You will be able to log in once they activate your account." %}
-                    </small>
-                </div>
-
-                <form method="post" class="needs-validation" id="registrationForm" novalidate>
-                    {% csrf_token %}
-
-                    <h5 class="text-success fw-bold mb-3 d-flex align-items-center">
-                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:24px; height:24px; font-size: 0.75rem;">1</span>
-                        {% trans "Account Credentials" %}
-                    </h5>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="fw-bold text-success mb-2 text-center">{% trans "Member Registration" %}</h2>
+                    <p class="text-muted text-center mb-4">{% trans "Join the JIBWIS digital network" %}</p>
                     
-                    <div class="row g-3">
-                        {% for field in user_form %}
-                        <div class="col-md-12 mb-2">
-                            <label class="form-label small fw-bold text-secondary">{{ field.label }}</label>
-                            <div class="django-field-wrapper">
-                                {{ field }}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
-                            {% if field.help_text %}
-                                <div class="form-text extra-small">{{ field.help_text }}</div>
-                            {% endif %}
-                            {% if field.errors %}
-                                <div class="text-danger extra-small mt-1">{{ field.errors }}</div>
-                            {% endif %}
-                        </div>
                         {% endfor %}
-                    </div>
+                    {% endif %}
 
-                    <hr class="my-4 opacity-25">
+                    {% if form.errors %}
+                        <div class="alert alert-danger shadow-sm">
+                            <h6 class="fw-bold"><i class="bi bi-exclamation-octagon-fill me-2"></i>Please correct the following:</h6>
+                            <ul class="mb-0">
+                                {% for field in form %}
+                                    {% if field.errors %}
+                                        <li><strong>{{ field.label }}:</strong> {{ field.errors|striptags }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error|striptags }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
 
-                    <h5 class="text-success fw-bold mb-3 d-flex align-items-center">
-                        <span class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width:24px; height:24px; font-size: 0.75rem;">2</span>
-                        {% trans "Organization & Unit" %}
-                    </h5>
-                    <p class="text-muted extra-small mb-3">
-                        {% trans "Accurate selection ensures your request goes to the correct Unit Leader." %}
-                    </p>
+                    <form method="post" enctype="multipart/form-data" id="regForm">
+                        {% csrf_token %}
 
-                    <div class="row g-3">
-                        {% for field in profile_form %}
-                        <div class="col-md-12 mb-2">
-                            <label class="form-label small fw-bold text-secondary">{{ field.label }}</label>
-                            <div class="django-field-wrapper">
-                                {{ field }}
+                        <h5 class="text-success border-bottom pb-2 mb-3 fw-bold">
+                            <i class="bi bi-diagram-3 me-2"></i>{% trans "Unit & Department" %}
+                        </h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">{{ form.category.label_tag }} {{ form.category }}</div>
+                            <div class="col-md-6">{{ form.level.label_tag }} {{ form.level }}</div>
+                        </div>
+
+                        <div id="location-section">
+                            <h5 class="text-success border-bottom pb-2 mb-3 fw-bold">
+                                <i class="bi bi-geo-alt me-2"></i>{% trans "Location Hierarchy" %}
+                            </h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-4" id="div_id_state">
+                                    <label class="form-label small fw-bold">{% trans "State" %}</label>
+                                    {{ form.state }}
+                                </div>
+                                <div class="col-md-4" id="div_id_lga">
+                                    <label class="form-label small fw-bold">{% trans "LGA" %}</label>
+                                    {{ form.lga }}
+                                </div>
+                                <div class="col-md-4" id="div_id_ward">
+                                    <label class="form-label small fw-bold">{% trans "Ward / Branch Name" %}</label>
+                                    {{ form.ward }} {% if form.ward.errors %}<div class="text-danger small">{{ form.ward.errors|striptags }}</div>{% endif %}
+                                </div>
                             </div>
-                            {% if field.errors %}
-                                <div class="text-danger extra-small mt-1">{{ field.errors }}</div>
-                            {% endif %}
                         </div>
-                        {% endfor %}
-                    </div>
 
-                    <div class="d-grid gap-2 mt-5">
-                        <button type="submit" id="submitBtn" class="btn btn-success btn-lg fw-bold shadow-sm py-3 rounded-pill transition-all">
-                            {% trans "Submit for Approval" %}
+                        <h5 class="text-success border-bottom pb-2 mb-3 fw-bold">
+                            <i class="bi bi-person-badge me-2"></i>{% trans "Personal Details" %}
+                        </h5>
+                        <div class="row g-3">
+                            {% for field in form %}
+                                {% if field.name not in "category,level,state,lga,ward" %}
+                                    <div class="col-md-6 mb-2">
+                                        <label class="form-label small fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.errors %}<div class="text-danger small">{{ field.errors|striptags }}</div>{% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 py-3 rounded-pill fw-bold shadow mt-4" id="submitBtn">
+                            {% trans "Submit for Leader Approval" %}
                         </button>
-                        <p class="text-center mt-3 small">
-                            {% trans "Already have an account?" %} 
-                            <a href="{% url 'login' %}" class="text-success fw-bold text-decoration-none">{% trans "Login here" %}</a>
-                        </p>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -86,50 +93,59 @@
 
 
 
-<style>
-    /* Styling for Django-generated widgets */
-    .django-field-wrapper input, 
-    .django-field-wrapper select, 
-    .django-field-wrapper textarea {
-        display: block !important; 
-        width: 100% !important; 
-        padding: 0.75rem 1rem !important;
-        border: 1px solid #dee2e6 !important; 
-        border-radius: 0.75rem !important; 
-        background-color: #fcfcfc !important;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .django-field-wrapper input:focus, 
-    .django-field-wrapper select:focus { 
-        border-color: #198754 !important; 
-        background-color: #fff !important; 
-        outline: none !important; 
-        box-shadow: 0 0 0 0.25rem rgba(25,135,84,0.1) !important;
-    }
-
-    .extra-small { font-size: 0.75rem; }
-    .transition-all { transition: 0.3s; }
-    .transition-all:hover { transform: translateY(-2px); filter: brightness(1.05); }
-    
-    /* Ensure help text doesn't break layout */
-    ul.errorlist { list-style: none; padding: 0; margin: 0; color: #dc3545; font-size: 0.75rem; }
-</style>
-
 <script>
-    // Simple frontend validation for better UX
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms).forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-                form.classList.add('was-validated')
-            }, false)
-        })
-    })()
+    const levelEl = document.getElementById("id_level");
+    const stateEl = document.getElementById("id_state");
+    const lgaEl = document.getElementById("id_lga");
+    const wardInput = document.getElementById("id_ward"); // Target the input directly
+
+    const stateDiv = document.getElementById("div_id_state");
+    const lgaDiv = document.getElementById("div_id_lga");
+    const wardDiv = document.getElementById("div_id_ward");
+    const locationHeader = document.querySelector("#location-section h5");
+
+    function toggleFields() {
+        const level = levelEl.value;
+
+        // 1. Reset everything to visible
+        [stateDiv, lgaDiv, wardDiv, locationHeader].forEach(d => d.style.display = "block");
+        [stateEl, lgaEl, wardInput].forEach(el => el.required = true);
+
+        // 2. Apply the "Leader Funnel"
+        if (level === "NATIONAL") {
+            locationHeader.style.display = "none";
+            [stateDiv, lgaDiv, wardDiv].forEach(d => d.style.display = "none");
+            [stateEl, lgaEl, wardInput].forEach(el => el.required = false); // NOT REQUIRED
+        } else if (level === "STATE") {
+            [lgaDiv, wardDiv].forEach(d => d.style.display = "none");
+            [lgaEl, wardInput].forEach(el => el.required = false); // NOT REQUIRED
+        } else if (level === "LG") {
+            wardDiv.style.display = "none";
+            wardInput.required = false; // NOT REQUIRED
+        }
+    }
+
+    // LGA Dropdown AJAX
+    stateEl.addEventListener("change", function() {
+        const stateId = this.value;
+        lgaEl.innerHTML = '<option value="">Select LGA</option>';
+        if (!stateId) return;
+        fetch(`{% url 'ajax_load_lgas' %}?state_id=${stateId}`)
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(item => {
+                    lgaEl.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                });
+            });
+    });
+
+    levelEl.addEventListener("change", toggleFields);
+    window.addEventListener("load", toggleFields);
+
+    // Prevent multiple submissions
+    document.getElementById("regForm").addEventListener("submit", function() {
+        document.getElementById("submitBtn").disabled = true;
+        document.getElementById("submitBtn").innerText = "Saving...";
+    });
 </script>
 {% endblock %}

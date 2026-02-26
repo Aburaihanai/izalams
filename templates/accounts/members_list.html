@@ -5,7 +5,10 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold text-success mb-0">{{ leader_profile.unit.name }} {% trans "Directory" %}</h2>
+            <h2 class="fw-bold text-success mb-0">
+                <i class="bi bi-person-lines-fill me-2"></i>
+                {{ leader_profile.unit.name|default:"Unit" }} {% trans "Directory" %}
+            </h2>
             <p class="text-muted mb-0">{% trans "Manage unit personnel and broadcast notifications." %}</p>
         </div>
         <div class="text-end">
@@ -36,53 +39,78 @@
                     </thead>
                     <tbody>
                         {% for member in members %}
-                        {% with profile=member.profiles.first %}
-                        <tr>
-                            <td class="ps-4">
-                                <input class="form-check-input member-checkbox" type="checkbox" name="selected_members" value="{{ member.id }}">
-                            </td>
-                            <td>
-                                <div class="fw-bold text-dark">{{ member.get_full_name|default:member.username }}</div>
-                                <div class="extra-small text-muted">{{ member.email|default:member.username }}</div>
-                            </td>
-                            <td><span class="badge bg-light text-dark border fw-normal">{{ profile.position|default:"Member" }}</span></td>
-                            <td>
-                                {% if profile.is_active %}
-                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3">{% trans "Active" %}</span>
-                                {% else %}
-                                    <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3">{% trans "Suspended" %}</span>
-                                {% endif %}
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group shadow-sm bg-white">
-                                    <a href="{% url 'member_detail' member.id %}" class="btn btn-sm btn-outline-secondary" title="{% trans 'View' %}">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
+                            {% with profile=member.profile %}
+                            <tr>
+                                <td class="ps-4">
+                                    <input class="form-check-input member-checkbox" type="checkbox" name="selected_members" value="{{ member.id }}">
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {% if profile.profile_picture %}
+                                            <img src="{{ profile.profile_picture.url }}" class="rounded-circle me-3 shadow-sm" width="40" height="40" style="object-fit: cover;">
+                                        {% else %}
+                                            <div class="bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                        {% endif %}
+                                        <div>
+                                            <div class="fw-bold text-dark">{{ member.get_full_name|default:member.username }}</div>
+                                            <div class="extra-small text-muted">{{ member.email|default:member.username }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold text-dark">{{ member.position|default:"Member" }}</span>
 
-                                    {% if profile.is_active %}
-                                        <button type="button" class="btn btn-sm btn-outline-warning" 
-                                                onclick="deactivateWithReason('{{ member.id }}', '{{ member.get_full_name|addslashes }}')" title="{% trans 'Suspend' %}">
-                                            <i class="bi bi-pause-circle"></i>
-                                        </button>
+                                        <div class="d-flex align-items-center mt-1">
+                                            <span class="badge bg-light text-muted border fw-normal extra-small">
+                                                <i class="bi bi-diagram-3 me-1"></i> {{ member.unit.level }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                <td>
+                                    {% if member.is_active %}
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3">
+                                            <i class="bi bi-check-circle-fill me-1"></i> {% trans "Active" %}
+                                        </span>
                                     {% else %}
-                                        <a href="{% url 'toggle_member_status' member.id %}" class="btn btn-sm btn-outline-success" title="{% trans 'Reactivate' %}">
-                                            <i class="bi bi-play-circle"></i>
-                                        </a>
+                                        <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3">
+                                            <i class="bi bi-pause-circle-fill me-1"></i> {% trans "Suspended" %}
+                                        </span>
                                     {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group shadow-sm bg-white">
+                                        <a href="{% url 'member_detail' member.id %}" class="btn btn-sm btn-outline-secondary" title="{% trans 'View Profile' %}">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
 
-                                    <button type="button" class="btn btn-sm btn-outline-danger" 
-                                            onclick="confirmPermanentDelete('{{ member.id }}', '{{ member.get_full_name|addslashes }}')" title="{% trans 'Delete' %}">
-                                        <i class="bi bi-trash3"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endwith %}
-                        {% empty %}
-                        <tr>
+                                        {% if member.is_active %}
+                                            <button type="button" class="btn btn-sm btn-outline-warning"
+                                                    onclick="deactivateWithReason('{{ member.id }}', '{{ member.username|addslashes }}')" title="{% trans 'Suspend Account' %}">
+                                                <i class="bi bi-pause-circle"></i>
+                                            </button>
+                                        {% else %}
+                                            <a href="{% url 'toggle_member_status' member.id %}" class="btn btn-sm btn-outline-success" title="{% trans 'Reactivate Account' %}">
+                                                <i class="bi bi-play-circle"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                onclick="confirmPermanentDelete('{{ member.id }}', '{{ member.username|addslashes }}')" title="{% trans 'Permanent Delete' %}">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endwith %}
+                            {% empty %}
+                            <tr>
                             <td colspan="5" class="text-center py-5 text-muted">
-                                <i class="bi bi-people fs-1 d-block mb-2"></i>
-                                {% trans "No members found in your unit." %}
+                                <i class="bi bi-people fs-1 d-block mb-3 text-success opacity-25"></i>
+                                <h5 class="fw-bold">{% trans "No members found" %}</h5>
+                                <p class="small">{% trans "Personnel in your unit will appear here." %}</p>
                             </td>
                         </tr>
                         {% endfor %}
@@ -93,23 +121,25 @@
 
         <div class="modal fade" id="bulkMessageModal" tabindex="-1">
             <div class="modal-dialog">
-                <div class="modal-content border-0 shadow">
+                <div class="modal-content border-0 shadow-lg">
                     <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title">{% trans "Unit Broadcast" %}</h5>
+                        <h5 class="modal-title fw-bold">{% trans "Unit Broadcast" %}</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
+                        <p class="text-muted small mb-3">{% trans "This message will be sent to the selected unit members." %}</p>
                         <div class="mb-3">
                             <label class="form-label fw-bold small">{% trans "Subject" %}</label>
-                            <input type="text" name="subject" class="form-control" placeholder="{% trans 'Enter subject' %}" required>
+                            <input type="text" name="subject" class="form-control" placeholder="{% trans 'e.g., Monthly Meeting' %}" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">{% trans "Message" %}</label>
-                            <textarea name="body" class="form-control" rows="5" placeholder="{% trans 'Type your message here...' %}" required></textarea>
+                            <label class="form-label fw-bold small">{% trans "Message Content" %}</label>
+                            <textarea name="body" class="form-control" rows="6" placeholder="{% trans 'Type your broadcast here...' %}" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-0">
-                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">{% trans "Send to Selected" %}</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                        <button type="submit" class="btn btn-success px-4 fw-bold">{% trans "Send Broadcast" %}</button>
                     </div>
                 </div>
             </div>
@@ -122,41 +152,43 @@
 </form>
 
 <script>
-    // Logic for Bulk Selection
-    document.getElementById('selectAll').addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('.member-checkbox');
-        checkboxes.forEach(cb => cb.checked = this.checked);
-        updateSelectionUI();
-    });
+    // 1. Checkbox Logic
+    const selectAll = document.getElementById('selectAll');
+    const memberCheckboxes = document.querySelectorAll('.member-checkbox');
+    const bulkBtn = document.getElementById('bulkMessageBtn');
+    const countSpan = document.getElementById('selectedCount');
 
-    document.querySelectorAll('.member-checkbox').forEach(cb => {
+    if (selectAll) {
+        selectAll.addEventListener('change', function() {
+            memberCheckboxes.forEach(cb => cb.checked = this.checked);
+            updateSelectionUI();
+        });
+    }
+
+    memberCheckboxes.forEach(cb => {
         cb.addEventListener('change', updateSelectionUI);
     });
 
     function updateSelectionUI() {
-        const selected = document.querySelectorAll('.member-checkbox:checked').length;
-        const btn = document.getElementById('bulkMessageBtn');
-        const countSpan = document.getElementById('selectedCount');
-        if (selected > 0) {
-            btn.classList.remove('d-none');
-            countSpan.innerText = selected;
+        const selectedCount = document.querySelectorAll('.member-checkbox:checked').length;
+        if (selectedCount > 0) {
+            bulkBtn.classList.remove('d-none');
+            countSpan.innerText = selectedCount;
         } else {
-            btn.classList.add('d-none');
+            bulkBtn.classList.add('d-none');
         }
     }
 
-    // Leader Action Functions
+    // 2. Leader Actions
     function deactivateWithReason(id, name) {
-        let msg = "{% trans 'Reason for deactivating' %} " + name;
-        let reason = prompt(msg + ":", "{% trans 'Violation of organization rules' %}");
-        if (reason) {
+        let reason = prompt("{% trans 'Reason for suspending' %} " + name + ":", "{% trans 'Violation of unit rules' %}");
+        if (reason !== null) {
             window.location.href = "/members/toggle/" + id + "/?reason=" + encodeURIComponent(reason);
         }
     }
 
     function confirmPermanentDelete(id, name) {
-        let msg = "{% trans 'CRITICAL ACTION: Are you sure you want to PERMANENTLY DELETE' %} " + name + "?\n\n{% trans 'This will remove all account history. This cannot be undone.' %}";
-        if (confirm(msg)) {
+        if (confirm("{% trans 'WARNING: Permanently delete' %} " + name + "? {% trans 'This cannot be undone.' %}")) {
             const form = document.getElementById('deleteForm');
             form.action = "/members/delete-permanent/" + id + "/";
             form.submit();
@@ -165,8 +197,10 @@
 </script>
 
 <style>
-    .table-hover tbody tr:hover { background-color: rgba(25, 135, 84, 0.03); }
+    .table-hover tbody tr:hover { background-color: rgba(25, 135, 84, 0.04); transition: background 0.2s; }
     .extra-small { font-size: 0.75rem; }
-    .badge { font-weight: 500; }
+    .badge { letter-spacing: 0.3px; }
+    .btn-group .btn { padding: 0.25rem 0.6rem; }
+    .table-responsive { min-height: 300px; }
 </style>
 {% endblock %}

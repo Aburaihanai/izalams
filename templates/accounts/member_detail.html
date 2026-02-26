@@ -13,23 +13,23 @@
 
     <div class="row g-4">
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
                 <div class="card-header bg-success py-5 text-center position-relative">
                     <div class="position-absolute top-100 start-50 translate-middle">
                         <div class="rounded-circle bg-white p-1 shadow-sm">
                             <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                                <i class="bi bi-person-fill text-secondary fs-1"></i>
+                                <i class="bi bi-person-badge text-secondary fs-1"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body pt-5 mt-4 text-center">
                     <h4 class="fw-bold mb-1">{{ member.user.get_full_name|default:member.user.username }}</h4>
-                    <p class="text-muted small mb-3">@{{ member.user.username }}</p>
+                    <p class="text-muted small mb-3">{{ member.position }} • {{ member.unit.level }}</p>
                     
                     {% if member.is_active %}
                         <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                            <i class="bi bi-check-circle-fill me-1"></i> {% trans "Active Member" %}
+                            <i class="bi bi-check-circle-fill me-1"></i> {% trans "Active Status" %}
                         </span>
                     {% else %}
                         <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
@@ -40,66 +40,76 @@
                     <hr class="my-4 opacity-25">
                     
                     <div class="d-grid gap-2">
-                        <a href="{% url 'bulk_message_send' %}?recipient={{ member.user.id }}" class="btn btn-outline-success rounded-pill">
-                            <i class="bi bi-envelope me-2"></i> {% trans "Send Private Message" %}
+                        <a href="{% url 'send_message' member.user.id %}" class="btn btn-outline-success rounded-pill">
+                            <i class="bi bi-chat-dots me-2"></i> {% trans "Official Message" %}
                         </a>
                     </div>
                 </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-dark text-white">
+                <h6 class="fw-bold mb-3"><i class="bi bi-bank me-2"></i>{% trans "Bank Verification" %}</h6>
+                <div class="small mb-2">
+                    <span class="text-secondary">{% trans "Account" %}:</span> {{ member.user.account_number|default:"---" }}
+                </div>
+                <div class="small mb-3">
+                    <span class="text-secondary">{% trans "Bank" %}:</span> {{ member.user.bank_code|default:"---" }}
+                </div>
+                <button onclick="verifyBank('{{ member.user.account_number }}', '{{ member.user.bank_code }}')" class="btn btn-sm btn-outline-warning w-100 rounded-pill">
+                    <i class="bi bi-shield-check me-1"></i> {% trans "Run Paystack Verification" %}
+                </button>
+                <div id="bankResult" class="mt-2 small text-center fw-bold"></div>
             </div>
         </div>
 
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
-                <h5 class="fw-bold text-dark mb-4">{% trans "Personnel Information" %}</h5>
+                <h5 class="fw-bold text-dark mb-4">{% trans "Unit Records" %}</h5>
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <label class="small text-muted text-uppercase fw-bold">{% trans "Email Address" %}</label>
-                        <p class="mb-0 fw-semibold">{{ member.user.email|default:"N/A" }}</p>
+                        <label class="small text-muted text-uppercase fw-bold">{% trans "Global Identifier" %}</label>
+                        <p class="mb-0 fw-semibold">JIB-{{ member.user.id|stringformat:"05d" }}</p>
                     </div>
                     <div class="col-sm-6">
-                        <label class="small text-muted text-uppercase fw-bold">{% trans "Phone Number" %}</label>
-                        <p class="mb-0 fw-semibold">{{ member.phone_number|default:"N/A" }}</p>
+                        <label class="small text-muted text-uppercase fw-bold">{% trans "Phone" %}</label>
+                        <p class="mb-0 fw-semibold">{{ member.user.phone_number|default:"N/A" }}</p>
                     </div>
                     <div class="col-sm-6">
-                        <label class="small text-muted text-uppercase fw-bold">{% trans "Assigned Unit" %}</label>
-                        <p class="mb-0 fw-semibold">{{ member.unit.name }}</p>
+                        <label class="small text-muted text-uppercase fw-bold">{% trans "Assigned Branch" %}</label>
+                        <p class="mb-0 fw-semibold">{{ member.unit.name }} ({{ member.unit.category }})</p>
                     </div>
                     <div class="col-sm-6">
-                        <label class="small text-muted text-uppercase fw-bold">{% trans "Category/Position" %}</label>
-                        <p class="mb-0 fw-semibold">{{ member.category|default:member.position }}</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="small text-muted text-uppercase fw-bold">{% trans "Date Joined" %}</label>
-                        <p class="mb-0 fw-semibold">{{ member.user.date_joined|date:"d M Y" }}</p>
+                        <label class="small text-muted text-uppercase fw-bold">{% trans "Education Level" %}</label>
+                        <p class="mb-0 fw-semibold">{{ member.user.education|default:"Standard" }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="card border-0 shadow-sm rounded-4 p-4">
-                <h5 class="fw-bold text-dark mb-4">{% trans "Leader Commands" %}</h5>
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                <h5 class="fw-bold text-dark mb-4">{% trans "Leader Command Console" %}</h5>
                 <div class="d-flex flex-wrap gap-3">
                     {% if member.is_active %}
                         <button onclick="deactivateWithReason('{{ member.user.id }}', '{{ member.user.get_full_name|addslashes }}')" class="btn btn-warning px-4 rounded-pill">
-                            <i class="bi bi-pause-fill me-1"></i> {% trans "Suspend Account" %}
+                            <i class="bi bi-shield-slash-fill me-1"></i> {% trans "Deactivate Access" %}
                         </button>
                     {% else %}
                         <a href="{% url 'toggle_member_status' member.user.id %}" class="btn btn-success px-4 rounded-pill">
-                            <i class="bi bi-play-fill me-1"></i> {% trans "Activate Account" %}
+                            <i class="bi bi-shield-check-fill me-1"></i> {% trans "Re-Activate Access" %}
                         </a>
                     {% endif %}
 
                     <form action="{% url 'delete_member_permanent' member.user.id %}" method="POST" id="deleteFormDetail">
                         {% csrf_token %}
                         <button type="button" class="btn btn-outline-danger px-4 rounded-pill" onclick="confirmDelete()">
-                            <i class="bi bi-trash3 me-1"></i> {% trans "Delete Permanently" %}
+                            <i class="bi bi-person-x me-1"></i> {% trans "Purge Record" %}
                         </button>
                     </form>
                 </div>
 
-                <div class="mt-4 p-3 bg-light rounded-3 border-start border-4 border-primary">
-                    <h6 class="fw-bold text-primary mb-1"><i class="bi bi-info-circle me-2"></i>{% trans "Payroll Policy" %}</h6>
+                <div class="mt-4 p-3 bg-light rounded-3 border-start border-4 border-success">
+                    <h6 class="fw-bold text-success mb-1">{% trans "Administrative Note" %}</h6>
                     <p class="small text-muted mb-0">
-                        {% trans "Payments are processed through the Bulk Payroll system. Direct individual payments must be logged for audit trails." %}
+                        {% trans "Changes made here are logged and visible to State/National auditors. Ensure all deactivations have documented reasons." %}
                     </p>
                 </div>
             </div>
@@ -107,18 +117,31 @@
     </div>
 </div>
 
-
-
 <script>
+    function verifyBank(acc, bank) {
+        const resultDiv = document.getElementById('bankResult');
+        resultDiv.innerHTML = '<span class="text-warning">Verifying...</span>';
+        
+        fetch(`/verify-account-ajax/?acc=${acc}&bank=${bank}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    resultDiv.innerHTML = `<span class="text-success">✅ ${data.account_name}</span>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="text-danger">❌ ${data.message}</span>`;
+                }
+            });
+    }
+
     function confirmDelete() {
         let name = "{{ member.user.get_full_name|addslashes }}";
-        if (confirm("{% trans 'Are you sure you want to permanently remove' %} " + name + "? {% trans 'This action cannot be undone.' %}")) {
+        if (confirm("{% trans 'WARNING: This will permanently delete all data for' %} " + name + ". {% trans 'Continue?' %}")) {
             document.getElementById('deleteFormDetail').submit();
         }
     }
 
     function deactivateWithReason(id, name) {
-        let reason = prompt("{% trans 'Enter reason for suspending' %} " + name + ":", "{% trans 'Administrative Review' %}");
+        let reason = prompt("{% trans 'Enter reason for deactivation (e.g., Transfer, Disciplinary, Resignation):' %}");
         if (reason) {
             window.location.href = "/members/toggle/" + id + "/?reason=" + encodeURIComponent(reason);
         }

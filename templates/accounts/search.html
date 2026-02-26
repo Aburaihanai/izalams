@@ -70,7 +70,7 @@
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
                     <h5 class="mb-0 fw-bold text-dark">
-                        {% trans "Results for" %} {{ leader_profile.unit.name }}
+                        {% trans "Results for" %} {{ leader_profile.unit.name|default:"Unit" }}
                         <span class="badge bg-success-subtle text-success rounded-pill ms-2">{{ members|length }}</span>
                     </h5>
                 </div>
@@ -124,20 +124,16 @@
                                         </a>
 
                                         {% if profile.is_active %}
-                                            <button onclick="deactivateWithReason('{{ member.id }}', '{{ member.get_full_name }}')" class="btn btn-sm btn-outline-warning" title="{% trans 'Suspend' %}">
+                                            <button onclick="deactivateWithReason('{{ member.id }}', '{{ member.get_full_name|addslashes }}')" class="btn btn-sm btn-outline-warning" title="{% trans 'Suspend' %}">
                                                 <i class="bi bi-pause-circle"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#payModal{{ member.id }}">
-                                                <i class="bi bi-wallet2"></i>
                                             </button>
                                         {% else %}
                                             <a href="{% url 'toggle_member_status' member.id %}" class="btn btn-sm btn-success" title="{% trans 'Activate' %}">
                                                 <i class="bi bi-play-circle"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-secondary" disabled><i class="bi bi-lock-fill"></i></button>
                                         {% endif %}
 
-                                        <button onclick="confirmPermanentDelete('{{ member.id }}', '{{ member.get_full_name }}')" class="btn btn-sm btn-outline-danger" title="{% trans 'Permanent Removal' %}">
+                                        <button onclick="confirmPermanentDelete('{{ member.id }}', '{{ member.get_full_name|addslashes }}')" class="btn btn-sm btn-outline-danger" title="{% trans 'Permanent Removal' %}">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
@@ -162,9 +158,8 @@
     </div>
 </div>
 
-<form id="deleteForm" method="POST" action="{% url 'delete_member' %}">
+<form id="deleteForm" method="POST" style="display:none;">
     {% csrf_token %}
-    <input type="hidden" name="member_id" id="deleteMemberId">
 </form>
 
 <script>
@@ -177,8 +172,10 @@
 
     function confirmPermanentDelete(id, name) {
         if (confirm("{% trans 'WARNING: This will PERMANENTLY delete' %} " + name + " {% trans 'from JIBWIS records. Proceed?' %}")) {
-            document.getElementById('deleteMemberId').value = id;
-            document.getElementById('deleteForm').submit();
+            const form = document.getElementById('deleteForm');
+            // Dynamically set the URL to avoid NoReverseMatch for specific IDs
+            form.action = "/members/delete/" + id + "/"; 
+            form.submit();
         }
     }
 </script>

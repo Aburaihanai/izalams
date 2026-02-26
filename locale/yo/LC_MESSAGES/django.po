@@ -1,91 +1,325 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# JIBWIS NMIS Yoruba Translation.
+# Copyright (C) 2026
+# This file is distributed under the same license as the JIBWIS package.
+# Gemini AI <assistant@google.com>, 2026.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: JIBWIS NMIS 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 14:38+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-02-26 16:45+0100\n"
+"PO-Revision-Date: 2026-02-26 17:15+ZONE\n"
+"Last-Translator: Gemini AI\n"
+"Language-Team: Yoruba\n"
+"Language: yo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/views.py:66
-msgid ""
-"Registration successful! Your branch leader must activate your account "
-"before you can login."
+#: accounts/views.py:538
+msgid "You must be assigned to a unit to send official memos."
+msgstr "O gbọdọ wa ni abẹ ẹka kan pato lati le fi iwe iranti (memo) ranṣẹ."
+
+#: accounts/views.py:555
+msgid "Jurisdiction Error: You can only message members within your region."
 msgstr ""
-"Ìforúkọsílẹ̀ rẹ yọrí sí rere! Olórí ẹ̀ka rẹ gbọ́dọ̀ fọwọ́ sí àkánǹtì rẹ "
-"kí o tó lè wọlé."
+"Aṣiṣe Agbegbe: Awọn ọmọ ẹgbẹ to wa ni agbegbe rẹ nikan ni o le fi ifiranṣẹ "
+"ranṣẹ si."
 
-#: accounts/views.py:230
-msgid "Account for {profile.user.get_full_name()} activated."
-msgstr "Àkánǹtì fún {profile.user.get_full_name()} ti di mímúṣiṣẹ́."
+#: templates/accounts/edit_profile.html:16
+msgid "Update your personal and organizational records"
+msgstr "Ṣe imudojuiwọn awọn akọsilẹ rẹ ati ti agbari rẹ"
 
-#: accounts/views.py:242 templates/login.html:38
-msgid "Username"
-msgstr "Orúkọ-ìwọlé"
+#: templates/accounts/edit_profile.html:61
+msgid ""
+"When you update your bank info, our system verifies the name directly with "
+"your bank. Ensure the account number matches the bank selected."
+msgstr ""
+"Nigbati o ba ṣe imudojuiwọn alaye ile-ifowopamọ rẹ, eto wa yoo rii daju "
+"orukọ rẹ lati banki rẹ. Rii daju pe nọmba akọọlẹ rẹ ba ile-ifowopamọ ti o "
+"yan mu."
 
-#: accounts/views.py:242 donations/forms.py:50
-#: templates/pending_approval.html:10
-msgid "Full Name"
-msgstr "Orúkọ lẹ́kùn-únrẹ́rẹ́"
+#: templates/accounts/edit_profile.html:67
+msgid "Discard Changes"
+msgstr "Pa awọn ayipada rẹ rẹ"
 
-#: accounts/views.py:242
-msgid "Phone"
-msgstr "Nọ́ńbà fóònù"
+#: templates/accounts/edit_profile.html:69
+msgid "Save & Verify Records"
+msgstr "Fipamọ ki o si fidi awọn akọsilẹ mulẹ"
 
-#: accounts/views.py:242
-msgid "Bank Code"
-msgstr "Nọ́ńbà Ìdámọ̀ Báńkì"
+#: templates/accounts/edit_profile.html:116
+msgid "Verifying..."
+msgstr "A n ṣayẹwo rẹ..."
 
-#: accounts/views.py:242
-msgid "Account No"
-msgstr "Nọ́ńbà Àkánǹtì"
+#: templates/accounts/inbox.html:17
+msgid "Total"
+msgstr "Àpapọ̀"
 
-#: accounts/views.py:279
-msgid "Official memo sent."
+#: templates/accounts/inbox.html:29 templates/accounts/sent_messages.html:19
+msgid "Received"
+msgstr "Ifiranṣẹ ti o wọle"
+
+#: templates/accounts/inbox.html:67
+msgid "Delete Permanent"
+msgstr "Pa rẹ patapata"
+
+#: templates/accounts/inbox.html:87 templates/dashboard.html:156
+msgid "Reply"
+msgstr "Fesi"
+
+#: templates/accounts/inbox.html:115
+msgid "Dismiss"
+msgstr "Yọ kuro"
+
+#: templates/accounts/inbox.html:127
+msgid "Your official inbox is currently empty."
+msgstr "Apoti ifiranṣẹ rẹ ti ṣofo lọwọlọwọ."
+
+#: templates/accounts/member_detail.html:59
+msgid "Run Paystack Verification"
+msgstr "Ṣe ayẹwo Paystack"
+
+#: templates/accounts/member_detail.html:70
+msgid "Global Identifier"
+msgstr "ID Idanimọ Agbaye"
+
+#: templates/accounts/member_detail.html:112
+msgid ""
+"Changes made here are logged and visible to State/National auditors. Ensure "
+"all deactivations have documented reasons."
+msgstr ""
+"Awọn ayipada ti o ba ṣe ni ibi ni a kọ silẹ ti awọn oluyẹwo ti Ipinle ati ti "
+"Orilẹ-ede si n rii. Rii daju pe idi ti o fi n fagile iṣẹ ẹnikẹni wa ni "
+"akọsilẹ."
+
+#: templates/accounts/member_detail.html:138
+msgid "WARNING: This will permanently delete all data for"
+msgstr "IKILO: Eyi yoo pa gbogbo alaye rẹ rẹ patapata fun"
+
+#: templates/accounts/member_detail.html:138
+msgid "Continue?"
+msgstr "Tẹsiwaju?"
+
+#: templates/accounts/member_detail.html:144
+msgid ""
+"Enter reason for deactivation (e.g., Transfer, Disciplinary, Resignation):"
+msgstr ""
+"Tẹ idi ti o fi fẹ fagile iṣẹ ẹni naa (apẹẹrẹ: Gbigbe lọ si ibomiiran, Ibawi, "
+"Ififẹsẹntẹ):"
+
+#: templates/accounts/members_list.html:12
+msgid "Manage unit personnel and broadcast notifications."
+msgstr "Ṣakoso awọn oṣiṣẹ ẹka ati fi ifitonileti gbogboogbo ranṣẹ."
+
+#: templates/accounts/members_list.html:19
+msgid "Export"
+msgstr "Mú alaye jáde"
+
+#: templates/accounts/members_list.html:113
+msgid "Personnel in your unit will appear here."
+msgstr "Awọn oṣiṣẹ ninu ẹka rẹ yoo han ni ibi."
+
+#: templates/accounts/members_list.html:126
+msgid "Unit Broadcast"
+msgstr "Ifitonileti Ẹka"
+
+#: templates/accounts/members_list.html:130
+msgid "This message will be sent to the selected unit members."
+msgstr "Ifiranṣẹ yii yoo lọ si ọdọ awọn ọmọ ẹka ti o yan."
+
+#: templates/members_list.html:133
+msgid "e.g., Monthly Meeting"
+msgstr "apẹẹrẹ: Ipade Oṣooṣu"
+
+#: templates/accounts/members_list.html:142
+msgid "Send Broadcast"
+msgstr "Fi ifitonileti gbogboogbo ranṣẹ"
+
+#: templates/accounts/members_list.html:191
+msgid "WARNING: Permanently delete"
+msgstr "IKILO: Pa rẹ patapata"
+
+#: templates/accounts/members_list.html:191
+msgid "This cannot be undone."
+msgstr "O ko le pada sẹhin lẹhin eyi."
+
+#: templates/accounts/register.html:42
+msgid "Unit & Department"
+msgstr "Ẹka & Ẹka Iṣẹ"
+
+#: templates/accounts/register.html:51
+msgid "Location Hierarchy"
+msgstr "Ipo Ibugbe"
+
+#: templates/accounts/register.html:59
+msgid "LGA"
+msgstr "Ijọba Ibile"
+
+#: templates/accounts/register.html:63
+msgid "Ward / Branch Name"
+msgstr "Wọọdu / Orukọ Ẹka"
+
+#: templates/accounts/register.html:85
+msgid "Submit for Leader Approval"
+msgstr "Fi ranṣẹ fun ifọwọsi olori"
+
+#: templates/accounts/send_message.html:37
+msgid "Broadcasting Option"
+msgstr "Aṣayan Ifitonileti"
+
+#: templates/accounts/send_message.html:40
+msgid "Send only to this individual"
+msgstr "Fi ranṣẹ si ẹni yii nikan"
+
+#: templates/accounts/send_message.html:41
+msgid "All Admin in this Unit"
+msgstr "Gbogbo Alabojuto (Admin) ninu ẹka yii"
+
+#: templates/accounts/send_message.html:42
+msgid "All Ulama in this Unit"
+msgstr "Gbogbo Awọn Onimọ-ẹsin (Ulama) ninu ẹka yii"
+
+#: templates/accounts/send_message.html:47
+msgid ""
+"Leave as 'Individual' to message only the user above, or select a group to "
+"message everyone in their category."
+msgstr ""
+"Fi silẹ gẹgẹ bi 'Ẹni kọọkan' lati fi ranṣẹ si ẹni ti o wa loke nikan, tabi "
+"yan ẹgbẹ kan lati fi ranṣẹ si gbogbo eniyan ni abẹ rẹ."
+
+#: templates/accounts/sent_messages.html:13
+msgid "Tracking official broadcasts and replies."
+msgstr "A n tọpa awọn ifitonileti ati awọn idahun."
+
+#: templates/accounts/sent_messages.html:22
+msgid "Sent"
+msgstr "Ifiranṣẹ ti o ti lọ"
+
+#: templates/accounts/sent_messages.html:47
+msgid "Delivered"
+msgstr "O ti lọ"
+
+#: templates/accounts/sent_messages.html:70
+msgid "Sent on"
+msgstr "O lọ ni"
+
+#: templates/accounts/sent_messages.html:80
+msgid "You haven't sent any memos yet."
+msgstr "O ko ti fi iwe iranti (memo) eyikeyi ranṣẹ."
+
+#: templates/dashboard.html:66
+msgid "Are you sure you want to REJECT and DELETE this application?"
+msgstr "Ṣe o ni idaniloju pe o fẹ kọ ati pa iwe ohun elo yii rẹ?"
+
+#: templates/dashboard.html:67
+msgid "Reject Application"
+msgstr "Kọ ohun elo yii"
+
+#: templates/dashboard.html:76
+msgid "No pending requests. Your unit is fully approved."
+msgstr "Ko si ohun elo kankan ti o n duro. A ti fọwọsi ẹka rẹ ni kikun."
+
+#: templates/dashboard.html:103
+msgid "Manage unit personnel records."
+msgstr "Ṣakoso awọn akọsilẹ oṣiṣẹ ẹka."
+
+#: templates/dashboard.html:115
+msgid "Unit communications."
+msgstr "Ibaraẹnisọrọ ẹka."
+
+#: templates/includes/sidebar.html:77
+msgid "Upload to Gallery"
+msgstr "Gbe fọto si ibi aworan"
+
+#: templates/includes/sidebar.html:94
+msgid "Write something for your unit..."
+msgstr "Kọ nkan silẹ fun ẹka rẹ..."
+
+#: templates/includes/sidebar.html:95
+msgid "This will only be visible to members of"
+msgstr "Awọn ọmọ ẹka yii nikan ni yoo rii eyi"
+
+#: templates/includes/sidebar.html:98
+msgid "Post to Unit"
+msgstr "Fi ranṣẹ si ẹka"
+
+#: templates/includes/sidebar.html:116
+msgid "Image Title"
+msgstr "Akọle Fọto"
+
+#: templates/includes/sidebar.html:117
+msgid "e.g., Annual Conference"
+msgstr "apẹẹrẹ: Apero Ọdọọdun"
+
+#: templates/login.html:14
+msgid "Security Notice"
+msgstr "Itoye Aabo"
+
+#: templates/login.html:28
+msgid "National Management Information System"
+msgstr "Eto Isakoso Alaye ti Orilẹ-ede"
+
+#: templates/login.html:43
+msgid ""
+"Your account may be awaiting leader approval from your assigned Ward/Unit."
+msgstr "Akọọlẹ rẹ le wa ni iduro fun ifọwọsi olori lati Wọọdu tabi Ẹka rẹ."
+
+#: templates/login.html:80
+msgid "Sign In"
+msgstr "Wọle"
+
+#: templates/login.html:86
+msgid "Forgot your security credentials?"
+msgstr "O ha gbagbe ọrọ igbaniwọle rẹ?"
+
+#: templates/login.html:97
+msgid "Submit Enrollment"
+msgstr "Fi ohun elo ranṣẹ"
+
+#: templates/login.html:105
+msgid "Authorized Personnel Only."
+msgstr "Awọn oṣiṣẹ ti a fọwọsi nikan ni o le wọle."
+
+#: accounts/views.py:567
+#, fuzzy
+#| msgid "Official memo sent."
+msgid "Official memo sent successfully."
 msgstr "Wọ́n ti fi ìwé ìránṣẹ́ iṣẹ́ ránṣẹ́."
 
-#: accounts/views.py:291
+#: accounts/views.py:584
 msgid "Video published to feed."
 msgstr "Wọ́n ti gbé fídíò jáde sórí ìkànnì."
 
-#: accounts/views.py:305
+#: accounts/views.py:598
 msgid "Username updated."
 msgstr "Wọ́n ti ṣàtúnṣe orúkọ-ìwọlé."
 
-#: accounts/views.py:307
+#: accounts/views.py:600
 msgid "Username already taken."
 msgstr "Orúkọ-ìwọlé yìí ti wà ní lílò tẹ́lẹ̀."
 
-#: accounts/views.py:437
+#: accounts/views.py:730
 msgid "Member"
 msgstr "Ọmọ-ẹgbẹ́"
 
-#: accounts/views.py:437 templates/bulk_payroll.html:83
+#: accounts/views.py:730 templates/bulk_payroll.html:83
 #: templates/donations/donation_list.html:72 templates/payroll_history.html:27
 msgid "Amount"
 msgstr "Iye owó"
 
-#: accounts/views.py:437
+#: accounts/views.py:730
 msgid "Reference"
 msgstr "Ìtọ́kasí"
 
-#: accounts/views.py:437 templates/accounts/members_list.html:33
+#: accounts/views.py:730 templates/accounts/members_list.html:36
 #: templates/accounts/search.html:84 templates/disciplinary_list.html:20
 #: templates/donations/donation_list.html:74 templates/payroll_history.html:28
 msgid "Status"
 msgstr "Ipò"
 
-#: accounts/views.py:437 templates/disciplinary_list.html:16
+#: accounts/views.py:730 templates/accounts/inbox.html:107
+#: templates/disciplinary_list.html:16
 #: templates/donations/donation_list.html:76
 msgid "Date"
 msgstr "Ọjọ́"
@@ -109,6 +343,10 @@ msgstr "fún àpẹẹrẹ, Zakāt"
 #: donations/forms.py:43
 msgid "Enter any additional notes (optional)"
 msgstr "Tẹ àfikún ọ̀rọ̀ eyikeyìí (bí o bá fẹ́)"
+
+#: donations/forms.py:50 templates/pending_approval.html:10
+msgid "Full Name"
+msgstr "Orúkọ lẹ́kùn-únrẹ́rẹ́"
 
 #: donations/forms.py:51
 msgid "Email"
@@ -195,204 +433,277 @@ msgid "Yes, Delete My Account"
 msgstr "Bẹ́ẹ̀ ni, Pa Àkánǹtì mi rẹ́"
 
 #: templates/accounts/confirm_delete.html:7
-#: templates/accounts/edit_profile.html:41
+#: templates/accounts/members_list.html:141
 #: templates/accounts/send_message.html:9
 #: templates/accounts/update_username.html:19
 msgid "Cancel"
 msgstr "Kagbuo"
 
-#: templates/accounts/edit_profile.html:10
+#: templates/accounts/edit_profile.html:15
 msgid "Edit Profile Details"
 msgstr "Ṣàtúnṣe Àkọsílẹ̀ Ara-ẹni"
 
-#: templates/accounts/edit_profile.html:16
-msgid "Personal Info"
+#: templates/accounts/edit_profile.html:27
+#, fuzzy
+#| msgid "Personal Info"
+msgid "Personal Information"
 msgstr "Ìròyìn Ara-ẹni"
 
-#: templates/accounts/edit_profile.html:29
+#: templates/accounts/edit_profile.html:45
 msgid "Organization & Payment"
 msgstr "Ètò Àjọ àti Ìsanwó"
 
-#: templates/accounts/edit_profile.html:42
-msgid "Update Records"
-msgstr "Ṣàtúnṣe Àkọsílẹ̀"
+#: templates/accounts/edit_profile.html:60
+#, fuzzy
+#| msgid "Donation Details"
+msgid "Note on Bank Details"
+msgstr "Ìròyìn Ìtọrẹ"
 
-#: templates/accounts/login.html:2
-msgid "Portal Login"
-msgstr "Ìwọlé sí Ìkànnì"
+#: templates/accounts/inbox.html:11
+#, fuzzy
+#| msgid "Official File"
+msgid "Official Inbox"
+msgstr "Fáìlì Iṣẹ́"
 
-#: templates/accounts/login.html:6 templates/base.html:45
-#: templates/login.html:20
-msgid "Login"
-msgstr "Wọlé"
+#: templates/accounts/inbox.html:13
+#, fuzzy
+#| msgid "Check communications and unit updates."
+msgid "Manage official communications and memos."
+msgstr "Yẹ ìbánisọ̀rọ̀ àti àtúnṣe ẹ̀ka wò."
 
-#: templates/accounts/login.html:8 templates/login.html:63
-msgid "Forgot Password?"
-msgstr "O ha gbàgbé ọ̀rọ̀-asírí rẹ?"
+#: templates/accounts/inbox.html:21 templates/dashboard.html:117
+msgid "New"
+msgstr "Tuntun"
+
+#: templates/accounts/inbox.html:32 templates/accounts/sent_messages.html:11
+#, fuzzy
+#| msgid "Direct Memo"
+msgid "Sent Memos"
+msgstr "Ìránṣẹ́ tààrà"
+
+#: templates/accounts/inbox.html:46 templates/donations/donation_list.html:40
+msgid "From"
+msgstr "Láti"
+
+#: templates/accounts/inbox.html:66
+#, fuzzy
+#| msgid "PERMANENT REMOVAL: Are you sure you want to delete the records for"
+msgid "Are you sure you want to delete this memo?"
+msgstr "ÌPARẸ́ PÁTAPÁTA: Ṣé o dájú pé o fẹ́ pa àkọsílẹ̀ rẹ́ fún"
+
+#: templates/accounts/inbox.html:82
+#, fuzzy
+#| msgid "Suspend Member"
+msgid "Open Memo"
+msgstr "Dádúró Ọmọ-ẹgbẹ́"
+
+#: templates/accounts/inbox.html:105
+#, fuzzy
+#| msgid "Suspended"
+msgid "Sender"
+msgstr "Dídádúró"
+
+#: templates/accounts/inbox.html:117
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Reply to Leader"
+msgstr "Olórí Ẹ̀ka"
 
 #: templates/accounts/member_detail.html:8 templates/accounts/search.html:12
-#: templates/base.html:38 templates/includes/sidebar.html:15
+#: templates/base.html:38 templates/includes/sidebar.html:39
 msgid "Dashboard"
 msgstr "Ojú-ewé Olórí"
 
 #: templates/accounts/member_detail.html:9
-msgid "Unit Directory"
-msgstr "Ìwé Orúkọ Ẹ̀ka"
-
-#: templates/accounts/member_detail.html:10
-msgid "Official File"
-msgstr "Fáìlì Iṣẹ́"
-
-#: templates/accounts/member_detail.html:40
-msgid "Suspend Member"
-msgstr "Dádúró Ọmọ-ẹgbẹ́"
-
-#: templates/accounts/member_detail.html:44
-msgid "Restore/Activate"
-msgstr "Dá-padà/Múṣiṣẹ́"
-
-#: templates/accounts/member_detail.html:49
-msgid "Direct Memo"
-msgstr "Ìránṣẹ́ tààrà"
-
-#: templates/accounts/member_detail.html:54
-msgid "Disburse Payment"
-msgstr "San Owó"
-
-#: templates/accounts/member_detail.html:58
-msgid "Payment Locked"
-msgstr "Ìsanwó ti wà ní tìtì"
-
-#: templates/accounts/member_detail.html:70
-msgid "Account Currently Suspended"
-msgstr "Àkánǹtì yìí ti wà ní dídádúró lọ́wọ́lọ́wọ́"
-
-#: templates/accounts/member_detail.html:71
-msgid ""
-"This member cannot receive payments or access unit resources until restored."
-msgstr ""
-"Ọmọ-ẹgbẹ́ yìí kò lè gba owó tàbí lo àwọn ohun-èlò títí di ìgbà tí a bá dá a padà."
-
-#: templates/accounts/member_detail.html:78
-msgid "Official Personnel File"
-msgstr "Fáìlì òṣìṣẹ́ ti iṣẹ́"
-
-#: templates/accounts/member_detail.html:84
-msgid "Assigned Position"
-msgstr "Ọkwa tí a fún un"
-
-#: templates/accounts/member_detail.html:88
-msgid "Contact Number"
-msgstr "Nọ́ńbà ìbánisọ̀rọ̀"
-
-#: templates/accounts/member_detail.html:93
-msgid "Verified Banking Data"
-msgstr "Àkọsílẹ̀ Báńkì tí a ti fọwọ́ sí"
-
-#: templates/accounts/member_detail.html:96
-msgid "Bank Name"
-msgstr "Orúkọ Báńkì"
-
-#: templates/accounts/member_detail.html:100
-msgid "Account Number"
-msgstr "Nọ́ńbà Àkánǹtì"
-
-#: templates/accounts/member_detail.html:107
-msgid "Credentials"
-msgstr "Àwọn Ẹ̀rí Ìwé-ẹ̀kọ́"
-
-#: templates/accounts/member_detail.html:113
-msgid "Export Official PDF"
-msgstr "Gba PDF iṣẹ́ jáde"
-
-#: templates/accounts/member_detail.html:116
-msgid "Remove Record"
-msgstr "Pa Àkọsílẹ̀ rẹ́"
-
-#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
-msgid "Reason for suspending"
-msgstr "Ìdí fún dídádúró"
-
-#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
-msgid "Violation of rules"
-msgstr "Yíyẹ òfin mọ́lẹ̀"
-
-#: templates/accounts/member_detail.html:134
-msgid "PERMANENT REMOVAL: Are you sure you want to delete the records for"
-msgstr "ÌPARẸ́ PÁTAPÁTA: Ṣé o dájú pé o fẹ́ pa àkọsílẹ̀ rẹ́ fún"
-
-#: templates/accounts/member_detail.html:134
-msgid "This is only for deceased members or permanent resignations."
-msgstr "Èyí wà fún àwọn ọmọ-ẹgbẹ́ tó ti kú tàbí ẹni tó fìfẹ́ ara rẹ̀ fiṣẹ́ sílẹ̀ pátápáta."
-
-#: templates/accounts/members_list.html:8 templates/base.html:49
-#: templates/dashboard.html:35 templates/includes/sidebar.html:19
+#: templates/accounts/members_list.html:10 templates/base.html:49
+#: templates/dashboard.html:102 templates/includes/sidebar.html:44
 msgid "Directory"
 msgstr "Ìwé Orúkọ"
 
-#: templates/accounts/members_list.html:9
-msgid "Select members to send bulk notifications or manage accounts."
-msgstr "Yan àwọn ọmọ-ẹgbẹ́ láti fi iṣẹ́ ránṣẹ́ sí tàbí láti ṣàkóso àkánǹtì wọn."
+#: templates/accounts/member_detail.html:32
+#, fuzzy
+#| msgid "Activate"
+msgid "Active Status"
+msgstr "Múṣiṣẹ́"
 
-#: templates/accounts/members_list.html:13
+#: templates/accounts/member_detail.html:36
+#: templates/accounts/members_list.html:79 templates/accounts/search.html:29
+#: templates/accounts/search.html:116
+msgid "Suspended"
+msgstr "Dídádúró"
+
+#: templates/accounts/member_detail.html:44
+#, fuzzy
+#| msgid "Official File"
+msgid "Official Message"
+msgstr "Fáìlì Iṣẹ́"
+
+#: templates/accounts/member_detail.html:51
+#, fuzzy
+#| msgid "Pending Member Verifications"
+msgid "Bank Verification"
+msgstr "Ìmúdájú Ọmọ-ẹgbẹ́ tó ń dúró"
+
+#: templates/accounts/member_detail.html:53 templates/bulk_payroll.html:82
+msgid "Account"
+msgstr "Àkánǹtì"
+
+#: templates/accounts/member_detail.html:56
+#, fuzzy
+#| msgid "Bank:"
+msgid "Bank"
+msgstr "Báńkì:"
+
+#: templates/accounts/member_detail.html:67
+#, fuzzy
+#| msgid "Update Records"
+msgid "Unit Records"
+msgstr "Ṣàtúnṣe Àkọsílẹ̀"
+
+#: templates/accounts/member_detail.html:74
+msgid "Phone"
+msgstr "Nọ́ńbà fóònù"
+
+#: templates/accounts/member_detail.html:78
+#, fuzzy
+#| msgid "Assigned Position"
+msgid "Assigned Branch"
+msgstr "Ọkwa tí a fún un"
+
+#: templates/accounts/member_detail.html:82
+#, fuzzy
+#| msgid "Education:"
+msgid "Education Level"
+msgstr "Ìwé-ẹ̀kọ́:"
+
+#: templates/accounts/member_detail.html:89
+#, fuzzy
+#| msgid "Command Center"
+msgid "Leader Command Console"
+msgstr "Ibùdó Ìṣàkóso"
+
+#: templates/accounts/member_detail.html:93
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Deactivate Access"
+msgstr "Múṣiṣẹ́ padà"
+
+#: templates/accounts/member_detail.html:97
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Re-Activate Access"
+msgstr "Múṣiṣẹ́ padà"
+
+#: templates/accounts/member_detail.html:104
+#, fuzzy
+#| msgid "Remove Record"
+msgid "Purge Record"
+msgstr "Pa Àkọsílẹ̀ rẹ́"
+
+#: templates/accounts/member_detail.html:110
+#, fuzzy
+#| msgid "Administration"
+msgid "Administrative Note"
+msgstr "Ìṣàkóso"
+
+#: templates/accounts/members_list.html:16
 msgid "Message Selected"
 msgstr "Fi iṣẹ́ ránṣẹ́ sí àwọn tí a yàn"
 
-#: templates/accounts/members_list.html:31 templates/accounts/search.html:82
+#: templates/accounts/members_list.html:34 templates/accounts/search.html:82
 #: templates/bulk_payroll.html:80
 msgid "Personnel"
 msgstr "Òṣìṣẹ́"
 
-#: templates/accounts/members_list.html:32
+#: templates/accounts/members_list.html:35
 msgid "Position"
 msgstr "Ọkwa"
 
-#: templates/accounts/members_list.html:34
+#: templates/accounts/members_list.html:37
 #: templates/donations/donation_list.html:77
 msgid "Actions"
 msgstr "Ìgbésẹ̀"
 
-#: templates/accounts/members_list.html:58
-msgid "Reactivate"
+#: templates/accounts/members_list.html:75 templates/accounts/search.html:112
+msgid "Active"
+msgstr "Ìmúṣiṣẹ́"
+
+#: templates/accounts/members_list.html:85 templates/pending_approval.html:24
+msgid "View Profile"
+msgstr "Wo Àkọsílẹ̀"
+
+#: templates/accounts/members_list.html:91
+#, fuzzy
+#| msgid "Suspend"
+msgid "Suspend Account"
+msgstr "Dádúró"
+
+#: templates/accounts/members_list.html:95
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Reactivate Account"
 msgstr "Múṣiṣẹ́ padà"
 
-#: templates/accounts/members_list.html:96
-msgid "Send Bulk Message"
-msgstr "Fi iṣẹ́ ránṣẹ́ sí ọ̀pọ̀ ènìyàn"
-
 #: templates/accounts/members_list.html:101
-#: templates/accounts/send_message.html:24
+#, fuzzy
+#| msgid "Permanent Removal"
+msgid "Permanent Delete"
+msgstr "Ìparẹ́ Pátápáta"
+
+#: templates/accounts/members_list.html:112
+#, fuzzy
+#| msgid "No matches found for"
+msgid "No members found"
+msgstr "Kò sí ohun tó bá mu fún"
+
+#: templates/accounts/members_list.html:132
+#: templates/accounts/send_message.html:52
 msgid "Subject"
 msgstr "Akòrí"
 
-#: templates/accounts/members_list.html:105
-#: templates/accounts/send_message.html:28
-msgid "Message Body"
+#: templates/accounts/members_list.html:136 templates/includes/sidebar.html:93
+#, fuzzy
+#| msgid "Message Body"
+msgid "Message Content"
 msgstr "Àkóòpọ̀ Ìṣẹ́"
 
-#: templates/accounts/members_list.html:110
-msgid "Send to Selected Members"
-msgstr "Fi ránṣẹ́ sí àwọn ọmọ-ẹgbẹ́ tí a yàn"
+#: templates/accounts/members_list.html:137
+#, fuzzy
+#| msgid "Type your message here..."
+msgid "Type your broadcast here..."
+msgstr "Kọ ìṣẹ́ rẹ síbí yìí..."
+
+#: templates/accounts/members_list.html:184 templates/accounts/search.html:167
+msgid "Reason for suspending"
+msgstr "Ìdí fún dídádúró"
+
+#: templates/accounts/members_list.html:184
+#, fuzzy
+#| msgid "Violation of rules"
+msgid "Violation of unit rules"
+msgstr "Yíyẹ òfin mọ́lẹ̀"
 
 #: templates/accounts/register.html:10
 msgid "Member Registration"
 msgstr "Ìforúkọsílẹ̀ Ọmọ-ẹgbẹ́"
 
 #: templates/accounts/register.html:11
-msgid "Join the JIBWIS Digital Management System"
+#, fuzzy
+#| msgid "Join the JIBWIS Digital Management System"
+msgid "Join the JIBWIS digital network"
 msgstr "Dara pọ̀ mọ́ Ètò Ìṣàkóso JIBWIS"
 
-#: templates/accounts/register.html:20
-msgid "Account Information"
-msgstr "Ìròyìn Àkánǹtì"
+#: templates/accounts/register.html:55
+#, fuzzy
+#| msgid "Status"
+msgid "State"
+msgstr "Ipò"
 
-#: templates/accounts/register.html:39
-msgid "Organizational Role"
-msgstr "Iṣẹ́ rẹ nínú Ẹgbẹ́"
-
-#: templates/accounts/register.html:53
-msgid "Submit Membership Request"
-msgstr "Fi ìbéèrè ìforúkọsílẹ̀ ránṣẹ́"
+#: templates/accounts/register.html:70
+#, fuzzy
+#| msgid "Donation Details"
+msgid "Personal Details"
+msgstr "Ìròyìn Ìtọrẹ"
 
 #: templates/accounts/search.html:10
 msgid "Navigation"
@@ -418,10 +729,6 @@ msgstr "Gbogbo Ọmọ-ẹgbẹ́"
 msgid "Active Only"
 msgstr "Àwọn tó ń ṣiṣẹ́ nìkan"
 
-#: templates/accounts/search.html:29 templates/accounts/search.html:116
-msgid "Suspended"
-msgstr "Dídádúró"
-
 #: templates/accounts/search.html:34
 msgid "Position/Role"
 msgstr "Ọkwa/Iṣẹ́"
@@ -438,7 +745,7 @@ msgstr "Padà sí ìbẹ̀rẹ̀"
 msgid "Search by name or phone in your unit..."
 msgstr "Wá orúkọ tàbí fóònù nínú ẹ̀ka rẹ..."
 
-#: templates/accounts/search.html:64 templates/includes/sidebar.html:23
+#: templates/accounts/search.html:64 templates/includes/sidebar.html:48
 msgid "Search"
 msgstr "Wá"
 
@@ -454,10 +761,6 @@ msgstr "Ìròyìn Àkánǹtì"
 msgid "Management"
 msgstr "Ìṣàkóso"
 
-#: templates/accounts/search.html:112
-msgid "Active"
-msgstr "Ìmúṣiṣẹ́"
-
 #: templates/accounts/search.html:122 templates/disciplinary_list.html:48
 msgid "View File"
 msgstr "Wo Fáìlì"
@@ -466,23 +769,27 @@ msgstr "Wo Fáìlì"
 msgid "Suspend"
 msgstr "Dádúró"
 
-#: templates/accounts/search.html:134
+#: templates/accounts/search.html:131
 msgid "Activate"
 msgstr "Múṣiṣẹ́"
 
-#: templates/accounts/search.html:140
+#: templates/accounts/search.html:136
 msgid "Permanent Removal"
 msgstr "Ìparẹ́ Pátápáta"
 
-#: templates/accounts/search.html:152
+#: templates/accounts/search.html:148
 msgid "No members found in your unit matching this criteria."
 msgstr "Kò sí ọmọ-ẹgbẹ́ kankan nínú ẹ̀ka rẹ tó bá ohun tó ò ń wá mu."
 
-#: templates/accounts/search.html:179
+#: templates/accounts/search.html:167
+msgid "Violation of rules"
+msgstr "Yíyẹ òfin mọ́lẹ̀"
+
+#: templates/accounts/search.html:174
 msgid "WARNING: This will PERMANENTLY delete"
 msgstr "ÌKÌLỌ̀: Èyí yóò PA RẸ́ PÁTAPÁTA"
 
-#: templates/accounts/search.html:179
+#: templates/accounts/search.html:174
 msgid "from JIBWIS records. Proceed?"
 msgstr "kúrò nínú àkọsílẹ̀ JIBWIS. Ṣé kí a tẹ̀síwájú?"
 
@@ -490,21 +797,55 @@ msgstr "kúrò nínú àkọsílẹ̀ JIBWIS. Ṣé kí a tẹ̀síwájú?"
 msgid "New Official Memo"
 msgstr "Ìwé Ìránṣẹ́ Iṣẹ́ Tuntun"
 
-#: templates/accounts/send_message.html:15 templates/payroll_history.html:25
+#: templates/accounts/send_message.html:20
+#: templates/accounts/sent_messages.html:69 templates/payroll_history.html:25
 msgid "Recipient"
 msgstr "Olùgbà"
 
 #: templates/accounts/send_message.html:25
+#, fuzzy
+#| msgid "Category Payroll"
+msgid "Category"
+msgstr "Owó-oṣù Ìpín"
+
+#: templates/accounts/send_message.html:43
+#, fuzzy
+#| msgid "First Aid Group"
+msgid "All First Aid Group in this Unit"
+msgstr "Ẹgbẹ́ Agbẹ́nigbẹ̀yì (First Aid)"
+
+#: templates/accounts/send_message.html:55
 msgid "Enter memo title..."
 msgstr "Tẹ àkòrí ìwé ìránṣẹ́..."
 
-#: templates/accounts/send_message.html:29
+#: templates/accounts/send_message.html:59
+msgid "Message Body"
+msgstr "Àkóòpọ̀ Ìṣẹ́"
+
+#: templates/accounts/send_message.html:60
 msgid "Type your message here..."
 msgstr "Kọ ìṣẹ́ rẹ síbí yìí..."
 
-#: templates/accounts/send_message.html:32
+#: templates/accounts/send_message.html:65
 msgid "Send Message"
 msgstr "Fi Ìṣẹ́ Ránṣẹ́"
+
+#: templates/accounts/sent_messages.html:34
+#: templates/donations/donation_list.html:43
+msgid "To"
+msgstr "Sí"
+
+#: templates/accounts/sent_messages.html:43
+#, fuzzy
+#| msgid "Read More"
+msgid "Read"
+msgstr "Ka síwájú"
+
+#: templates/accounts/sent_messages.html:56
+#, fuzzy
+#| msgid "View File"
+msgid "View Full Memo"
+msgstr "Wo Fáìlì"
 
 #: templates/accounts/update_username.html:8
 msgid "Change Username"
@@ -530,9 +871,13 @@ msgstr "ÌKÀNNÌ"
 msgid "Home"
 msgstr "Ilé"
 
-#: templates/base.html:41 templates/includes/sidebar.html:39
+#: templates/base.html:41 templates/includes/sidebar.html:67
 msgid "Logout"
 msgstr "Jáde"
+
+#: templates/base.html:45
+msgid "Login"
+msgstr "Wọlé"
 
 #: templates/base.html:46
 msgid "Join Us"
@@ -542,11 +887,11 @@ msgstr "Dara pọ̀ mọ́ wa"
 msgid "Donate"
 msgstr "Ṣe Ìtọrẹ"
 
-#: templates/base.html:102
+#: templates/base.html:107
 msgid "Nigeria National Headquarters"
 msgstr "Olú-iléeṣẹ́ Orílẹ̀-èdè Nàìjíríà"
 
-#: templates/base.html:103
+#: templates/base.html:108
 msgid "Digital Management System | Developed for JIBWIS Nigeria"
 msgstr "Ètò Ìṣàkóso Orí-ìkànnì | A ṣe é fún JIBWIS Nàìjíríà"
 
@@ -594,10 +939,6 @@ msgstr "Ìfòfindè"
 msgid "Unit / Level"
 msgstr "Ẹ̀ka / Ipò"
 
-#: templates/bulk_payroll.html:82
-msgid "Account"
-msgstr "Àkánǹtì"
-
 #: templates/bulk_payroll.html:131
 msgid "No matches found for"
 msgstr "Kò sí ohun tó bá mu fún"
@@ -610,41 +951,55 @@ msgstr "A yàn án"
 msgid "Execute Disbursement"
 msgstr "Mú ìsanwó ṣẹ"
 
-#: templates/dashboard.html:12
+#: templates/dashboard.html:14
 msgid "Command Center"
 msgstr "Ibùdó Ìṣàkóso"
 
-#: templates/dashboard.html:22 templates/includes/sidebar.html:28
+#: templates/dashboard.html:16
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Leader"
+msgstr "Olórí Ẹ̀ka"
+
+#: templates/dashboard.html:20
+#, fuzzy
+#| msgid "Authorize Disbursement"
+msgid "Authorized Access"
+msgstr "Fọwọ́ sí Ìsanwó"
+
+#: templates/dashboard.html:28
+#, fuzzy
+#| msgid "Pending Member Verifications"
+msgid "Pending Unit Verifications"
+msgstr "Ìmúdájú Ọmọ-ẹgbẹ́ tó ń dúró"
+
+#: templates/dashboard.html:59 templates/pending_approval.html:28
+msgid "Approve"
+msgstr "Fọwọ́ sí i"
+
+#: templates/dashboard.html:91 templates/includes/sidebar.html:55
 msgid "Bulk Payroll"
 msgstr "Owó-oṣù Ọ̀pọ̀lọpọ̀"
 
-#: templates/dashboard.html:23
-msgid "Process unit disbursements and allowances."
+#: templates/dashboard.html:92
+#, fuzzy
+#| msgid "Process unit disbursements and allowances."
+msgid "Process unit disbursements."
 msgstr "Mú ìsanwó ẹ̀ka àti owó-ìrànwọ́ ṣẹ."
 
-#: templates/dashboard.html:36
-msgid "View and manage all registered members."
-msgstr "Wo kí o sì ṣàkóso gbogbo ọmọ-ẹgbẹ́ tó forúkọsílẹ̀."
-
-#: templates/dashboard.html:47
+#: templates/dashboard.html:114
 msgid "My Inbox"
 msgstr "Àpótí Ìṣẹ́ mi"
 
-#: templates/dashboard.html:48
-msgid "Check communications and unit updates."
-msgstr "Yẹ ìbánisọ̀rọ̀ àti àtúnṣe ẹ̀ka wò."
-
-#: templates/dashboard.html:50
-msgid "New"
-msgstr "Tuntun"
-
-#: templates/dashboard.html:59
+#: templates/dashboard.html:126
 msgid "Recent Messages"
 msgstr "Àwọn Ìṣẹ́ Àìpẹ́"
 
-#: templates/dashboard.html:69
-msgid "No new messages."
-msgstr "Kò sí ìṣẹ́ tuntun."
+#: templates/dashboard.html:127
+#, fuzzy
+#| msgid "View File"
+msgid "View All"
+msgstr "Wo Fáìlì"
 
 #: templates/disciplinary_list.html:7
 msgid "National Disciplinary Portal"
@@ -747,16 +1102,21 @@ msgid "Important Instructions:"
 msgstr "Àwọn Ìlànà Pàtàkì:"
 
 #: templates/donations/bank_transfer.html:71
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                 Please use the <strong>reference code "
+#| "(%(ref)s)</strong> as the payment narration/memo.\n"
+#| "                                 "
 msgid ""
 "\n"
-"                                 Please use the <strong>reference code "
+"                                Please use the <strong>reference code "
 "(%(ref)s)</strong> as the payment narration/memo.\n"
-"                                 "
+"                                "
 msgstr ""
 "\n"
-"                                 Jọ̀wọ́ lo <strong>nọ́ńbà ìtọ́kasí "
-"(%(ref)s)</strong> gẹ́gẹ́ bí àkọsílẹ̀ ìsanwó rẹ.\n"
+"                                 Jọ̀wọ́ lo <strong>nọ́ńbà ìtọ́kasí (%(ref)s)</"
+"strong> gẹ́gẹ́ bí àkọsílẹ̀ ìsanwó rẹ.\n"
 "                                 "
 
 #: templates/donations/bank_transfer.html:75
@@ -780,16 +1140,21 @@ msgid "To confirm that you have made the transfer, please check the box below:"
 msgstr "Láti fìdí rẹ̀ múlẹ̀ pé o ti ṣe ìsanwó náà, jọ̀wọ́ yan àpótí ìsàlẹ̀ yìí:"
 
 #: templates/donations/bank_transfer.html:92
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                         I confirm that I have sent ₦"
+#| "%(amt)s to the account stated above.\n"
+#| "                                         "
 msgid ""
 "\n"
-"                                         I confirm that I have sent ₦%(amt)s "
+"                                        I confirm that I have sent ₦%(amt)s "
 "to the account stated above.\n"
-"                                         "
+"                                        "
 msgstr ""
 "\n"
-"                                         Mo fìdí rẹ̀ múlẹ̀ pé mo ti fi ₦%(amt)s "
-"ránṣẹ́ sí àkánǹtì tó wà lókè yìí.\n"
+"                                         Mo fìdí rẹ̀ múlẹ̀ pé mo ti fi ₦"
+"%(amt)s ránṣẹ́ sí àkánǹtì tó wà lókè yìí.\n"
 "                                         "
 
 #: templates/donations/bank_transfer.html:99
@@ -811,8 +1176,7 @@ msgstr "Ìsanwó pẹ̀lú Káàdì"
 msgid ""
 "You will be redirected to a secure payment gateway to complete your "
 "transaction."
-msgstr ""
-"A ó darí rẹ sí ibùdó ìsanwó tó ní ààbò láti parí ìṣẹ́ rẹ."
+msgstr "A ó darí rẹ sí ibùdó ìsanwó tó ní ààbò láti parí ìṣẹ́ rẹ."
 
 #: templates/donations/card_payment.html:28
 msgid "Reference Code:"
@@ -831,7 +1195,8 @@ msgid ""
 "Your card details are securely encrypted. We do not store your full card "
 "information on our servers."
 msgstr ""
-"Àwọn ìròyìn káàdì rẹ wà ní ààbò. A kì í tọ́jú gbogbo ìròyìn káàdì rẹ sórí ẹ̀rọ wa."
+"Àwọn ìròyìn káàdì rẹ wà ní ààbò. A kì í tọ́jú gbogbo ìròyìn káàdì rẹ sórí ẹ̀rọ "
+"wa."
 
 #: templates/donations/card_payment.html:83
 #, python-format
@@ -896,7 +1261,8 @@ msgid ""
 "Our sincere gratitude goes to everyone who contributes. Your support will "
 "greatly help the community."
 msgstr ""
-"Ọpẹ́ wa tọkàntọkàn lọ sí ọ̀dọ̀ gbogbo ẹni tó ṣe ìtọrẹ. Ìrànlọ́wọ́ rẹ yóò ṣèrànwọ́ púpọ̀ fún àwùjọ."
+"Ọpẹ́ wa tọkàntọkàn lọ sí ọ̀dọ̀ gbogbo ẹni tó ṣe ìtọrẹ. Ìrànlọ́wọ́ rẹ yóò ṣèrànwọ́ "
+"púpọ̀ fún àwùjọ."
 
 #: templates/donations/confirmation_email.html:44
 msgid "If you have any questions, please reply to this email or contact us at:"
@@ -997,14 +1363,6 @@ msgstr "Gbogbo Ọ̀nà"
 msgid "Cash"
 msgstr "Owó gidi"
 
-#: templates/donations/donation_list.html:40
-msgid "From"
-msgstr "Láti"
-
-#: templates/donations/donation_list.html:43
-msgid "To"
-msgstr "Sí"
-
 #: templates/donations/donation_list.html:49
 msgid "Clear"
 msgstr "Pa á rẹ́"
@@ -1081,7 +1439,7 @@ msgid "We are waiting to confirm your contribution"
 msgstr "À ń dúró láti fìdí ìtọrẹ rẹ múlẹ̀"
 
 #: templates/donations/payment_pending.html:21
-#: templates/donations/payment_status._html:25
+#: templates/donations/payment_status.html:25
 #: templates/donations/payment_success.html:21
 msgid "Donor Name:"
 msgstr "Orúkọ Olùtọrẹ:"
@@ -1214,8 +1572,10 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    O fẹ́ ṣe ìsanwó fún àwọn ọmọ-ẹgbẹ́ tí a yàn nínú <strong>%(unit)s</strong>. \n"
-"                    Ìgbésẹ̀ yìí yóò bẹ̀rẹ̀ gbigbe báńkì, a kò sì lè yí i padà mọ́ tí a bá ti ṣe é.\n"
+"                    O fẹ́ ṣe ìsanwó fún àwọn ọmọ-ẹgbẹ́ tí a yàn nínú "
+"<strong>%(unit)s</strong>. \n"
+"                    Ìgbésẹ̀ yìí yóò bẹ̀rẹ̀ gbigbe báńkì, a kò sì lè yí i padà "
+"mọ́ tí a bá ti ṣe é.\n"
 "                    "
 
 #: templates/includes/bulk_pay_modal.html:28
@@ -1230,25 +1590,51 @@ msgstr "Yẹ Àkọsílẹ̀ wò"
 msgid "Process Now"
 msgstr "Ṣe é nísinsìí"
 
-#: templates/includes/sidebar.html:8
-msgid "Unit Leader"
-msgstr "Olórí Ẹ̀ka"
-
-#: templates/includes/sidebar.html:12
+#: templates/includes/sidebar.html:36
 msgid "NAVIGATION"
 msgstr "ÌṢÀFIHÀN"
 
-#: templates/includes/sidebar.html:32
+#: templates/includes/sidebar.html:51
+msgid "Payroll History"
+msgstr "Ìtàn Owó-oṣù"
+
+#: templates/includes/sidebar.html:60
 msgid "SETTINGS"
 msgstr "ÈTÒ"
 
-#: templates/includes/sidebar.html:35
+#: templates/includes/sidebar.html:63
 msgid "My Profile"
 msgstr "Àkọsílẹ̀ mi"
 
-#: templates/includes/sidebar.html:42
-msgid "Payroll History"
-msgstr "Ìtàn Owó-oṣù"
+#: templates/includes/sidebar.html:72
+#, fuzzy
+#| msgid "Latest Announcements"
+msgid "Post Announcement"
+msgstr "Àwọn Ìfilọ̀ Àìpẹ́"
+
+#: templates/includes/sidebar.html:89
+#, fuzzy
+#| msgid "Latest Announcements"
+msgid "Unit Announcement"
+msgstr "Àwọn Ìfilọ̀ Àìpẹ́"
+
+#: templates/includes/sidebar.html:111
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Unit Gallery"
+msgstr "Olórí Ẹ̀ka"
+
+#: templates/includes/sidebar.html:120
+#, fuzzy
+#| msgid "Selected"
+msgid "Select File"
+msgstr "A yàn án"
+
+#: templates/includes/sidebar.html:125
+#, fuzzy
+#| msgid "Upload Short Video"
+msgid "Upload Photo"
+msgstr "Gbé fídíò kúkúrú sókè"
 
 #: templates/landing.html:125
 msgid "Updates"
@@ -1326,57 +1712,29 @@ msgstr "Pín in"
 msgid "Download"
 msgstr "Gba á sílẹ̀"
 
-#: templates/leader_directory.html:7
-msgid "Official Leader Directory"
-msgstr "Ìwé Orúkọ Olórí"
+#: templates/login.html:27
+msgid "Portal Login"
+msgstr "Ìwọlé sí Ìkànnì"
 
-#: templates/leader_directory.html:8
-msgid "Verified National and State Leadership of JIBWIS Nigeria"
-msgstr "Àwọn olórí orílẹ̀-èdè àti ìpínlẹ̀ ti JIBWIS Nàìjíríà tí a fọwọ́ sí"
+#: templates/login.html:54
+msgid "Username"
+msgstr "Orúkọ-ìwọlé"
 
-#: templates/leader_directory.html:16
-msgid "Search by name, position, or unit..."
-msgstr "Wá orúkọ, ọkwa, tàbí ẹ̀ka..."
+#: templates/login.html:59
+#, fuzzy
+#| msgid "Enter your full name"
+msgid "Enter username"
+msgstr "Tẹ orúkọ rẹ lẹ́kùn-únrẹ́rẹ́"
 
-#: templates/leader_directory.html:56 templates/pending_approval.html:24
-msgid "View Profile"
-msgstr "Wo Àkọsílẹ̀"
-
-#: templates/leader_directory.html:80
-msgid "Directory Updating"
-msgstr "Ìwé orúkọ ń dọ̀tun"
-
-#: templates/leader_directory.html:81
-msgid "The leadership directory is currently being synchronized."
-msgstr "A ṣì ń ṣàtúnṣe ìwé orúkọ àwọn olórí lọ́wọ́lọ́wọ́."
-
-#: templates/leader_directory.html:82
-msgid "Return to Dashboard"
-msgstr "Padà sí Ojú-ewé Olórí"
-
-#: templates/login.html:9
-msgid "Warning:"
-msgstr "Ìkìlọ̀:"
-
-#: templates/login.html:21
-msgid "Access the JIBWIS Management Portal"
-msgstr "Wọlé sí Ìkànnì Ìṣàkóso JIBWIS"
-
-#: templates/login.html:45
+#: templates/login.html:65
 msgid "Password"
 msgstr "Ọ̀rọ̀-asírí"
 
-#: templates/login.html:57
-msgid "Login to Account"
-msgstr "Wọlé sí Àkánǹtì"
-
-#: templates/login.html:70
-msgid "Not registered?"
-msgstr "O kò tíì forúkọsílẹ̀?"
-
-#: templates/login.html:71
-msgid "Apply Now"
-msgstr "Forúkọsílẹ̀ nísinsìí"
+#: templates/login.html:95
+#, fuzzy
+#| msgid "New Official Memo"
+msgid "New official?"
+msgstr "Ìwé Ìránṣẹ́ Iṣẹ́ Tuntun"
 
 #: templates/password_reset.html:2
 msgid "Reset Your Password"
@@ -1433,15 +1791,15 @@ msgstr "Yẹ Í-mèlì rẹ wò"
 msgid ""
 "We've emailed you instructions for setting your password. You should receive "
 "them shortly."
-msgstr ""
-"A ti fi ìlànà láti ṣètò ọ̀rọ̀-asírí rẹ ránṣẹ́. O ó gbà á láìpẹ́."
+msgstr "A ti fi ìlànà láti ṣètò ọ̀rọ̀-asírí rẹ ránṣẹ́. O ó gbà á láìpẹ́."
 
 #: templates/password_reset_done.html:8
 msgid ""
 "If you don't receive an email, please ensure you've entered the address you "
 "registered with and check your spam folder."
 msgstr ""
-"Bí o kò bá rí í-mèlì gbà, rí i dájú pé o tẹ àdírẹ́sì tó o lò láti forúkọsílẹ̀, kí o sì yẹ folda spam rẹ wò."
+"Bí o kò bá rí í-mèlì gbà, rí i dájú pé o tẹ àdírẹ́sì tó o lò láti forúkọsílẹ̀, "
+"kí o sì yẹ folda spam rẹ wò."
 
 #: templates/password_reset_email.html:3
 msgid ""
@@ -1454,8 +1812,7 @@ msgstr ""
 msgid ""
 "If clicking the link doesn't work, please copy and paste the URL into your "
 "browser."
-msgstr ""
-"Bí títẹ líǹkì náà kò bá ṣiṣẹ́, jọ̀wọ́ dà á kọ sí inú ẹ̀rọ ìṣàwárí rẹ."
+msgstr "Bí títẹ líǹkì náà kò bá ṣiṣẹ́, jọ̀wọ́ dà á kọ sí inú ẹ̀rọ ìṣàwárí rẹ."
 
 #: templates/payroll_history.html:13
 msgid "Disbursement Ledger"
@@ -1488,10 +1845,6 @@ msgstr "Ẹ̀ka/Agbègbè"
 #: templates/pending_approval.html:12
 msgid "Registration Date"
 msgstr "Ọjọ́ Ìforúkọsílẹ̀"
-
-#: templates/pending_approval.html:28
-msgid "Approve"
-msgstr "Fọwọ́ sí i"
 
 #: templates/pending_approval.html:44
 msgid "Bank:"
@@ -1526,8 +1879,8 @@ msgid ""
 "Videos will auto-play on hover on the landing page. Recommended format: "
 "Vertical (9:16)."
 msgstr ""
-"Àwọn fídíò yóò bẹ̀rẹ̀ fúnra wọn nígbà tí a bá tẹ̀ ẹ́ lórí ojú-ewé àkọ́kọ́. "
-"Àwòrán tó dára jù: Oní-inṣì 9:16."
+"Àwọn fídíò yóò bẹ̀rẹ̀ fúnra wọn nígbà tí a bá tẹ̀ ẹ́ lórí ojú-ewé àkọ́kọ́. Àwòrán "
+"tó dára jù: Oní-inṣì 9:16."
 
 #: templates/upload_video.html:16
 msgid "Publish Video"
@@ -1536,3 +1889,128 @@ msgstr "Gbé fídíò jáde"
 #: templates/upload_video.html:20
 msgid "Cancel and Return"
 msgstr "Kagbuo kí o sì padà"
+
+#~ msgid ""
+#~ "Registration successful! Your branch leader must activate your account "
+#~ "before you can login."
+#~ msgstr ""
+#~ "Ìforúkọsílẹ̀ rẹ yọrí sí rere! Olórí ẹ̀ka rẹ gbọ́dọ̀ fọwọ́ sí àkánǹtì rẹ kí o "
+#~ "tó lè wọlé."
+
+#~ msgid "Account for {profile.user.get_full_name()} activated."
+#~ msgstr "Àkánǹtì fún {profile.user.get_full_name()} ti di mímúṣiṣẹ́."
+
+#~ msgid "Bank Code"
+#~ msgstr "Nọ́ńbà Ìdámọ̀ Báńkì"
+
+#~ msgid "Account No"
+#~ msgstr "Nọ́ńbà Àkánǹtì"
+
+#~ msgid "Forgot Password?"
+#~ msgstr "O ha gbàgbé ọ̀rọ̀-asírí rẹ?"
+
+#~ msgid "Unit Directory"
+#~ msgstr "Ìwé Orúkọ Ẹ̀ka"
+
+#~ msgid "Restore/Activate"
+#~ msgstr "Dá-padà/Múṣiṣẹ́"
+
+#~ msgid "Disburse Payment"
+#~ msgstr "San Owó"
+
+#~ msgid "Payment Locked"
+#~ msgstr "Ìsanwó ti wà ní tìtì"
+
+#~ msgid "Account Currently Suspended"
+#~ msgstr "Àkánǹtì yìí ti wà ní dídádúró lọ́wọ́lọ́wọ́"
+
+#~ msgid ""
+#~ "This member cannot receive payments or access unit resources until "
+#~ "restored."
+#~ msgstr ""
+#~ "Ọmọ-ẹgbẹ́ yìí kò lè gba owó tàbí lo àwọn ohun-èlò títí di ìgbà tí a bá dá "
+#~ "a padà."
+
+#~ msgid "Official Personnel File"
+#~ msgstr "Fáìlì òṣìṣẹ́ ti iṣẹ́"
+
+#~ msgid "Contact Number"
+#~ msgstr "Nọ́ńbà ìbánisọ̀rọ̀"
+
+#~ msgid "Verified Banking Data"
+#~ msgstr "Àkọsílẹ̀ Báńkì tí a ti fọwọ́ sí"
+
+#~ msgid "Bank Name"
+#~ msgstr "Orúkọ Báńkì"
+
+#~ msgid "Account Number"
+#~ msgstr "Nọ́ńbà Àkánǹtì"
+
+#~ msgid "Credentials"
+#~ msgstr "Àwọn Ẹ̀rí Ìwé-ẹ̀kọ́"
+
+#~ msgid "Export Official PDF"
+#~ msgstr "Gba PDF iṣẹ́ jáde"
+
+#~ msgid "This is only for deceased members or permanent resignations."
+#~ msgstr ""
+#~ "Èyí wà fún àwọn ọmọ-ẹgbẹ́ tó ti kú tàbí ẹni tó fìfẹ́ ara rẹ̀ fiṣẹ́ sílẹ̀ "
+#~ "pátápáta."
+
+#~ msgid "Select members to send bulk notifications or manage accounts."
+#~ msgstr ""
+#~ "Yan àwọn ọmọ-ẹgbẹ́ láti fi iṣẹ́ ránṣẹ́ sí tàbí láti ṣàkóso àkánǹtì wọn."
+
+#~ msgid "Send Bulk Message"
+#~ msgstr "Fi iṣẹ́ ránṣẹ́ sí ọ̀pọ̀ ènìyàn"
+
+#~ msgid "Send to Selected Members"
+#~ msgstr "Fi ránṣẹ́ sí àwọn ọmọ-ẹgbẹ́ tí a yàn"
+
+#~ msgid "Account Information"
+#~ msgstr "Ìròyìn Àkánǹtì"
+
+#~ msgid "Organizational Role"
+#~ msgstr "Iṣẹ́ rẹ nínú Ẹgbẹ́"
+
+#~ msgid "Submit Membership Request"
+#~ msgstr "Fi ìbéèrè ìforúkọsílẹ̀ ránṣẹ́"
+
+#~ msgid "View and manage all registered members."
+#~ msgstr "Wo kí o sì ṣàkóso gbogbo ọmọ-ẹgbẹ́ tó forúkọsílẹ̀."
+
+#~ msgid "No new messages."
+#~ msgstr "Kò sí ìṣẹ́ tuntun."
+
+#~ msgid "Official Leader Directory"
+#~ msgstr "Ìwé Orúkọ Olórí"
+
+#~ msgid "Verified National and State Leadership of JIBWIS Nigeria"
+#~ msgstr "Àwọn olórí orílẹ̀-èdè àti ìpínlẹ̀ ti JIBWIS Nàìjíríà tí a fọwọ́ sí"
+
+#~ msgid "Search by name, position, or unit..."
+#~ msgstr "Wá orúkọ, ọkwa, tàbí ẹ̀ka..."
+
+#~ msgid "Directory Updating"
+#~ msgstr "Ìwé orúkọ ń dọ̀tun"
+
+#~ msgid "The leadership directory is currently being synchronized."
+#~ msgstr "A ṣì ń ṣàtúnṣe ìwé orúkọ àwọn olórí lọ́wọ́lọ́wọ́."
+
+#~ msgid "Return to Dashboard"
+#~ msgstr "Padà sí Ojú-ewé Olórí"
+
+#~ msgid "Warning:"
+#~ msgstr "Ìkìlọ̀:"
+
+#~ msgid "Access the JIBWIS Management Portal"
+#~ msgstr "Wọlé sí Ìkànnì Ìṣàkóso JIBWIS"
+
+#~ msgid "Login to Account"
+#~ msgstr "Wọlé sí Àkánǹtì"
+
+#~ msgid "Not registered?"
+#~ msgstr "O kò tíì forúkọsílẹ̀?"
+
+#~ msgid "Apply Now"
+#~ msgstr "Forúkọsílẹ̀ nísinsìí"

@@ -1,11 +1,35 @@
 {% load i18n %}
-<div class="card border-0 shadow-sm mb-4 bg-primary text-white text-center p-4">
+<div class="card border-0 shadow-sm mb-4 bg-primary text-white text-center p-4 position-relative overflow-hidden">
+    <div class="position-absolute opacity-10" style="right: -10px; bottom: -10px; font-size: 4rem;">
+        <i class="bi bi-shield-shaded"></i>
+    </div>
+
     <div class="bg-white text-dark d-inline-flex align-items-center justify-content-center mb-3 shadow mx-auto"
-         style="width: 60px; height: 60px; border-radius: 50%; font-size: 1.2rem; font-weight: bold;">
+         style="width: 60px; height: 60px; border-radius: 50%; font-size: 1.2rem; font-weight: bold; border: 3px solid rgba(255,255,255,0.3);">
         {{ user.username|slice:":1"|upper }}
     </div>
-    <h6 class="fw-bold mb-0 text-truncate">{{ user.get_full_name|default:user.username }}</h6>
-    <p class="small opacity-75 mb-0">{% trans "Unit Leader" %}</p>
+
+    <h6 class="fw-bold mb-1 text-truncate">{{ user.get_full_name|default:user.username }}</h6>
+
+    <div class="badge bg-white text-primary rounded-pill mb-2 px-3 py-1 shadow-sm" style="font-size: 0.7rem;">
+        <i class="bi bi-award-fill me-1"></i>
+        {{ leader_profile.unit.get_level_display|upper }} OFFICER
+    </div>
+
+    <p class="small mb-0" style="font-size: 0.8rem; font-weight: 500;">
+        {{ leader_profile.unit.name }}
+    </p>
+
+    <p class="extra-small opacity-75 mt-1" style="font-size: 0.7rem;">
+        <i class="bi bi-diagram-3 me-1"></i>
+        {{ leader_profile.unit.get_category_display }}
+    </p>
+    <div class="badge px-3 py-1
+        {% if leader_profile.unit.level == 'NATIONAL' %}bg-warning text-dark
+        {% elif leader_profile.unit.level == 'STATE' %}bg-info text-white
+        {% else %}bg-white text-primary{% endif %}">
+        {{ leader_profile.unit.get_level_display }}
+    </div>
 </div>
 
 <div class="list-group shadow-sm border-0 mb-4">
@@ -14,6 +38,7 @@
     <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action border-0">
         <i class="bi bi-speedometer2 me-2 text-primary"></i> {% trans "Dashboard" %}
     </a>
+    {% if user.is_staff %}
 
     <a href="{% url 'members_list' %}" class="list-group-item list-group-item-action border-0">
         <i class="bi bi-people me-2 text-success"></i> {% trans "Directory" %}
@@ -22,11 +47,14 @@
     <a href="{% url 'member_search' %}" class="list-group-item list-group-item-action border-0">
         <i class="bi bi-search me-2 text-info"></i> {% trans "Search" %}
     </a>
+    <a href="{% url 'payroll_history' %}" class="list-group-item list-group-item-action border-0">
+        <i class="bi bi-clock-history me-2 text-dark"></i> {% trans "Payroll History" %}
+    </a>
 
-    {% if user.is_staff %}
     <a href="{% url 'bulk_payroll' %}" class="list-group-item list-group-item-action border-0">
         <i class="bi bi-lightning-charge me-2 text-warning"></i> {% trans "Bulk Payroll" %}
     </a>
+
     {% endif %}
 
     <div class="list-group-item bg-light small fw-bold text-muted mt-2">{% trans "SETTINGS" %}</div>
@@ -38,7 +66,64 @@
     <a href="{% url 'logout' %}" class="list-group-item list-group-item-action border-0 text-danger">
         <i class="bi bi-box-arrow-right me-2"></i> {% trans "Logout" %}
     </a>
-    <a href="{% url 'payroll_history' %}" class="list-group-item list-group-item-action border-0">
-        <i class="bi bi-clock-history me-2 text-dark"></i> {% trans "Payroll History" %}
-    </a>
+    {% if user.is_staff %}
+    <button type="button" class="list-group-item list-group-item-action border-0 py-2 bg-transparent"
+            data-bs-toggle="modal" data-bs-target="#announcementModal">
+        <i class="bi bi-megaphone me-2 text-success"></i> {% trans "Post Announcement" %}
+    </button>
+
+    <button type="button" class="list-group-item list-group-item-action border-0 py-2 bg-transparent"
+            data-bs-toggle="modal" data-bs-target="#galleryModal">
+        <i class="bi bi-images me-2 text-success"></i> {% trans "Upload to Gallery" %}
+    </button>
+    {% endif %}
+
+</div>
+<div class="modal fade" id="announcementModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="{% url 'dashboard' %}" method="POST" class="modal-content border-0 shadow">
+            {% csrf_token %}
+            <input type="hidden" name="add_announcement" value="1">
+
+            <div class="modal-header bg-success text-white border-0">
+                <h5 class="modal-title fw-bold">{% trans "Unit Announcement" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <label class="form-label small fw-bold">{% trans "Message Content" %}</label>
+                <textarea name="content" class="form-control" rows="5" placeholder="{% trans 'Write something for your unit...' %}" required></textarea>
+                <div class="form-text small">{% trans "This will only be visible to members of" %} {{ user_profile.unit.name }}.</div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="submit" class="btn btn-success w-100 py-2 rounded-pill fw-bold">{% trans "Post to Unit" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="galleryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="{% url 'dashboard' %}" method="POST" enctype="multipart/form-data" class="modal-content border-0 shadow">
+            {% csrf_token %}
+            <input type="hidden" name="add_gallery" value="1">
+
+            <div class="modal-header bg-dark text-white border-0">
+                <h5 class="modal-title fw-bold">{% trans "Unit Gallery" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">{% trans "Image Title" %}</label>
+                    <input type="text" name="title" class="form-control" placeholder="{% trans 'e.g., Annual Conference' %}" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">{% trans "Select File" %}</label>
+                    <input type="file" name="image" class="form-control" accept="image/*" required>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="submit" class="btn btn-dark w-100 py-2 rounded-pill fw-bold">{% trans "Upload Photo" %}</button>
+            </div>
+        </form>
+    </div>
 </div>

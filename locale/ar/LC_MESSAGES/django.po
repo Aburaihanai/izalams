@@ -1,13 +1,13 @@
 # JIBWIS Nigeria Portal Translation File.
 # Copyright (C) 2026
 # This file is distributed under the same license as the Izalams package.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 14:21+0100\n"
-"PO-Revision-Date: 2026-02-25 14:30+0100\n"
+"POT-Creation-Date: 2026-02-26 16:45+0100\n"
+"PO-Revision-Date: 2026-02-26 17:20+0100\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -17,71 +17,367 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: accounts/views.py:66
-msgid "Registration successful! Your branch leader must activate your account before you can login."
-msgstr "تم التسجيل بنجاح! يجب على قائد الفرع تفعيل حسابك قبل أن تتمكن من تسجيل الدخول."
+#: accounts/views.py:538
+msgid "You must be assigned to a unit to send official memos."
+msgstr "يجب تعيينك في وحدة لإرسال المذكرات الرسمية."
 
-#: accounts/views.py:230
-msgid "Account for {profile.user.get_full_name()} activated."
-msgstr "تم تفعيل حساب {profile.user.get_full_name()}."
+#: accounts/views.py:555
+msgid "Jurisdiction Error: You can only message members within your region."
+msgstr "خطأ في النطاق الإداري: يمكنك مراسلة الأعضاء داخل منطقتك فقط."
 
-#: accounts/views.py:242 templates/login.html:38
-msgid "Username"
-msgstr "اسم المستخدم"
+#: izalams/settings.py:21
+msgid "Yoruba"
+msgstr "اليوروبا"
 
-#: accounts/views.py:242 donations/forms.py:50
-#: templates/pending_approval.html:10
-msgid "Full Name"
-msgstr "الاسم الكامل"
+#: izalams/settings.py:22
+msgid "Igbo"
+msgstr "الإيجبو"
 
-#: accounts/views.py:242
-msgid "Phone"
-msgstr "الهاتف"
+#: templates/accounts/edit_profile.html:16
+msgid "Update your personal and organizational records"
+msgstr "تحديث بياناتك الشخصية والتنظيمية"
 
-#: accounts/views.py:242
-msgid "Bank Code"
-msgstr "رمز البنك"
+#: templates/accounts/edit_profile.html:61
+msgid ""
+"When you update your bank info, our system verifies the name directly with "
+"your bank. Ensure the account number matches the bank selected."
+msgstr ""
+"عند تحديث بياناتك البنكية، سيتحقق نظامنا من الاسم مباشرة مع بنكك. تأكد من "
+"تطابق رقم الحساب مع البنك المختار."
 
-#: accounts/views.py:242
-msgid "Account No"
-msgstr "رقم الحساب"
+#: templates/accounts/edit_profile.html:67
+msgid "Discard Changes"
+msgstr "إلغاء التغييرات"
 
-#: accounts/views.py:279
-msgid "Official memo sent."
+#: templates/accounts/edit_profile.html:69
+msgid "Save & Verify Records"
+msgstr "حفظ وتدقيق السجلات"
+
+#: templates/accounts/edit_profile.html:116
+msgid "Verifying..."
+msgstr "جاري التحقق..."
+
+#: templates/accounts/inbox.html:17
+msgid "Total"
+msgstr "الإجمالي"
+
+#: templates/accounts/inbox.html:29 templates/accounts/sent_messages.html:19
+msgid "Received"
+msgstr "الوارد"
+
+#: templates/accounts/inbox.html:67
+msgid "Delete Permanent"
+msgstr "حذف نهائي"
+
+#: templates/accounts/inbox.html:87 templates/dashboard.html:156
+msgid "Reply"
+msgstr "رد"
+
+#: templates/accounts/inbox.html:115
+msgid "Dismiss"
+msgstr "تجاهل"
+
+#: templates/accounts/inbox.html:127
+msgid "Your official inbox is currently empty."
+msgstr "صندوق الوارد الرسمي الخاص بك فارغ حالياً."
+
+#: templates/accounts/member_detail.html:59
+msgid "Run Paystack Verification"
+msgstr "تشغيل التحقق عبر Paystack"
+
+#: templates/accounts/member_detail.html:70
+msgid "Global Identifier"
+msgstr "المعرف العالمي"
+
+#: templates/accounts/member_detail.html:112
+msgid ""
+"Changes made here are logged and visible to State/National auditors. Ensure "
+"all deactivations have documented reasons."
+msgstr ""
+"يتم تسجيل التغييرات هنا وهي مرئية لمراجعي الحسابات المحليين والوطنيين. تأكد "
+"من توثيق أسباب جميع عمليات إلغاء التنشيط."
+
+#: templates/accounts/member_detail.html:138
+msgid "WARNING: This will permanently delete all data for"
+msgstr "تحذير: سيؤدي هذا إلى حذف جميع البيانات نهائياً لـ"
+
+#: templates/accounts/member_detail.html:138
+msgid "Continue?"
+msgstr "استمرار؟"
+
+#: templates/accounts/member_detail.html:144
+msgid ""
+"Enter reason for deactivation (e.g., Transfer, Disciplinary, Resignation):"
+msgstr "أدخل سبب إلغاء التنشيط (مثال: نقل، إجراء تأديبي، استقالة):"
+
+#: templates/accounts/members_list.html:12
+msgid "Manage unit personnel and broadcast notifications."
+msgstr "إدارة أفراد الوحدة وبث الإشعارات."
+
+#: templates/accounts/members_list.html:19
+msgid "Export"
+msgstr "تصدير"
+
+#: templates/accounts/members_list.html:113
+msgid "Personnel in your unit will appear here."
+msgstr "سيظهر أفراد وحدتك هنا."
+
+#: templates/accounts/members_list.html:126
+msgid "Unit Broadcast"
+msgstr "بث الوحدة"
+
+#: templates/accounts/members_list.html:130
+msgid "This message will be sent to the selected unit members."
+msgstr "سيتم إرسال هذه الرسالة إلى أعضاء الوحدة المختارين."
+
+#: templates/accounts/members_list.html:133
+msgid "e.g., Monthly Meeting"
+msgstr "مثال: الاجتماع الشهري"
+
+#: templates/accounts/members_list.html:142
+msgid "Send Broadcast"
+msgstr "إرسال البث"
+
+#: templates/accounts/members_list.html:191
+msgid "WARNING: Permanently delete"
+msgstr "تحذير: حذف نهائي لـ"
+
+#: templates/accounts/members_list.html:191
+msgid "This cannot be undone."
+msgstr "لا يمكن التراجع عن هذا الإجراء."
+
+#: templates/accounts/register.html:42
+msgid "Unit & Department"
+msgstr "الوحدة والقسم"
+
+#: templates/accounts/register.html:51
+msgid "Location Hierarchy"
+msgstr "التسلسل الهرمي للموقع"
+
+#: templates/accounts/register.html:59
+msgid "LGA"
+msgstr "منطقة الحكم المحلي"
+
+#: templates/accounts/register.html:63
+msgid "Ward / Branch Name"
+msgstr "اسم الدائرة / الفرع"
+
+#: templates/accounts/register.html:85
+msgid "Submit for Leader Approval"
+msgstr "تقديم لاعتماد القائد"
+
+#: templates/accounts/send_message.html:37
+msgid "Broadcasting Option"
+msgstr "خيار البث"
+
+#: templates/accounts/send_message.html:40
+msgid "Send only to this individual"
+msgstr "إرسال لهذا الفرد فقط"
+
+#: templates/accounts/send_message.html:41
+msgid "All Admin in this Unit"
+msgstr "جميع الإداريين في هذه الوحدة"
+
+#: templates/accounts/send_message.html:42
+msgid "All Ulama in this Unit"
+msgstr "جميع العلماء في هذه الوحدة"
+
+#: templates/accounts/send_message.html:47
+msgid ""
+"Leave as 'Individual' to message only the user above, or select a group to "
+"message everyone in their category."
+msgstr ""
+"اتركه 'فردي' لمراسلة المستخدم أعلاه فقط، أو اختر مجموعة لمراسلة الجميع في "
+"فئتهم."
+
+#: templates/accounts/sent_messages.html:13
+msgid "Tracking official broadcasts and replies."
+msgstr "تتبع البث الرسمي والردود."
+
+#: templates/accounts/sent_messages.html:22
+msgid "Sent"
+msgstr "المرسل"
+
+#: templates/accounts/sent_messages.html:47
+msgid "Delivered"
+msgstr "تم التسليم"
+
+#: templates/accounts/sent_messages.html:70
+msgid "Sent on"
+msgstr "أُرسل في"
+
+#: templates/accounts/sent_messages.html:80
+msgid "You haven't sent any memos yet."
+msgstr "لم تقم بإرسال أي مذكرات بعد."
+
+#: templates/dashboard.html:59 templates/pending_approval.html:28
+msgid "Approve"
+msgstr "اعتماد"
+
+#: templates/dashboard.html:66
+msgid "Are you sure you want to REJECT and DELETE this application?"
+msgstr "هل أنت متأكد أنك تريد رفض وحذف هذا الطلب؟"
+
+#: templates/dashboard.html:67
+msgid "Reject Application"
+msgstr "رفض الطلب"
+
+#: templates/dashboard.html:76
+msgid "No pending requests. Your unit is fully approved."
+msgstr "لا توجد طلبات معلقة. وحدتك معتمدة بالكامل."
+
+#: templates/dashboard.html:103
+msgid "Manage unit personnel records."
+msgstr "إدارة سجلات أفراد الوحدة."
+
+#: templates/dashboard.html:115
+msgid "Unit communications."
+msgstr "اتصالات الوحدة."
+
+#: templates/donations/bank_transfer.html:71
+#, python-format
+msgid ""
+"\n"
+"                                 Please use the <strong>reference code "
+"(%(ref)s)</strong> as the payment narration/memo.\n"
+"                                 "
+msgstr ""
+"\n"
+"يرجى استخدام <strong>كود المرجع (%(ref)s)</strong> في وصف الدفع / المذكرة.\n"
+" "
+
+#: templates/donations/bank_transfer.html:92
+#, python-format
+msgid ""
+"\n"
+"                                         I confirm that I have sent ₦%(amt)s "
+"to the account stated above.\n"
+"                                         "
+msgstr ""
+"\n"
+"أؤكد أنني قمت بإرسال ₦%(amt)s إلى الحساب المذكور أعلاه.\n"
+" "
+
+#: templates/donations/confirmation_email.html:26
+#, python-format
+msgid ""
+"\n"
+"                    Dear %(name)s,\n"
+"                "
+msgstr ""
+"\n"
+"عزيزي %(name)s،\n"
+" "
+
+#: templates/includes/bulk_pay_modal.html:20
+#, python-format
+msgid ""
+"\n"
+"                    You are about to process payments for selected members "
+"of <strong>%(unit)s</strong>. \n"
+"                    This action will trigger bank transfers and cannot be "
+"reversed once executed.\n"
+"                    "
+msgstr ""
+"\n"
+"أنت على وشك معالجة المدفوعات للأعضاء المختارين في <strong>%(unit)s</"
+"strong>.\n"
+"سيؤدي هذا الإجراء إلى تفعيل التحويلات البنكية ولا يمكن التراجع عنه بمجرد "
+"التنفيذ.\n"
+" "
+
+#: templates/includes/sidebar.html:77
+msgid "Upload to Gallery"
+msgstr "رفع إلى المعرض"
+
+#: templates/includes/sidebar.html:94
+msgid "Write something for your unit..."
+msgstr "اكتب شيئاً لوحدتك..."
+
+#: templates/includes/sidebar.html:95
+msgid "This will only be visible to members of"
+msgstr "سيكون هذا مرئياً فقط لأعضاء"
+
+#: templates/includes/sidebar.html:98
+msgid "Post to Unit"
+msgstr "نشر في الوحدة"
+
+#: templates/includes/sidebar.html:116
+msgid "Image Title"
+msgstr "عنوان الصورة"
+
+#: templates/includes/sidebar.html:117
+msgid "e.g., Annual Conference"
+msgstr "مثال: المؤتمر السنوي"
+
+#: templates/login.html:14
+msgid "Security Notice"
+msgstr "تنويه أمني"
+
+#: templates/login.html:28
+msgid "National Management Information System"
+msgstr "نظام إدارة المعلومات الوطني"
+
+#: templates/login.html:43
+msgid ""
+"Your account may be awaiting leader approval from your assigned Ward/Unit."
+msgstr "قد يكون حسابك في انتظار موافقة القائد من الدائرة/الوحدة المعين فيها."
+
+#: templates/login.html:80
+msgid "Sign In"
+msgstr "تسجيل الدخول"
+
+#: templates/login.html:86
+msgid "Forgot your security credentials?"
+msgstr "هل نسيت بيانات الأمان الخاصة بك؟"
+
+#: templates/login.html:97
+msgid "Submit Enrollment"
+msgstr "تقديم طلب التسجيل"
+
+#: templates/login.html:105
+msgid "Authorized Personnel Only."
+msgstr "للموظفين المصرح لهم فقط."
+
+#: accounts/views.py:567
+#, fuzzy
+#| msgid "Official memo sent."
+msgid "Official memo sent successfully."
 msgstr "تم إرسال المذكرة الرسمية."
 
-#: accounts/views.py:291
+#: accounts/views.py:584
 msgid "Video published to feed."
 msgstr "تم نشر الفيديو في الموجز."
 
-#: accounts/views.py:305
+#: accounts/views.py:598
 msgid "Username updated."
 msgstr "تم تحديث اسم المستخدم."
 
-#: accounts/views.py:307
+#: accounts/views.py:600
 msgid "Username already taken."
 msgstr "اسم المستخدم محجوز بالفعل."
 
-#: accounts/views.py:437
+#: accounts/views.py:730
 msgid "Member"
 msgstr "العضو"
 
-#: accounts/views.py:437 templates/bulk_payroll.html:83
+#: accounts/views.py:730 templates/bulk_payroll.html:83
 #: templates/donations/donation_list.html:72 templates/payroll_history.html:27
 msgid "Amount"
 msgstr "المبلغ"
 
-#: accounts/views.py:437
+#: accounts/views.py:730
 msgid "Reference"
 msgstr "المرجع"
 
-#: accounts/views.py:437 templates/accounts/members_list.html:33
+#: accounts/views.py:730 templates/accounts/members_list.html:36
 #: templates/accounts/search.html:84 templates/disciplinary_list.html:20
 #: templates/donations/donation_list.html:74 templates/payroll_history.html:28
 msgid "Status"
 msgstr "الحالة"
 
-#: accounts/views.py:437 templates/disciplinary_list.html:16
+#: accounts/views.py:730 templates/accounts/inbox.html:107
+#: templates/disciplinary_list.html:16
 #: templates/donations/donation_list.html:76
 msgid "Date"
 msgstr "التاريخ"
@@ -105,6 +401,10 @@ msgstr "مثلاً: زكاة"
 #: donations/forms.py:43
 msgid "Enter any additional notes (optional)"
 msgstr "أدخل أي ملاحظات إضافية (اختياري)"
+
+#: donations/forms.py:50 templates/pending_approval.html:10
+msgid "Full Name"
+msgstr "الاسم الكامل"
 
 #: donations/forms.py:51
 msgid "Email"
@@ -131,6 +431,9 @@ msgstr "ملاحظات (اختياري)"
 msgid "Payment Method"
 msgstr "طريقة الدفع"
 
+#: donations/forms.py:61 templates/donations/card_payment.html:44
+msgid "Card Number"
+msgstr "رقم البطاقة"
 
 #: donations/forms.py:69
 msgid "Expiry Date"
@@ -169,210 +472,289 @@ msgid "Warning: Delete Account"
 msgstr "تحذير: حذف الحساب"
 
 #: templates/accounts/confirm_delete.html:3
-msgid "Are you sure you want to delete your JIBWIS profile? This action cannot be undone."
-msgstr "هل أنت متأكد أنك تريد حذف ملفك الشخصي في جماعة إزالة؟ لا يمكن التراجع عن هذا الإجراء."
+msgid ""
+"Are you sure you want to delete your JIBWIS profile? This action cannot be "
+"undone."
+msgstr ""
+"هل أنت متأكد أنك تريد حذف ملفك الشخصي في جماعة إزالة؟ لا يمكن التراجع عن هذا "
+"الإجراء."
 
 #: templates/accounts/confirm_delete.html:6
 msgid "Yes, Delete My Account"
 msgstr "نعم، احذف حسابي"
 
 #: templates/accounts/confirm_delete.html:7
-#: templates/accounts/edit_profile.html:41
+#: templates/accounts/members_list.html:141
 #: templates/accounts/send_message.html:9
 #: templates/accounts/update_username.html:19
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: templates/accounts/edit_profile.html:10
+#: templates/accounts/edit_profile.html:15
 msgid "Edit Profile Details"
 msgstr "تعديل بيانات الملف الشخصي"
 
-#: templates/accounts/edit_profile.html:16
-msgid "Personal Info"
+#: templates/accounts/edit_profile.html:27
+#, fuzzy
+#| msgid "Personal Info"
+msgid "Personal Information"
 msgstr "المعلومات الشخصية"
 
-#: templates/accounts/edit_profile.html:29
+#: templates/accounts/edit_profile.html:45
 msgid "Organization & Payment"
 msgstr "التنظيم والدفع"
 
-#: templates/accounts/edit_profile.html:42
-msgid "Update Records"
-msgstr "تحديث السجلات"
+#: templates/accounts/edit_profile.html:60
+#, fuzzy
+#| msgid "Donation Details"
+msgid "Note on Bank Details"
+msgstr "تفاصيل التبرع"
 
-#: templates/accounts/login.html:2
-msgid "Portal Login"
-msgstr "تسجيل دخول البوابة"
+#: templates/accounts/inbox.html:11
+#, fuzzy
+#| msgid "Official File"
+msgid "Official Inbox"
+msgstr "الملف الرسمي"
 
-#: templates/accounts/login.html:6 templates/base.html:45
-#: templates/login.html:20
-msgid "Login"
-msgstr "تسجيل الدخول"
+#: templates/accounts/inbox.html:13
+#, fuzzy
+#| msgid "Check communications and unit updates."
+msgid "Manage official communications and memos."
+msgstr "تحقق من المراسلات وتحديثات الوحدة."
 
-#: templates/accounts/login.html:8 templates/login.html:63
-msgid "Forgot Password?"
-msgstr "هل نسيت كلمة السر؟"
+#: templates/accounts/inbox.html:21 templates/dashboard.html:117
+msgid "New"
+msgstr "جديد"
+
+#: templates/accounts/inbox.html:32 templates/accounts/sent_messages.html:11
+#, fuzzy
+#| msgid "Direct Memo"
+msgid "Sent Memos"
+msgstr "مذكرة مباشرة"
+
+#: templates/accounts/inbox.html:46 templates/donations/donation_list.html:40
+msgid "From"
+msgstr "من"
+
+#: templates/accounts/inbox.html:66
+#, fuzzy
+#| msgid "PERMANENT REMOVAL: Are you sure you want to delete the records for"
+msgid "Are you sure you want to delete this memo?"
+msgstr "حذف نهائي: هل أنت متأكد أنك تريد حذف سجلات"
+
+#: templates/accounts/inbox.html:82
+#, fuzzy
+#| msgid "Suspend Member"
+msgid "Open Memo"
+msgstr "تعليق عضوية"
+
+#: templates/accounts/inbox.html:105
+#, fuzzy
+#| msgid "Suspended"
+msgid "Sender"
+msgstr "المعلقون"
+
+#: templates/accounts/inbox.html:117
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Reply to Leader"
+msgstr "قائد الوحدة"
 
 #: templates/accounts/member_detail.html:8 templates/accounts/search.html:12
-#: templates/base.html:38 templates/includes/sidebar.html:15
+#: templates/base.html:38 templates/includes/sidebar.html:39
 msgid "Dashboard"
 msgstr "لوحة التحكم"
 
 #: templates/accounts/member_detail.html:9
-msgid "Unit Directory"
-msgstr "دليل الوحدة"
-
-#: templates/accounts/member_detail.html:10
-msgid "Official File"
-msgstr "الملف الرسمي"
-
-#: templates/accounts/member_detail.html:40
-msgid "Suspend Member"
-msgstr "تعليق عضوية"
-
-#: templates/accounts/member_detail.html:44
-msgid "Restore/Activate"
-msgstr "استعادة/تفعيل"
-
-#: templates/accounts/member_detail.html:49
-msgid "Direct Memo"
-msgstr "مذكرة مباشرة"
-
-#: templates/accounts/member_detail.html:54
-msgid "Disburse Payment"
-msgstr "صرف الدفعات"
-
-#: templates/accounts/member_detail.html:58
-msgid "Payment Locked"
-msgstr "الدفع مغلق"
-
-#: templates/accounts/member_detail.html:70
-msgid "Account Currently Suspended"
-msgstr "الحساب معلق حالياً"
-
-#: templates/accounts/member_detail.html:71
-msgid "This member cannot receive payments or access unit resources until restored."
-msgstr "لا يمكن لهذا العضو استلام الدفعات أو الوصول إلى موارد الوحدة حتى يتم استعادته."
-
-#: templates/accounts/member_detail.html:78
-msgid "Official Personnel File"
-msgstr "ملف الموظفين الرسمي"
-
-#: templates/accounts/member_detail.html:84
-msgid "Assigned Position"
-msgstr "المنصب المعين"
-
-#: templates/accounts/member_detail.html:88
-msgid "Contact Number"
-msgstr "رقم الاتصال"
-
-#: templates/accounts/member_detail.html:93
-msgid "Verified Banking Data"
-msgstr "البيانات المصرفية الموثقة"
-
-#: templates/accounts/member_detail.html:96
-msgid "Bank Name"
-msgstr "اسم البنك"
-
-#: templates/accounts/member_detail.html:100
-msgid "Account Number"
-msgstr "رقم الحساب"
-
-#: templates/accounts/member_detail.html:107
-msgid "Credentials"
-msgstr "أوراق الاعتماد"
-
-#: templates/accounts/member_detail.html:113
-msgid "Export Official PDF"
-msgstr "تصدير ملف PDF رسمي"
-
-#: templates/accounts/member_detail.html:116
-msgid "Remove Record"
-msgstr "حذف السجل"
-
-#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
-msgid "Reason for suspending"
-msgstr "سبب التعليق"
-
-#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
-msgid "Violation of rules"
-msgstr "مخالفة القوانين"
-
-#: templates/accounts/member_detail.html:134
-msgid "PERMANENT REMOVAL: Are you sure you want to delete the records for"
-msgstr "حذف نهائي: هل أنت متأكد أنك تريد حذف سجلات"
-
-#: templates/accounts/member_detail.html:134
-msgid "This is only for deceased members or permanent resignations."
-msgstr "هذا مخصص فقط للأعضاء المتوفين أو الاستقالات الدائمة."
-
-#: templates/accounts/members_list.html:8 templates/base.html:49
-#: templates/dashboard.html:35 templates/includes/sidebar.html:19
+#: templates/accounts/members_list.html:10 templates/base.html:49
+#: templates/dashboard.html:102 templates/includes/sidebar.html:44
 msgid "Directory"
 msgstr "الدليل"
 
-#: templates/accounts/members_list.html:9
-msgid "Select members to send bulk notifications or manage accounts."
-msgstr "اختر الأعضاء لإرسال إشعارات جماعية أو إدارة الحسابات."
+#: templates/accounts/member_detail.html:32
+#, fuzzy
+#| msgid "Activate"
+msgid "Active Status"
+msgstr "تفعيل"
 
-#: templates/accounts/members_list.html:13
+#: templates/accounts/member_detail.html:36
+#: templates/accounts/members_list.html:79 templates/accounts/search.html:29
+#: templates/accounts/search.html:116
+msgid "Suspended"
+msgstr "المعلقون"
+
+#: templates/accounts/member_detail.html:44
+#, fuzzy
+#| msgid "Official File"
+msgid "Official Message"
+msgstr "الملف الرسمي"
+
+#: templates/accounts/member_detail.html:51
+#, fuzzy
+#| msgid "Pending Member Verifications"
+msgid "Bank Verification"
+msgstr "عمليات توثيق الأعضاء المعلقة"
+
+#: templates/accounts/member_detail.html:53 templates/bulk_payroll.html:82
+msgid "Account"
+msgstr "الحساب"
+
+#: templates/accounts/member_detail.html:56
+#, fuzzy
+#| msgid "Bank:"
+msgid "Bank"
+msgstr "البنك:"
+
+#: templates/accounts/member_detail.html:67
+#, fuzzy
+#| msgid "Update Records"
+msgid "Unit Records"
+msgstr "تحديث السجلات"
+
+#: templates/accounts/member_detail.html:74
+msgid "Phone"
+msgstr "الهاتف"
+
+#: templates/accounts/member_detail.html:78
+#, fuzzy
+#| msgid "Assigned Position"
+msgid "Assigned Branch"
+msgstr "المنصب المعين"
+
+#: templates/accounts/member_detail.html:82
+#, fuzzy
+#| msgid "Education:"
+msgid "Education Level"
+msgstr "التعليم:"
+
+#: templates/accounts/member_detail.html:89
+#, fuzzy
+#| msgid "Command Center"
+msgid "Leader Command Console"
+msgstr "مركز القيادة"
+
+#: templates/accounts/member_detail.html:93
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Deactivate Access"
+msgstr "إعادة تفعيل"
+
+#: templates/accounts/member_detail.html:97
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Re-Activate Access"
+msgstr "إعادة تفعيل"
+
+#: templates/accounts/member_detail.html:104
+#, fuzzy
+#| msgid "Remove Record"
+msgid "Purge Record"
+msgstr "حذف السجل"
+
+#: templates/accounts/member_detail.html:110
+#, fuzzy
+#| msgid "Administration"
+msgid "Administrative Note"
+msgstr "الإدارة"
+
+#: templates/accounts/members_list.html:16
 msgid "Message Selected"
 msgstr "مراسلة المختارين"
 
-#: templates/accounts/members_list.html:31 templates/accounts/search.html:82
+#: templates/accounts/members_list.html:34 templates/accounts/search.html:82
 #: templates/bulk_payroll.html:80
 msgid "Personnel"
 msgstr "الموظفين"
 
-#: templates/accounts/members_list.html:32
+#: templates/accounts/members_list.html:35
 msgid "Position"
 msgstr "المنصب"
 
-#: templates/accounts/members_list.html:34
+#: templates/accounts/members_list.html:37
 #: templates/donations/donation_list.html:77
 msgid "Actions"
 msgstr "الإجراءات"
 
-#: templates/accounts/members_list.html:58
-msgid "Reactivate"
+#: templates/accounts/members_list.html:75 templates/accounts/search.html:112
+msgid "Active"
+msgstr "نشط"
+
+#: templates/accounts/members_list.html:85 templates/pending_approval.html:24
+msgid "View Profile"
+msgstr "عرض الملف الشخصي"
+
+#: templates/accounts/members_list.html:91
+#, fuzzy
+#| msgid "Suspend"
+msgid "Suspend Account"
+msgstr "تعليق"
+
+#: templates/accounts/members_list.html:95
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Reactivate Account"
 msgstr "إعادة تفعيل"
 
-#: templates/accounts/members_list.html:96
-msgid "Send Bulk Message"
-msgstr "إرسال رسالة جماعية"
-
 #: templates/accounts/members_list.html:101
-#: templates/accounts/send_message.html:24
+#, fuzzy
+#| msgid "Permanent Removal"
+msgid "Permanent Delete"
+msgstr "إزالة دائمة"
+
+#: templates/accounts/members_list.html:112
+#, fuzzy
+#| msgid "No matches found for"
+msgid "No members found"
+msgstr "لم يتم العثور على نتائج لـ"
+
+#: templates/accounts/members_list.html:132
+#: templates/accounts/send_message.html:52
 msgid "Subject"
 msgstr "الموضوع"
 
-#: templates/accounts/members_list.html:105
-#: templates/accounts/send_message.html:28
-msgid "Message Body"
+#: templates/accounts/members_list.html:136 templates/includes/sidebar.html:93
+#, fuzzy
+#| msgid "Message Body"
+msgid "Message Content"
 msgstr "نص الرسالة"
 
-#: templates/accounts/members_list.html:110
-msgid "Send to Selected Members"
-msgstr "إرسال إلى الأعضاء المختارين"
+#: templates/accounts/members_list.html:137
+#, fuzzy
+#| msgid "Type your message here..."
+msgid "Type your broadcast here..."
+msgstr "اكتب رسالتك هنا..."
+
+#: templates/accounts/members_list.html:184 templates/accounts/search.html:167
+msgid "Reason for suspending"
+msgstr "سبب التعليق"
+
+#: templates/accounts/members_list.html:184
+#, fuzzy
+#| msgid "Violation of rules"
+msgid "Violation of unit rules"
+msgstr "مخالفة القوانين"
 
 #: templates/accounts/register.html:10
 msgid "Member Registration"
 msgstr "تسجيل الأعضاء"
 
 #: templates/accounts/register.html:11
-msgid "Join the JIBWIS Digital Management System"
+#, fuzzy
+#| msgid "Join the JIBWIS Digital Management System"
+msgid "Join the JIBWIS digital network"
 msgstr "انضم إلى نظام الإدارة الرقمية لجماعة إزالة"
 
-#: templates/accounts/register.html:20
-msgid "Account Information"
-msgstr "معلومات الحساب"
+#: templates/accounts/register.html:55
+#, fuzzy
+#| msgid "Status"
+msgid "State"
+msgstr "الحالة"
 
-#: templates/accounts/register.html:39
-msgid "Organizational Role"
-msgstr "الدور التنظيمي"
-
-#: templates/accounts/register.html:53
-msgid "Submit Membership Request"
-msgstr "تقديم طلب العضوية"
+#: templates/accounts/register.html:70
+#, fuzzy
+#| msgid "Donation Details"
+msgid "Personal Details"
+msgstr "تفاصيل التبرع"
 
 #: templates/accounts/search.html:10
 msgid "Navigation"
@@ -398,10 +780,6 @@ msgstr "كل الأعضاء"
 msgid "Active Only"
 msgstr "النشطون فقط"
 
-#: templates/accounts/search.html:29 templates/accounts/search.html:116
-msgid "Suspended"
-msgstr "المعلقون"
-
 #: templates/accounts/search.html:34
 msgid "Position/Role"
 msgstr "المنصب/الدور"
@@ -418,7 +796,7 @@ msgstr "إعادة تعيين الكل"
 msgid "Search by name or phone in your unit..."
 msgstr "بحث بالاسم أو الهاتف في وحدتك..."
 
-#: templates/accounts/search.html:64 templates/includes/sidebar.html:23
+#: templates/accounts/search.html:64 templates/includes/sidebar.html:48
 msgid "Search"
 msgstr "بحث"
 
@@ -434,10 +812,6 @@ msgstr "معلومات الحساب"
 msgid "Management"
 msgstr "الإدارة"
 
-#: templates/accounts/search.html:112
-msgid "Active"
-msgstr "نشط"
-
 #: templates/accounts/search.html:122 templates/disciplinary_list.html:48
 msgid "View File"
 msgstr "عرض الملف"
@@ -446,23 +820,27 @@ msgstr "عرض الملف"
 msgid "Suspend"
 msgstr "تعليق"
 
-#: templates/accounts/search.html:134
+#: templates/accounts/search.html:131
 msgid "Activate"
 msgstr "تفعيل"
 
-#: templates/accounts/search.html:140
+#: templates/accounts/search.html:136
 msgid "Permanent Removal"
 msgstr "إزالة دائمة"
 
-#: templates/accounts/search.html:152
+#: templates/accounts/search.html:148
 msgid "No members found in your unit matching this criteria."
 msgstr "لم يتم العثور على أعضاء في وحدتك يطابقون هذه المعايير."
 
-#: templates/accounts/search.html:179
+#: templates/accounts/search.html:167
+msgid "Violation of rules"
+msgstr "مخالفة القوانين"
+
+#: templates/accounts/search.html:174
 msgid "WARNING: This will PERMANENTLY delete"
 msgstr "تحذير: هذا سيحذف نهائياً"
 
-#: templates/accounts/search.html:179
+#: templates/accounts/search.html:174
 msgid "from JIBWIS records. Proceed?"
 msgstr "من سجلات جماعة إزالة. هل تستمر؟"
 
@@ -470,21 +848,55 @@ msgstr "من سجلات جماعة إزالة. هل تستمر؟"
 msgid "New Official Memo"
 msgstr "مذكرة رسمية جديدة"
 
-#: templates/accounts/send_message.html:15 templates/payroll_history.html:25
+#: templates/accounts/send_message.html:20
+#: templates/accounts/sent_messages.html:69 templates/payroll_history.html:25
 msgid "Recipient"
 msgstr "المستلم"
 
 #: templates/accounts/send_message.html:25
+#, fuzzy
+#| msgid "Category Payroll"
+msgid "Category"
+msgstr "رواتب الفئة"
+
+#: templates/accounts/send_message.html:43
+#, fuzzy
+#| msgid "First Aid Group"
+msgid "All First Aid Group in this Unit"
+msgstr "منظمة الإسعاف"
+
+#: templates/accounts/send_message.html:55
 msgid "Enter memo title..."
 msgstr "أدخل عنوان المذكرة..."
 
-#: templates/accounts/send_message.html:29
+#: templates/accounts/send_message.html:59
+msgid "Message Body"
+msgstr "نص الرسالة"
+
+#: templates/accounts/send_message.html:60
 msgid "Type your message here..."
 msgstr "اكتب رسالتك هنا..."
 
-#: templates/accounts/send_message.html:32
+#: templates/accounts/send_message.html:65
 msgid "Send Message"
 msgstr "إرسال الرسالة"
+
+#: templates/accounts/sent_messages.html:34
+#: templates/donations/donation_list.html:43
+msgid "To"
+msgstr "إلى"
+
+#: templates/accounts/sent_messages.html:43
+#, fuzzy
+#| msgid "Read More"
+msgid "Read"
+msgstr "اقرأ المزيد"
+
+#: templates/accounts/sent_messages.html:56
+#, fuzzy
+#| msgid "View File"
+msgid "View Full Memo"
+msgstr "عرض الملف"
 
 #: templates/accounts/update_username.html:8
 msgid "Change Username"
@@ -510,9 +922,13 @@ msgstr "البوابة"
 msgid "Home"
 msgstr "الرئيسية"
 
-#: templates/base.html:41 templates/includes/sidebar.html:39
+#: templates/base.html:41 templates/includes/sidebar.html:67
 msgid "Logout"
 msgstr "تسجيل الخروج"
+
+#: templates/base.html:45
+msgid "Login"
+msgstr "تسجيل الدخول"
 
 #: templates/base.html:46
 msgid "Join Us"
@@ -522,11 +938,11 @@ msgstr "انضم إلينا"
 msgid "Donate"
 msgstr "تبرع"
 
-#: templates/base.html:102
+#: templates/base.html:107
 msgid "Nigeria National Headquarters"
 msgstr "المقر الوطني بنيجيريا"
 
-#: templates/base.html:103
+#: templates/base.html:108
 msgid "Digital Management System | Developed for JIBWIS Nigeria"
 msgstr "نظام الإدارة الرقمية | تم تطويره لجماعة إزالة نيجيريا"
 
@@ -574,10 +990,6 @@ msgstr "مقيد"
 msgid "Unit / Level"
 msgstr "الوحدة / المستوى"
 
-#: templates/bulk_payroll.html:82
-msgid "Account"
-msgstr "الحساب"
-
 #: templates/bulk_payroll.html:131
 msgid "No matches found for"
 msgstr "لم يتم العثور على نتائج لـ"
@@ -590,41 +1002,51 @@ msgstr "مختار"
 msgid "Execute Disbursement"
 msgstr "تنفيذ الصرف"
 
-#: templates/dashboard.html:12
+#: templates/dashboard.html:14
 msgid "Command Center"
 msgstr "مركز القيادة"
 
-#: templates/dashboard.html:22 templates/includes/sidebar.html:28
+#: templates/dashboard.html:16
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Leader"
+msgstr "قائد الوحدة"
+
+#: templates/dashboard.html:20
+#, fuzzy
+#| msgid "Authorize Disbursement"
+msgid "Authorized Access"
+msgstr "تفويض الصرف"
+
+#: templates/dashboard.html:28
+#, fuzzy
+#| msgid "Pending Member Verifications"
+msgid "Pending Unit Verifications"
+msgstr "عمليات توثيق الأعضاء المعلقة"
+
+#: templates/dashboard.html:91 templates/includes/sidebar.html:55
 msgid "Bulk Payroll"
 msgstr "الرواتب الجماعية"
 
-#: templates/dashboard.html:23
-msgid "Process unit disbursements and allowances."
+#: templates/dashboard.html:92
+#, fuzzy
+#| msgid "Process unit disbursements and allowances."
+msgid "Process unit disbursements."
 msgstr "معالجة صرف الدفعات والبدلات للوحدة."
 
-#: templates/dashboard.html:36
-msgid "View and manage all registered members."
-msgstr "عرض وإدارة جميع الأعضاء المسجلين."
-
-#: templates/dashboard.html:47
+#: templates/dashboard.html:114
 msgid "My Inbox"
 msgstr "صندوق الوارد"
 
-#: templates/dashboard.html:48
-msgid "Check communications and unit updates."
-msgstr "تحقق من المراسلات وتحديثات الوحدة."
-
-#: templates/dashboard.html:50
-msgid "New"
-msgstr "جديد"
-
-#: templates/dashboard.html:59
+#: templates/dashboard.html:126
 msgid "Recent Messages"
 msgstr "الرسائل الأخيرة"
 
-#: templates/dashboard.html:69
-msgid "No new messages."
-msgstr "لا توجد رسائل جديدة."
+#: templates/dashboard.html:127
+#, fuzzy
+#| msgid "View File"
+msgid "View All"
+msgstr "عرض الملف"
 
 #: templates/disciplinary_list.html:7
 msgid "National Disciplinary Portal"
@@ -726,6 +1148,14 @@ msgstr "ملاحظة المرجع:"
 msgid "Important Instructions:"
 msgstr "تعليمات هامة:"
 
+#: templates/donations/bank_transfer.html:71
+#, python-format
+msgid ""
+"\n"
+"                                Please use the <strong>reference code "
+"(%(ref)s)</strong> as the payment narration/memo.\n"
+"                                "
+msgstr ""
 
 #: templates/donations/bank_transfer.html:75
 msgid "Verification may take up to 24 hours to reflect."
@@ -747,6 +1177,14 @@ msgstr "تأكيد الدفع"
 msgid "To confirm that you have made the transfer, please check the box below:"
 msgstr "لتأكيد أنك قمت بالتحويل، يرجى تفعيل المربع أدناه:"
 
+#: templates/donations/bank_transfer.html:92
+#, python-format
+msgid ""
+"\n"
+"                                        I confirm that I have sent ₦%(amt)s "
+"to the account stated above.\n"
+"                                        "
+msgstr ""
 
 #: templates/donations/bank_transfer.html:99
 msgid "I Have Sent the Money"
@@ -764,29 +1202,29 @@ msgid "Card Payment"
 msgstr "الدفع بالبطاقة"
 
 #: templates/donations/card_payment.html:15
-msgid "You will be redirected to a secure payment gateway to complete your transaction."
+msgid ""
+"You will be redirected to a secure payment gateway to complete your "
+"transaction."
 msgstr "سيتم توجيهك إلى بوابة دفع آمنة لإكمال المعاملة."
 
 #: templates/donations/card_payment.html:28
 msgid "Reference Code:"
 msgstr "رمز المرجع:"
 
-#: templates/donations/card_payment.html:44
-msgid "Card Number"
-msgstr "رقم البطاقة"
-
 #: templates/donations/card_payment.html:53
 msgid "Expiry (MM/YY)"
 msgstr "الانتهاء (ش/س)"
-
 
 #: templates/donations/card_payment.html:69
 msgid "Name on Card"
 msgstr "الاسم على البطاقة"
 
 #: templates/donations/card_payment.html:78
-msgid "Your card details are securely encrypted. We do not store your full card information on our servers."
-msgstr "تفاصيل بطاقتك مشفرة بشكل آمن. نحن لا نخزن معلومات بطاقتك الكاملة على خوادمنا."
+msgid ""
+"Your card details are securely encrypted. We do not store your full card "
+"information on our servers."
+msgstr ""
+"تفاصيل بطاقتك مشفرة بشكل آمن. نحن لا نخزن معلومات بطاقتك الكاملة على خوادمنا."
 
 #: templates/donations/card_payment.html:83
 #, python-format
@@ -836,12 +1274,16 @@ msgid "Date:"
 msgstr "التاريخ:"
 
 #: templates/donations/confirmation_email.html:42
-msgid "Our sincere gratitude goes to everyone who contributes. Your support will greatly help the community."
+msgid ""
+"Our sincere gratitude goes to everyone who contributes. Your support will "
+"greatly help the community."
 msgstr "خالص شكرنا لكل من يساهم. دعمكم سيساعد المجتمع بشكل كبير."
 
 #: templates/donations/confirmation_email.html:44
 msgid "If you have any questions, please reply to this email or contact us at:"
-msgstr "إذا كان لديك أي أسئلة، يرجى الرد على هذا البريد الإلكتروني أو الاتصال بنا على:"
+msgstr ""
+"إذا كان لديك أي أسئلة، يرجى الرد على هذا البريد الإلكتروني أو الاتصال بنا "
+"على:"
 
 #: templates/donations/confirmation_email.html:50
 msgid "Izala Group. All rights reserved."
@@ -937,14 +1379,6 @@ msgstr "جميع الطرق"
 #: templates/donations/donation_list.html:32
 msgid "Cash"
 msgstr "نقداً"
-
-#: templates/donations/donation_list.html:40
-msgid "From"
-msgstr "من"
-
-#: templates/donations/donation_list.html:43
-msgid "To"
-msgstr "إلى"
 
 #: templates/donations/donation_list.html:49
 msgid "Clear"
@@ -1156,25 +1590,51 @@ msgstr "مراجعة القائمة"
 msgid "Process Now"
 msgstr "المعالجة الآن"
 
-#: templates/includes/sidebar.html:8
-msgid "Unit Leader"
-msgstr "قائد الوحدة"
-
-#: templates/includes/sidebar.html:12
+#: templates/includes/sidebar.html:36
 msgid "NAVIGATION"
 msgstr "التنقل"
 
-#: templates/includes/sidebar.html:32
+#: templates/includes/sidebar.html:51
+msgid "Payroll History"
+msgstr "سجل الرواتب"
+
+#: templates/includes/sidebar.html:60
 msgid "SETTINGS"
 msgstr "الإعدادات"
 
-#: templates/includes/sidebar.html:35
+#: templates/includes/sidebar.html:63
 msgid "My Profile"
 msgstr "ملفي الشخصي"
 
-#: templates/includes/sidebar.html:42
-msgid "Payroll History"
-msgstr "سجل الرواتب"
+#: templates/includes/sidebar.html:72
+#, fuzzy
+#| msgid "Latest Announcements"
+msgid "Post Announcement"
+msgstr "آخر الإعلانات"
+
+#: templates/includes/sidebar.html:89
+#, fuzzy
+#| msgid "Latest Announcements"
+msgid "Unit Announcement"
+msgstr "آخر الإعلانات"
+
+#: templates/includes/sidebar.html:111
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Unit Gallery"
+msgstr "قائد الوحدة"
+
+#: templates/includes/sidebar.html:120
+#, fuzzy
+#| msgid "Selected"
+msgid "Select File"
+msgstr "مختار"
+
+#: templates/includes/sidebar.html:125
+#, fuzzy
+#| msgid "Upload Short Video"
+msgid "Upload Photo"
+msgstr "تحميل فيديو قصير"
 
 #: templates/landing.html:125
 msgid "Updates"
@@ -1252,60 +1712,38 @@ msgstr "مشاركة"
 msgid "Download"
 msgstr "تحميل"
 
-#: templates/leader_directory.html:7
-msgid "Official Leader Directory"
-msgstr "دليل القادة الرسمي"
+#: templates/login.html:27
+msgid "Portal Login"
+msgstr "تسجيل دخول البوابة"
 
-#: templates/leader_directory.html:8
-msgid "Verified National and State Leadership of JIBWIS Nigeria"
-msgstr "القيادة الموثقة للولايات والمستوى الوطني لجماعة إزالة نيجيريا"
+#: templates/login.html:54
+msgid "Username"
+msgstr "اسم المستخدم"
 
-#: templates/leader_directory.html:16
-msgid "Search by name, position, or unit..."
-msgstr "بحث بالاسم، المنصب، أو الوحدة..."
+#: templates/login.html:59
+#, fuzzy
+#| msgid "Enter your full name"
+msgid "Enter username"
+msgstr "أدخل اسمك الكامل"
 
-#: templates/leader_directory.html:80
-msgid "Directory Updating"
-msgstr "تحديث الدليل"
-
-#: templates/leader_directory.html:81
-msgid "The leadership directory is currently being synchronized."
-msgstr "دليل القيادة قيد المزامنة حالياً."
-
-#: templates/leader_directory.html:82
-msgid "Return to Dashboard"
-msgstr "الرجوع إلى لوحة التحكم"
-
-#: templates/login.html:9
-msgid "Warning:"
-msgstr "تحذير:"
-
-#: templates/login.html:21
-msgid "Access the JIBWIS Management Portal"
-msgstr "الدخول إلى بوابة إدارة جماعة إزالة"
-
-#: templates/login.html:45
+#: templates/login.html:65
 msgid "Password"
 msgstr "كلمة السر"
 
-#: templates/login.html:57
-msgid "Login to Account"
-msgstr "تسجيل الدخول إلى الحساب"
-
-#: templates/login.html:70
-msgid "Not registered?"
-msgstr "غير مسجل؟"
-
-#: templates/login.html:71
-msgid "Apply Now"
-msgstr "قدم الآن"
+#: templates/login.html:95
+#, fuzzy
+#| msgid "New Official Memo"
+msgid "New official?"
+msgstr "مذكرة رسمية جديدة"
 
 #: templates/password_reset.html:2
 msgid "Reset Your Password"
 msgstr "إعادة تعيين كلمة السر"
 
 #: templates/password_reset.html:3
-msgid "Enter your email address below, and we'll email instructions for setting a new one."
+msgid ""
+"Enter your email address below, and we'll email instructions for setting a "
+"new one."
 msgstr "أدخل بريدك الإلكتروني أدناه، وسنرسل لك تعليمات لتعيين كلمة سر جديدة."
 
 #: templates/password_reset.html:7
@@ -1349,19 +1787,31 @@ msgid "Check Your Email"
 msgstr "تفقد بريدك الإلكتروني"
 
 #: templates/password_reset_done.html:7
-msgid "We've emailed you instructions for setting your password. You should receive them shortly."
+msgid ""
+"We've emailed you instructions for setting your password. You should receive "
+"them shortly."
 msgstr "لقد أرسلنا لك تعليمات لتعيين كلمة السر. ستصلك قريباً."
 
 #: templates/password_reset_done.html:8
-msgid "If you don't receive an email, please ensure you've entered the address you registered with and check your spam folder."
-msgstr "إذا لم تستلم بريداً، يرجى التأكد من إدخال العنوان الذي سجلت به وتفقد مجلد البريد المزعج."
+msgid ""
+"If you don't receive an email, please ensure you've entered the address you "
+"registered with and check your spam folder."
+msgstr ""
+"إذا لم تستلم بريداً، يرجى التأكد من إدخال العنوان الذي سجلت به وتفقد مجلد "
+"البريد المزعج."
 
 #: templates/password_reset_email.html:3
-msgid "To initiate the password reset process for your JIBWIS account, click the link below:"
-msgstr "لبدء عملية إعادة تعيين كلمة السر لحسابك في جماعة إزالة، اضغط على الرابط أدناه:"
+msgid ""
+"To initiate the password reset process for your JIBWIS account, click the "
+"link below:"
+msgstr ""
+"لبدء عملية إعادة تعيين كلمة السر لحسابك في جماعة إزالة، اضغط على الرابط "
+"أدناه:"
 
 #: templates/password_reset_email.html:7
-msgid "If clicking the link doesn't work, please copy and paste the URL into your browser."
+msgid ""
+"If clicking the link doesn't work, please copy and paste the URL into your "
+"browser."
 msgstr "إذا كان الضغط على الرابط لا يعمل، يرجى نسخ ولصق الرابط في متصفحك."
 
 #: templates/payroll_history.html:13
@@ -1396,10 +1846,6 @@ msgstr "الوحدة/النطاق"
 msgid "Registration Date"
 msgstr "تاريخ التسجيل"
 
-#: templates/pending_approval.html:24
-msgid "View Profile"
-msgstr "عرض الملف الشخصي"
-
 #: templates/pending_approval.html:44
 msgid "Bank:"
 msgstr "البنك:"
@@ -1433,7 +1879,8 @@ msgid ""
 "Videos will auto-play on hover on the landing page. Recommended format: "
 "Vertical (9:16)."
 msgstr ""
-"سيتم تشغيل مقاطع الفيديو تلقائياً عند التمرير عليها في الصفحة الرئيسية. التنسيق الموصى به: عمودي (9:16)."
+"سيتم تشغيل مقاطع الفيديو تلقائياً عند التمرير عليها في الصفحة الرئيسية. "
+"التنسيق الموصى به: عمودي (9:16)."
 
 #: templates/upload_video.html:16
 msgid "Publish Video"
@@ -1442,3 +1889,125 @@ msgstr "نشر الفيديو"
 #: templates/upload_video.html:20
 msgid "Cancel and Return"
 msgstr "إلغاء والعودة"
+
+#~ msgid ""
+#~ "Registration successful! Your branch leader must activate your account "
+#~ "before you can login."
+#~ msgstr ""
+#~ "تم التسجيل بنجاح! يجب على قائد الفرع تفعيل حسابك قبل أن تتمكن من تسجيل "
+#~ "الدخول."
+
+#~ msgid "Account for {profile.user.get_full_name()} activated."
+#~ msgstr "تم تفعيل حساب {profile.user.get_full_name()}."
+
+#~ msgid "Bank Code"
+#~ msgstr "رمز البنك"
+
+#~ msgid "Account No"
+#~ msgstr "رقم الحساب"
+
+#~ msgid "Forgot Password?"
+#~ msgstr "هل نسيت كلمة السر؟"
+
+#~ msgid "Unit Directory"
+#~ msgstr "دليل الوحدة"
+
+#~ msgid "Restore/Activate"
+#~ msgstr "استعادة/تفعيل"
+
+#~ msgid "Disburse Payment"
+#~ msgstr "صرف الدفعات"
+
+#~ msgid "Payment Locked"
+#~ msgstr "الدفع مغلق"
+
+#~ msgid "Account Currently Suspended"
+#~ msgstr "الحساب معلق حالياً"
+
+#~ msgid ""
+#~ "This member cannot receive payments or access unit resources until "
+#~ "restored."
+#~ msgstr ""
+#~ "لا يمكن لهذا العضو استلام الدفعات أو الوصول إلى موارد الوحدة حتى يتم "
+#~ "استعادته."
+
+#~ msgid "Official Personnel File"
+#~ msgstr "ملف الموظفين الرسمي"
+
+#~ msgid "Contact Number"
+#~ msgstr "رقم الاتصال"
+
+#~ msgid "Verified Banking Data"
+#~ msgstr "البيانات المصرفية الموثقة"
+
+#~ msgid "Bank Name"
+#~ msgstr "اسم البنك"
+
+#~ msgid "Account Number"
+#~ msgstr "رقم الحساب"
+
+#~ msgid "Credentials"
+#~ msgstr "أوراق الاعتماد"
+
+#~ msgid "Export Official PDF"
+#~ msgstr "تصدير ملف PDF رسمي"
+
+#~ msgid "This is only for deceased members or permanent resignations."
+#~ msgstr "هذا مخصص فقط للأعضاء المتوفين أو الاستقالات الدائمة."
+
+#~ msgid "Select members to send bulk notifications or manage accounts."
+#~ msgstr "اختر الأعضاء لإرسال إشعارات جماعية أو إدارة الحسابات."
+
+#~ msgid "Send Bulk Message"
+#~ msgstr "إرسال رسالة جماعية"
+
+#~ msgid "Send to Selected Members"
+#~ msgstr "إرسال إلى الأعضاء المختارين"
+
+#~ msgid "Account Information"
+#~ msgstr "معلومات الحساب"
+
+#~ msgid "Organizational Role"
+#~ msgstr "الدور التنظيمي"
+
+#~ msgid "Submit Membership Request"
+#~ msgstr "تقديم طلب العضوية"
+
+#~ msgid "View and manage all registered members."
+#~ msgstr "عرض وإدارة جميع الأعضاء المسجلين."
+
+#~ msgid "No new messages."
+#~ msgstr "لا توجد رسائل جديدة."
+
+#~ msgid "Official Leader Directory"
+#~ msgstr "دليل القادة الرسمي"
+
+#~ msgid "Verified National and State Leadership of JIBWIS Nigeria"
+#~ msgstr "القيادة الموثقة للولايات والمستوى الوطني لجماعة إزالة نيجيريا"
+
+#~ msgid "Search by name, position, or unit..."
+#~ msgstr "بحث بالاسم، المنصب، أو الوحدة..."
+
+#~ msgid "Directory Updating"
+#~ msgstr "تحديث الدليل"
+
+#~ msgid "The leadership directory is currently being synchronized."
+#~ msgstr "دليل القيادة قيد المزامنة حالياً."
+
+#~ msgid "Return to Dashboard"
+#~ msgstr "الرجوع إلى لوحة التحكم"
+
+#~ msgid "Warning:"
+#~ msgstr "تحذير:"
+
+#~ msgid "Access the JIBWIS Management Portal"
+#~ msgstr "الدخول إلى بوابة إدارة جماعة إزالة"
+
+#~ msgid "Login to Account"
+#~ msgstr "تسجيل الدخول إلى الحساب"
+
+#~ msgid "Not registered?"
+#~ msgstr "غير مسجل؟"
+
+#~ msgid "Apply Now"
+#~ msgstr "قدم الآن"

@@ -1,15 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2026 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# JIBWIS NMIS Translation Project.
+# Copyright (C) 2026
+# This file is distributed under the same license as the JIBWIS package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: JIBWIS NMIS 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 14:21+0100\n"
-"PO-Revision-Date: 2026-02-25 14:30+ZONE\n"
+"POT-Creation-Date: 2026-02-26 16:45+0100\n"
+"PO-Revision-Date: 2026-02-26 17:00+WAT\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: Hausa\n"
 "Language: ha\n"
@@ -17,73 +16,328 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: accounts/views.py:66
+#: accounts/views.py:538
+msgid "You must be assigned to a unit to send official memos."
+msgstr ""
+"Dole ne a sanya ka a wani sashe kafin ka iya aika saƙon memo na hukuma."
+
+#: accounts/views.py:555
+msgid "Jurisdiction Error: You can only message members within your region."
+msgstr ""
+"Kuskuren Hurumi: Za ka iya aika saƙo ne kawai ga mambobi da ke cikin "
+"yankinka."
+
+#: donations/forms.py:77 templates/donations/card_payment.html:60
+msgid "CVV"
+msgstr "CVV"
+
+#: izalams/settings.py:21
+msgid "Yoruba"
+msgstr "Yarabanci"
+
+#: izalams/settings.py:22
+msgid "Igbo"
+msgstr "Inyamuranci"
+
+#: templates/accounts/edit_profile.html:16
+msgid "Update your personal and organizational records"
+msgstr "Sabunta bayanan kanka da na ƙungiya"
+
+#: templates/accounts/edit_profile.html:61
 msgid ""
-"Registration successful! Your branch leader must activate your account "
-"before you can login."
-msgstr "An yi rajista cikin nasara! Dole ne shugaban reshenku ya kunna asusunku kafin ku iya shiga."
+"When you update your bank info, our system verifies the name directly with "
+"your bank. Ensure the account number matches the bank selected."
+msgstr ""
+"Idan ka sabunta bayanan banki, tsarinmu zai tabbatar da sunanka kai tsaye "
+"daga bankinka. Tabbatar lambar asusun ta dace da bankin da aka zaɓa."
 
-#: accounts/views.py:230
-msgid "Account for {profile.user.get_full_name()} activated."
-msgstr "An kunna asusun {profile.user.get_full_name()}."
+#: templates/accounts/edit_profile.html:67
+msgid "Discard Changes"
+msgstr "Soke Canje-canje"
 
-#: accounts/views.py:242 templates/login.html:38
-msgid "Username"
-msgstr "Sunan Shiga"
+#: templates/accounts/edit_profile.html:69
+msgid "Save & Verify Records"
+msgstr "Ajiye Kuma Tabbatar da Bayanai"
 
-#: accounts/views.py:242 donations/forms.py:50
-#: templates/pending_approval.html:10
-msgid "Full Name"
-msgstr "Cikakken Suna"
+#: templates/accounts/edit_profile.html:116
+msgid "Verifying..."
+msgstr "Ana tantancewa..."
 
-#: accounts/views.py:242
-msgid "Phone"
-msgstr "Wayar Tarho"
+#: templates/accounts/inbox.html:17
+msgid "Total"
+msgstr "Jimilla"
 
-#: accounts/views.py:242
-msgid "Bank Code"
-msgstr "Lambar Banki"
+#: templates/accounts/inbox.html:29 templates/accounts/sent_messages.html:19
+msgid "Received"
+msgstr "Saƙonni da aka karba"
 
-#: accounts/views.py:242
-msgid "Account No"
-msgstr "Lambar Asusu"
+#: templates/accounts/inbox.html:67
+msgid "Delete Permanent"
+msgstr "Goge Gaba ɗaya"
 
-#: accounts/views.py:279
-msgid "Official memo sent."
+#: templates/accounts/inbox.html:87 templates/dashboard.html:156
+msgid "Reply"
+msgstr "Ba da amsa"
+
+#: templates/accounts/inbox.html:115
+msgid "Dismiss"
+msgstr "Korewa"
+
+#: templates/accounts/inbox.html:127
+msgid "Your official inbox is currently empty."
+msgstr "Sashin saƙonni na hukuma babu komai a ciki yanzu."
+
+#: templates/accounts/member_detail.html:59
+msgid "Run Paystack Verification"
+msgstr "Gudanar da Tabbatarwar Paystack"
+
+#: templates/accounts/member_detail.html:70
+msgid "Global Identifier"
+msgstr "Shaidar Shiga ta Duniya"
+
+#: templates/accounts/member_detail.html:112
+msgid ""
+"Changes made here are logged and visible to State/National auditors. Ensure "
+"all deactivations have documented reasons."
+msgstr ""
+"Duk canje-canjen da aka yi a nan ana adana su kuma masu binciken kudi na "
+"Jiha/Ƙasa na iya gani. Tabbatar dukkan dakatarwa suna da dalilai takaitattu."
+
+#: templates/accounts/member_detail.html:138
+msgid "WARNING: This will permanently delete all data for"
+msgstr "GARADI: Wannan zai goge dukkan bayanan"
+
+#: templates/accounts/member_detail.html:138
+msgid "Continue?"
+msgstr "A ci gaba?"
+
+#: templates/accounts/member_detail.html:144
+msgid ""
+"Enter reason for deactivation (e.g., Transfer, Disciplinary, Resignation):"
+msgstr ""
+"Shigar da dalilin dakatarwa (misali, Canjin wurin aiki, Hukunci, Murabus):"
+
+#: templates/accounts/members_list.html:12
+msgid "Manage unit personnel and broadcast notifications."
+msgstr "Gudanar da ma'aikatan sashe da aika saƙonni."
+
+#: templates/accounts/members_list.html:19
+msgid "Export"
+msgstr "Fitar da Bayanai"
+
+#: templates/accounts/members_list.html:113
+msgid "Personnel in your unit will appear here."
+msgstr "Ma'aikatan da ke sashinka za su bayyana a nan."
+
+#: templates/accounts/members_list.html:126
+msgid "Unit Broadcast"
+msgstr "Saƙon Sashe na Gaba ɗaya"
+
+#: templates/accounts/members_list.html:130
+msgid "This message will be sent to the selected unit members."
+msgstr "Wannan saƙon za a aika shi ga mambobin sashin da aka zaɓa."
+
+#: templates/accounts/members_list.html:133
+msgid "e.g., Monthly Meeting"
+msgstr "misali, Taron Wata-wata"
+
+#: templates/accounts/members_list.html:142
+msgid "Send Broadcast"
+msgstr "Aika Saƙon zuwa ga kowa"
+
+#: templates/accounts/members_list.html:191
+msgid "WARNING: Permanently delete"
+msgstr "GARADI: Goge gaba ɗaya"
+
+#: templates/accounts/members_list.html:191
+msgid "This cannot be undone."
+msgstr "Wannan ba za a iya canzawa ba."
+
+#: templates/accounts/register.html:42
+msgid "Unit & Department"
+msgstr "Sashe da Sashen Aiki"
+
+#: templates/accounts/register.html:51
+msgid "Location Hierarchy"
+msgstr "Tsarin Wuri"
+
+#: templates/accounts/register.html:59
+msgid "LGA"
+msgstr "Ƙaramar Hukuma"
+
+#: templates/accounts/register.html:63
+msgid "Ward / Branch Name"
+msgstr "Mazaɓa / Sunan Reshe"
+
+#: templates/accounts/register.html:85
+msgid "Submit for Leader Approval"
+msgstr "Tura don Amincewar Shugaba"
+
+#: templates/accounts/send_message.html:37
+msgid "Broadcasting Option"
+msgstr "Zaɓin Aika Saƙon Gaba ɗaya"
+
+#: templates/accounts/send_message.html:40
+msgid "Send only to this individual"
+msgstr "Aika wa wannan mutumin kawai"
+
+#: templates/accounts/send_message.html:41
+msgid "All Admin in this Unit"
+msgstr "Dukkan Masu Gudanarwa (Admin) a wannan Sashen"
+
+#: templates/accounts/send_message.html:42
+msgid "All Ulama in this Unit"
+msgstr "Dukkan Malamai (Ulama) a wannan Sashen"
+
+#: templates/accounts/send_message.html:47
+msgid ""
+"Leave as 'Individual' to message only the user above, or select a group to "
+"message everyone in their category."
+msgstr ""
+"Bar shi a matsayin 'Mutum ɗaya' don aika saƙo ga mutumin da ke sama kawai, "
+"ko ka zaɓi rukunin mutane don aika saƙo ga kowa a rukuninsu."
+
+#: templates/accounts/sent_messages.html:13
+msgid "Tracking official broadcasts and replies."
+msgstr "Bibiyar saƙonni da martani na hukuma."
+
+#: templates/accounts/sent_messages.html:22
+msgid "Sent"
+msgstr "Wadanda aka aika"
+
+#: templates/accounts/sent_messages.html:47
+msgid "Delivered"
+msgstr "An isar"
+
+#: templates/accounts/sent_messages.html:70
+msgid "Sent on"
+msgstr "An aika a ranar"
+
+#: templates/accounts/sent_messages.html:80
+msgid "You haven't sent any memos yet."
+msgstr "Ba ka aika wani saƙon memo ba tukuna."
+
+#: templates/dashboard.html:66
+msgid "Are you sure you want to REJECT and DELETE this application?"
+msgstr ""
+"Shin kana da tabbacin kana son KIN AMINCEWA da kuma GOGE wannan takardar "
+"neman shiga?"
+
+#: templates/dashboard.html:67
+msgid "Reject Application"
+msgstr "Ki amincewa da takardar"
+
+#: templates/dashboard.html:76
+msgid "No pending requests. Your unit is fully approved."
+msgstr ""
+"Babu sauran buƙatun da ke jira. An riga an amince da sashinka gaba ɗaya."
+
+#: templates/dashboard.html:103
+msgid "Manage unit personnel records."
+msgstr "Gudanar da bayanan ma'aikatan sashe."
+
+#: templates/dashboard.html:115
+msgid "Unit communications."
+msgstr "Sadarwar sashe."
+
+#: templates/includes/sidebar.html:77
+msgid "Upload to Gallery"
+msgstr "Loda hoto zuwa kundin hotuna"
+
+#: templates/includes/sidebar.html:94
+msgid "Write something for your unit..."
+msgstr "Rubuta wani abu don sashinka..."
+
+#: templates/includes/sidebar.html:95
+msgid "This will only be visible to members of"
+msgstr "Mambobin wannan sashen ne kawai za su iya ganin wannan"
+
+#: templates/includes/sidebar.html:98
+msgid "Post to Unit"
+msgstr "Tura wa Sashe"
+
+#: templates/includes/sidebar.html:116
+msgid "Image Title"
+msgstr "Sunan Hoto"
+
+#: templates/includes/sidebar.html:117
+msgid "e.g., Annual Conference"
+msgstr "misali, Taron Shekara-shekara"
+
+#: templates/login.html:14
+msgid "Security Notice"
+msgstr "Sanarwar Tsaro"
+
+#: templates/login.html:28
+msgid "National Management Information System"
+msgstr "Tsarin Gudanar da Bayanai na Ƙasa"
+
+#: templates/login.html:43
+msgid ""
+"Your account may be awaiting leader approval from your assigned Ward/Unit."
+msgstr ""
+"Asusunka na iya kasancewa yana jiran amincewar shugaba daga Mazaɓa ko "
+"Sashinka."
+
+#: templates/login.html:80
+msgid "Sign In"
+msgstr "Shiga"
+
+#: templates/login.html:86
+msgid "Forgot your security credentials?"
+msgstr "Ka manta bayanan tsaronka?"
+
+#: templates/login.html:97
+msgid "Submit Enrollment"
+msgstr "Tura Buƙatar Shiga"
+
+#: templates/login.html:105
+msgid "Authorized Personnel Only."
+msgstr "Ma'aikatan da aka amince wa kawai."
+
+#: templates/pending_approval.html:11
+msgid "Unit/Jurisdiction"
+msgstr "Sashe / Hurumi"
+
+#: accounts/views.py:567
+#, fuzzy
+#| msgid "Official memo sent."
+msgid "Official memo sent successfully."
 msgstr "An aika takardar sanarwa ta hukuma."
 
-#: accounts/views.py:291
+#: accounts/views.py:584
 msgid "Video published to feed."
 msgstr "An wallafa bidiyo a dandalin."
 
-#: accounts/views.py:305
+#: accounts/views.py:598
 msgid "Username updated."
 msgstr "An sabunta sunan shiga."
 
-#: accounts/views.py:307
+#: accounts/views.py:600
 msgid "Username already taken."
 msgstr "Wani ya riga ya yi amfani da wannan sunan."
 
-#: accounts/views.py:437
+#: accounts/views.py:730
 msgid "Member"
 msgstr "Mamba"
 
-#: accounts/views.py:437 templates/bulk_payroll.html:83
+#: accounts/views.py:730 templates/bulk_payroll.html:83
 #: templates/donations/donation_list.html:72 templates/payroll_history.html:27
 msgid "Amount"
 msgstr "Adadi"
 
-#: accounts/views.py:437
+#: accounts/views.py:730
 msgid "Reference"
 msgstr "Shaida"
 
-#: accounts/views.py:437 templates/accounts/members_list.html:33
+#: accounts/views.py:730 templates/accounts/members_list.html:36
 #: templates/accounts/search.html:84 templates/disciplinary_list.html:20
 #: templates/donations/donation_list.html:74 templates/payroll_history.html:28
 msgid "Status"
 msgstr "Yanayi"
 
-#: accounts/views.py:437 templates/disciplinary_list.html:16
+#: accounts/views.py:730 templates/accounts/inbox.html:107
+#: templates/disciplinary_list.html:16
 #: templates/donations/donation_list.html:76
 msgid "Date"
 msgstr "Kwanan Wata"
@@ -107,6 +361,10 @@ msgstr "misali, Zakka"
 #: donations/forms.py:43
 msgid "Enter any additional notes (optional)"
 msgstr "Saka karin bayani (idan akwai)"
+
+#: donations/forms.py:50 templates/pending_approval.html:10
+msgid "Full Name"
+msgstr "Cikakken Suna"
 
 #: donations/forms.py:51
 msgid "Email"
@@ -132,6 +390,12 @@ msgstr "Bayani (Zabi)"
 #: templates/donations/donation_form.html:90
 msgid "Payment Method"
 msgstr "Hanyar Biyan Kudi"
+
+#: donations/forms.py:61 templates/donations/card_payment.html:44
+#, fuzzy
+#| msgid "Contact Number"
+msgid "Card Number"
+msgstr "Lambar Sadarwa"
 
 #: donations/forms.py:69
 msgid "Expiry Date"
@@ -169,210 +433,286 @@ msgstr "Gargaɗi: Goge Asusun"
 msgid ""
 "Are you sure you want to delete your JIBWIS profile? This action cannot be "
 "undone."
-msgstr "Kuna da tabbacin kuna son goge bayanan JIBWIS dinku? Ba za a iya dawo da su ba."
+msgstr ""
+"Kuna da tabbacin kuna son goge bayanan JIBWIS dinku? Ba za a iya dawo da su "
+"ba."
 
 #: templates/accounts/confirm_delete.html:6
 msgid "Yes, Delete My Account"
 msgstr "Eh, Goge Asusuna"
 
 #: templates/accounts/confirm_delete.html:7
-#: templates/accounts/edit_profile.html:41
+#: templates/accounts/members_list.html:141
 #: templates/accounts/send_message.html:9
 #: templates/accounts/update_username.html:19
 msgid "Cancel"
 msgstr "Soke"
 
-#: templates/accounts/edit_profile.html:10
+#: templates/accounts/edit_profile.html:15
 msgid "Edit Profile Details"
 msgstr "Gyara Bayanan Mutum"
 
-#: templates/accounts/edit_profile.html:16
-msgid "Personal Info"
+#: templates/accounts/edit_profile.html:27
+#, fuzzy
+#| msgid "Personal Info"
+msgid "Personal Information"
 msgstr "Bayanai na Kai"
 
-#: templates/accounts/edit_profile.html:29
+#: templates/accounts/edit_profile.html:45
 msgid "Organization & Payment"
 msgstr "Ƙungiya da Biya"
 
-#: templates/accounts/edit_profile.html:42
-msgid "Update Records"
-msgstr "Sabunta Bayanai"
+#: templates/accounts/edit_profile.html:60
+#, fuzzy
+#| msgid "Donation Details"
+msgid "Note on Bank Details"
+msgstr "Bayanin Taimako"
 
-#: templates/accounts/login.html:2
-msgid "Portal Login"
-msgstr "Shiga Shafin"
+#: templates/accounts/inbox.html:11
+#, fuzzy
+#| msgid "Official File"
+msgid "Official Inbox"
+msgstr "Fayil din Hukuma"
 
-#: templates/accounts/login.html:6 templates/base.html:45
-#: templates/login.html:20
-msgid "Login"
-msgstr "Shiga"
+#: templates/accounts/inbox.html:13
+#, fuzzy
+#| msgid "Check communications and unit updates."
+msgid "Manage official communications and memos."
+msgstr "Duba sakonni da sababbin labaran reshe."
 
-#: templates/accounts/login.html:8 templates/login.html:63
-msgid "Forgot Password?"
-msgstr "Ka manta kalmar sirri?"
+#: templates/accounts/inbox.html:21 templates/dashboard.html:117
+msgid "New"
+msgstr "Sabuwa"
+
+#: templates/accounts/inbox.html:32 templates/accounts/sent_messages.html:11
+#, fuzzy
+#| msgid "Direct Memo"
+msgid "Sent Memos"
+msgstr "Sanarwa Ta Kai Tsaye"
+
+#: templates/accounts/inbox.html:46 templates/donations/donation_list.html:40
+msgid "From"
+msgstr "Daga"
+
+#: templates/accounts/inbox.html:66
+#, fuzzy
+#| msgid "PERMANENT REMOVAL: Are you sure you want to delete the records for"
+msgid "Are you sure you want to delete this memo?"
+msgstr "GOGEWA TA DIN-DIN-DIN: Kuna da tabbacin kuna son goge bayanan"
+
+#: templates/accounts/inbox.html:82
+#, fuzzy
+#| msgid "Suspend Member"
+msgid "Open Memo"
+msgstr "Dakatar da Mamba"
+
+#: templates/accounts/inbox.html:105
+#, fuzzy
+#| msgid "Suspended"
+msgid "Sender"
+msgstr "An Dakatar"
+
+#: templates/accounts/inbox.html:117
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Reply to Leader"
+msgstr "Shugaban Reshe"
 
 #: templates/accounts/member_detail.html:8 templates/accounts/search.html:12
-#: templates/base.html:38 templates/includes/sidebar.html:15
+#: templates/base.html:38 templates/includes/sidebar.html:39
 msgid "Dashboard"
 msgstr "Dashboard"
 
 #: templates/accounts/member_detail.html:9
-msgid "Unit Directory"
-msgstr "Kundin Membobin Rassa"
-
-#: templates/accounts/member_detail.html:10
-msgid "Official File"
-msgstr "Fayil din Hukuma"
-
-#: templates/accounts/member_detail.html:40
-msgid "Suspend Member"
-msgstr "Dakatar da Mamba"
-
-#: templates/accounts/member_detail.html:44
-msgid "Restore/Activate"
-msgstr "Maido/Kunna"
-
-#: templates/accounts/member_detail.html:49
-msgid "Direct Memo"
-msgstr "Sanarwa Ta Kai Tsaye"
-
-#: templates/accounts/member_detail.html:54
-msgid "Disburse Payment"
-msgstr "Tura Biya"
-
-#: templates/accounts/member_detail.html:58
-msgid "Payment Locked"
-msgstr "An Rufe Biyan"
-
-#: templates/accounts/member_detail.html:70
-msgid "Account Currently Suspended"
-msgstr "A yanzu an dakatar da asusun nan"
-
-#: templates/accounts/member_detail.html:71
-msgid ""
-"This member cannot receive payments or access unit resources until restored."
-msgstr "Wannan mamban ba zai iya karbar albashi ko amfani da kayan aiki ba har sai an maido shi."
-
-#: templates/accounts/member_detail.html:78
-msgid "Official Personnel File"
-msgstr "Fayil din Ma'aikaci na Hukuma"
-
-#: templates/accounts/member_detail.html:84
-msgid "Assigned Position"
-msgstr "Makaminsa"
-
-#: templates/accounts/member_detail.html:88
-msgid "Contact Number"
-msgstr "Lambar Sadarwa"
-
-#: templates/accounts/member_detail.html:93
-msgid "Verified Banking Data"
-msgstr "Tabbataccen Bayanan Banki"
-
-#: templates/accounts/member_detail.html:96
-msgid "Bank Name"
-msgstr "Sunan Banki"
-
-#: templates/accounts/member_detail.html:100
-msgid "Account Number"
-msgstr "Lambar Asusu"
-
-#: templates/accounts/member_detail.html:107
-msgid "Credentials"
-msgstr "Shaidun Karatu"
-
-#: templates/accounts/member_detail.html:113
-msgid "Export Official PDF"
-msgstr "Fitar da PDF na Hukuma"
-
-#: templates/accounts/member_detail.html:116
-msgid "Remove Record"
-msgstr "Goge Bayani"
-
-#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
-msgid "Reason for suspending"
-msgstr "Dalilin dakatarwa"
-
-#: templates/accounts/member_detail.html:127 templates/accounts/search.html:172
-msgid "Violation of rules"
-msgstr "Saba ka'idoji"
-
-#: templates/accounts/member_detail.html:134
-msgid "PERMANENT REMOVAL: Are you sure you want to delete the records for"
-msgstr "GOGEWA TA DIN-DIN-DIN: Kuna da tabbacin kuna son goge bayanan"
-
-#: templates/accounts/member_detail.html:134
-msgid "This is only for deceased members or permanent resignations."
-msgstr "Wannan na mambobin da suka rasu ne kawai ko kuma suka yi murabus na din-din-din."
-
-#: templates/accounts/members_list.html:8 templates/base.html:49
-#: templates/dashboard.html:35 templates/includes/sidebar.html:19
+#: templates/accounts/members_list.html:10 templates/base.html:49
+#: templates/dashboard.html:102 templates/includes/sidebar.html:44
 msgid "Directory"
 msgstr "Kundin Sunaye"
 
-#: templates/accounts/members_list.html:9
-msgid "Select members to send bulk notifications or manage accounts."
-msgstr "Zabi mambobin da kake son aikewa sako ko sarrafa asusunsu."
+#: templates/accounts/member_detail.html:32
+#, fuzzy
+#| msgid "Activate"
+msgid "Active Status"
+msgstr "Kunna"
 
-#: templates/accounts/members_list.html:13
+#: templates/accounts/member_detail.html:36
+#: templates/accounts/members_list.html:79 templates/accounts/search.html:29
+#: templates/accounts/search.html:116
+msgid "Suspended"
+msgstr "An Dakatar"
+
+#: templates/accounts/member_detail.html:44
+#, fuzzy
+#| msgid "Official File"
+msgid "Official Message"
+msgstr "Fayil din Hukuma"
+
+#: templates/accounts/member_detail.html:51
+#, fuzzy
+#| msgid "Pending Member Verifications"
+msgid "Bank Verification"
+msgstr "Mambobin da ke Jiran Tabbatarwa"
+
+#: templates/accounts/member_detail.html:53 templates/bulk_payroll.html:82
+msgid "Account"
+msgstr "Asusu"
+
+#: templates/accounts/member_detail.html:56
+#, fuzzy
+#| msgid "Bank:"
+msgid "Bank"
+msgstr "Banki:"
+
+#: templates/accounts/member_detail.html:67
+#, fuzzy
+#| msgid "Update Records"
+msgid "Unit Records"
+msgstr "Sabunta Bayanai"
+
+#: templates/accounts/member_detail.html:74
+msgid "Phone"
+msgstr "Wayar Tarho"
+
+#: templates/accounts/member_detail.html:78
+#, fuzzy
+#| msgid "Assigned Position"
+msgid "Assigned Branch"
+msgstr "Makaminsa"
+
+#: templates/accounts/member_detail.html:82
+#, fuzzy
+#| msgid "Education:"
+msgid "Education Level"
+msgstr "Ilimi:"
+
+#: templates/accounts/member_detail.html:89
+#, fuzzy
+#| msgid "Command Center"
+msgid "Leader Command Console"
+msgstr "Wajen Gudanarwa"
+
+#: templates/accounts/member_detail.html:93
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Deactivate Access"
+msgstr "Sake Kunna"
+
+#: templates/accounts/member_detail.html:97
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Re-Activate Access"
+msgstr "Sake Kunna"
+
+#: templates/accounts/member_detail.html:104
+#, fuzzy
+#| msgid "Remove Record"
+msgid "Purge Record"
+msgstr "Goge Bayani"
+
+#: templates/accounts/member_detail.html:110
+#, fuzzy
+#| msgid "Administration"
+msgid "Administrative Note"
+msgstr "Gudanarwa"
+
+#: templates/accounts/members_list.html:16
 msgid "Message Selected"
 msgstr "Aika sako ga wadanda aka zaba"
 
-#: templates/accounts/members_list.html:31 templates/accounts/search.html:82
+#: templates/accounts/members_list.html:34 templates/accounts/search.html:82
 #: templates/bulk_payroll.html:80
 msgid "Personnel"
 msgstr "Ma'aikata"
 
-#: templates/accounts/members_list.html:32
+#: templates/accounts/members_list.html:35
 msgid "Position"
 msgstr "Matsayi"
 
-#: templates/accounts/members_list.html:34
+#: templates/accounts/members_list.html:37
 #: templates/donations/donation_list.html:77
 msgid "Actions"
 msgstr "Ayyuka"
 
-#: templates/accounts/members_list.html:58
-msgid "Reactivate"
+#: templates/accounts/members_list.html:75 templates/accounts/search.html:112
+msgid "Active"
+msgstr "Yana Aiki"
+
+#: templates/accounts/members_list.html:85 templates/pending_approval.html:24
+msgid "View Profile"
+msgstr "Duba Bayanai"
+
+#: templates/accounts/members_list.html:91
+#, fuzzy
+#| msgid "Suspend"
+msgid "Suspend Account"
+msgstr "Dakatar"
+
+#: templates/accounts/members_list.html:95
+#, fuzzy
+#| msgid "Reactivate"
+msgid "Reactivate Account"
 msgstr "Sake Kunna"
 
-#: templates/accounts/members_list.html:96
-msgid "Send Bulk Message"
-msgstr "Aika Sakon Gaba-daya"
-
 #: templates/accounts/members_list.html:101
-#: templates/accounts/send_message.html:24
+#, fuzzy
+#| msgid "Permanent Removal"
+msgid "Permanent Delete"
+msgstr "Goge na Din-din-din"
+
+#: templates/accounts/members_list.html:112
+#, fuzzy
+#| msgid "No matches found for"
+msgid "No members found"
+msgstr "Ba a sami sakamako na"
+
+#: templates/accounts/members_list.html:132
+#: templates/accounts/send_message.html:52
 msgid "Subject"
 msgstr "Maudu'i"
 
-#: templates/accounts/members_list.html:105
-#: templates/accounts/send_message.html:28
-msgid "Message Body"
+#: templates/accounts/members_list.html:136 templates/includes/sidebar.html:93
+#, fuzzy
+#| msgid "Message Body"
+msgid "Message Content"
 msgstr "Sakon kansa"
 
-#: templates/accounts/members_list.html:110
-msgid "Send to Selected Members"
-msgstr "Aika zuwa ga mambobin da aka zaba"
+#: templates/accounts/members_list.html:137
+#, fuzzy
+#| msgid "Type your message here..."
+msgid "Type your broadcast here..."
+msgstr "Rubuta sakonka a nan..."
+
+#: templates/accounts/members_list.html:184 templates/accounts/search.html:167
+msgid "Reason for suspending"
+msgstr "Dalilin dakatarwa"
+
+#: templates/accounts/members_list.html:184
+#, fuzzy
+#| msgid "Violation of rules"
+msgid "Violation of unit rules"
+msgstr "Saba ka'idoji"
 
 #: templates/accounts/register.html:10
 msgid "Member Registration"
 msgstr "Rajistar Mambobi"
 
 #: templates/accounts/register.html:11
-msgid "Join the JIBWIS Digital Management System"
+#, fuzzy
+#| msgid "Join the JIBWIS Digital Management System"
+msgid "Join the JIBWIS digital network"
 msgstr "Kasance cikin Tsarin Sarrafa Bayanan JIBWIS"
 
-#: templates/accounts/register.html:20
-msgid "Account Information"
-msgstr "Bayanin Asusu"
+#: templates/accounts/register.html:55
+#, fuzzy
+#| msgid "Status"
+msgid "State"
+msgstr "Yanayi"
 
-#: templates/accounts/register.html:39
-msgid "Organizational Role"
-msgstr "Makaminka a Kungiya"
-
-#: templates/accounts/register.html:53
-msgid "Submit Membership Request"
-msgstr "Tura Bukatar Zama Mamba"
+#: templates/accounts/register.html:70
+#, fuzzy
+#| msgid "Donation Details"
+msgid "Personal Details"
+msgstr "Bayanin Taimako"
 
 #: templates/accounts/search.html:10
 msgid "Navigation"
@@ -398,10 +738,6 @@ msgstr "Dukkan Mambobi"
 msgid "Active Only"
 msgstr "Masu Aiki Kawai"
 
-#: templates/accounts/search.html:29 templates/accounts/search.html:116
-msgid "Suspended"
-msgstr "An Dakatar"
-
 #: templates/accounts/search.html:34
 msgid "Position/Role"
 msgstr "Matsayi/Makaminsa"
@@ -418,7 +754,7 @@ msgstr "Goge Komai"
 msgid "Search by name or phone in your unit..."
 msgstr "Nemi suna ko lambar waya a reshenku..."
 
-#: templates/accounts/search.html:64 templates/includes/sidebar.html:23
+#: templates/accounts/search.html:64 templates/includes/sidebar.html:48
 msgid "Search"
 msgstr "Nema"
 
@@ -434,10 +770,6 @@ msgstr "Bayanin Asusu"
 msgid "Management"
 msgstr "Gudanarwa"
 
-#: templates/accounts/search.html:112
-msgid "Active"
-msgstr "Yana Aiki"
-
 #: templates/accounts/search.html:122 templates/disciplinary_list.html:48
 msgid "View File"
 msgstr "Duba Fayil"
@@ -446,23 +778,27 @@ msgstr "Duba Fayil"
 msgid "Suspend"
 msgstr "Dakatar"
 
-#: templates/accounts/search.html:134
+#: templates/accounts/search.html:131
 msgid "Activate"
 msgstr "Kunna"
 
-#: templates/accounts/search.html:140
+#: templates/accounts/search.html:136
 msgid "Permanent Removal"
 msgstr "Goge na Din-din-din"
 
-#: templates/accounts/search.html:152
+#: templates/accounts/search.html:148
 msgid "No members found in your unit matching this criteria."
 msgstr "Ba a sami mambobi a reshenku da suka dace da wannan bayanan ba."
 
-#: templates/accounts/search.html:179
+#: templates/accounts/search.html:167
+msgid "Violation of rules"
+msgstr "Saba ka'idoji"
+
+#: templates/accounts/search.html:174
 msgid "WARNING: This will PERMANENTLY delete"
 msgstr "GARGAƊI: Wannan zai goge"
 
-#: templates/accounts/search.html:179
+#: templates/accounts/search.html:174
 msgid "from JIBWIS records. Proceed?"
 msgstr "daga bayanan JIBWIS har abada. A ci gaba?"
 
@@ -470,21 +806,55 @@ msgstr "daga bayanan JIBWIS har abada. A ci gaba?"
 msgid "New Official Memo"
 msgstr "Sabuwar Takardar Hukuma"
 
-#: templates/accounts/send_message.html:15 templates/payroll_history.html:25
+#: templates/accounts/send_message.html:20
+#: templates/accounts/sent_messages.html:69 templates/payroll_history.html:25
 msgid "Recipient"
 msgstr "Mai Karba"
 
 #: templates/accounts/send_message.html:25
+#, fuzzy
+#| msgid "Category Payroll"
+msgid "Category"
+msgstr "Rukunin Biyan Albashi"
+
+#: templates/accounts/send_message.html:43
+#, fuzzy
+#| msgid "First Aid Group"
+msgid "All First Aid Group in this Unit"
+msgstr "Masu Agaji (FAG)"
+
+#: templates/accounts/send_message.html:55
 msgid "Enter memo title..."
 msgstr "Saka taken takardar..."
 
-#: templates/accounts/send_message.html:29
+#: templates/accounts/send_message.html:59
+msgid "Message Body"
+msgstr "Sakon kansa"
+
+#: templates/accounts/send_message.html:60
 msgid "Type your message here..."
 msgstr "Rubuta sakonka a nan..."
 
-#: templates/accounts/send_message.html:32
+#: templates/accounts/send_message.html:65
 msgid "Send Message"
 msgstr "Aika Sako"
+
+#: templates/accounts/sent_messages.html:34
+#: templates/donations/donation_list.html:43
+msgid "To"
+msgstr "Zuwa"
+
+#: templates/accounts/sent_messages.html:43
+#, fuzzy
+#| msgid "Read More"
+msgid "Read"
+msgstr "Kara Karantawa"
+
+#: templates/accounts/sent_messages.html:56
+#, fuzzy
+#| msgid "View File"
+msgid "View Full Memo"
+msgstr "Duba Fayil"
 
 #: templates/accounts/update_username.html:8
 msgid "Change Username"
@@ -510,9 +880,13 @@ msgstr "SHAFIN"
 msgid "Home"
 msgstr "Gida"
 
-#: templates/base.html:41 templates/includes/sidebar.html:39
+#: templates/base.html:41 templates/includes/sidebar.html:67
 msgid "Logout"
 msgstr "Fita"
+
+#: templates/base.html:45
+msgid "Login"
+msgstr "Shiga"
 
 #: templates/base.html:46
 msgid "Join Us"
@@ -522,11 +896,11 @@ msgstr "Shiga Cikinmu"
 msgid "Donate"
 msgstr "Bayar da Taimako"
 
-#: templates/base.html:102
+#: templates/base.html:107
 msgid "Nigeria National Headquarters"
 msgstr "Hedikwatar Kasa ta Nijeriya"
 
-#: templates/base.html:103
+#: templates/base.html:108
 msgid "Digital Management System | Developed for JIBWIS Nigeria"
 msgstr "Tsarin Gudanarwa na Dijital | An samarwa JIBWIS Nijeriya"
 
@@ -574,10 +948,6 @@ msgstr "An Takaita"
 msgid "Unit / Level"
 msgstr "Reshe / Mataki"
 
-#: templates/bulk_payroll.html:82
-msgid "Account"
-msgstr "Asusu"
-
 #: templates/bulk_payroll.html:131
 msgid "No matches found for"
 msgstr "Ba a sami sakamako na"
@@ -590,41 +960,55 @@ msgstr "Wadanda aka zaba"
 msgid "Execute Disbursement"
 msgstr "Aiwwatar da Biyan"
 
-#: templates/dashboard.html:12
+#: templates/dashboard.html:14
 msgid "Command Center"
 msgstr "Wajen Gudanarwa"
 
-#: templates/dashboard.html:22 templates/includes/sidebar.html:28
+#: templates/dashboard.html:16
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Leader"
+msgstr "Shugaban Reshe"
+
+#: templates/dashboard.html:20
+#, fuzzy
+#| msgid "Authorize Disbursement"
+msgid "Authorized Access"
+msgstr "Bada Ikon Biyan Kudi"
+
+#: templates/dashboard.html:28
+#, fuzzy
+#| msgid "Pending Member Verifications"
+msgid "Pending Unit Verifications"
+msgstr "Mambobin da ke Jiran Tabbatarwa"
+
+#: templates/dashboard.html:59 templates/pending_approval.html:28
+msgid "Approve"
+msgstr "Amince"
+
+#: templates/dashboard.html:91 templates/includes/sidebar.html:55
 msgid "Bulk Payroll"
 msgstr "Biyan Albashin Jama'a"
 
-#: templates/dashboard.html:23
-msgid "Process unit disbursements and allowances."
+#: templates/dashboard.html:92
+#, fuzzy
+#| msgid "Process unit disbursements and allowances."
+msgid "Process unit disbursements."
 msgstr "Gudanar da biyan kudaden rassa da alawus-alawus."
 
-#: templates/dashboard.html:36
-msgid "View and manage all registered members."
-msgstr "Duba da sarrafa dukkan mambobin da aka yiwa rajista."
-
-#: templates/dashboard.html:47
+#: templates/dashboard.html:114
 msgid "My Inbox"
 msgstr "Sakonni Na"
 
-#: templates/dashboard.html:48
-msgid "Check communications and unit updates."
-msgstr "Duba sakonni da sababbin labaran reshe."
-
-#: templates/dashboard.html:50
-msgid "New"
-msgstr "Sabuwa"
-
-#: templates/dashboard.html:59
+#: templates/dashboard.html:126
 msgid "Recent Messages"
 msgstr "Sakonni na kwanan nan"
 
-#: templates/dashboard.html:69
-msgid "No new messages."
-msgstr "Babu sababbin sakonni."
+#: templates/dashboard.html:127
+#, fuzzy
+#| msgid "View File"
+msgid "View All"
+msgstr "Duba Fayil"
 
 #: templates/disciplinary_list.html:7
 msgid "National Disciplinary Portal"
@@ -641,6 +1025,12 @@ msgstr "Mai Kai Karar (Mamba)"
 #: templates/disciplinary_list.html:18
 msgid "Subject (Leader)"
 msgstr "Wanda Ake Kara (Shugaba)"
+
+#: templates/disciplinary_list.html:19
+#, fuzzy
+#| msgid "Contribution Summary"
+msgid "Complaint Summary"
+msgstr "Takaitaccen Taimakon"
 
 #: templates/disciplinary_list.html:21 templates/pending_approval.html:13
 msgid "Action"
@@ -723,16 +1113,21 @@ msgid "Important Instructions:"
 msgstr "Muhimman Umarni:"
 
 #: templates/donations/bank_transfer.html:71
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                 Please use the <strong>reference code "
+#| "(%(ref)s)</strong> as the payment narration/memo.\n"
+#| "                                 "
 msgid ""
 "\n"
-"                                 Please use the <strong>reference code "
+"                                Please use the <strong>reference code "
 "(%(ref)s)</strong> as the payment narration/memo.\n"
-"                                 "
+"                                "
 msgstr ""
 "\n"
-"                                 Don Allah yi amfani da <strong>lambar shaida "
-"(%(ref)s)</strong> a matsayin bayanin biyan kuɗin.\n"
+"                                 Don Allah yi amfani da <strong>lambar "
+"shaida (%(ref)s)</strong> a matsayin bayanin biyan kuɗin.\n"
 "                                 "
 
 #: templates/donations/bank_transfer.html:75
@@ -753,15 +1148,21 @@ msgstr "Tabbatar da Biya"
 
 #: templates/donations/bank_transfer.html:88
 msgid "To confirm that you have made the transfer, please check the box below:"
-msgstr "Domin tabbatar da cewa ka tura kudin, don Allah taba hoton akwati na kasa:"
+msgstr ""
+"Domin tabbatar da cewa ka tura kudin, don Allah taba hoton akwati na kasa:"
 
 #: templates/donations/bank_transfer.html:92
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                         I confirm that I have sent ₦"
+#| "%(amt)s to the account stated above.\n"
+#| "                                         "
 msgid ""
 "\n"
-"                                         I confirm that I have sent ₦%(amt)s "
+"                                        I confirm that I have sent ₦%(amt)s "
 "to the account stated above.\n"
-"                                         "
+"                                        "
 msgstr ""
 "\n"
 "                                         Na tabbatar cewa na tura ₦%(amt)s "
@@ -787,7 +1188,8 @@ msgstr "Biyan Kudi ta Kati"
 msgid ""
 "You will be redirected to a secure payment gateway to complete your "
 "transaction."
-msgstr "Za a tura ku zuwa wani amintaccen shafin biyan kudi domin kammala aikin."
+msgstr ""
+"Za a tura ku zuwa wani amintaccen shafin biyan kudi domin kammala aikin."
 
 #: templates/donations/card_payment.html:28
 msgid "Reference Code:"
@@ -805,7 +1207,9 @@ msgstr "Sunan dake kan Kati"
 msgid ""
 "Your card details are securely encrypted. We do not store your full card "
 "information on our servers."
-msgstr "Bayanan katinku suna nan cikin tsaro. Ba ma adana cikakkun bayanan katin a cikin na'urorinmu."
+msgstr ""
+"Bayanan katinku suna nan cikin tsaro. Ba ma adana cikakkun bayanan katin a "
+"cikin na'urorinmu."
 
 #: templates/donations/card_payment.html:83
 #, python-format
@@ -869,11 +1273,15 @@ msgstr "Kwanan Wata:"
 msgid ""
 "Our sincere gratitude goes to everyone who contributes. Your support will "
 "greatly help the community."
-msgstr "Godiya ta musamman ga duk wanda ya bayar da taimako. Taimakonku zai amfani al'umma sosai."
+msgstr ""
+"Godiya ta musamman ga duk wanda ya bayar da taimako. Taimakonku zai amfani "
+"al'umma sosai."
 
 #: templates/donations/confirmation_email.html:44
 msgid "If you have any questions, please reply to this email or contact us at:"
-msgstr "Idan kana da tambaya, don Allah ka ba da amsa ga wannan imel din ko ka tuntube mu a:"
+msgstr ""
+"Idan kana da tambaya, don Allah ka ba da amsa ga wannan imel din ko ka "
+"tuntube mu a:"
 
 #: templates/donations/confirmation_email.html:50
 msgid "Izala Group. All rights reserved."
@@ -969,14 +1377,6 @@ msgstr "Dukkan Hanyoyi"
 #: templates/donations/donation_list.html:32
 msgid "Cash"
 msgstr "Tsabar Kudi"
-
-#: templates/donations/donation_list.html:40
-msgid "From"
-msgstr "Daga"
-
-#: templates/donations/donation_list.html:43
-msgid "To"
-msgstr "Zuwa"
 
 #: templates/donations/donation_list.html:49
 msgid "Clear"
@@ -1180,15 +1580,17 @@ msgstr "Tabbatar da Biyan Albashin Reshe"
 #, python-format
 msgid ""
 "\n"
-"                    You are about to process payments for selected members "
+"You are about to process payments for selected members "
 "of <strong>%(unit)s</strong>. \n"
-"                    This action will trigger bank transfers and cannot be "
+"This action will trigger bank transfers and cannot be "
 "reversed once executed.\n"
-"                    "
+"  "
 msgstr ""
 "\n"
-"                    Kana shirin biyan mambobin <strong>%(unit)s</strong> da aka zaba. \n"
-"                    Wannan aikin zai tura kudi ta banki kuma ba za a iya soke shi ba da zarar an fara.\n"
+"Kana shirin biyan mambobin <strong>%(unit)s</strong> da "
+"aka zaba. \n"
+"Wannan aikin zai tura kudi ta banki kuma ba za a iya "
+"soke shi ba da zarar an fara.\n"
 "                    "
 
 #: templates/includes/bulk_pay_modal.html:28
@@ -1203,25 +1605,51 @@ msgstr "Duba Jerin"
 msgid "Process Now"
 msgstr "Fara Yanzu"
 
-#: templates/includes/sidebar.html:8
-msgid "Unit Leader"
-msgstr "Shugaban Reshe"
-
-#: templates/includes/sidebar.html:12
+#: templates/includes/sidebar.html:36
 msgid "NAVIGATION"
 msgstr "MAHUYI"
 
-#: templates/includes/sidebar.html:32
+#: templates/includes/sidebar.html:51
+msgid "Payroll History"
+msgstr "Tarihin Biyan Kudade"
+
+#: templates/includes/sidebar.html:60
 msgid "SETTINGS"
 msgstr "SAITUNA"
 
-#: templates/includes/sidebar.html:35
+#: templates/includes/sidebar.html:63
 msgid "My Profile"
 msgstr "Bayanan Suna"
 
-#: templates/includes/sidebar.html:42
-msgid "Payroll History"
-msgstr "Tarihin Biyan Kudade"
+#: templates/includes/sidebar.html:72
+#, fuzzy
+#| msgid "Latest Announcements"
+msgid "Post Announcement"
+msgstr "Sanarwar Kwanan Nan"
+
+#: templates/includes/sidebar.html:89
+#, fuzzy
+#| msgid "Latest Announcements"
+msgid "Unit Announcement"
+msgstr "Sanarwar Kwanan Nan"
+
+#: templates/includes/sidebar.html:111
+#, fuzzy
+#| msgid "Unit Leader"
+msgid "Unit Gallery"
+msgstr "Shugaban Reshe"
+
+#: templates/includes/sidebar.html:120
+#, fuzzy
+#| msgid "Selected"
+msgid "Select File"
+msgstr "Wadanda aka zaba"
+
+#: templates/includes/sidebar.html:125
+#, fuzzy
+#| msgid "Upload Short Video"
+msgid "Upload Photo"
+msgstr "Dora Gajeren Bidiyo"
 
 #: templates/landing.html:125
 msgid "Updates"
@@ -1229,7 +1657,8 @@ msgstr "Sababbin Labarai"
 
 #: templates/landing.html:133
 msgid "Welcome to our official portal. Stay tuned for live updates."
-msgstr "Barka da zuwa shafinmu na hukuma. Kasance da mu don samun sababbin labarai."
+msgstr ""
+"Barka da zuwa shafinmu na hukuma. Kasance da mu don samun sababbin labarai."
 
 #: templates/landing.html:170
 msgid "JIBWIS Digital Portal"
@@ -1299,52 +1728,29 @@ msgstr "Aika"
 msgid "Download"
 msgstr "Sauke"
 
-#: templates/leader_directory.html:7
-msgid "Official Leader Directory"
-msgstr "Kundin Sunayen Shugabanni na Hukuma"
-#: templates/leader_directory.html:16
-msgid "Search by name, position, or unit..."
-msgstr "Nemo suna, matayi, ko reshe..."
+#: templates/login.html:27
+msgid "Portal Login"
+msgstr "Shiga Shafin"
 
-#: templates/leader_directory.html:56 templates/pending_approval.html:24
-msgid "View Profile"
-msgstr "Duba Bayanai"
+#: templates/login.html:54
+msgid "Username"
+msgstr "Sunan Shiga"
 
-#: templates/leader_directory.html:80
-msgid "Directory Updating"
-msgstr "Ana Sabunta Kundin Sunaye"
+#: templates/login.html:59
+#, fuzzy
+#| msgid "Enter your full name"
+msgid "Enter username"
+msgstr "Saka cikakken sunanka"
 
-#: templates/leader_directory.html:81
-msgid "The leadership directory is currently being synchronized."
-msgstr "A halin yanzu ana sabunta bayanan kundin shugabanni."
-
-#: templates/leader_directory.html:82
-msgid "Return to Dashboard"
-msgstr "Koma Dashboard"
-
-#: templates/login.html:9
-msgid "Warning:"
-msgstr "Gargaɗi:"
-
-#: templates/login.html:21
-msgid "Access the JIBWIS Management Portal"
-msgstr "Shiga Shafin Gudanarwa na JIBWIS"
-
-#: templates/login.html:45
+#: templates/login.html:65
 msgid "Password"
 msgstr "Kalmar Sirri"
 
-#: templates/login.html:57
-msgid "Login to Account"
-msgstr "Shiga Asusunka"
-
-#: templates/login.html:70
-msgid "Not registered?"
-msgstr "Ba ka yi rajista ba?"
-
-#: templates/login.html:71
-msgid "Apply Now"
-msgstr "Nemi Shiga Yanzu"
+#: templates/login.html:95
+#, fuzzy
+#| msgid "New Official Memo"
+msgid "New official?"
+msgstr "Sabuwar Takardar Hukuma"
 
 #: templates/password_reset.html:2
 msgid "Reset Your Password"
@@ -1354,7 +1760,9 @@ msgstr "Sake Saita Kalmar Sirri"
 msgid ""
 "Enter your email address below, and we'll email instructions for setting a "
 "new one."
-msgstr "Saka adireshin imel dinka a kasa, zamu tura maka matakan saka sabuwar kalmar sirri."
+msgstr ""
+"Saka adireshin imel dinka a kasa, zamu tura maka matakan saka sabuwar kalmar "
+"sirri."
 
 #: templates/password_reset.html:7
 msgid "Send Reset Email"
@@ -1400,25 +1808,33 @@ msgstr "Duba Imel Dinka"
 msgid ""
 "We've emailed you instructions for setting your password. You should receive "
 "them shortly."
-msgstr "Mun tura maka bayanan yadda zaka sake saita kalmar sirri. Zaka gansu nan ba dadewa ba."
+msgstr ""
+"Mun tura maka bayanan yadda zaka sake saita kalmar sirri. Zaka gansu nan ba "
+"dadewa ba."
 
 #: templates/password_reset_done.html:8
 msgid ""
 "If you don't receive an email, please ensure you've entered the address you "
 "registered with and check your spam folder."
-msgstr "Idan ba ka ga imel ba, ka tabbatar ka saka adireshin da ka yi rajista da shi, kuma ka duba 'spam folder'."
+msgstr ""
+"Idan ba ka ga imel ba, ka tabbatar ka saka adireshin da ka yi rajista da "
+"shi, kuma ka duba 'spam folder'."
 
 #: templates/password_reset_email.html:3
 msgid ""
 "To initiate the password reset process for your JIBWIS account, click the "
 "link below:"
-msgstr "Don fara sake saita kalmar sirrin asusunka na JIBWIS, taba wannan hanyar ta kasa:"
+msgstr ""
+"Don fara sake saita kalmar sirrin asusunka na JIBWIS, taba wannan hanyar ta "
+"kasa:"
 
 #: templates/password_reset_email.html:7
 msgid ""
 "If clicking the link doesn't work, please copy and paste the URL into your "
 "browser."
-msgstr "Idan tabawa ba ta yi aiki ba, kwafo adireshin ka saka shi a manhajar bincikenka."
+msgstr ""
+"Idan tabawa ba ta yi aiki ba, kwafo adireshin ka saka shi a manhajar "
+"bincikenka."
 
 #: templates/payroll_history.html:13
 msgid "Disbursement Ledger"
@@ -1447,10 +1863,6 @@ msgstr "Mambobin da ke Jiran Tabbatarwa"
 #: templates/pending_approval.html:12
 msgid "Registration Date"
 msgstr "Ranar Rajista"
-
-#: templates/pending_approval.html:28
-msgid "Approve"
-msgstr "Amince"
 
 #: templates/pending_approval.html:44
 msgid "Bank:"
@@ -1485,8 +1897,8 @@ msgid ""
 "Videos will auto-play on hover on the landing page. Recommended format: "
 "Vertical (9:16)."
 msgstr ""
-"Bidiyo zai fara wasa da kansa idan aka kai sanda kansa a shafin farko. Tsarin "
-"da aka fi so: Tsaye (9:16)."
+"Bidiyo zai fara wasa da kansa idan aka kai sanda kansa a shafin farko. "
+"Tsarin da aka fi so: Tsaye (9:16)."
 
 #: templates/upload_video.html:16
 msgid "Publish Video"
@@ -1495,3 +1907,121 @@ msgstr "Wallafa Bidiyo"
 #: templates/upload_video.html:20
 msgid "Cancel and Return"
 msgstr "Soke kuma Koma Baya"
+
+#~ msgid ""
+#~ "Registration successful! Your branch leader must activate your account "
+#~ "before you can login."
+#~ msgstr ""
+#~ "An yi rajista cikin nasara! Dole ne shugaban reshenku ya kunna asusunku "
+#~ "kafin ku iya shiga."
+
+#~ msgid "Account for {profile.user.get_full_name()} activated."
+#~ msgstr "An kunna asusun {profile.user.get_full_name()}."
+
+#~ msgid "Bank Code"
+#~ msgstr "Lambar Banki"
+
+#~ msgid "Account No"
+#~ msgstr "Lambar Asusu"
+
+#~ msgid "Forgot Password?"
+#~ msgstr "Ka manta kalmar sirri?"
+
+#~ msgid "Unit Directory"
+#~ msgstr "Kundin Membobin Rassa"
+
+#~ msgid "Restore/Activate"
+#~ msgstr "Maido/Kunna"
+
+#~ msgid "Disburse Payment"
+#~ msgstr "Tura Biya"
+
+#~ msgid "Payment Locked"
+#~ msgstr "An Rufe Biyan"
+
+#~ msgid "Account Currently Suspended"
+#~ msgstr "A yanzu an dakatar da asusun nan"
+
+#~ msgid ""
+#~ "This member cannot receive payments or access unit resources until "
+#~ "restored."
+#~ msgstr ""
+#~ "Wannan mamban ba zai iya karbar albashi ko amfani da kayan aiki ba har "
+#~ "sai an maido shi."
+
+#~ msgid "Official Personnel File"
+#~ msgstr "Fayil din Ma'aikaci na Hukuma"
+
+#~ msgid "Verified Banking Data"
+#~ msgstr "Tabbataccen Bayanan Banki"
+
+#~ msgid "Bank Name"
+#~ msgstr "Sunan Banki"
+
+#~ msgid "Account Number"
+#~ msgstr "Lambar Asusu"
+
+#~ msgid "Credentials"
+#~ msgstr "Shaidun Karatu"
+
+#~ msgid "Export Official PDF"
+#~ msgstr "Fitar da PDF na Hukuma"
+
+#~ msgid "This is only for deceased members or permanent resignations."
+#~ msgstr ""
+#~ "Wannan na mambobin da suka rasu ne kawai ko kuma suka yi murabus na din-"
+#~ "din-din."
+
+#~ msgid "Select members to send bulk notifications or manage accounts."
+#~ msgstr "Zabi mambobin da kake son aikewa sako ko sarrafa asusunsu."
+
+#~ msgid "Send Bulk Message"
+#~ msgstr "Aika Sakon Gaba-daya"
+
+#~ msgid "Send to Selected Members"
+#~ msgstr "Aika zuwa ga mambobin da aka zaba"
+
+#~ msgid "Account Information"
+#~ msgstr "Bayanin Asusu"
+
+#~ msgid "Organizational Role"
+#~ msgstr "Makaminka a Kungiya"
+
+#~ msgid "Submit Membership Request"
+#~ msgstr "Tura Bukatar Zama Mamba"
+
+#~ msgid "View and manage all registered members."
+#~ msgstr "Duba da sarrafa dukkan mambobin da aka yiwa rajista."
+
+#~ msgid "No new messages."
+#~ msgstr "Babu sababbin sakonni."
+
+#~ msgid "Official Leader Directory"
+#~ msgstr "Kundin Sunayen Shugabanni na Hukuma"
+
+#~ msgid "Search by name, position, or unit..."
+#~ msgstr "Nemo suna, matayi, ko reshe..."
+
+#~ msgid "Directory Updating"
+#~ msgstr "Ana Sabunta Kundin Sunaye"
+
+#~ msgid "The leadership directory is currently being synchronized."
+#~ msgstr "A halin yanzu ana sabunta bayanan kundin shugabanni."
+
+#~ msgid "Return to Dashboard"
+#~ msgstr "Koma Dashboard"
+
+#~ msgid "Warning:"
+#~ msgstr "Gargaɗi:"
+
+#~ msgid "Access the JIBWIS Management Portal"
+#~ msgstr "Shiga Shafin Gudanarwa na JIBWIS"
+
+#~ msgid "Login to Account"
+#~ msgstr "Shiga Asusunka"
+
+#~ msgid "Not registered?"
+#~ msgstr "Ba ka yi rajista ba?"
+
+#~ msgid "Apply Now"
+#~ msgstr "Nemi Shiga Yanzu"

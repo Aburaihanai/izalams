@@ -30,34 +30,50 @@
                     </div>
                     <div class="list-group list-group-flush">
                         {% for member in pending %}
-                            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 border-start border-4 {% if member.unit.level == 'STATE' %}border-success{% else %}border-info{% endif %}">
                                 <div class="d-flex align-items-center">
-                                    <div class="bg-light rounded-circle p-2 me-3">
-                                        <i class="bi bi-person text-secondary"></i>
+                                    <div class="bg-light rounded-circle p-2 me-3 shadow-sm">
+                                        {% if member.profile_picture %}
+                                            <img src="{{ member.profile_picture.url }}" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+                                        {% else %}
+                                            <i class="bi bi-person-badge fs-4 text-success"></i>
+                                        {% endif %}
                                     </div>
                                     <div>
-                                        <h6 class="mb-0 fw-bold">{{ member.user.get_full_name|default:member.user.username }}</h6>
-                                        <small class="text-muted">{{ member.category }} • {{ member.user.email|default:"No email" }}</small>
+                                        <h6 class="mb-0 fw-bold text-dark">{{ member.user.get_full_name|default:member.user.username }}</h6>
+                                        <div class="d-flex align-items-center gap-2 mt-1">
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle fw-normal">
+                                                {{ member.position|default:"Member" }}
+                                            </span>
+                                            <small class="text-muted small">
+                                                <i class="bi bi-geo-alt"></i> {{ member.unit.name }}
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="d-flex gap-2">
                                     <form action="{% url 'approve_member' member.id %}" method="POST" class="d-inline">
                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-success px-3 rounded-pill">
+                                        <button type="submit" class="btn btn-sm btn-success px-3 rounded-pill shadow-sm">
                                             <i class="bi bi-check-lg me-1"></i> {% trans "Approve" %}
                                         </button>
                                     </form>
+
                                     <form action="{% url 'delete_member_permanent' member.user.id %}" method="POST" class="d-inline">
                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('{% trans "Reject and delete this application?" %}')">
-                                            <i class="bi bi-x"></i>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle shadow-sm"
+                                                onclick="return confirm('{% trans "Are you sure you want to REJECT and DELETE this application?" %}')"
+                                                title="{% trans 'Reject Application' %}">
+                                            <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
                                 </div>
                             </div>
                         {% empty %}
-                            <div class="p-4 text-center">
-                                <p class="text-muted small mb-0">{% trans "Your unit is currently up to date. No pending requests." %}</p>
+                            <div class="p-5 text-center bg-light rounded-3">
+                                <i class="bi bi-shield-check fs-1 text-success opacity-50"></i>
+                                <p class="text-muted mt-2">{% trans "No pending requests. Your unit is fully approved." %}</p>
                             </div>
                         {% endfor %}
                     </div>
@@ -77,8 +93,6 @@
                         </div>
                     </a>
                 </div>
-                {% endif %}
-
                 <div class="col-md-4">
                     <a href="{% url 'members_list' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
                         <div class="card-body text-center p-4">
@@ -90,7 +104,7 @@
                         </div>
                     </a>
                 </div>
-
+                {% endif %}
                 <div class="col-md-4">
                     <a href="#inboxSection" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
                         <div class="card-body text-center p-4">
@@ -113,28 +127,59 @@
                     <a href="{% url 'inbox' %}" class="btn btn-sm btn-light text-success px-3">{% trans "View All" %}</a>
                 </div>
                 <div class="list-group list-group-flush">
-                    {% for msg in messages_received|slice:":5" %}
-                        <div class="list-group-item p-3 border-start border-4 {% if not msg.is_read %}border-success bg-light-subtle{% else %}border-transparent{% endif %}">
-                            <small class="text-muted float-end">{{ msg.timestamp|date:"d M" }}</small>
-                            <h6 class="fw-bold mb-1">
-                                {% if not msg.is_read %}<span class="badge bg-success p-1 me-1"> </span>{% endif %}
-                                {{ msg.subject }}
-                            </h6>
-                            <p class="small text-muted mb-2 text-truncate">{{ msg.body }}</p>
+                    <div class="list-group">
+                        {% for msg in messages_received %}
+                        <div class="list-group-item list-group-item-action border-0 mb-2 rounded-3 shadow-sm
+                                    {% if msg.is_read %}bg-success bg-opacity-10{% endif %}">
+
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <h6 class="mb-1 fw-bold {% if msg.is_read %}text-success{% endif %}">
+                                    {{ msg.subject }}
+                                </h6>
+                                <small class="text-muted">{{ msg.timestamp|timesince }} ago</small>
+                            </div>
+
+                            <p class="mb-2 small text-secondary">{{ msg.body|truncatewords:20 }}</p>
 
                             <div class="d-flex gap-2">
-                                <button class="btn btn-sm btn-outline-primary py-0 px-2" data-bs-toggle="modal" data-bs-target="#preview{{ msg.id }}">
-                                    <i class="bi bi-eye small"></i> {% trans "Preview" %}
-                                </button>
-                                <a href="{% url 'bulk_message_send' %}?recipient={{ msg.sender.id }}&subject=RE: {{ msg.subject }}" class="btn btn-sm btn-outline-success py-0 px-2">
-                                    <i class="bi bi-reply small"></i> {% trans "Reply" %}
+                                <a href="{% url 'mark_read_ajax' msg.id %}" class="btn btn-sm {% if msg.is_read %}btn-success{% else %}btn-outline-secondary{% endif %}">
+                                    <i class="bi {% if msg.is_read %}bi-envelope-open-fill{% else %}bi-envelope-fill{% endif %}"></i>
                                 </a>
+
+                                <a href="{% url 'mark_read_ajax' msg.id %}" class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Delete this message?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                                {% if user.is_staff %}
+                                <button class="btn btn-sm btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#replyModal{{ msg.id }}">
+                                    <i class="bi bi-reply-fill"></i> {% trans "Reply" %}
+                                </button>
+
+                                <div class="modal fade" id="replyModal{{ msg.id }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <form method="post" action="{% url 'leader_reply' msg.id %}" class="modal-content">
+                                            {% csrf_token %}
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Reply to {{ msg.sender.username }}</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <textarea name="body" class="form-control" rows="4" placeholder="Type your reply here..." required></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-success">Send Reply</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
-
                         {% empty %}
-                        <div class="p-4 text-center text-muted">{% trans "No new messages." %}</div>
-                    {% endfor %}
+                        <p class="text-center text-muted py-4">No messages found.</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

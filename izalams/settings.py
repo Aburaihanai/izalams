@@ -30,7 +30,7 @@ USE_L10N = True
 
 # --- SECURITY SETTINGS ---
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG') == 'False'
+DEBUG = os.getenv('DEBUG') == 'True'
 ALLOWED_HOSTS = ['Aburaihanai.pythonanywhere.com']
 
 # --- APPLICATION DEFINITION ---

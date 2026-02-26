@@ -2,50 +2,73 @@
 {% load i18n %}
 
 {% block content %}
-<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+<div class="row justify-content-center align-items-center" style="min-height: 85vh; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
     <div class="col-md-5 col-lg-4">
+        
+        {# 1. Security Lockout Warning #}
         {% if show_warning %}
-            <div class="alert alert-warning border-0 shadow-sm rounded-4 mb-3">
-                <strong>{% trans "Warning:" %}</strong>
-                You have {{ remaining_attempts }} attempts left.
-                {% if lockout_expires %}
-                    <br><small>Records clear at: {{ lockout_expires|time:"H:i" }}</small>
-                {% endif %}
+            <div class="alert alert-warning border-0 shadow-sm rounded-4 mb-3 animate__animated animate__shakeX">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                    <div>
+                        <strong>{% trans "Security Notice" %}</strong><br>
+                        <small>You have {{ remaining_attempts }} attempts left before temporary lockout.</small>
+                    </div>
+                </div>
             </div>
         {% endif %}
 
-        <div class="card shadow-lg border-0 rounded-4">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            {# Top Branding Strip #}
+            <div class="bg-success" style="height: 6px;"></div>
+            
             <div class="card-body p-5">
                 <div class="text-center mb-4">
-                    <h3 class="fw-bold text-success">{% trans "Login" %}</h3>
-                    <p class="text-muted small">{% trans "Access the JIBWIS Management Portal" %}</p>
+                    <h3 class="fw-bold text-success mb-1">{% trans "Portal Login" %}</h3>
+                    <p class="text-muted small">{% trans "National Management Information System" %}</p>
                 </div>
 
-                {# 2. Error Display: Changed class slightly for better padding #}
+                {# 2. Error Display & Pending Approval Logic #}
                 {% if form.non_field_errors %}
                     <div class="alert alert-danger py-2 px-3 small border-0 rounded-3 mb-4">
                         {% for error in form.non_field_errors %}
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-x-circle-fill me-2"></i> {{ error }}
+                                <i class="bi bi-x-circle-fill me-2"></i> 
+                                <span>{{ error }}</span>
                             </div>
+                            {# Contextual Hint for JIBWIS Members #}
+                            {% if "inactive" in error|lower or "active" in error|lower %}
+                                <div class="mt-2 p-2 bg-white rounded-2 text-dark" style="font-size: 0.75rem;">
+                                    <i class="bi bi-info-circle-fill text-primary"></i> 
+                                    {% trans "Your account may be awaiting leader approval from your assigned Ward/Unit." %}
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 {% endif %}
 
-                <form method="post">
+                <form method="post" id="loginForm">
                     {% csrf_token %}
+                    
                     <div class="mb-3">
-                        <label class="form-label small fw-bold">{% trans "Username" %}</label>
-                        {# Added value="{{ form.username.value|default:'' }}" so the user doesn't have to re-type it #}
-                        <input type="text" name="username" value="{{ form.username.value|default:'' }}"
-                               class="form-control form-control-lg bg-light border-0" required>
+                        <label class="form-label small fw-bold text-uppercase" style="letter-spacing: 1px;">{% trans "Username" %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0"><i class="bi bi-person text-muted"></i></span>
+                            <input type="text" name="username" value="{{ form.username.value|default:'' }}"
+                                   class="form-control form-control-lg bg-light border-0" 
+                                   placeholder="{% trans 'Enter username' %}" required>
+                        </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label small fw-bold">{% trans "Password" %}</label>
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label small fw-bold text-uppercase" style="letter-spacing: 1px;">{% trans "Password" %}</label>
+                        </div>
                         <div class="input-group">
+                            <span class="input-group-text bg-light border-0"><i class="bi bi-lock text-muted"></i></span>
                             <input type="password" name="password" id="passwordField"
-                                   class="form-control form-control-lg bg-light border-0" required>
+                                   class="form-control form-control-lg bg-light border-0" 
+                                   placeholder="••••••••" required>
                             <button class="btn btn-light border-0" type="button" onclick="togglePassword()">
                                 <i class="bi bi-eye" id="toggleIcon"></i>
                             </button>
@@ -53,27 +76,45 @@
                     </div>
 
                     <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-success btn-lg shadow-sm fw-bold">
-                            {% trans "Login to Account" %}
+                        <button type="submit" class="btn btn-success btn-lg shadow-sm fw-bold py-3 rounded-3">
+                            {% trans "Sign In" %} <i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     </div>
 
                     <div class="text-center">
-                        <a href="{% url 'password_reset' %}" class="text-decoration-none small text-muted">
-                            {% trans "Forgot Password?" %}
+                        <a href="{% url 'password_reset' %}" class="text-decoration-none small text-muted hover-success">
+                            {% trans "Forgot your security credentials?" %}
                         </a>
                     </div>
                 </form>
             </div>
 
-            <div class="card-footer bg-light border-0 text-center py-3">
-                <span class="small">{% trans "Not registered?" %}
-                    <a href="{% url 'register' %}" class="text-success fw-bold">{% trans "Apply Now" %}</a>
-                </span>
+            <div class="card-footer bg-white border-0 text-center pb-4 pt-0">
+                <hr class="mx-5 opacity-10">
+                <p class="small mb-0 text-muted">
+                    {% trans "New official?" %}
+                    <a href="{% url 'register' %}" class="text-success fw-bold text-decoration-none">
+                        {% trans "Submit Enrollment" %}
+                    </a>
+                </p>
             </div>
         </div>
+        
+        <p class="text-center mt-4 text-muted extra-small">
+            &copy; 2026 JIBWIS Nigeria. <br>
+            {% trans "Authorized Personnel Only." %}
+        </p>
     </div>
 </div>
+
+<style>
+    .extra-small { font-size: 0.7rem; }
+    .hover-success:hover { color: #198754 !important; }
+    .form-control:focus {
+        box-shadow: none;
+        background-color: #f1f3f5 !important;
+    }
+</style>
 
 <script>
 function togglePassword() {

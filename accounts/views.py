@@ -2,7 +2,6 @@ import openpyxl
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.utils.translation import gettext as _
 import csv
@@ -12,21 +11,26 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import PasswordResetView
 from axes.models import AccessAttempt
 from django.contrib.auth.views import PasswordResetConfirmView
-from django.db.models import Sum
-from .utils import send_jibwis_sms
 from django.conf import settings
-from django.db.models import Count
 from django.db import transaction
+from django.utils import timezone
+from django.db import models
+from django.db.models import Sum, Count, Q
+from django.urls import reverse_lazy
+from django.contrib.auth import get_user_model
+from .forms import UserUpdateForm, ProfileUpdateForm
+from .utils import verify_bank_account
+
+User = get_user_model()
+
 from .models import (
     User, Profile, Message, OrganizationUnit,
-    VideoPost, PayrollRecord, Announcement, NewsUpdate, GalleryImage, DisciplinaryReport,
-    Disbursement
+    VideoPost, PayrollRecord, Announcement, GalleryImage, DisciplinaryReport,
+    Disbursement, LGA, Ward, State
 )
 
-# Import all your forms
 from .forms import (
-    RegistrationForm, ProfileForm, VideoUploadForm,
-    MessageForm, UserUpdateForm, ProfileUpdateForm
+    RegistrationForm, VideoUploadForm, MessageForm
 )
 
 # --- 1. PUBLIC VIEWS ---
@@ -34,71 +38,147 @@ from .forms import (
 def landing_page(request):
     """The public home page with news, scrolling announcements, and video feed."""
     announcements = Announcement.objects.filter(is_active=True).order_by('-created_at')
-    news = NewsUpdate.objects.all()[:3]
     videos = VideoPost.objects.all().order_by('-created_at')[:4]
     gallery = GalleryImage.objects.all()[:6]
 
     return render(request, 'landing.html', {
         'announcements': announcements,
-        'news': news,
         'videos': videos,
         'gallery': gallery
     })
 
-
+@transaction.atomic
 def register(request):
     if request.method == 'POST':
-        user_form = RegistrationForm(request.POST)
-        profile_form = ProfileForm(request.POST)
+        form = RegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
 
-        if user_form.is_valid() and profile_form.is_valid():
-            try:
-                with transaction.atomic():
-                    # 1. Save the User account
-                    user = user_form.save(commit=False)
-                    user.set_password(user_form.cleaned_data['password'])
-                    user.save()
+            lvl = form.cleaned_data['level']
+            cat = form.cleaned_data['category']
+            pos = form.cleaned_data.get('position', '').strip()
 
-                    # 2. Save the Profile and link it to the new User
-                    profile = profile_form.save(commit=False)
-                    profile.user = user
-                    profile.is_active = False  # Keep isolated until Leader approves
-                    profile.save()
+            # 1. Auto-Approval Logic
+            # More flexible staff logic
+            is_chairman = 'chairman' in pos.lower()
 
-                messages.success(request, "Registration successful! Your Unit Leader must approve your account.")
-                return redirect('login')
-            except Exception:
-                messages.error(request, "An error occurred. Please try again.")
+            if lvl == 'NATIONAL' and is_chairman:
+                user.is_active = True
+                user.is_staff = True
+            elif lvl == 'STATE' and is_chairman:
+                user.is_active = False
+                user.is_staff = True
+            elif lvl == 'LG' and is_chairman:
+                user.is_active = False
+                user.is_staff = True
+            elif lvl == 'WARD' and is_chairman:
+                user.is_active = False
+                user.is_staff = True
+            else:
+                user.is_active = False
+                user.is_staff = False
+
+            user.save()
+
+            # 2. The Funnel Logic
+            unit_filter = {'level': lvl, 'category': cat}
+
+            if lvl == 'STATE':
+                unit_filter['state'] = form.cleaned_data['state']
+            elif lvl == 'LG':
+                unit_filter['state'] = form.cleaned_data['state']
+                unit_filter['lga'] = form.cleaned_data['lga']
+            elif lvl == 'WARD':
+                unit_filter['state'] = form.cleaned_data['state']
+                unit_filter['lga'] = form.cleaned_data['lga']
+                unit_filter['ward_name'] = form.cleaned_data.get('ward', '').strip()
+
+            # 3. SAFER Get or Create (Fixes MultipleObjectsReturned)
+            # We filter first to see if ANY match exists
+            target_unit = OrganizationUnit.objects.filter(**unit_filter).first()
+
+            if not target_unit:
+                # If nothing exists, we create it
+                default_name = f"{lvl} {cat} Unit"
+                if lvl == 'WARD':
+                    default_name = f"{unit_filter.get('ward_name')} Branch ({cat})"
+                elif lvl == 'NATIONAL':
+                    default_name = f"JIBWIS National HQ ({cat})"
+
+                target_unit = OrganizationUnit.objects.create(
+                    **unit_filter,
+                    name=default_name
+                )
+
+            # 4. Create the Profile
+            Profile.objects.create(
+                user=user,
+                unit=target_unit,
+                position=pos,
+                profile_picture=form.cleaned_data.get('profile_picture'),
+                is_active=user.is_active
+            )
+
+            status_msg = "Approved and Active." if user.is_active else "Pending Leader Approval."
+            messages.success(request, f"Registration Successful! Account {status_msg}")
+            return redirect('login')
+        else:
+            # If form is invalid, errors will be sent to the template
+            messages.error(request, "Please correct the errors below.")
     else:
-        user_form = RegistrationForm()
-        profile_form = ProfileForm()
+        form = RegistrationForm()
 
-    return render(request, 'accounts/register.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
+    return render(request, 'accounts/register.html', {'form': form})
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def form_valid(self, form):
+        """
+        Executed when credentials are correct.
+        We check if the Profile is active before allowing entry.
+        """
+        user = form.get_user()
+        profile = user.profiles.first()
 
-        # Standard IP lookup
+        if profile and not profile.is_active:
+            messages.error(
+                self.request,
+                "Your account is pending leader approval. Please contact your Unit Secretary."
+            )
+            return self.form_invalid(form)
+
+        # Log successful login metadata (IP and Timestamp)
         x_fwd = self.request.META.get('HTTP_X_FORWARDED_FOR')
         ip = x_fwd.split(',')[0] if x_fwd else self.request.META.get('REMOTE_ADDR')
 
-        # Use the correct field name found in your console
-        attempt = AccessAttempt.objects.filter(ip_address=ip).first()
+        # Optional: You could save this to a 'LoginHistory' model here
+        print(f"Login Success: {user.username} from IP {ip} at {timezone.now()}")
 
-        # Fix: access 'failures_since_start' instead of 'failures'
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Standard IP lookup for security warnings
+        x_fwd = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        ip = x_fwd.split(',')[0] if x_fwd else self.request.META.get('REMOTE_ADDR')
+
+        # Axes Security Logic
+        attempt = AccessAttempt.objects.filter(ip_address=ip).first()
         failures = attempt.failures_since_start if attempt else 0
 
         limit = 5
         context['remaining_attempts'] = max(0, limit - failures)
         context['show_warning'] = failures > 0
         context['lockout_expires'] = attempt.expiration if attempt else None
+
         return context
+
+    def get_success_url(self):
+        # Everyone goes to the dashboard now
+        return reverse_lazy('dashboard')
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'password_reset.html'
@@ -120,80 +200,111 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
         return response
 
+@login_required
 def leader_directory(request):
-    """Public directory showing only verified/active leaders."""
-    profiles = Profile.objects.filter(is_active=True).select_related('user', 'unit')
-    return render(request, 'leader_directory.html', {'profiles': profiles})
+    """Public directory showing only verified/active leaders with filtering."""
 
+    # 1. Base QuerySet with valid select_related fields
+    # Using unit__lga and unit__state as identified in your previous error
+    queryset = Profile.objects.filter(is_active=True).select_related(
+        'user',
+        'unit__lga',
+        'unit__state'
+    )
+
+    # 2. Filter by Category (Fixed: Looking through the Unit relationship)
+    category = request.GET.get('category')
+    if category:
+        queryset = queryset.filter(unit__category=category)
+
+    # 3. Filter by State
+    state_id = request.GET.get('state')
+    if state_id:
+        queryset = queryset.filter(unit__state_id=state_id)
+
+    # 4. Filter by LGA
+    lga_id = request.GET.get('lga')
+    if lga_id:
+        queryset = queryset.filter(unit__lga_id=lga_id)
+
+    # 5. Search by Name or Phone (Great for finding specific leaders)
+    search_query = request.GET.get('q')
+    if search_query:
+        queryset = queryset.filter(
+            Q(user__first_name__icontains=search_query) |
+            Q(user__last_name__icontains=search_query) |
+            Q(user__phone_number__icontains=search_query)
+        )
+
+    # 6. Member Exemption check for context
+    # This allows the template to hide contact buttons for non-staff members
+    is_leader = request.user.is_staff
+
+    context = {
+        'profiles': queryset.order_by('user__first_name'),
+        'states': State.objects.all(),
+        'categories': OrganizationUnit.CATEGORY_CHOICES,
+        'is_leader': is_leader,
+    }
+    return render(request, 'leader_directory.html', context)
 
 # --- 2. MANAGEMENT & DASHBOARD ---
 @login_required
 def dashboard(request):
     user = request.user
-    # Fetch profile to identify the leader's unit and category
+    # 1. Safety Check: Ensure the user has a profile
     user_profile = Profile.objects.filter(user=user).first()
+
+    # If no profile exists (e.g., a new Superuser), redirect to a profile creation or show error
+    if not user_profile:
+        messages.warning(request, "Your account does not have an assigned Organizational Unit. Please contact the National Admin.")
+        return redirect('profile_create') # Or wherever you handle profile setups
+
+    # 2. Redirect inactive profiles
+    if not user_profile.is_active:
+        return render(request, 'pending_approval.html')
 
     # Global trending content
     trending_videos = VideoPost.objects.annotate(
         like_count=Count('likes')
     ).order_by('-like_count')[:3]
 
-    # 1. STAFF ACTIONS (POST) - Restricted to Leaders
+    # Handle POST Actions
     if request.method == 'POST' and user.is_staff:
-        # Leaders can post announcements visible only to their unit or global
         if 'add_announcement' in request.POST:
             content = request.POST.get('content')
             if content:
-                # Associate announcement with leader's unit for isolation
+                # Use the new unit isolation
                 Announcement.objects.create(content=content, unit=user_profile.unit)
             return redirect('dashboard')
 
-        if 'add_gallery' in request.POST:
-            title = request.POST.get('title')
-            image = request.FILES.get('image')
-            if image:
-                GalleryImage.objects.create(title=title, image=image)
-            return redirect('dashboard')
-
-    # 2. INITIALIZE UNIT-SPECIFIC VARIABLES
+    # 3. Initialize Variables
     members = []
     pending = []
     unit_leaders = []
     total_spent = 0
 
-    # Ensure profile exists before filtering unit data
-    if user_profile and user_profile.unit:
+    # 4. Hierarchical Data Isolation
+    # Only pull data belonging to the Leader's specific Unit (State, LGA, or Ward)
+    if user.is_staff:
+        # Members in the same unit
+        members = Profile.objects.filter(unit=user_profile.unit, is_active=True).exclude(user=user)
+        # Pending members awaiting THIS leader's approval
+        pending = Profile.objects.filter(unit=user_profile.unit, is_active=False)
+        # Financial sum for this specific unit
+        total_spent = PayrollRecord.objects.filter(
+            member__profiles__unit=user_profile.unit,
+            status='success'
+        ).aggregate(Sum('amount'))['amount__sum'] or 0
+    else:
+        # Regular members see who their leaders are
+        unit_leaders = Profile.objects.filter(unit=user_profile.unit, user__is_staff=True)
 
-        # 3. LOGIC FOR REGULAR MEMBERS (Non-Staff)
-        if not user.is_staff:
-            # Show leaders in their specific unit for reporting/contact
-            unit_leaders = Profile.objects.filter(unit=user_profile.unit, user__is_staff=True)
-
-        # 4. LOGIC FOR LEADERS (Staff)
-        else:
-            # Isolation: Leaders only see members within their own unit
-            members = Profile.objects.filter(unit=user_profile.unit, is_active=True).exclude(user=user)
-
-            # Pending approvals: Restricted to the leader's branch
-            pending = Profile.objects.filter(unit=user_profile.unit, is_active=False)
-
-            # Financial Oversight: Unit-specific payroll total
-            total_spent = PayrollRecord.objects.filter(
-                member__profiles__unit=user_profile.unit,
-                status='success'
-            ).aggregate(Sum('amount'))['amount__sum'] or 0
-
-    # 5. MESSAGING & NOTIFICATIONS
-    # Exclude soft-deleted messages as previously fixed
-    messages_received = Message.objects.filter(
-        recipient=user,
-        recipient_deleted=False
-    ).order_by('-timestamp')
-
-    # Announcements: Only show those relevant to the user's unit or global ones
+    # 5. Announcements (Unit-specific + National)
+    # Filter by user_profile.unit OR global announcements (where unit is NULL)
     announcements = Announcement.objects.filter(
-        is_active=True,
-        unit=user_profile.unit
+        models.Q(unit=user_profile.unit) | models.Q(unit__isnull=True),
+        is_active=True
     ).order_by('-created_at')
 
     context = {
@@ -203,7 +314,7 @@ def dashboard(request):
         'unit_leaders': unit_leaders,
         'total_spent': total_spent,
         'announcements': announcements,
-        'messages_received': messages_received,
+        'messages_received': Message.objects.filter(recipient=user, recipient_deleted=False).order_by('-timestamp'),
         'trending_videos': trending_videos,
     }
 
@@ -211,89 +322,189 @@ def dashboard(request):
 
 @login_required
 def members_list(request):
-    """The full list of users with search and category filtering."""
+    """The filtered list of users based on the leader's jurisdiction."""
     query = request.GET.get('q')
     category_filter = request.GET.get('category')
 
-    # Capital 'U' User.objects avoids your previous AttributeError
-    members = User.objects.all().prefetch_related('profiles__unit')
+    # 1. Get Leader's Information
+    leader_profile = getattr(request.user, 'profile', None) or getattr(request.user, 'profiles', None)
+    if hasattr(leader_profile, 'first'): leader_profile = leader_profile.first()
 
+    # 2. Base Queryset (Optimized with select_related for unit data)
+    # We use 'profile' or 'profiles' based on your model's related_name
+    members = User.objects.all().prefetch_related('profiles__unit', 'profiles__unit__state')
+
+    # 3. Apply Hierarchy Filter (Jurisdiction)
+    if not request.user.is_superuser:
+        if not leader_profile or not leader_profile.unit:
+            # If a user has no unit, they see nothing for security
+            members = User.objects.none()
+        else:
+            lvl = leader_profile.unit.level
+
+            if lvl == 'STATE':
+                # State Leaders see everyone in their specific State
+                members = members.filter(profiles__unit__state=leader_profile.unit.state)
+
+            elif lvl == 'LG':
+                # LG Leaders see everyone in their specific LGA
+                members = members.filter(profiles__unit__lga=leader_profile.unit.lga)
+
+            elif lvl == 'WARD':
+                # Ward Leaders only see their own Branch
+                members = members.filter(profiles__unit=leader_profile.unit)
+
+            # Note: NATIONAL level and Superusers continue to see User.objects.all()
+
+    # 4. Apply Search (Name, Username, or Phone)
     if query:
         members = members.filter(
             Q(first_name__icontains=query) |
             Q(last_name__icontains=query) |
-            Q(phone_number__icontains=query) |
-            Q(username__icontains=query)
+            Q(username__icontains=query) |
+            Q(profile__phone_number__icontains=query) # Assuming phone is in Profile
         )
 
+    # 5. Apply Category Filter (First Aid, Ulama, etc.)
     if category_filter:
         members = members.filter(profiles__unit__category=category_filter)
 
     return render(request, 'accounts/members_list.html', {
-        'members': members.distinct(),
-        'query': query
+        'members': members.distinct().order_by('username'),
+        'query': query,
+        'leader_profile': leader_profile # Passed so template knows the leader's unit name
     })
 
-# accounts/views.py
-def member_detail(request, pk):
-    leader_profile = request.user.profiles.first()
-    # Fetch the Profile, which links to the User
-    member_profile = get_object_or_404(Profile, user_id=pk, unit=leader_profile.unit)
+def member_detail(request, member_id):
+    # 1. Get the profile of the person currently logged in (the viewer)
+    # We use .profile (singular) assuming a OneToOneField
+    viewer_profile = getattr(request.user, 'profile', None)
+
+    # 2. Fetch the specific member being viewed
+    # This is the "member" whose ID is in the URL (e.g., 38)
+    member = get_object_or_404(Profile, user__id=member_id)
 
     return render(request, 'accounts/member_detail.html', {
-        'member': member_profile
+        'member': member,
+        'viewer': viewer_profile
     })
 
 @login_required
 def approve_member(request, profile_id):
-    # Only staff/leaders can perform this action
+    # 1. Authority Check
     if not request.user.is_staff:
         messages.error(request, "Access denied. Only leaders can approve members.")
         return redirect('dashboard')
 
-    # Fetch the pending profile
-    # Safety check: Ensure the member is in the same unit as the leader
-    leader_profile = request.user.profiles.first()
-    member_profile = get_object_or_404(
-        Profile,
-        id=profile_id,
-        unit=leader_profile.unit,
-        is_active=False
-    )
+    # 2. Identify the Leader
+    leader_profile = getattr(request.user, 'profile', None) or getattr(request.user, 'profiles', None)
+    if hasattr(leader_profile, 'first'):
+        leader_profile = leader_profile.first()
 
+    if not leader_profile or not leader_profile.unit:
+        messages.error(request, "You are not assigned to a unit.")
+        return redirect('dashboard')
+
+    # 3. Fetch the Member Profile
+    member_profile = get_object_or_404(Profile, id=profile_id)
+    member_user = member_profile.user
+    member_unit = member_profile.unit
+
+    # 4. HIERARCHY JURISDICTION CHECK
+    leader_lvl = leader_profile.unit.level
+    can_approve = False
+
+    # Check for unit existence to avoid AttributeErrors
+    if not member_unit:
+        messages.error(request, "This member has not been assigned to a unit yet.")
+        return redirect('members_list')
+
+    if leader_lvl == 'NATIONAL':
+        can_approve = True
+    elif leader_lvl == 'STATE':
+        if member_unit.state == leader_profile.unit.state:
+            can_approve = True
+    elif leader_lvl == 'LG':
+        if member_unit.lga == leader_profile.unit.lga:
+            can_approve = True
+    # --- ADDED WARD LEVEL LOGIC ---
+    elif leader_lvl == 'WARD':
+        # Ward Chairmen can only approve members in their exact same Ward
+        if member_unit == leader_profile.unit:
+            can_approve = True
+
+    if not can_approve:
+        messages.error(request, f"Jurisdiction Error: As a {leader_lvl} leader, you cannot manage this member.")
+        return redirect('members_list')
+
+    # 5. Process Approval
     if request.method == 'POST':
         member_profile.is_active = True
+        member_user.is_active = True
+
         member_profile.save()
+        member_user.save()
 
-        # Optional: Send a notification message to the new member
-        Message.objects.create(
-            sender=request.user,
-            recipient=member_profile.user,
-            subject="Account Activated",
-            body="Welcome! Your branch leader has approved your registration."
-        )
+        # Send an official JIBWIS notification
+        try:
+            Message.objects.create(
+                sender=request.user,
+                recipient=member_user,
+                subject="Account Activated",
+                body=f"Assalamu Alaikum. Your registration has been approved by the {leader_lvl} office of {leader_profile.unit.name}."
+            )
+        except Exception:
+            pass
 
-        messages.success(request, f"Member {member_profile.user.username} has been approved.")
+        messages.success(request, f"Member {member_user.get_full_name() or member_user.username} has been approved.")
 
-    return redirect('dashboard')
+    return redirect('members_list')
 
 # --- 3. PAYROLL & DATA ---
 
 @login_required
 def export_members_excel(request):
-    """Generates a multilingual Excel sheet of the directory."""
+    # 1. Get the Leader's Profile using the plural 'profiles'
+    leader_profile = request.user.profiles.first()
+
+    if not leader_profile or not leader_profile.unit:
+        return HttpResponse("Unauthorized jurisdiction.", status=403)
+
+    # 2. Setup Excel
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = "JIBWIS Directory"
+    ws.title = f"{leader_profile.unit.name} Directory"
 
-    ws.append([_("Username"), _("Full Name"), _("Phone"), _("Bank Code"), _("Account No")])
+    # 3. Header Row
+    ws.append(['Username', 'Full Name', 'Email', 'Position', 'Level', 'Status'])
 
-    for u in User.objects.all():
-        ws.append([u.username, u.get_full_name(), u.phone_number, u.bank_code, u.account_number])
+    # 4. Filter members based on jurisdiction
+    lvl = leader_profile.unit.level
+
+    # Using the local User model we just fetched via get_user_model()
+    members = User.objects.all().prefetch_related('profiles__unit')
+
+    if lvl == 'STATE':
+        members = members.filter(profiles__unit__state=leader_profile.unit.state)
+    elif lvl == 'LG':
+        members = members.filter(profiles__unit__lga=leader_profile.unit.lga)
+
+    # 5. Populate Data
+    for m in members.distinct():
+        p = m.profiles.first()
+        ws.append([
+            m.username,
+            m.get_full_name(),
+            m.email,
+            p.position if p else "N/A",
+            p.unit.level if p and p.unit else "N/A",
+            "Active" if m.is_active else "Suspended"
+        ])
 
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=JIBWIS_Export.xlsx'
+    response['Content-Disposition'] = f'attachment; filename=JIBWIS_Directory.xlsx'
     wb.save(response)
+
     return response
 
 @login_required
@@ -311,11 +522,40 @@ def payroll_history(request):
         'leader_profile': leader_profile,
     }
     return render(request, 'payroll_history.html', context)
+
 # --- 4. COMMUNICATION & CONTENT ---
 
 @login_required
 def send_message(request, recipient_id):
     recipient = get_object_or_404(User, id=recipient_id)
+
+    # 1. Jurisdiction Security Check
+    leader_profile = request.user.profiles.first()
+    recipient_profile = recipient.profiles.first()
+
+    # Ensure leader has a profile and can only message those they oversee
+    if not leader_profile or not leader_profile.unit:
+        messages.error(request, _("You must be assigned to a unit to send official memos."))
+        return redirect('dashboard')
+
+    # Optional: Logic to restrict messaging to jurisdiction
+    if not request.user.is_superuser:
+        can_message = False
+        lvl = leader_profile.unit.level
+        if lvl == 'NATIONAL':
+            can_message = True
+        elif lvl == 'STATE' and recipient_profile:
+            if recipient_profile.unit.state == leader_profile.unit.state:
+                can_message = True
+        elif lvl == 'LG' and recipient_profile:
+            if recipient_profile.unit.lga == leader_profile.unit.lga:
+                can_message = True
+
+        if not can_message:
+            messages.error(request, _("Jurisdiction Error: You can only message members within your region."))
+            return redirect('members_list')
+
+    # 2. Handle Message Submission
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -323,12 +563,18 @@ def send_message(request, recipient_id):
             msg.sender = request.user
             msg.recipient = recipient
             msg.save()
-            messages.success(request, _("Official memo sent."))
+
+            messages.success(request, _("Official memo sent successfully."))
+            # Match the URL name you are using for member details
             return redirect('member_detail', member_id=recipient.id)
     else:
         form = MessageForm()
-    return render(request, 'accounts/send_message.html', {'form': form, 'recipient': recipient})
 
+    return render(request, 'accounts/send_message.html', {
+        'form': form,
+        'recipient': recipient,
+        'recipient_profile': recipient_profile
+    })
 @login_required
 def upload_video(request):
     if request.method == 'POST':
@@ -572,14 +818,6 @@ def message_view(request):
         return redirect('dashboard')
 
 @login_required
-def mark_as_read(request, message_id):
-    # Ensure the message belongs to the person trying to read it
-    message = get_object_or_404(Message, id=message_id, recipient=request.user)
-    message.is_read = True
-    message.save()
-    return redirect('dashboard')
-
-@login_required
 def submit_report(request):
     if request.method == 'POST':
         leader_id = request.POST.get('subject_leader')
@@ -616,103 +854,99 @@ def disciplinary_admin(request):
 @login_required
 def edit_profile(request):
     profile = request.user.profiles.first()
+
     if request.method == 'POST':
+        # Added request.FILES for the profile image upload
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, instance=profile)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+
         if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
+            user = u_form.save(commit=False)
+
+            # 1. Bank Verification Logic
+            account_no = request.POST.get('account_number')
+            bank_cd = request.POST.get('bank_code')
+
+            # Only verify if the account number has changed or is being set
+            if account_no and bank_cd:
+                verified_name = verify_bank_account(account_no, bank_cd)
+
+                if verified_name:
+                    user.account_name = verified_name
+                    user.account_number = account_no
+                    user.bank_code = bank_cd
+                    messages.success(request, f"Bank Account Verified: {verified_name}")
+                else:
+                    messages.error(request, "Bank verification failed. Please check your details.")
+                    return render(request, 'accounts/edit_profile.html', {
+                        'u_form': u_form,
+                        'p_form': p_form
+                    })
+
+            # 2. Final Save
+            user.save()
             p_form.save()
             messages.success(request, "Profile updated successfully!")
             return redirect('dashboard')
-
-        if u_form.is_valid():
-            user = u_form.save(commit=False)
-            # If bank details changed, verify them
-            real_name = verify_bank_account(user.account_number, user.bank_code)
-            if real_name:
-                user.account_name = real_name # Auto-fill the verified name
-            user.save()
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=profile)
-
-    if request.method == 'POST':
-        account_no = request.POST.get('account_number')
-        bank_cd = request.POST.get('bank_code')
-
-        # Verify before saving
-        verified_name = verify_bank_account(account_no, bank_cd)
-
-        if verified_name:
-            # Save the profile and store the verified name for extra safety
-            profile = request.user.profiles.first()
-            request.user.account_number = account_no
-            request.user.bank_code = bank_cd
-            request.user.verified_bank_name = verified_name
-            request.user.save()
-            messages.success(request, f"Account Verified: {verified_name}")
-        else:
-            messages.error(request, "Could not verify bank details. Please check the number and bank.")
 
     return render(request, 'accounts/edit_profile.html', {
         'u_form': u_form,
         'p_form': p_form
     })
+
 @login_required
 def bulk_message_send(request):
-    if request.method == 'POST' and request.user.is_staff:
-        member_ids = request.POST.getlist('selected_members')
+    # 1. Handle the POST request (Sending the message)
+    if request.method == 'POST':
+        recipient_id = request.POST.get('selected_members')
+        category = request.POST.get('category')
         subject = request.POST.get('subject')
         body = request.POST.get('body')
-        category = request.POST.get('category')  # New: Get category from form
 
-        # Get the leader's profile safely
-        leader_profile = request.user.profiles.first()
-        if not leader_profile:
-            messages.error(request, "Adarí kò ní àkọsílẹ̀ (Leader profile not found).")
-            return redirect('members_list')
+        base_recipient = get_object_or_404(User, id=recipient_id)
+        base_profile = base_recipient.profiles.first()
 
-        leader_unit = leader_profile.unit
+        recipients = []
+        if not category:
+            recipients = [base_recipient]
+        else:
+            # Broadcast logic
+            matching_profiles = Profile.objects.filter(
+                unit=base_profile.unit,
+                category=category,
+                is_active=True
+            ).select_related('user')
+            recipients = [p.user for p in matching_profiles]
 
-        # Build the QuerySet
-        # We use category__iexact for a case-insensitive match
-        # 1. Start with the IDs selected in the form
-        query_filter = {'id__in': member_ids}
+        if recipients:
+            message_objs = [
+                Message(sender=request.user, recipient=r, subject=subject, body=body)
+                for r in recipients
+            ]
+            Message.objects.bulk_create(message_objs)
+            messages.success(request, f"Memo sent successfully to {len(recipients)} member(s).")
 
-        # 2. Add Unit restriction (unless the leader is National HQ)
-        if leader_unit.name != "National HQ":
-            query_filter['profiles__unit'] = leader_unit
+        return redirect('member_detail', member_id=recipient_id)
 
-        # 3. ONLY filter by category if a category was actually selected
-        if category and category.strip():
-            query_filter['profiles__category__iexact'] = category
+    # 2. Handle the GET request (Displaying the form for Reply)
+    # This prevents the 'UnboundLocalError'
+    recipient_id = request.GET.get('recipient')
+    subject = request.GET.get('subject', '')
 
-        recipients = User.objects.filter(**query_filter).distinct()
+    if not recipient_id:
+        messages.error(request, "No recipient specified.")
+        return redirect('members_list')
 
-        if not recipients.exists():
-            messages.warning(request, f"Notification sent to 0 members. Check if members match Unit: {leader_unit} and Category: {category}")
-            return redirect('members_list')
+    recipient = get_object_or_404(User, id=recipient_id)
 
-        for recipient in recipients:
-            # 1. Internal Message
-            Message.objects.create(
-                sender=request.user,
-                recipient=recipient,
-                subject=subject,
-                body=body
-            )
+    return render(request, 'accounts/send_message.html', {
+        'recipient': recipient,
+        'initial_subject': subject
+    })
 
-            # 2. SMS Alert (Using getattr to avoid errors if field is missing)
-            phone = getattr(recipient, 'phone_number', None)
-            if phone:
-                # Yoruba/English mixed SMS prefix
-                sms_prefix = f"JIBWIS {leader_unit}:"
-                sms_text = f"{sms_prefix} {subject}. {body[:100]}..."
-                send_jibwis_sms(phone, sms_text)
-
-        messages.success(request, f"The message has been sent to the member. {recipients.count()} (Sent to {recipients.count()} members).")
-
-    return redirect('members_list')
 
 @login_required
 def toggle_member_status(request, member_id):
@@ -720,75 +954,113 @@ def toggle_member_status(request, member_id):
         messages.error(request, "Access denied.")
         return redirect('dashboard')
 
-    # 1. Get the Leader's unit
-    leader_profile = request.user.profiles.first()
+    # 1. Identify the Leader and their Unit
+    leader_profile = getattr(request.user, 'profile', None) or getattr(request.user, 'profiles', None)
+    if hasattr(leader_profile, 'first'):
+        leader_profile = leader_profile.first()
+
     if not leader_profile or not leader_profile.unit:
-        messages.error(request, "You are not assigned to a unit.")
+        messages.error(request, "You must be assigned to a unit to manage members.")
         return redirect('dashboard')
 
-    # 2. Find the target member's profile
-    # We use filter().first() instead of get_object_or_404 to avoid the 404 crash
-    target_profile = Profile.objects.filter(user_id=member_id, unit=leader_profile.unit).first()
+    # 2. Fetch the target member's profile
+    target_profile = get_object_or_404(Profile, user_id=member_id)
+    target_unit = target_profile.unit
 
-    if not target_profile:
-        messages.error(request, "Member profile not found or belongs to another unit.")
+    if not target_unit:
+        messages.error(request, "This member is not assigned to any unit.")
         return redirect('members_list')
 
-    # 3. Handle the Deactivation Reason
+    # 3. --- HIERARCHY JURISDICTION CHECK ---
+    leader_lvl = leader_profile.unit.level    # e.g., 'NATIONAL', 'STATE', 'LG', 'WARD'
+    member_lvl = target_unit.level
+    can_manage = False
+
+    # National can manage all
+    if leader_lvl == 'NATIONAL':
+        can_manage = True
+
+    # State can manage their own State members and LGs in that State
+    elif leader_lvl == 'STATE':
+        if target_unit.state == leader_profile.unit.state:
+            if member_lvl in ['STATE', 'LG']:
+                can_manage = True
+
+    # LG can manage their own LG members and Wards in that LGA
+    elif leader_lvl == 'LG':
+        if target_unit.lga == leader_profile.unit.lga:
+            if member_lvl in ['LG', 'WARD']:
+                can_manage = True
+
+    # --- ADDED WARD LEVEL LOGIC ---
+    # A Ward Chairman can manage anyone in their specific Ward unit
+    elif leader_lvl == 'WARD':
+        if target_unit == leader_profile.unit:
+            can_manage = True
+
+    if not can_manage:
+        messages.error(request, f"Jurisdiction Error: As a {leader_lvl} leader, you cannot manage this member.")
+        return redirect('members_list')
+
+    # 4. --- EXECUTE TOGGLE ---
     reason = request.GET.get('reason', 'No reason provided')
+    new_status = not target_profile.is_active
 
-    # Toggle the status
-    target_profile.is_active = not target_profile.is_active
+    target_profile.is_active = new_status
+    target_user = target_profile.user
+    target_user.is_active = new_status
+
     target_profile.save()
+    target_user.save()
 
-    # Log the action (optional: you could save 'reason' to a Discipline model here)
-    status_text = "Activated" if target_profile.is_active else f"Deactivated (Reason: {reason})"
-    messages.success(request, f"Member {target_profile.user.get_full_name()} is now {status_text}.")
+    # Log the action for transparency
+    status_msg = "Activated" if new_status else f"Suspended ({reason})"
+    messages.success(request, f"Successfully updated {target_user.username} to {status_msg}")
 
     return redirect('members_list')
 
 @login_required
-def delete_member_permanent(request, user_id):
-    # Only Leaders/Staff allowed
+def delete_member_permanent(request, user_id): # Name must match urls.py
+    if request.method != 'POST':
+        return redirect('members_list')
+
+    # 1. Authority Check
     if not request.user.is_staff:
-        messages.error(request, "Permission denied.")
+        messages.error(request, "Unauthorized. Only leaders can delete accounts.")
         return redirect('dashboard')
 
-    # Get the Leader's unit
-    leader_profile = request.user.profiles.first()
-    if not leader_profile:
-        messages.error(request, "You do not have a Leader Profile assigned.")
-        return redirect('dashboard')
+    # 2. Identify the Leader and the Target
+    leader_profile = getattr(request.user, 'profile', None) or getattr(request.user, 'profiles', None)
+    if hasattr(leader_profile, 'first'): leader_profile = leader_profile.first()
 
-    # FIX: Use a more specific filter to find the user in the leader's unit
-    # This prevents the 404 if the user exists but is in the wrong unit
-    member_to_delete = User.objects.filter(
-        id=user_id,
-        profiles__unit=leader_profile.unit
-    ).first()
+    target_user = get_object_or_404(User, id=user_id)
+    target_profile = getattr(target_user, 'profile', None) or getattr(target_user, 'profiles', None)
+    if hasattr(target_profile, 'first'): target_profile = target_profile.first()
 
-    if not member_to_delete:
-        messages.error(request, f"User ID {user_id} not found in your unit ({leader_profile.unit}).")
-        return redirect('members_list')
+    # 3. Hierarchy Protection Logic
+    can_delete = False
+    leader_lvl = leader_profile.unit.level
 
-    if request.method == 'POST':
-        username = member_to_delete.username
-        member_to_delete.delete()
-        messages.success(request, f"User {username} deleted permanently.")
-        return redirect('members_list')
+    # National can delete anyone except other National Chairmen
+    if leader_lvl == 'NATIONAL':
+        if not (target_profile and target_profile.unit.level == 'NATIONAL' and 'chairman' in target_profile.position.lower()):
+            can_delete = True
+
+    # State can only delete LG/Ward within their state
+    elif leader_lvl == 'STATE':
+        if target_profile and target_profile.unit.state == leader_profile.unit.state:
+            if target_profile.unit.level in ['LG', 'WARD']:
+                can_delete = True
+
+    # 4. Final Execution
+    if can_delete or request.user.is_superuser:
+        username = target_user.username
+        target_user.delete() # This removes Profile and User due to CASCADE
+        messages.success(request, f"Leader account {username} has been permanently removed.")
+    else:
+        messages.error(request, "Jurisdiction Error: You do not have the rank to delete this account.")
 
     return redirect('members_list')
-
-def verify_bank_account(account_no, bank_code):
-    url = f"https://api.paystack.co/bank/resolve?account_number={account_no}&bank_code={bank_code}"
-    headers = {"Authorization": "Bearer YOUR_SECRET_KEY"}
-
-    response = requests.get(url, headers=headers)
-    data = response.json()
-
-    if data.get('status'):
-        return data['data']['account_name'] # Returns the real name from the bank
-    return None
 
 @login_required
 def verify_account_ajax(request):
@@ -883,28 +1155,122 @@ def video_detail(request, video_id):
     return render(request, 'video_detail.html', {'video': video})
 
 @login_required
-def delete_message(request, msg_id):
-    if request.method == 'POST':
-        # Get the message specifically for this recipient
-        message = get_object_or_404(Message, id=msg_id, recipient=request.user)
+def mark_message_read_ajax(request, message_id):
+    # Security: Ensure ONLY the recipient can mark this specific message as read
+    msg = get_object_or_404(Message, id=message_id, recipient=request.user)
 
-        # Set the flag to True
+    if not msg.is_read:
+        msg.is_read = True
+        msg.save()
+        return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'already_read'})
+
+@login_required
+def delete_message(request, message_id):
+    """Soft delete so the message disappears for the user but remains in DB."""
+    message = get_object_or_404(Message, id=message_id)
+    if message.recipient == request.user:
         message.recipient_deleted = True
-        message.save()  # This sends the change to the database
+    elif message.sender == request.user:
+        message.sender_deleted = True
+    message.save()
+    return redirect('dashboard')
 
-        messages.success(request, "The message has been deleted (Message deleted).")
+@login_required
+def leader_reply(request, message_id):
+    """Only staff/leaders can reply to messages."""
+    if not request.user.is_staff:
+        messages.error(request, "Access denied. Only leaders can reply.")
+        return redirect('dashboard')
 
-    # Redirect back to where they came from
-    return redirect(request.META.get('HTTP_REFERER', 'inbox'))
+    original_msg = get_object_or_404(Message, id=message_id, recipient=request.user)
+
+    if request.method == 'POST':
+        reply_body = request.POST.get('body')
+        Message.objects.create(
+            sender=request.user,
+            recipient=original_msg.sender,
+            subject=f"Re: {original_msg.subject}",
+            body=reply_body
+        )
+        messages.success(request, "Reply sent successfully.")
+        return redirect('dashboard')
 
 @login_required
 def inbox(request):
-    # Corrected: Use order_by with a minus sign for descending order (newest first)
+    # Use select_related('sender') to avoid hitting the database
+    # multiple times for each sender's name in the template
     messages_received = Message.objects.filter(
         recipient=request.user,
         recipient_deleted=False
-    ).order_by('-timestamp')
+    ).select_related('sender').order_by('-timestamp')
+
+    # Optional: Count unread messages for the badge
+    unread_count = messages_received.filter(is_read=False).count()
 
     return render(request, 'accounts/inbox.html', {
-        'messages_received': messages_received
+        'messages_received': messages_received,
+        'unread_count': unread_count
+    })
+
+def load_lgas(request):
+    state_id = request.GET.get('state_id')
+    lgas = LGA.objects.filter(state_id=state_id).order_by('name')
+    return JsonResponse(list(lgas.values('id', 'name')), safe=False)
+
+def load_wards(request):
+    lga_id = request.GET.get('lga_id')
+    wards = Ward.objects.filter(lga_id=lga_id).order_by('name')
+    return JsonResponse(list(wards.values('id', 'name')), safe=False)
+
+@login_required
+def sent_messages(request):
+    # Retrieve memos sent by the current leader
+    messages_sent = Message.objects.filter(
+        sender=request.user,
+        sender_deleted=False
+    ).select_related('recipient').order_by('-timestamp')
+
+    return render(request, 'accounts/sent_messages.html', {
+        'messages_sent': messages_sent
+    })
+
+@login_required
+def member_directory(request):
+    # Fetch the leader's primary profile
+    leader_profile = request.user.profiles.select_related('unit__lga', 'unit__state').first()
+
+    if not leader_profile or not leader_profile.unit:
+        messages.error(request, "Access denied. You must be assigned to an official unit.")
+        return redirect('dashboard')
+
+    unit = leader_profile.unit
+    level = unit.level
+
+    # 1. Start with an optimized QuerySet
+    # Use prefetch_related for 'profiles' because it's a Reverse ForeignKey (related_name)
+    queryset = User.objects.prefetch_related('profiles__unit__lga', 'profiles__unit__state')
+
+    # 2. Apply Hierarchical Filtering
+    if level == 'NATIONAL':
+        members = queryset.all()
+    elif level == 'STATE':
+        # Filter by unit's state
+        members = queryset.filter(profiles__unit__state=unit.state)
+    elif level == 'LG':
+        # Filter by unit's local government
+        members = queryset.filter(profiles__unit__lga=unit.lga)
+    elif level == 'WARD':
+        # Filter by the specific unit itself
+        members = queryset.filter(profiles__unit=unit)
+    else:
+        members = User.objects.none()
+
+    # 3. Clean up the list
+    members = members.exclude(id=request.user.id).distinct().order_by('first_name', 'last_name')
+
+    return render(request, 'accounts/members_list.html', {
+        'members': members,
+        'leader_profile': leader_profile
     })

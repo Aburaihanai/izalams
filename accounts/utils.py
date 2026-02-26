@@ -1,18 +1,25 @@
 import requests
+from django.conf import settings
 
-def send_jibwis_sms(phone_number, message):
-    url = "https://api.ng.termii.com/api/sms/send"
-    payload = {
-        "to": phone_number,
-        "from": "JIBWIS", # This is your registered Sender ID
-        "sms": message,
-        "type": "plain",
-        "channel": "generic", # Use 'dnd' for members with DND active
-        "api_key": "YOUR_TERMII_API_KEY",
+def verify_bank_account(account_number, bank_code):
+    """
+    Verifies a Nigerian bank account using Paystack API.
+    Returns the account name if successful, else None.
+    """
+    # Replace 'YOUR_PAYSTACK_SECRET_KEY' with your actual key in settings.py
+    url = f"https://api.paystack.co/bank/resolve?account_number={account_number}&bank_code={bank_code}"
+    headers = {
+        "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}",
     }
-    headers = {'Content-Type': 'application/json'}
+
     try:
-        response = requests.post(url, headers=headers, json=payload)
-        return response.json()
+        response = requests.get(url, headers=headers, timeout=10)
+        data = response.json()
+        
+        if data.get('status') is True:
+            # Returns the full name registered to the bank account
+            return data['data']['account_name']
     except Exception as e:
-        return None
+        print(f"Error verifying bank account: {e}")
+    
+    return None

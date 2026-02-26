@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <h3 class="fw-bold text-primary mb-0">
+                        <i class="bi bi-send-check me-2"></i>{% trans "Sent Memos" %}
+                    </h3>
+                    <p class="text-muted small mb-0">{% trans "Tracking official broadcasts and replies." %}</p>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs border-0 mb-3">
+                <li class="nav-item">
+                    <a class="nav-link text-muted border-0 bg-transparent" href="{% url 'inbox' %}"><i class="bi bi-download me-1"></i> {% trans "Received" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active fw-bold text-primary border-0 bg-transparent" href="#"><i class="bi bi-send-fill me-1"></i> {% trans "Sent" %}</a>
+                </li>
+            </ul>
+
+            <div class="card border-0 shadow-sm overflow-hidden rounded-4">
+                <div class="list-group list-group-flush">
+                    {% for msg in messages_sent %}
+                        <div class="list-group-item p-4 border-start border-4 border-primary-subtle">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1 fw-bold text-dark">{{ msg.subject }}</h5>
+                                    <div class="text-muted small d-flex align-items-center gap-2 mb-2">
+                                        <span><i class="bi bi-person-check me-1"></i><strong>{% trans "To" %}:</strong> {{ msg.recipient.get_full_name|default:msg.recipient.username }}</span>
+                                        <span class="text-light">|</span>
+                                        <span><i class="bi bi-calendar3 me-1"></i> {{ msg.timestamp|date:"d M Y | H:i" }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-end">
+                                    {% if msg.is_read %}
+                                        <span class="badge bg-success-subtle text-success rounded-pill">
+                                            <i class="bi bi-check2-all me-1"></i> {% trans "Read" %}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-light text-muted border rounded-pill">
+                                            <i class="bi bi-check2 me-1"></i> {% trans "Delivered" %}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <p class="text-secondary small mb-3 text-truncate" style="max-width: 85%;">{{ msg.body }}</p>
+
+                            <button class="btn btn-sm btn-outline-primary px-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#sentModal{{ msg.id }}">
+                                <i class="bi bi-file-text me-1"></i> {% trans "View Full Memo" %}
+                            </button>
+                        </div>
+
+                        <div class="modal fade" id="sentModal{{ msg.id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 shadow-lg rounded-4">
+                                    <div class="modal-header bg-primary text-white border-0">
+                                        <h6 class="modal-title">{{ msg.subject }}</h6>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body p-4">
+                                        <div class="mb-3 p-3 bg-light rounded small">
+                                            <strong>{% trans "Recipient" %}:</strong> {{ msg.recipient.get_full_name }}<br>
+                                            <strong>{% trans "Sent on" %}:</strong> {{ msg.timestamp|date:"F d, Y @ H:i" }}
+                                        </div>
+                                        <div style="white-space: pre-wrap;">{{ msg.body }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="text-center py-5">
+                            <i class="bi bi-send-x display-1 text-muted opacity-25"></i>
+                            <h5 class="text-muted mt-3">{% trans "You haven't sent any memos yet." %}</h5>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
