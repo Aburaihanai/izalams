@@ -1,20 +1,29 @@
-# Secrets and Environment
+# --- Security & Environment ---
 .env
-.venv
+.venv/
 env/
 venv/
+ENV/
+*.env
 
-# Django specific
+# --- Django ---
 db.sqlite3
-staticfiles/
+db.sqlite3-journal
 media/
-*.log
+# Note: Keep static/ in Git if you don't use a separate server, 
+# but ignore the gathered staticfiles directory.
+staticfiles/
 
-# Python cache
+# --- Python ---
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
 
-# IDEs
+# --- OS & Editors ---
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
+*.swp
