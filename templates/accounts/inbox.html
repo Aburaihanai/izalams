@@ -3,55 +3,51 @@
 
 {% block content %}
 <div class="container py-5">
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="d-flex justify-content-between align-items-end mb-4">
                 <div>
                     <h3 class="fw-bold text-success mb-0">
-                        <i class="bi bi-mailbox2 me-2"></i>{% trans "Official Inbox" %}
+                        <i class="bi bi-chat-square-quote me-2"></i>{% trans "Official Communications" %}
                     </h3>
-                    <p class="text-muted small mb-0">{% trans "Manage official communications and memos." %}</p>
+                    <p class="text-muted small mb-0">{% trans "Review memos, voice notes, and unit documents." %}</p>
                 </div>
                 <div class="text-end">
                     <span class="badge bg-success rounded-pill px-3 py-2 shadow-sm">
                         {{ messages_received.count }} {% trans "Total" %}
                     </span>
-                    {% if unread_count > 0 %}
-                        <span class="badge bg-danger rounded-pill px-3 py-2 shadow-sm">
-                            {{ unread_count }} {% trans "New" %}
-                        </span>
-                    {% endif %}
                 </div>
             </div>
 
             <ul class="nav nav-tabs border-0 mb-3">
                 <li class="nav-item">
-                    <a class="nav-link active fw-bold text-success border-0 bg-transparent" href="#"><i class="bi bi-download me-1"></i> {% trans "Received" %}</a>
+                    <a class="nav-link active fw-bold text-success border-0 bg-transparent" href="{% url 'inbox' %}"><i class="bi bi-chat-left-text me-1"></i> {% trans "Received" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-muted border-0 bg-transparent" href="#"><i class="bi bi-send me-1"></i> {% trans "Sent Memos" %}</a>
+                    <a class="nav-link text-muted border-0 bg-transparent" href="{% url 'sent_messages' %}"><i class="bi bi-send me-1"></i> {% trans "Sent Memos" %}</a>
                 </li>
             </ul>
 
             <div class="card border-0 shadow-sm overflow-hidden rounded-4">
                 <div class="list-group list-group-flush">
                     {% for msg in messages_received %}
-                        <div id="msg-row-{{ msg.id }}" class="list-group-item p-4 border-start border-4 transition-all {% if not msg.is_read %}border-success bg-light-subtle{% else %}border-transparent{% endif %}">
+                        <div id="msg-row-{{ msg.id }}" class="list-group-item p-4 border-start border-4 transition-all {% if not msg.is_read %}border-success bg-success-subtle{% else %}border-transparent{% endif %}">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <div>
-                                    <h5 class="mb-1 fw-bold {% if not msg.is_read %}text-success{% endif %}">
-                                        {{ msg.subject }}
-                                    </h5>
+                                    <h6 class="mb-1 fw-bold {% if not msg.is_read %}text-success{% endif %}">
+                                        {{ msg.subject|default:_("No Subject") }}
+                                        {% if msg.attachment %}<i class="bi bi-paperclip ms-2 text-muted"></i>{% endif %}
+                                        {% if msg.voice_note %}<i class="bi bi-mic-fill ms-2 text-danger"></i>{% endif %}
+                                    </h6>
                                     <div class="text-muted small d-flex align-items-center flex-wrap gap-2">
-                                        <span><i class="bi bi-person-circle me-1"></i><strong>{% trans "From" %}:</strong> {{ msg.sender.get_full_name|default:msg.sender.username }}</span>
-                                        <span class="text-light">|</span>
-                                        <span><i class="bi bi-clock me-1"></i>{{ msg.timestamp|date:"D, d M Y | H:i" }}</span>
-
-                                        {% with sender_profile=msg.sender.profiles.first %}
-                                            {% if sender_profile %}
-                                                <span class="badge bg-secondary-subtle text-secondary border-0 fw-normal">{{ sender_profile.position }}</span>
-                                            {% endif %}
-                                        {% endwith %}
+                                        <span><i class="bi bi-person-circle me-1"></i><strong>{{ msg.sender.get_full_name|default:msg.sender.username }}</strong></span>
+                                        <span class="opacity-50">|</span>
+                                        <span><i class="bi bi-clock me-1"></i>{{ msg.timestamp|date:"D, d M | H:i" }}</span>
                                     </div>
                                 </div>
 
@@ -63,7 +59,7 @@
                                         <li>
                                             <form action="{% url 'delete_message' msg.id %}" method="POST">
                                                 {% csrf_token %}
-                                                <button type="submit" class="dropdown-item text-danger py-2" onclick="return confirm('{% trans "Are you sure you want to delete this memo?" %}')">
+                                                <button type="submit" class="dropdown-item text-danger py-2" onclick="return confirm('{% trans "Delete this memo?" %}')">
                                                     <i class="bi bi-trash me-2"></i>{% trans "Delete Permanent" %}
                                                 </button>
                                             </form>
@@ -72,16 +68,17 @@
                                 </div>
                             </div>
 
-                            <p class="text-secondary mb-3 text-truncate" style="max-width: 85%;">{{ msg.body }}</p>
+                            <p class="text-secondary mb-3 text-truncate small" style="max-width: 85%;">
+                                {% if msg.body %}{{ msg.body }}{% else %}<em class="text-muted">{% trans "Multimedia attachment only" %}</em>{% endif %}
+                            </p>
 
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-success px-4 rounded-pill shadow-sm preview-btn"
                                         data-msg-id="{{ msg.id }}"
                                         data-bs-toggle="modal"
                                         data-bs-target="#msgModal{{ msg.id }}">
-                                    <i class="bi bi-eye me-1"></i> {% trans "Open Memo" %}
+                                    <i class="bi bi-envelope-open me-1"></i> {% trans "Open" %}
                                 </button>
-
                                 {% if user.is_staff %}
                                     <a href="{% url 'bulk_message_send' %}?recipient={{ msg.sender.id }}&subject=Re: {{ msg.subject }}" class="btn btn-sm btn-outline-success px-4 rounded-pill">
                                         <i class="bi bi-reply-fill me-1"></i> {% trans "Reply" %}
@@ -91,40 +88,64 @@
                         </div>
 
                         <div class="modal fade" id="msgModal{{ msg.id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content border-0 shadow-lg rounded-4">
                                     <div class="modal-header bg-success text-white border-0 py-3">
-                                        <h6 class="modal-title d-flex align-items-center">
-                                            <i class="bi bi-shield-check me-2"></i> {{ msg.subject }}
-                                        </h6>
+                                        <h6 class="modal-title fw-bold"><i class="bi bi-shield-check me-2"></i> {% trans "Official Memo" %}</h6>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                                     </div>
-                                    <div class="modal-body p-4 p-md-5">
-                                        <div class="mb-4 bg-light p-3 rounded-3 border">
-                                            <div class="row gy-2 small">
-                                                <div class="col-sm-2 text-muted">{% trans "Sender" %}:</div>
-                                                <div class="col-sm-10 fw-bold">{{ msg.sender.get_full_name }} ({{ msg.sender.profiles.first.position }})</div>
-                                                <div class="col-sm-2 text-muted">{% trans "Date" %}:</div>
-                                                <div class="col-sm-10">{{ msg.timestamp|date:"l, d F Y @ H:i" }}</div>
-                                            </div>
+                                    <div class="modal-body p-4">
+                                        <div class="mb-3 small text-muted">
+                                            <div><strong>{% trans "From" %}:</strong> {{ msg.sender.get_full_name }}</div>
+                                            <div><strong>{% trans "Date" %}:</strong> {{ msg.timestamp|date:"l, d F Y | H:i" }}</div>
                                         </div>
-                                        <div class="message-content text-dark" style="white-space: pre-wrap; line-height: 1.8; font-size: 1.1rem;">{{ msg.body }}</div>
+                                        
+                                        <hr class="my-3 opacity-25">
+
+                                        {% if msg.body %}
+                                            <div class="message-content text-dark mb-4" style="white-space: pre-wrap; line-height: 1.6;">{{ msg.body }}</div>
+                                        {% endif %}
+
+                                        {% if msg.voice_note %}
+                                            <div class="p-3 bg-light rounded-3 border mb-3">
+                                                <label class="small fw-bold text-danger mb-2 d-block"><i class="bi bi-mic-fill me-1"></i>{% trans "Voice Memo" %}</label>
+                                                <audio controls class="w-100 rounded-pill">
+                                                    <source src="{{ msg.voice_note.url }}" type="audio/mpeg">
+                                                    {% trans "Your browser does not support audio." %}
+                                                </audio>
+                                            </div>
+                                        {% endif %}
+
+                                        {% if msg.attachment %}
+                                            <div class="p-3 border rounded-3 d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center overflow-hidden">
+                                                    <i class="bi bi-file-earmark-pdf fs-2 text-danger me-3"></i>
+                                                    <div class="text-truncate">
+                                                        <div class="small fw-bold">{% trans "Document Attachment" %}</div>
+                                                        <div class="text-muted small text-truncate" style="max-width: 150px;">{{ msg.attachment.name }}</div>
+                                                    </div>
+                                                </div>
+                                                <a href="{{ msg.attachment.url }}" target="_blank" class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-download"></i>
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                    {% if user.is_staff %}
-                                    <div class="modal-footer border-0 p-4 pt-0">
-                                        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">{% trans "Dismiss" %}</button>
-                                        <a href="{% url 'bulk_message_send' %}?recipient={{ msg.sender.id }}&subject=Re: {{ msg.subject }}" class="btn btn-success px-4">
-                                            <i class="bi bi-reply me-1"></i> {% trans "Reply to Leader" %}
+                                    <div class="modal-footer border-0 p-3 pt-0">
+                                        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">{% trans "Close" %}</button>
+                                        {% if user.is_staff %}
+                                        <a href="{% url 'bulk_message_send' %}?recipient={{ msg.sender.id }}&subject=Re: {{ msg.subject }}" class="btn btn-success rounded-pill px-4">
+                                            <i class="bi bi-reply-fill me-1"></i> {% trans "Reply" %}
                                         </a>
+                                        {% endif %}
                                     </div>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     {% empty %}
                         <div class="text-center py-5 bg-light">
                             <div class="display-1 text-muted opacity-25 mb-3"><i class="bi bi-envelope-open"></i></div>
-                            <h5 class="text-muted fw-normal">{% trans "Your official inbox is currently empty." %}</h5>
+                            <h5 class="text-muted fw-normal">{% trans "No new communications." %}</h5>
                         </div>
                     {% endfor %}
                 </div>
@@ -133,22 +154,20 @@
     </div>
 </div>
 
-<style>
-    .transition-all { transition: all 0.3s ease; }
-    .bg-light-subtle { background-color: #f8f9fa !important; }
-</style>
+
 
 <script>
+// Logic to mark message as read when modal opens
 document.querySelectorAll('.preview-btn').forEach(button => {
     button.addEventListener('click', function() {
-        const msgId = this.dataset.msgId; // Make sure your button has data-msg-id="{{ msg.id }}"
-        fetch(`/message/toggle/${msgId}/`)
+        const msgId = this.dataset.msgId;
+        fetch(`/message/toggle/${msgId}/`) // Update this URL path to match your actual toggle URL
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    // Update UI
                     const row = document.getElementById(`msg-row-${msgId}`);
-                    row.classList.remove('border-success', 'bg-light-subtle');
+                    row.classList.remove('border-success', 'bg-success-subtle');
+                    row.querySelector('h6').classList.remove('text-success');
                 }
             });
     });

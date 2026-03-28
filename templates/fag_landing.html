@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<style>
+    /* STICKY TICKER */
+    .ticker-section {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1050; /* Ensures it stays above cards and modals */
+        background: #212529;
+        border-top: 3px solid #198754; /* JIBWIS Green accent */
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        padding: 8px 0;
+    }
+
+    /* Add padding to the body so the ticker doesn't hide the page content at the bottom */
+    body {
+        padding-bottom: 60px; 
+    }
+
+    .ticker-container {
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .ticker-wrapper {
+        display: inline-block;
+        padding-left: 100%;
+        animation: ticker-scroll 35s linear infinite;
+    }
+
+    .ticker-wrapper:hover {
+        animation-play-state: paused;
+    }
+
+    @keyframes ticker-scroll {
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-100%, 0, 0); }
+    }
+    /* HERO & GALLERY */
+    .carousel-inner {
+        border-radius: 0 0 25px 25px;
+        height: 450px;
+    }
+    .carousel-item img {
+        object-fit: cover;
+        height: 450px;
+    }
+
+    /* VIDEO CARDS - Reels Style */
+    .video-card-container {
+        transition: transform 0.3s ease;
+    }
+    .video-card-container:hover {
+        transform: translateY(-5px);
+    }
+    .video-player-wrapper {
+        position: relative;
+        border-radius: 15px 15px 0 0;
+        overflow: hidden;
+        background: #000;
+        aspect-ratio: 16/9;
+    }
+    video {
+        width: 100%;
+        display: block;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* UNIFIED TICKER STYLES */
+    .ticker-section {
+        background: #212529;
+        border-bottom: 3px solid #198754; /* JIBWIS Green */
+    }
+    .ticker-container {
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .ticker-wrapper {
+        display: inline-block;
+        padding-left: 100%;
+        animation: ticker-scroll 35s linear infinite;
+    }
+    .ticker-wrapper:hover {
+        animation-play-state: paused;
+    }
+    .ticker-item {
+        display: inline-block;
+        color: rgba(255,255,255,0.7);
+        font-size: 0.9rem;
+    }
+    @keyframes ticker-scroll {
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-100%, 0, 0); }
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+
+<div id="mainGallery" class="carousel slide carousel-fade mb-0 shadow-sm" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {% for item in gallery %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="4000">
+            <img src="{{ item.image.url }}" class="d-block w-100" alt="{{ item.title }}">
+            {% if item.title %}
+            <div class="carousel-caption d-none d-md-block p-3" style="background: rgba(0,0,0,0.6); border-radius: 15px; bottom: 60px;">
+                <h4 class="fw-bold">{{ item.title }}</h4>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="carousel-item active">
+            <img src="https://via.placeholder.com/1200x450?text=JIBWIS+Media+Gallery" class="d-block w-100">
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainGallery" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainGallery" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<div class="ticker-section">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center">
+            <div class="bg-success text-white px-3 py-1 rounded-pill small fw-bold text-nowrap me-3 shadow-sm">
+                <i class="bi bi-megaphone-fill me-2"></i>{% trans "LATEST UPDATES" %}
+            </div>
+            
+            <div class="ticker-container flex-grow-1">
+                <div class="ticker-wrapper">
+                    {% for announcement in announcements %}
+                        <span class="ticker-item mx-4 text-white-50 small">
+                            <strong class="text-success">[{{ announcement.get_category_display }}]</strong> 
+                            {{ announcement.content|truncatechars:120 }}
+                            <span class="text-muted ms-2" style="font-size: 0.75rem;">| {{ announcement.created_at|date:"M d" }}</span>
+                        </span>
+                    {% empty %}
+                        <span class="ticker-item text-white-50 small">{% trans "Welcome to the JIBWIS Official Portal. Stay tuned for live updates." %}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5 pb-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <h2 class="fw-bold text-success mb-0">
+                    <i class="bi bi-play-circle-fill me-2"></i>{% trans "Media Feed" %}
+                </h2>
+                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-3">{% trans "View All" %}</a>
+            </div>
+            
+            <div class="row g-4">
+                {% for video in videos %}
+                <div class="col-md-6 col-lg-4 video-card-container">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+                        <div class="video-player-wrapper">
+                            <video controls preload="none" 
+                                {% if video.thumbnail %} poster="{{ video.thumbnail.url }}" {% endif %} 
+                                data-id="{{ video.id }}">
+                                <source src="{{ video.video_file.url }}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="card-body p-3">
+                            <h6 class="fw-bold text-dark mb-3 line-clamp-2" style="height: 2.5rem;">{{ video.title }}</h6>
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <button class="btn btn-link text-decoration-none p-0 text-dark d-flex flex-column align-items-center" onclick="toggleLike('{{ video.id }}')">
+                                        <i id="v-icon-{{ video.id }}" class="bi bi-heart{% if user in video.likes.all %}-fill text-danger{% endif %} fs-5"></i>
+                                        <small id="v-count-{{ video.id }}" class="fw-bold">{{ video.total_likes }}</small>
+                                    </button>
+                                    
+                                    <div class="text-muted d-flex flex-column align-items-center">
+                                        <i class="bi bi-eye fs-5"></i>
+                                        <small class="fw-bold">{{ video.views_count|default:"0" }}</small>
+                                    </div>
+
+                                    <button class="btn btn-link text-decoration-none p-0 text-success d-flex flex-column align-items-center" onclick="shareOnWhatsApp('{{ video.title|escapejs }}', '{{ video.id }}')">
+                                        <i class="bi bi-whatsapp fs-5"></i>
+                                        <small class="fw-bold">{% trans "Share" %}</small>
+                                    </button>
+                                </div>
+                                
+                                <a href="{{ video.video_file.url }}" download class="btn btn-light btn-sm rounded-circle shadow-sm">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. VIEW COUNT LOGIC
+    document.querySelectorAll('video').forEach(videoElement => {
+        videoElement.addEventListener('play', function() {
+            const videoId = this.dataset.id;
+            fetch(`/video/view/${videoId}/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+            });
+        }, { once: true });
+    });
+
+    // 2. AJAX LIKE TOGGLE (Improved Cookie Handling)
+    function toggleLike(videoId) {
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/video/like/${videoId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                const icon = document.getElementById(`v-icon-${videoId}`);
+                const count = document.getElementById(`v-count-${videoId}`);
+                count.innerText = data.count;
+                if (data.liked) {
+                    icon.classList.replace('bi-heart', 'bi-heart-fill');
+                    icon.classList.add('text-danger');
+                } else {
+                    icon.classList.replace('bi-heart-fill', 'bi-heart');
+                    icon.classList.remove('text-danger');
+                }
+            }
+        }).catch(() => {
+            window.location.href = '/login/';
+        });
+    }
+
+    // 3. WHATSAPP SHARE
+    function shareOnWhatsApp(title, videoId) {
+        const text = `*JIBWIS Media Update*\n\n*${title}*\n\nWatch here: ${window.location.origin}/video/${videoId}/`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+</script>
+{% endblock %}

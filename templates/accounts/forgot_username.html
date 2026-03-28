@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4">
+                <h4 class="fw-bold text-success mb-3">{% trans "Recover Username" %}</h4>
+                <p class="text-muted small">{% trans "Enter your registered email address to receive your username." %}</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">{% trans "Email Address" %}</label>
+                        <input type="email" name="email" class="form-control bg-light border-0" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success fw-bold">{% trans "Send Username" %}</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="{% url 'login' %}" class="text-decoration-none small text-muted">{% trans "Back to Login" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

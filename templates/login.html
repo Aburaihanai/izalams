@@ -4,8 +4,12 @@
 {% block content %}
 <div class="row justify-content-center align-items-center" style="min-height: 85vh; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
     <div class="col-md-5 col-lg-4">
-        
-        {# 1. Security Lockout Warning #}
+        <div class="mb-3">
+            <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+                <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+            </a>
+        </div>
+
         {% if show_warning %}
             <div class="alert alert-warning border-0 shadow-sm rounded-4 mb-3 animate__animated animate__shakeX">
                 <div class="d-flex align-items-center">
@@ -19,7 +23,6 @@
         {% endif %}
 
         <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-            {# Top Branding Strip #}
             <div class="bg-success" style="height: 6px;"></div>
             
             <div class="card-body p-5">
@@ -28,7 +31,6 @@
                     <p class="text-muted small">{% trans "National Management Information System" %}</p>
                 </div>
 
-                {# 2. Error Display & Pending Approval Logic #}
                 {% if form.non_field_errors %}
                     <div class="alert alert-danger py-2 px-3 small border-0 rounded-3 mb-4">
                         {% for error in form.non_field_errors %}
@@ -36,7 +38,6 @@
                                 <i class="bi bi-x-circle-fill me-2"></i> 
                                 <span>{{ error }}</span>
                             </div>
-                            {# Contextual Hint for JIBWIS Members #}
                             {% if "inactive" in error|lower or "active" in error|lower %}
                                 <div class="mt-2 p-2 bg-white rounded-2 text-dark" style="font-size: 0.75rem;">
                                     <i class="bi bi-info-circle-fill text-primary"></i> 
@@ -51,7 +52,10 @@
                     {% csrf_token %}
                     
                     <div class="mb-3">
-                        <label class="form-label small fw-bold text-uppercase" style="letter-spacing: 1px;">{% trans "Username" %}</label>
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label small fw-bold text-uppercase" style="letter-spacing: 1px;">{% trans "Username" %}</label>
+                            <a href="{% url 'forgot_username' %}" class="text-decoration-none extra-small text-muted hover-success">{% trans "Forgot?" %}</a>
+                        </div>
                         <div class="input-group">
                             <span class="input-group-text bg-light border-0"><i class="bi bi-person text-muted"></i></span>
                             <input type="text" name="username" value="{{ form.username.value|default:'' }}"
@@ -63,6 +67,7 @@
                     <div class="mb-4">
                         <div class="d-flex justify-content-between">
                             <label class="form-label small fw-bold text-uppercase" style="letter-spacing: 1px;">{% trans "Password" %}</label>
+                            <a href="{% url 'password_reset' %}" class="text-decoration-none extra-small text-muted hover-success">{% trans "Forgot?" %}</a>
                         </div>
                         <div class="input-group">
                             <span class="input-group-text bg-light border-0"><i class="bi bi-lock text-muted"></i></span>
@@ -79,12 +84,6 @@
                         <button type="submit" class="btn btn-success btn-lg shadow-sm fw-bold py-3 rounded-3">
                             {% trans "Sign In" %} <i class="bi bi-arrow-right ms-2"></i>
                         </button>
-                    </div>
-
-                    <div class="text-center">
-                        <a href="{% url 'password_reset' %}" class="text-decoration-none small text-muted hover-success">
-                            {% trans "Forgot your security credentials?" %}
-                        </a>
                     </div>
                 </form>
             </div>

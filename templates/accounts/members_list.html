@@ -2,208 +2,325 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid py-3">
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3 px-2">
         <div>
-            <h2 class="fw-bold text-success mb-0">
-                <i class="bi bi-person-lines-fill me-2"></i>
-                {{ leader_profile.unit.name|default:"Unit" }} {% trans "Directory" %}
-            </h2>
-            <p class="text-muted mb-0">{% trans "Manage unit personnel and broadcast notifications." %}</p>
+            <h4 class="fw-bold text-success mb-0">
+                <i class="bi bi-shield-lock-fill me-2"></i>{{ leader_profile.unit.name|default:"Unit" }} {% trans "Command Center" %}
+            </h4>
         </div>
-        <div class="text-end">
-            <button type="button" id="bulkMessageBtn" class="btn btn-primary shadow-sm me-2 d-none" data-bs-toggle="modal" data-bs-target="#bulkMessageModal">
-                <i class="bi bi-chat-left-dots me-1"></i> {% trans "Message Selected" %} (<span id="selectedCount">0</span>)
+        <div class="btn-group shadow-sm">
+            <button type="button" class="btn btn-sm btn-outline-success" onclick="window.location.href='{% url 'export_members_excel' %}'">
+                <i class="bi bi-file-earmark-excel"></i> {% trans "Export" %}
             </button>
-
-            <button type="button" class="btn btn-outline-success shadow-sm"
-                    onclick="window.location.href='{% url 'export_members_excel' %}'">
-                <i class="bi bi-file-earmark-excel me-1"></i> {% trans "Export Excel" %}
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmClearChat()">
+                <i class="bi bi-trash"></i> {% trans "Clear Feed" %}
             </button>
-
         </div>
     </div>
 
-    <form id="bulkActionForm" method="POST" action="{% url 'bulk_message_send' %}">
-        {% csrf_token %}
-        <div class="card border-0 shadow-sm overflow-hidden">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr class="small text-uppercase fw-bold">
-                            <th class="ps-4" style="width: 40px;">
-                                <input class="form-check-input" type="checkbox" id="selectAll">
-                            </th>
-                            <th>{% trans "Personnel" %}</th>
-                            <th>{% trans "Position" %}</th>
-                            <th>{% trans "Status" %}</th>
-                            <th class="text-center">{% trans "Actions" %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for member in members %}
-                            {% with profile=member.profile %}
-                            <tr>
-                                <td class="ps-4">
-                                    <input class="form-check-input member-checkbox" type="checkbox" name="selected_members" value="{{ member.id }}">
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        {% if profile.profile_picture %}
-                                            <img src="{{ profile.profile_picture.url }}" class="rounded-circle me-3 shadow-sm" width="40" height="40" style="object-fit: cover;">
-                                        {% else %}
-                                            <div class="bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;">
-                                                <i class="bi bi-person-fill"></i>
-                                            </div>
-                                        {% endif %}
-                                        <div>
-                                            <div class="fw-bold text-dark">{{ member.get_full_name|default:member.username }}</div>
-                                            <div class="extra-small text-muted">{{ member.email|default:member.username }}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex flex-column">
-                                        <span class="fw-bold text-dark">{{ member.position|default:"Member" }}</span>
+    <div class="row g-3">
+        <div class="col-lg-4 col-md-5">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0 fw-bold">{% trans "Personnel" %}</h6>
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" id="selectAll">
+                            <label class="form-check-label text-muted" for="selectAll">{% trans "Select All" %}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2 bg-white border-bottom">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                        <input type="text" id="memberSearch" class="form-control bg-light border-0" placeholder="{% trans 'Search personnel...' %}">
+                    </div>
+                </div>
+                <div class="list-group list-group-flush overflow-auto" style="max-height: 70vh;">
+                    {% for member in members %}
+                    <label class="list-group-item list-group-item-action border-0 py-3 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <input class="form-check-input me-3 member-checkbox" type="checkbox" name="selected_members" value="{{ member.id }}">
+                            
+                            {% if member.profile.profile_picture %}
+                                <img src="{{ member.profile.profile_picture.url }}" class="rounded-circle me-2" width="38" height="38" style="object-fit: cover;">
+                            {% else %}
+                                <div class="avatar-sm me-3 bg-dark text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px;">
+                                    {{ member.username|slice:":1"|upper }}
+                                </div>
+                            {% endif %}
+                            <div>
+                                <div class="fw-bold small text-dark">{{ member.get_full_name|default:member.username }}</div>
+                                <div class="extra-small {% if member.is_active %}text-muted{% else %}text-danger fw-bold{% endif %}">
+                                    {% if not member.is_active %}[{% trans "SUSPENDED" %}] {% endif %}{{ profile.position|default:"Member" }}
+                                </div>
+                            </div>
+                        </div>
 
-                                        <div class="d-flex align-items-center mt-1">
-                                            <span class="badge bg-light text-muted border fw-normal extra-small">
-                                                <i class="bi bi-diagram-3 me-1"></i> {{ member.unit.level }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                <td>
-                                    {% if member.is_active %}
-                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3">
-                                            <i class="bi bi-check-circle-fill me-1"></i> {% trans "Active" %}
-                                        </span>
-                                    {% else %}
-                                        <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3">
-                                            <i class="bi bi-pause-circle-fill me-1"></i> {% trans "Suspended" %}
-                                        </span>
-                                    {% endif %}
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group shadow-sm bg-white">
-                                        <a href="{% url 'member_detail' member.id %}" class="btn btn-sm btn-outline-secondary" title="{% trans 'View Profile' %}">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-
-                                        {% if member.is_active %}
-                                            <button type="button" class="btn btn-sm btn-outline-warning"
-                                                    onclick="deactivateWithReason('{{ member.id }}', '{{ member.username|addslashes }}')" title="{% trans 'Suspend Account' %}">
-                                                <i class="bi bi-pause-circle"></i>
-                                            </button>
-                                        {% else %}
-                                            <a href="{% url 'toggle_member_status' member.id %}" class="btn btn-sm btn-outline-success" title="{% trans 'Reactivate Account' %}">
-                                                <i class="bi bi-play-circle"></i>
-                                            </a>
-                                        {% endif %}
-
-                                        <button type="button" class="btn btn-sm btn-outline-danger"
-                                                onclick="confirmPermanentDelete('{{ member.id }}', '{{ member.username|addslashes }}')" title="{% trans 'Permanent Delete' %}">
-                                            <i class="bi bi-trash3"></i>
+                        <div class="dropdown">
+                            <button class="btn btn-link btn-sm text-muted p-0" type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 small">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'member_detail' member.id %}">
+                                        <i class="bi bi-eye me-2"></i>{% trans "View Profile" %}
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                {% if member.is_active %}
+                                    <li>
+                                        <button class="dropdown-item text-warning" onclick="deactivateWithReason('{{ member.id }}', '{{ member.username|addslashes }}')">
+                                            <i class="bi bi-pause-circle me-2"></i>{% trans "Suspend Member" %}
                                         </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            {% endwith %}
-                            {% empty %}
-                            <tr>
-                            <td colspan="5" class="text-center py-5 text-muted">
-                                <i class="bi bi-people fs-1 d-block mb-3 text-success opacity-25"></i>
-                                <h5 class="fw-bold">{% trans "No members found" %}</h5>
-                                <p class="small">{% trans "Personnel in your unit will appear here." %}</p>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="modal fade" id="bulkMessageModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content border-0 shadow-lg">
-                    <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title fw-bold">{% trans "Unit Broadcast" %}</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-muted small mb-3">{% trans "This message will be sent to the selected unit members." %}</p>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">{% trans "Subject" %}</label>
-                            <input type="text" name="subject" class="form-control" placeholder="{% trans 'e.g., Monthly Meeting' %}" required>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a class="dropdown-item text-success" href="{% url 'toggle_member_status' member.id %}">
+                                            <i class="bi bi-play-circle me-2"></i>{% trans "Activate Member" %}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <button class="dropdown-item text-danger" onclick="confirmPermanentDelete('{{ member.id }}', '{{ member.username|addslashes }}')">
+                                        <i class="bi bi-trash3 me-2"></i>{% trans "Permanent Delete" %}
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">{% trans "Message Content" %}</label>
-                            <textarea name="body" class="form-control" rows="6" placeholder="{% trans 'Type your broadcast here...' %}" required></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
-                        <button type="submit" class="btn btn-success px-4 fw-bold">{% trans "Send Broadcast" %}</button>
-                    </div>
+                    </label>
+                    {% empty %}
+                        <div class="p-4 text-center text-muted small">{% trans "No unit members found." %}</div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-    </form>
+
+        <div class="col-lg-8 col-md-7">
+            <div class="card border-0 shadow-sm rounded-4 d-flex flex-column" style="height: 78vh;">
+                <div class="p-3 border-bottom bg-white d-flex justify-content-between align-items-center">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill">
+                        <i class="bi bi-people-fill me-2"></i><span class="selectedCount">0</span> {% trans "Selected Recipients" %}
+                    </span>
+                    <div id="statusIndicator" class="small text-muted italic">{% trans "Select members to start broadcast" %}</div>
+                </div>
+
+                <div class="flex-grow-1 p-3 overflow-auto bg-light-subtle" id="chatFeed">
+                    {% for chat in past_broadcasts %}
+                        <div class="mb-3 d-flex flex-column align-items-start position-relative chat-bubble-container">
+                            <div class="bg-white p-3 rounded-4 shadow-sm border border-light" style="max-width: 85%;">
+                                <button class="btn btn-link btn-sm text-muted position-absolute top-0 start-100 translate-middle-x delete-msg-btn" onclick="deleteMessage('{{ chat.id }}')">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                </button>
+                                <div class="extra-small fw-bold text-success mb-1">{% trans "To" %} {{ chat.recipients.count }} {% trans "members" %}</div>
+                                
+                                {% if chat.text_content %}<p class="mb-2 small">{{ chat.text_content }}</p>{% endif %}
+                                
+                                {% if chat.voice_note %}
+                                    <audio controls class="w-100 mb-2" style="height: 35px;">
+                                        <source src="{{ chat.voice_note.url }}" type="audio/webm">
+                                    </audio>
+                                {% endif %}
+
+                                {% if chat.file_attachment %}
+                                    <a href="{{ chat.file_attachment.url }}" class="btn btn-sm btn-light border small w-100 text-start">
+                                        <i class="bi bi-file-earmark-text me-2"></i>{{ chat.file_attachment.name|truncatechars:30 }}
+                                    </a>
+                                {% endif %}
+                                <div class="text-end extra-small text-muted mt-1" style="font-size: 0.6rem;">{{ chat.timestamp|date:"H:i | d M" }}</div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="h-100 d-flex flex-column align-items-center justify-content-center text-muted opacity-50">
+                            <i class="bi bi-chat-left-dots fs-1 mb-2"></i>
+                            <p>{% trans "No history available." %}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="p-3 border-top bg-white rounded-bottom-4 d-none" id="inputControls">
+                    <form id="bulkActionForm" method="POST" action="{% url 'bulk_message_send' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div id="hiddenRecipients"></div>
+                        <div class="input-group">
+                            <button type="button" class="btn btn-outline-secondary border-end-0" onclick="document.getElementById('fileInput').click()">
+                                <i class="bi bi-paperclip"></i>
+                            </button>
+                            <input type="file" id="fileInput" name="attachment" class="d-none">
+                            <input type="text" name="body" class="form-control bg-light border-0 py-2" placeholder="{% trans 'Type a command or directive...' %}">
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#voiceMessageModal">
+                                <i class="bi bi-mic-fill"></i>
+                            </button>
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<form id="deleteForm" method="POST" style="display:none;">
-    {% csrf_token %}
-</form>
+<div class="modal fade" id="voiceMessageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title fw-bold">{% trans "Voice Directive" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="voiceActionForm" method="POST" action="{% url 'bulk_voice_send' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="voiceHiddenRecipients"></div>
+                <div class="modal-body text-center py-4">
+                    <div id="recordingVisualizer" class="mb-3 d-none">
+                        <div class="spinner-grow text-danger" role="status"></div>
+                        <span class="ms-2 fw-bold text-danger">REC</span>
+                    </div>
+                    <button type="button" id="vStart" class="btn btn-outline-danger rounded-circle p-4 mb-2"><i class="bi bi-mic-fill fs-2"></i></button>
+                    <button type="button" id="vStop" class="btn btn-danger rounded-circle p-4 mb-2 d-none"><i class="bi bi-stop-fill fs-2"></i></button>
+                    <div id="vStatus" class="fw-bold mt-2">{% trans "Tap to Record" %}</div>
+                    <audio id="vPlayback" controls class="w-100 d-none mt-3"></audio>
+                    <input type="file" name="voice_file" id="vFileInput" class="d-none">
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="submit" id="vSubmit" class="btn btn-success w-100 py-2 fw-bold" disabled>{% trans "Dispatch Voice Directive" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<form id="deleteForm" method="POST" style="display:none;">{% csrf_token %}</form>
 
 <script>
-    // 1. Checkbox Logic
-    const selectAll = document.getElementById('selectAll');
-    const memberCheckboxes = document.querySelectorAll('.member-checkbox');
-    const bulkBtn = document.getElementById('bulkMessageBtn');
-    const countSpan = document.getElementById('selectedCount');
+    const checkboxes = document.querySelectorAll('.member-checkbox');
+    const inputControls = document.getElementById('inputControls');
+    const selectedCountDisplay = document.querySelectorAll('.selectedCount');
+    const chatFeed = document.getElementById('chatFeed');
 
-    if (selectAll) {
-        selectAll.addEventListener('change', function() {
-            memberCheckboxes.forEach(cb => cb.checked = this.checked);
-            updateSelectionUI();
+    // Scroll to bottom of feed on load
+    chatFeed.scrollTop = chatFeed.scrollHeight;
+
+    function syncRecipients() {
+        const selected = Array.from(checkboxes).filter(cb => cb.checked);
+        const count = selected.length;
+        
+        // Show/Hide Input Area
+        if (count > 0) {
+            inputControls.classList.remove('d-none');
+            document.getElementById('statusIndicator').innerText = "{% trans 'Broadcasting to selected personnel' %}";
+        } else {
+            inputControls.classList.add('d-none');
+            document.getElementById('statusIndicator').innerText = "{% trans 'Select members to start broadcast' %}";
+        }
+
+        selectedCountDisplay.forEach(el => el.innerText = count);
+
+        // Inject IDs into both forms
+        const containers = ['hiddenRecipients', 'voiceHiddenRecipients'];
+        containers.forEach(id => {
+            const container = document.getElementById(id);
+            container.innerHTML = '';
+            selected.forEach(cb => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'selected_members';
+                input.value = cb.value;
+                container.appendChild(input);
+            });
         });
     }
 
-    memberCheckboxes.forEach(cb => {
-        cb.addEventListener('change', updateSelectionUI);
+    checkboxes.forEach(cb => cb.addEventListener('change', syncRecipients));
+    document.getElementById('selectAll').addEventListener('change', function() {
+        checkboxes.forEach(cb => cb.checked = this.checked);
+        syncRecipients();
     });
 
-    function updateSelectionUI() {
-        const selectedCount = document.querySelectorAll('.member-checkbox:checked').length;
-        if (selectedCount > 0) {
-            bulkBtn.classList.remove('d-none');
-            countSpan.innerText = selectedCount;
-        } else {
-            bulkBtn.classList.add('d-none');
+    // Voice Recorder Script (simplified from your version)
+    let vMediaRecorder;
+    let vChunks = [];
+    document.getElementById('vStart').onclick = async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        vMediaRecorder = new MediaRecorder(stream);
+        vMediaRecorder.ondataavailable = e => vChunks.push(e.data);
+        vMediaRecorder.onstop = () => {
+            const blob = new Blob(vChunks, { type: 'audio/webm' });
+            const file = new File([blob], "voice.webm", { type: "audio/webm" });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            document.getElementById('vFileInput').files = dataTransfer.files;
+            document.getElementById('vPlayback').src = URL.createObjectURL(blob);
+            document.getElementById('vPlayback').classList.remove('d-none');
+            document.getElementById('vSubmit').disabled = false;
+        };
+        vChunks = [];
+        vMediaRecorder.start();
+        document.getElementById('vStart').classList.add('d-none');
+        document.getElementById('vStop').classList.remove('d-none');
+        document.getElementById('recordingVisualizer').classList.remove('d-none');
+    };
+    document.getElementById('vStop').onclick = () => {
+        vMediaRecorder.stop();
+        document.getElementById('vStop').classList.add('d-none');
+        document.getElementById('vStart').classList.remove('d-none');
+        document.getElementById('recordingVisualizer').classList.add('d-none');
+    };
+
+    function deleteMessage(id) {
+        if(confirm("{% trans 'Delete this message?' %}")) {
+            const form = document.getElementById('deleteForm');
+            form.action = `/members/chat/delete/${id}/`;
+            form.submit();
         }
     }
-
-    // 2. Leader Actions
+    
+    function confirmClearChat() {
+        if(confirm("{% trans 'Clear all history for this unit?' %}")) {
+            const form = document.getElementById('deleteForm');
+            form.action = "{% url 'clear_unit_chat' %}";
+            form.submit();
+        }
+    }
+    // Function for Suspending with a Reason
     function deactivateWithReason(id, name) {
-        let reason = prompt("{% trans 'Reason for suspending' %} " + name + ":", "{% trans 'Violation of unit rules' %}");
-        if (reason !== null) {
+        let reason = prompt("{% trans 'Reason for suspending' %} " + name + ":", "{% trans 'Administrative Review' %}");
+        if (reason !== null && reason.trim() !== "") {
             window.location.href = "/members/toggle/" + id + "/?reason=" + encodeURIComponent(reason);
         }
     }
 
+    // Function for Permanent Deletion
     function confirmPermanentDelete(id, name) {
-        if (confirm("{% trans 'WARNING: Permanently delete' %} " + name + "? {% trans 'This cannot be undone.' %}")) {
-            const form = document.getElementById('deleteForm');
+        if (confirm("{% trans 'WARNING: This will permanently delete' %} " + name + ". {% trans 'Proceed?' %}")) {
+            const form = document.getElementById('deleteForm'); // Ensure this hidden form exists in your HTML
             form.action = "/members/delete-permanent/" + id + "/";
             form.submit();
         }
     }
+    
+    document.getElementById('memberSearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let items = document.querySelectorAll('.list-group-item');
+        items.forEach(item => {
+            let text = item.textContent.toLowerCase();
+            item.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
 </script>
 
 <style>
-    .table-hover tbody tr:hover { background-color: rgba(25, 135, 84, 0.04); transition: background 0.2s; }
-    .extra-small { font-size: 0.75rem; }
-    .badge { letter-spacing: 0.3px; }
-    .btn-group .btn { padding: 0.25rem 0.6rem; }
-    .table-responsive { min-height: 300px; }
+    .extra-small { font-size: 0.7rem; }
+    .chat-bubble-container .delete-msg-btn { opacity: 0; transition: 0.2s; }
+    .chat-bubble-container:hover .delete-msg-btn { opacity: 1; }
+    #chatFeed::-webkit-scrollbar { width: 5px; }
+    #chatFeed::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 10px; }
 </style>
 {% endblock %}

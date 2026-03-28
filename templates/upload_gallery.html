@@ -1,18 +1,35 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-<div class="container mt-5">
+  <div class="container mt-5">
+    <div class="mb-3">
+      <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+        <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+      </a>
+    </div>
+
     <h2>Add New Image to Gallery</h2>
-    <hr>
-    <form method="post" enctype="multipart/form-data" class="bg-light p-4 border rounded">
-        {% csrf_token %}
-
+    <hr />
+    <form action="{% url 'upload_gallery_image' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">{% trans 'Upload to Gallery' %}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
         <div class="mb-3">
-            {{ form.as_p }}
+          <label class="form-label">{% trans 'Image Title' %}</label>
+          <input type="text" name="title" class="form-control" placeholder="Optional caption..." />
         </div>
-
-        <button type="submit" class="btn btn-success">Upload to Gallery</button>
-        <a href="{% url 'gallery_list' %}" class="btn btn-secondary">Cancel</a>
+        <div class="mb-3">
+          <label class="form-label">{% trans 'Select Image' %}</label>
+          <input type="file" name="image_file" class="form-control" accept="image/*" required />
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="submit" class="btn btn-success rounded-pill px-4">{% trans 'Upload' %}</button>
+      </div>
     </form>
-</div>
+  </div>
 {% endblock %}

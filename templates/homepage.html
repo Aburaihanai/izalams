@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<style>
+    .hero-banner {
+        background: linear-gradient(45deg, #004d00, #006400);
+        color: white;
+        padding: 80px 0;
+        border-radius: 0 0 50px 50px;
+        margin-top: -24px;
+        margin-bottom: 50px;
+    }
+    .video-card {
+        background: #000;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.3s ease;
+        height: 450px;
+        border: 4px solid transparent;
+    }
+    .video-card:hover {
+        transform: scale(1.02);
+        border-color: #ffd700;
+    }
+    .play-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color: rgba(255,255,255,0.7);
+        pointer-events: none;
+    }
+    .pillar-card {
+        border: none;
+        border-bottom: 5px solid #006400;
+        transition: 0.3s;
+    }
+    .pillar-card:hover {
+        background: #f0fff0;
+        transform: translateY(-10px);
+    }
+    .ticker-container {
+        background: #fff;
+        display: flex;
+        overflow: hidden;
+        border-radius: 50px;
+        border: 1px solid #eee;
+    }
+    .ticker-label {
+        background: #d9534f; /* Red for urgency */
+        color: white;
+        padding: 10px 20px;
+        font-weight: bold;
+        white-space: nowrap;
+        z-index: 2;
+    }
+    .ticker-wrap {
+        flex-grow: 1;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+    .ticker-move {
+        white-space: nowrap;
+        display: inline-block;
+        animation: ticker-animation 30s linear infinite;
+        padding-left: 100%;
+    }
+    .ticker-item {
+        display: inline-block;
+        padding: 0 20px;
+        font-weight: 500;
+        color: #006400;
+    }
+    @keyframes ticker-animation {
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-100%, 0, 0); }
+    }
+    /* 1. Make the container stay at the BOTTOM of the screen */
+    .sticky-ticker-container {
+        position: fixed;
+        bottom: 0; /* Change to 'top: 0' if you prefer it at the very top */
+        left: 0;
+        width: 100%;
+        z-index: 1050; /* Ensures it stays above all other content */
+        border-top: 2px solid #dc3545; /* Adds a nice red accent line */
+    }
+
+    /* 2. The Sliding Animation */
+    .landing-ticker-move {
+        display: inline-block;
+        white-space: nowrap;
+        padding-left: 100%;
+        animation: landingMarquee 40s linear infinite; /* 40s is smoother for long text */
+    }
+
+    /* Pause on hover so people can actually read the news */
+    .landing-ticker-move:hover {
+        animation-play-state: paused;
+        cursor: pointer;
+    }
+
+    @keyframes landingMarquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* 3. Mobile Adjustments */
+    @media (max-width: 768px) {
+        .sticky-ticker-container {
+            height: 40px; /* Slightly slimmer on mobile */
+        }
+        .landing-ticker-move {
+            animation-duration: 25s; /* Moves slightly faster on small screens to keep interest */
+            font-size: 0.85rem;
+        }
+    }
+</style>
+
+<div class="hero-banner text-center shadow">
+    <div class="container">
+        <div class="logo-box mx-auto mb-4" style="width: 150px; height: 150px; background: white; border-radius: 70%; display: flex; align-items: center; justify-content: center; ">
+                <img src="{% static 'images/izala_logo.png' %}" style="width: 100%;">
+        </div>
+        <h1 class="display-4 fw-bold">{% trans "JIBWIS Digital Portal" %}</h1>
+        <p class="lead">{% trans "Unifying the Sunnah across Nigeria: Admin • Ulama • FAG" %}</p>
+        <div class="mt-4">
+            <a href="{% url 'register' %}" class="btn btn-gold btn-lg px-5 shadow">{% trans "Join Now" %}</a>
+        </div>
+    </div>
+</div>
+
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+                <div class="card pillar-card shadow-sm p-4">
+                    <h1 class="mb-3">🏛️</h1>
+                    <a href="{% url 'admin_landing' %}"><h4>{% trans "Administration" %}</h4></a>
+                    <p class="small text-muted">{% trans "National to Ward level leadership coordination." %}</p>
+                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card pillar-card shadow-sm p-4">
+                <h1 class="mb-3">📖</h1>
+                <a href="{% url 'ulama_landing' %}"><h4>{% trans "Council of Ulama" %}</h4></a>
+                <p class="small text-muted">{% trans "Management of scholars and educational backgrounds." %}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card pillar-card shadow-sm p-4">
+                <h1 class="mb-3">🚑</h1>
+                <a href="{% url 'fag_landing' %}"><h4>{% trans "First Aid Group" %}</h4></a>
+                <p class="small text-muted">{% trans "Divisional, Detachment, and Unit leadership." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+            <div class="col-md-4 bg-success text-white p-5 d-flex flex-column justify-content-center">
+                <h3 class="fw-bold mb-3">{% trans "Visit Us" %}</h3>
+                <p><i class="bi bi-geo-alt-fill"></i> {% trans "JIBWIS National Headquarters," %}<br>{% trans "Kaduna, Kaduna State, Nigeria." %}</p>
+                <p><i class="bi bi-telephone-fill"></i> +234 800 JIBWIS HQ</p>
+                <p><i class="bi bi-envelope-fill"></i> info@jibwiskdnigeria.org</p>
+            </div>
+            <div class="embed-map-fixed"><div class="embed-map-container"><iframe class="embed-map-frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&height=400&hl=en&q=JIBWIS%20HQ%20ABUJA&t=h&z=9&ie=UTF8&iwloc=B&output=embed"></iframe><a href="https://funclicker.org" style="font-size:2px!important;color:gray!important;position:absolute;bottom:0;left:0;z-index:1;max-height:1px;overflow:hidden">Fun Clicker</a></div><style>.embed-map-fixed{position:relative;text-align:right;width:600px;height:400px;}.embed-map-container{overflow:hidden;background:none!important;width:600px;height:400px;}.embed-map-frame{width:600px!important;height:400px!important;}</style>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

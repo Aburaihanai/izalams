@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-header bg-success text-white py-3 border-0 rounded-top-4">
+                    <h5 class="mb-0 d-flex align-items-center">
+                        <i class="bi bi-diagram-3-fill me-2"></i>
+                        {% trans "Establish New Group Chat" %}
+                    </h5>
+                    <small class="opacity-75">{% trans "Creating for" %}: {{ leader_profile.unit.name }}</small>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label class="form-label fw-bold text-dark">{% trans "Group Chat Name" %}</label>
+                                <input type="text" name="name" class="form-control border-success-subtle" 
+                                       placeholder="e.g. National Zakkah Distribution Team" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark">{% trans "Description & Objectives" %}</label>
+                            <textarea name="description" class="form-control border-success-subtle" rows="3" 
+                                      placeholder="{% trans 'What is the goal of this Group Chat?' %}" required></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark">{% trans "Select Team Lead" %}</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-success-subtle"><i class="bi bi-person-badge"></i></span>
+                                <select name="team_lead" class="form-select border-success-subtle" required>
+                                    <option value="">-- {% trans "Choose a Leader" %} --</option>
+                                    {% for profile in available_members %}
+                                        <option value="{{ profile.user.id }}">
+                                            {{ profile.user.get_full_name|default:profile.user.username }} 
+                                            ({% if profile.unit %}{{ profile.unit.get_category_display }}{% endif %})
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 opacity-10">
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label fw-bold text-dark mb-0">{% trans "Select Group Chat Members" %}</label>
+                                <span class="badge bg-success rounded-pill" id="selectedCount">0 {% trans "Selected" %}</span>
+                            </div>
+                            
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                                <input type="text" id="memberSearch" class="form-control border-start-0 ps-0" placeholder="{% trans 'Search by name or unit...' %}">
+                            </div>
+                            
+                            <div class="member-list-container border rounded-3 p-1 bg-light" style="max-height: 350px; overflow-y: auto;">
+                                {% for profile in available_members %}
+                                <div class="member-item p-1">
+                                    <input type="checkbox" class="btn-check member-checkbox" name="members" 
+                                           value="{{ profile.user.id }}" id="user{{ profile.user.id }}" autocomplete="off">
+                                    <label class="btn btn-outline-success border-0 w-100 text-start p-3 d-flex align-items-center bg-white mb-1 shadow-sm rounded-3" 
+                                           for="user{{ profile.user.id }}">
+                                        <div class="flex-grow-1">
+                                            <div class="fw-bold text-dark">{{ profile.user.get_full_name|default:profile.user.username }}</div>
+                                            <div class="d-flex gap-2">
+                                                <small class="text-muted">{{ profile.unit.name|default:"General" }}</small>
+                                                <span class="badge bg-light text-success border border-success-subtle" style="font-size: 0.65rem;">
+                                                    {{ profile.unit.get_category_display }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <i class="bi bi-check-circle-fill check-icon opacity-0"></i>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-success py-3 fw-bold rounded-pill shadow">
+                                <i class="bi bi-plus-lg me-2"></i> {% trans "Establish Group Chat" %}
+                            </button>
+                            <a href="{% url 'dashboard' %}" class="btn btn-link text-muted">{% trans "Cancel and Go Back" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* UI Polish */
+    .member-item label { transition: all 0.2s; border: 1px solid #eee !important; }
+    .btn-check:checked + label { background-color: #f0fff4 !important; border-color: #198754 !important; }
+    .btn-check:checked + label .check-icon { opacity: 1 !important; }
+    .btn-check:checked + label .text-dark { color: #198754 !important; }
+    
+    .member-list-container::-webkit-scrollbar { width: 5px; }
+    .member-list-container::-webkit-scrollbar-thumb { background: #198754; border-radius: 10px; }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #198754;
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
+    }
+</style>
+
+<script>
+// Real-time search filter
+document.getElementById('memberSearch').addEventListener('keyup', function() {
+    let filter = this.value.toLowerCase();
+    let items = document.querySelectorAll('.member-item');
+    
+    items.forEach(function(item) {
+        let text = item.innerText.toLowerCase();
+        item.style.display = text.includes(filter) ? '' : 'none';
+    });
+});
+
+// Update selected count
+const checkboxes = document.querySelectorAll('.member-checkbox');
+const countBadge = document.getElementById('selectedCount');
+
+checkboxes.forEach(box => {
+    box.addEventListener('change', () => {
+        const checkedCount = document.querySelectorAll('.member-checkbox:checked').length;
+        countBadge.innerText = `${checkedCount} {% trans "Selected" %}`;
+    });
+});
+</script>
+{% endblock %}

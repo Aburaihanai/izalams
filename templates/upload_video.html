@@ -1,26 +1,118 @@
 {% extends 'base.html' %}
 {% load i18n %}
+
 {% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center py-5">
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
     <div class="col-md-6">
-        <div class="card shadow-sm border-0">
-            <div class="card-header bg-dark text-white py-3">
-                <h5 class="mb-0">📤 {% trans "Upload Short Video" %}</h5>
+        <div class="card shadow border-0 rounded-4">
+            <div class="card-header bg-dark text-white py-3 rounded-top-4">
+                <h5 class="mb-0 text-center"><i class="bi bi-camera-reels me-2"></i>{% trans "Upload Short Video" %}</h5>
             </div>
-            <div class="card-body p-4 text-center">
-                <p class="text-muted small">{% trans "Videos will auto-play on hover on the landing page. Recommended format: Vertical (9:16)." %}</p>
-                <form method="POST" enctype="multipart/form-data">
+            <div class="card-body p-4">
+                <div class="alert alert-info border-0 small mb-4">
+                    <i class="bi bi-info-circle me-2"></i>
+                    {% trans "Videos auto-play on hover. Recommended: Vertical (9:16) format." %}
+                </div>
+
+                <form id="upload-form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-success btn-lg">{% trans "Publish Video" %}</button>
+                    
+                    <div class="mb-3">
+                        {{ form.as_p }}
                     </div>
+                    
+                    <div class="progress mb-3 d-none" id="progress-container" style="height: 25px; border-radius: 10px;">
+                        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                             role="progressbar" style="width: 0%; font-weight: bold;">0%</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-2 shadow-sm rounded-pill" id="submit-btn">
+                        <i class="bi bi-cloud-upload me-2"></i>{% trans "Publish Video" %}
+                    </button>
                 </form>
-                <div class="mt-3">
-                    <a href="{% url 'landing' %}" class="text-decoration-none text-muted">{% trans "Cancel and Return" %}</a>
+
+                <div class="text-center mt-4">
+                    <a href="javascript:history.back()" class="text-decoration-none text-muted small">
+                        <i class="bi bi-arrow-left"></i> {% trans "Cancel and Return" %}
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const uploadForm = document.getElementById('upload-form');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const submitBtn = document.getElementById('submit-btn');
+
+    uploadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(uploadForm);
+        const xhr = new XMLHttpRequest();
+
+        // UI Feedback
+        progressContainer.classList.remove('d-none');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>{% trans "Uploading..." %}`;
+
+        xhr.upload.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+                const percent = (e.loaded / e.total) * 100;
+                progressBar.style.width = percent.toFixed(0) + '%';
+                progressBar.innerText = percent.toFixed(0) + '%';
+            }
+        });
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200 || xhr.status === 302) {
+                    // Logic to find the correct landing page based on selected category
+                    const category = uploadForm.querySelector('[name="category"]').value;
+                    let redirectUrl = "{% url 'admin_landing' %}"; // Default
+                    
+                    if (category === 'ULAMA') redirectUrl = "{% url 'ulama_landing' %}";
+                    else if (category === 'FAG') redirectUrl = "{% url 'fag_landing' %}";
+
+                    window.location.href = redirectUrl;
+                } else {
+                    alert("{% trans 'Upload failed. Please check the file size or your connection.' %}");
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="bi bi-cloud-upload me-2"></i>{% trans "Upload Video" %}`;
+                    progressContainer.classList.add('d-none');
+                }
+            }
+        };
+
+        xhr.open('POST', window.location.href, true);
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.send(formData);
+    });
+</script>
+
+<style>
+    /* Ensure form inputs look like Bootstrap controls */
+    #upload-form p input, #upload-form p select, #upload-form p textarea {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        margin-bottom: 1rem;
+    }
+</style>
 {% endblock %}

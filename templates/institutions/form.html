@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-header bg-success text-white py-4 text-center">
+                    <h4 class="fw-bold mb-0">{% trans "Registration Portal" %}</h4>
+                    <p class="small opacity-75 mb-0">{% trans "Fill in the details below to update the unit records." %}</p>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    
+                    {# 1. Global Error Alert (Non-field errors) #}
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger border-0 shadow-sm mb-4 rounded-3">
+                        <ul class="mb-0">
+                            {% for error in form.non_field_errors %}
+                                <li class="small fw-bold">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" novalidate>
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark small" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+
+                            {# 2. Auto-adding 'is-invalid' class if field has errors #}
+                            <div class="input-group has-validation">
+                                {{ field }}
+                                
+                                {% if field.errors %}
+                                    <script>
+                                        // Small hack to add Bootstrap class to Django generated inputs
+                                        document.getElementById('{{ field.id_for_label }}').classList.add('is-invalid');
+                                    </script>
+                                {% endif %}
+                            </div>
+
+                            {% if field.help_text %}
+                                <div class="form-text extra-small opacity-75">{{ field.help_text }}</div>
+                            {% endif %}
+
+                            {# 3. Individual Field Error Messages #}
+                            {% for error in field.errors %}
+                                <div class="invalid-feedback d-block extra-small mt-1 fw-bold">
+                                    <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-success btn-lg rounded-pill shadow-sm py-3 fw-bold">
+                                <i class="bi bi-check2-circle me-2"></i> {% trans "Save & Confirm" %}
+                            </button>
+                            <a href="{% url 'dashboard' %}" class="btn btn-light rounded-pill py-2 text-muted">
+                                {% trans "Cancel" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .extra-small { font-size: 0.75rem; }
+    
+    /* styling standard Django widgets */
+    input, select, textarea { 
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        appearance: none;
+        border-radius: 0.5rem !important;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        padding: 0.75rem 1.25rem !important;
+    }
+
+    input:focus, select:focus {
+        border-color: #198754 !important;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1) !important;
+    }
+
+    /* Error state overrides */
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
+    .is-invalid:focus {
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.1) !important;
+    }
+    .invalid-feedback {
+        color: #dc3545;
+    }
+</style>
+{% endblock %}

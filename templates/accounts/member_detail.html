@@ -3,6 +3,11 @@
 
 {% block content %}
 <div class="container py-5">
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'dashboard' %}" class="text-success text-decoration-none">{% trans "Dashboard" %}</a></li>

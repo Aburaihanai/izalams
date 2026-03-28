@@ -12,65 +12,59 @@
                             <i class="bi bi-person-gear fs-4"></i>
                         </div>
                         <div>
-                            <h4 class="mb-0 fw-bold">{% trans "Edit Profile Details" %}</h4>
-                            <small class="opacity-75">{% trans "Update your personal and organizational records" %}</small>
+                            <h4 class="mb-0 fw-bold">{% trans "Account Settings" %}</h4>
+                            <small class="opacity-75">{% trans "Manage your personal profile" %}</small>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-body p-4 p-md-5">
-                    <form method="POST" enctype="multipart/form-data" id="profileForm">
-                        {% csrf_token %}
-                        
-                        <div class="mb-5">
-                            <h6 class="text-success text-uppercase fw-bold small mb-3 letter-spacing-1">
-                                <i class="bi bi-info-circle me-1"></i> {% trans "Personal Information" %}
-                            </h6>
-                            <div class="row g-3">
-                                {% for field in u_form %}
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
-                                    {{ field }}
-                                    {% if field.help_text %}<div class="form-text extra-small">{{ field.help_text }}</div>{% endif %}
-                                    {% if field.errors %}<div class="text-danger extra-small mt-1">{{ field.errors }}</div>{% endif %}
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <hr class="my-4 opacity-25">
-
-                        <div class="mb-5">
-                            <h6 class="text-success text-uppercase fw-bold small mb-3 letter-spacing-1">
-                                <i class="bi bi-bank me-1"></i> {% trans "Organization & Payment" %}
-                            </h6>
-                            <div class="row g-3">
-                                {% for field in p_form %}
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
-                                    {{ field }}
-                                    {% if field.errors %}<div class="text-danger extra-small mt-1">{{ field.errors }}</div>{% endif %}
-                                </div>
-                                {% endfor %}
-                            </div>
-                            
-                            <div class="alert alert-info border-0 shadow-sm mt-4 small d-flex align-items-start">
-                                <i class="bi bi-shield-check fs-5 me-2"></i>
-                                <div>
-                                    <strong>{% trans "Note on Bank Details" %}:</strong> 
-                                    {% trans "When you update your bank info, our system verifies the name directly with your bank. Ensure the account number matches the bank selected." %}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-column flex-md-row gap-3 justify-content-md-end pt-3">
-                            <a href="{% url 'dashboard' %}" class="btn btn-light px-4 py-2 border">{% trans "Discard Changes" %}</a>
-                            <button type="submit" class="btn btn-success px-5 py-2 fw-bold shadow-sm" id="submitBtn">
-                                <span id="btnText">{% trans "Save & Verify Records" %}</span>
-                                <span id="btnLoader" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                <div class="bg-light border-bottom px-4">
+                    <ul class="nav nav-tabs border-0" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active border-0 py-3 fw-bold text-success bg-transparent" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab">
+                                <i class="bi bi-info-circle me-2"></i>{% trans "Personal Info" %}
                             </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <div class="tab-content" id="profileTabsContent">
+                        
+                        <div class="tab-pane fade show active" id="personal" role="tabpanel">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="form_type" value="personal_update">
+                                
+                                <div class="row g-3">
+                                    {% for field in u_form %}
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.errors %}<div class="text-danger extra-small mt-1">{{ field.errors }}</div>{% endif %}
+                                    </div>
+                                    {% endfor %}
+                                    
+                                    {% for field in p_form %}
+                                        {# Only show non-bank fields here (e.g. position, picture) #}
+                                        {% if "bank" not in field.name and "account" not in field.name %}
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label small fw-bold text-dark">{{ field.label }}</label>
+                                            {{ field }}
+                                            {% if field.errors %}<div class="text-danger extra-small mt-1">{{ field.errors }}</div>{% endif %}
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button type="submit" class="btn btn-success px-5 rounded-pill shadow-sm">
+                                        {% trans "Update Profile" %}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,43 +72,20 @@
 </div>
 
 <style>
-    /* Styling Django generated fields */
-    input:not([type="checkbox"]), select, textarea {
-        display: block;
-        width: 100%;
-        padding: 0.6rem 0.75rem;
-        font-size: 0.95rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #dee2e6;
-        border-radius: 0.5rem;
-        transition: all 0.2s ease-in-out;
-    }
-    input:focus, select:focus {
-        border-color: #198754;
-        outline: 0;
-        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.15);
-        background-color: #f8fffb;
-    }
+    .nav-tabs .nav-link.active { color: #198754 !important; border-bottom: 3px solid #198754 !important; }
+    input:not([type="checkbox"]), select { border-radius: 0.6rem; padding: 0.7rem; border: 1px solid #e0e0e0; }
+    input:focus { border-color: #198754; box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.1); }
     .extra-small { font-size: 0.75rem; }
-    .letter-spacing-1 { letter-spacing: 0.5px; }
-    .rounded-4 { border-radius: 1rem !important; }
 </style>
 
 <script>
-    // Handle loading state for bank verification
-    const form = document.getElementById('profileForm');
-    const btn = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
-    const btnLoader = document.getElementById('btnLoader');
-
-    form.addEventListener('submit', function() {
-        btn.disabled = true;
-        btnText.innerText = "{% trans 'Verifying...' %}";
-        btnLoader.classList.remove('d-none');
+    // Tab color toggler
+    document.querySelectorAll('.nav-link').forEach(tab => {
+        tab.addEventListener('shown.bs.tab', function (e) {
+            document.querySelectorAll('.nav-link').forEach(t => t.classList.add('text-muted'));
+            e.target.classList.remove('text-muted');
+            e.target.classList.add('text-success');
+        });
     });
 </script>
 {% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row g-4">
+        <div class="col-lg-3">
+            {% include 'includes/sidebar.html' %}
+        </div>
+
+        <div class="col-lg-9">
+            <div class="mb-3">
+                <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+                    <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+                </a>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold text-dark">{% trans "Unit Institutions" %}</h2>
+                <div class="dropdown">
+                    {% if user.is_authenticated and user_profile %}
+                        {% if user_profile.unit.level == 'WARD' and user_profile.unit.category == 'ULAMA' %}
+                            <button class="btn btn-success rounded-pill dropdown-toggle px-4" type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-plus-lg me-2"></i>{% trans "Register New" %}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                                <li><a class="dropdown-item py-2" href="{% url 'create_masjid' %}"><i class="bi bi-shield-shaded me-2 text-primary"></i> {% trans "Masjid" %}</a></li>
+                                <li><a class="dropdown-item py-2" href="{% url 'create_school' %}"><i class="bi bi-book me-2 text-success"></i> {% trans "School" %}</a></li>
+                                <li><a class="dropdown-item py-2" href="{% url 'create_hospital' %}"><i class="bi bi-hospital me-2 text-danger"></i> {% trans "Hospital" %}</a></li>
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm bg-primary text-white p-3 rounded-4">
+                        <small class="opacity-75 text-uppercase fw-bold">{% trans "Total Masjids" %}</small>
+                        <h3 class="fw-bold mb-0">{{ masjids.count }}</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm bg-success text-white p-3 rounded-4">
+                        <small class="opacity-75 text-uppercase fw-bold">{% trans "Total Schools" %}</small>
+                        <h3 class="fw-bold mb-0">{{ schools.count }}</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm bg-danger text-white p-3 rounded-4">
+                        <small class="opacity-75 text-uppercase fw-bold">{% trans "Total Hospitals" %}</small>
+                        <h3 class="fw-bold mb-0">{{ hospitals.count }}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light small text-uppercase">
+                            <tr>
+                                <th class="ps-4">{% trans "Institution Name" %}</th>
+                                <th>{% trans "Type" %}</th>
+                                <th>{% trans "Head / Imam" %}</th>
+                                <th>{% trans "Phone Number" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th class="text-end pe-4">{% trans "Action" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in masjids %}
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-bold text-dark">{{ m.name }}</div>
+                                    <small class="text-muted"><i class="bi bi-geo-alt"></i> {{ m.ward }}</small>
+                                </td>
+                                <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle">{% trans "Masjid" %}</span></td>
+                                <td>{{ m.imam.get_full_name|default:_("No Imam") }}</td>
+                                <td>{{ m.phone_number }}</td>
+                                <td>
+                                    {% if m.imam %}
+                                        <span class="text-success small"><i class="bi bi-check-circle-fill"></i> Staffed</span>
+                                    {% else %}
+                                        <span class="text-warning small">{% trans "Vacant" %}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">{% trans "Details" %}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                            {% for s in schools %}
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-bold text-dark">{{ s.name }}</div>
+                                    <small class="text-muted"><i class="bi bi-people"></i> {{ s.total_students }} {% trans "Students" %}</small>
+                                </td>
+                                <td><span class="badge bg-success-subtle text-success border border-success-subtle">{{ s.get_school_type_display }}</span></td>
+                                <td>{{ s.head.get_full_name|default:_("Unassigned") }}</td>
+                                <td>{{ s.phone_number }}</td>
+                                <td>{% if s.is_active %}<span class="badge bg-light text-dark fw-normal">{% trans "Active" %}</span>{% else %}<span class="badge bg-light text-muted fw-normal">{% trans "Inactive" %}</span>{% endif %}</td>
+                                <td class="text-end pe-4">
+                                    <a href="#" class="btn btn-sm btn-outline-success rounded-pill">{% trans "Details" %}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            {% for h in hospitals %}
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-bold text-dark">{{ h.name }}</div>
+                                    <small class="text-muted"><i class="bi bi-hospital"></i> {{ h.total_staff }} {% trans "Staff" %}</small>
+                                </td>
+                                <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">{{ h.get_hospital_type_display }}</span></td>
+                                <td>{{ h.head.get_full_name|default:_("Unassigned") }}</td>
+                                <td>{{ h.phone_number }}</td>
+                                <td>{% if h.is_active %}<span class="badge bg-light text-dark fw-normal">{% trans "Active" %}</span>{% endif %}</td>
+                                <td class="text-end pe-4">
+                                    <a href="#" class="btn btn-sm btn-outline-danger rounded-pill">{% trans "Details" %}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            {% if not masjids and not schools and not hospitals %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    {% trans "No institutions found in this unit." %}
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

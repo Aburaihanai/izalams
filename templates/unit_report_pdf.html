@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; color: #333; }
+        .header { text-align: center; border-bottom: 2px solid #198754; padding-bottom: 10px; }
+        .section-title { background: #f4f4f4; padding: 5px; margin-top: 20px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 12px; }
+        th { background-color: #198754; color: white; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{% trans "Unit Status Report" %}</h1>
+        <h3>{{ unit.name }} ({{ unit.get_level_display }})</h3>
+        <p>{% trans "Generated on" %}: {{ date|date:"D, d M Y" }} | {% trans "By" %}: {{ leader }}</p>
+    </div>
+
+    <div class="section-title">{% trans "Masjid Directory" %}</div>
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Masjid Name" %}</th>
+                <th>{% trans "Imam" %}</th>
+                <th>{% trans "Ward" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in masjids %}
+            <tr>
+                <td>{{ m.name }}</td>
+                <td>{{ m.imam.get_full_name|default:"Vacant" }}</td>
+                <td>{{ m.ward }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="section-title">{% trans "Educational Institutions" %}</div>
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "School Name" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Total Students" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in schools %}
+            <tr>
+                <td>{{ s.name }}</td>
+                <td>{{ s.get_school_type_display }}</td>
+                <td>{{ s.total_students }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

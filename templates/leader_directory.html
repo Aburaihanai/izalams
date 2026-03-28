@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container py-5">
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
     <h2 class="fw-bold text-success mb-4 text-center">JIBWIS Official Directory</h2>
 
     <form method="get" class="row g-3 mb-5 bg-light p-3 rounded-4 shadow-sm">

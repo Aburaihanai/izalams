@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none text-muted small fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <h2 class="fw-bold text-success mb-0">
+                <i class="bi bi-people-fill me-2"></i>{% trans "Committees" %}
+            </h2>
+            <p class="text-muted small">{% trans "View and manage JIBWIS department committees." %}</p>
+        </div>
+        <div class="col-md-6">
+            <form method="GET" class="d-flex gap-2 justify-content-md-end">
+                <input type="text" name="q" class="form-control form-control-sm rounded-pill px-3" 
+                       placeholder="{% trans 'Search committees...' %}" value="{{ request.GET.q }}">
+                
+                <select name="sort" class="form-select form-select-sm rounded-pill w-auto" onchange="this.form.submit()">
+                    <option value="-created_at" {% if current_sort == '-created_at' %}selected{% endif %}>{% trans "Newest" %}</option>
+                    <option value="created_at" {% if current_sort == 'created_at' %}selected{% endif %}>{% trans "Oldest" %}</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <hr class="mb-5 opacity-10">
+
+    {% for category, committees in grouped_committees.items %}
+        <div class="mb-5">
+            <div class="d-flex align-items-center mb-4">
+                <h4 class="fw-bold text-dark mb-0 pe-3">{{ category }}</h4>
+                <div class="flex-grow-1 border-bottom"></div>
+            </div>
+
+            <div class="row g-4">
+                {% for cmd in committees %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 position-relative overflow-hidden transition-hover">
+                        {% if request.user in cmd.members.all %}
+                        <div class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 small rounded-bottom-start shadow-sm" style="font-size: 0.7rem; z-index: 2;">
+                            <i class="bi bi-check-circle-fill me-1"></i> {% trans "Member" %}
+                        </div>
+                        {% endif %}
+
+                        <div class="card-body p-4">
+                            <div class="mb-3">
+                                <h5 class="card-title fw-bold text-success mb-1">{{ cmd.name }}</h5>
+                                <span class="text-muted extra-small">
+                                    <i class="bi bi-geo-alt me-1"></i> {{ cmd.unit.name }}
+                                </span>
+                            </div>
+
+                            <p class="card-text text-muted small mb-4">
+                                {{ cmd.description|default:"No description provided."|truncatewords:20 }}
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                                <div class="text-muted small">
+                                    <i class="bi bi-person-lines-fill me-1"></i>
+                                    <strong>{{ cmd.members.count }}</strong> {% trans "Members" %}
+                                </div>
+                                <a href="{% url 'committee_detail' cmd.pk %}" class="btn btn-sm btn-success rounded-pill px-4 shadow-sm">
+                                    {% trans "Open" %} <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="text-center py-5">
+            <div class="display-1 text-muted opacity-25 mb-3">
+                <i class="bi bi-people"></i>
+            </div>
+            <h4 class="text-muted">{% trans "No committees found." %}</h4>
+            <p class="text-muted small">{% trans "Try adjusting your search or check back later." %}</p>
+            {% if request.GET.q %}
+                <a href="{% url 'committee_list' %}" class="btn btn-outline-success btn-sm rounded-pill mt-2">
+                    {% trans "Clear Search" %}
+                </a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+    .transition-hover {
+        transition: all 0.3s ease;
+    }
+    .transition-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,0.1) !important;
+    }
+    .extra-small {
+        font-size: 0.75rem;
+    }
+    .rounded-bottom-start {
+        border-bottom-left-radius: 12px;
+    }
+</style>
+{% endblock %}

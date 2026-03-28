@@ -31,9 +31,24 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'landing' %}">{% trans "Home" %}</a></li>
+                    
+                    {% if user.is_authenticated and user_profile %}
+                        {% if user_profile.unit.category == 'ADMIN' %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'admin_landing' %}">{% trans "Home" %}</a></li>
+                        {% elif user_profile.unit.category == 'ULAMA' %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'ulama_landing' %}">{% trans "Home" %}</a></li>
+                        {% elif user_profile.unit.category == 'FAG' %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'fag_landing' %}">{% trans "Home" %}</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'landing' %}">{% trans "Home" %}</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'landing' %}">{% trans "Home" %}</a></li>
+                    {% endif %}
+
                     {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">{% trans "Dashboard" %}</a></li>
                         <li class="nav-item ms-lg-2">

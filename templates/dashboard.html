@@ -3,181 +3,325 @@
 
 {% block content %}
 <div class="container-fluid py-4">
-    <div class="row">
+    <div class="row g-4">
         <div class="col-lg-3">
             {% include 'includes/sidebar.html' %}
         </div>
 
         <div class="col-lg-9">
-            <div class="d-flex justify-content-between align-items-end mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h2 class="fw-bold text-dark mb-0">{% trans "Command Center" %}</h2>
-                    <p class="text-muted mb-0">
-                        {{ leader_profile.unit.name }} | {% trans "Leader" %}: {{ user.get_full_name|default:user.username }}
-                    </p>
+                    <h2 class="fw-bold text-dark mb-1">{% trans "Command Center" %}</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 small">
+                            {% if leader_profile.unit %}
+                                <li class="breadcrumb-item text-success fw-bold">
+                                    {{ leader_profile.unit.get_category_display }}
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    {{ leader_profile.unit.name }} ({{ leader_profile.unit.get_level_display }})
+                                </li>
+                            {% else %}
+                                <li class="breadcrumb-item text-muted">{% trans "Unit not assigned" %}</li>
+                            {% endif %}
+                        </ol>
+                    </nav>
                 </div>
-                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
-                    <i class="bi bi-shield-check me-1"></i> {% trans "Authorized Access" %}
-                </span>
+                <div class="text-end d-none d-md-block">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill shadow-sm">
+                        <i class="bi bi-shield-check me-1"></i> {% trans "System Authorized" %}
+                    </span>
+                    <div class="text-muted extra-small mt-1">{% trans "Welcome back" %}, {{ user.get_full_name|default:user.username }}</div>
+                </div>
             </div>
 
-            {% if user.is_staff %}
-                <div class="card border-0 shadow-sm mb-5 overflow-hidden">
-                    <div class="card-header bg-white border-0 py-3">
-                        <h6 class="mb-0 fw-bold text-warning">
-                            <i class="bi bi-hourglass-split me-2"></i>{% trans "Pending Unit Verifications" %}
-                        </h6>
-                    </div>
-                    <div class="list-group list-group-flush">
-                        {% for member in pending %}
-                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 border-start border-4 {% if member.unit.level == 'STATE' %}border-success{% else %}border-info{% endif %}">
-                                <div class="d-flex align-items-center">
-                                    <div class="bg-light rounded-circle p-2 me-3 shadow-sm">
-                                        {% if member.profile_picture %}
-                                            <img src="{{ member.profile_picture.url }}" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
-                                        {% else %}
-                                            <i class="bi bi-person-badge fs-4 text-success"></i>
-                                        {% endif %}
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-0 fw-bold text-dark">{{ member.user.get_full_name|default:member.user.username }}</h6>
-                                        <div class="d-flex align-items-center gap-2 mt-1">
-                                            <span class="badge bg-success-subtle text-success border border-success-subtle fw-normal">
-                                                {{ member.position|default:"Member" }}
-                                            </span>
-                                            <small class="text-muted small">
-                                                <i class="bi bi-geo-alt"></i> {{ member.unit.name }}
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex gap-2">
-                                    <form action="{% url 'approve_member' member.id %}" method="POST" class="d-inline">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-success px-3 rounded-pill shadow-sm">
-                                            <i class="bi bi-check-lg me-1"></i> {% trans "Approve" %}
-                                        </button>
-                                    </form>
-
-                                    <form action="{% url 'delete_member_permanent' member.user.id %}" method="POST" class="d-inline">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle shadow-sm"
-                                                onclick="return confirm('{% trans "Are you sure you want to REJECT and DELETE this application?" %}')"
-                                                title="{% trans 'Reject Application' %}">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        {% empty %}
-                            <div class="p-5 text-center bg-light rounded-3">
-                                <i class="bi bi-shield-check fs-1 text-success opacity-50"></i>
-                                <p class="text-muted mt-2">{% trans "No pending requests. Your unit is fully approved." %}</p>
-                            </div>
-                        {% endfor %}
-                    </div>
+            {% if user.profile.role == 'ward_chairman' and pending_assignments_count > 0 %}
+            <div class="alert alert-warning border-0 shadow-sm rounded-4 p-4 mb-4 d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="fw-bold mb-1"><i class="bi bi-exclamation-triangle-fill me-2"></i>{% trans "Action Required" %}</h6>
+                    <p class="mb-0 small">{% trans "There are leadership assignments awaiting your official verification." %}</p>
                 </div>
+                <a href="{% url 'pending_approvals_list' %}" class="btn btn-warning rounded-pill px-4 fw-bold">{% trans "Review Now" %}</a>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4 overflow-hidden border-top border-4 border-warning">
+                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 fw-bold text-dark">
+                        <i class="bi bi-person-plus-fill me-2 text-warning"></i>{% trans "Pending Verifications" %}
+                    </h6>
+                    {% if pending %}<span class="badge bg-warning text-dark rounded-pill px-3">{{ pending.count }}</span>{% endif %}
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for member in pending %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-light rounded-circle p-1 me-3 border">
+                                    {% if member.profile_picture %}
+                                        <img src="{{ member.profile_picture.url }}" class="rounded-circle" width="45" height="45" style="object-fit: cover;">
+                                    {% else %}
+                                        <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold small text-dark">{{ member.user.get_full_name|default:member.user.username }}</h6>
+                                    <small class="text-muted extra-small"><i class="bi bi-tag me-1"></i> {{ member.position|default:"Member" }}</small>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <form action="{% url 'approve_member' member.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-success rounded-pill px-3 shadow-sm">{% trans "Approve" %}</button>
+                                </form>
+                                <form action="{% url 'delete_member_permanent' member.user.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Reject user?')"><i class="bi bi-x-lg"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="p-4 text-center bg-light">
+                            <p class="text-muted small mb-0">{% trans "No pending registrations for your unit." %}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
             {% endif %}
 
-            <div class="row g-4 mb-5">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
+                        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
+                            <h6 class="mb-0 fw-bold text-dark"><i class="bi bi-diagram-3-fill me-2 text-success"></i>{% trans "Active Committees" %}</h6>
+                            <a href="{% url 'committee_list' %}" class="btn btn-sm btn-light rounded-pill px-3 small">{% trans "View All" %}</a>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light extra-small text-uppercase">
+                                        <tr>
+                                            <th class="ps-4">{% trans "Name" %}</th>
+                                            <th>{% trans "Lead" %}</th>
+                                            <th class="text-center">{% trans "Members" %}</th>
+                                            <th class="text-end pe-4">{% trans "Link" %}</th>
+                                            <th class="text-end pe-4">{% trans "Action" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for group in committees|slice:":4" %}
+                                        <tr class="small">
+                                            <td class="ps-4">
+                                                <div class="fw-bold">{{ group.name }}</div>
+                                                <div class="extra-small text-muted">{{ group.get_level_display }}</div>
+                                            </td>
+                                            <td>{{ group.team_lead.get_full_name|default:group.team_lead.username }}</td>
+                                            <td class="text-center"><span class="badge bg-light text-dark border">{{ group.members.count }}</span></td>
+                                            <td class="text-end pe-4">
+                                                <a href="{% url 'committee_detail' group.pk %}" class="btn btn-sm btn-outline-success rounded-pill"><i class="bi bi-arrow-right"></i></a>
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <a href="{% url 'delete_committee' group.pk %}" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Delete committee?')"><i class="bi bi-arrow-right"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr><td colspan="4" class="text-center py-5 text-muted small">{% trans "No active committees." %}</td></tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 p-3">
+                            <a href="{% url 'create_groupchat' %}" class="btn btn-success btn-sm w-100 rounded-pill shadow-sm">
+                                <i class="bi bi-plus-lg me-1"></i> {% trans "New Committee" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
+                        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
+                            <h6 class="mb-0 fw-bold text-dark"><i class="bi bi-diagram-3-fill me-2 text-success"></i>{% trans "Active Group Chats" %}</h6>
+                            <a href="{% url 'groupchat_list' %}" class="btn btn-sm btn-light rounded-pill px-3 small">{% trans "View All" %}</a>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light extra-small text-uppercase">
+                                        <tr>
+                                            <th class="ps-4">{% trans "Name" %}</th>
+                                            <th>{% trans "Lead" %}</th>
+                                            <th class="text-center">{% trans "Members" %}</th>
+                                            <th class="text-end pe-4">{% trans "Link" %}</th>
+                                            <th class="text-end pe-4">{% trans "Action" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for group in groupchats|slice:":4" %}
+                                        <tr class="small">
+                                            <td class="ps-4">
+                                                <div class="fw-bold">{{ group.name }}</div>
+                                                <div class="extra-small text-muted">{{ group.get_level_display }}</div>
+                                            </td>
+                                            <td>{{ group.team_lead.get_full_name|default:group.team_lead.username }}</td>
+                                            <td class="text-center"><span class="badge bg-light text-dark border">{{ group.members.count }}</span></td>
+                                            <td class="text-end pe-4">
+                                                <a href="{% url 'groupchat_detail' group.pk %}" class="btn btn-sm btn-outline-success rounded-pill"><i class="bi bi-arrow-right"></i></a>
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <a href="{% url 'delete_groupchat' group.pk %}" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Delete groupchat?')"><i class="bi bi-arrow-right"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr><td colspan="4" class="text-center py-5 text-muted small">{% trans "No active Group Chats." %}</td></tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 p-3">
+                            <a href="{% url 'create_groupchat' %}" class="btn btn-success btn-sm w-100 rounded-pill shadow-sm">
+                                <i class="bi bi-plus-lg me-1"></i> {% trans "New Group Chat" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% if user.is_authenticated and user_profile %}
+                        {% if user_profile.unit.level == 'WARD' and user_profile.unit.category == 'ULAMA' %}
+                            <div class="row g-4 mb-5">
+                                <div class="col-md-4">
+                                    <a href="{% url 'masjid_list' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up rounded-4">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="bg-primary-subtle text-primary rounded-circle p-3 me-3">
+                                                    <i class="bi bi-shield-shaded fs-4"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="fw-bold text-dark mb-0">{% trans "Masjids" %}</h6>
+                                                    <small class="text-muted">{{ masjids.count }} {% trans "Registered" %}</small>
+                                                </div>
+                                            </div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-primary" style="width: 100%"></div>
+                                            </div>
+                                            <p class="extra-small text-muted mb-0">{% trans "Manage Imams & congregations" %}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{% url 'school_dashboard' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up rounded-4">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="bg-success-subtle text-success rounded-circle p-3 me-3">
+                                                    <i class="bi bi-book fs-4"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="fw-bold text-dark mb-0">{% trans "Education" %}</h6>
+                                                    <small class="text-muted">{{ schools.count }} {% trans "Institutions" %}</small>
+                                                </div>
+                                            </div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-success" style="width: 100%"></div>
+                                            </div>
+                                            <p class="extra-small text-muted mb-0">{% trans "Track students & headmasters" %}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                        {% endif %}
+                    {% endif %}
+                    {% if user.is_authenticated and user_profile %}
+                        {% if user_profile.unit.level == 'WARD' and user_profile.unit.category == 'ADMIN' %}
+                            <div class="col-md-4">
+                                <a href="{% url 'hospital_list' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up rounded-4">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="bg-danger-subtle text-danger rounded-circle p-3 me-3">
+                                                <i class="bi bi-hospital fs-4"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="fw-bold text-dark mb-0">{% trans "Healthcare" %}</h6>
+                                                <small class="text-muted">{{ hospitals.count }} {% trans "Hospitals" %}</small>
+                                            </div>
+                                        </div>
+                                        <div class="progress mb-2" style="height: 5px;">
+                                            <div class="progress-bar bg-danger" style="width: 100%"></div>
+                                        </div>
+                                        <p class="extra-small text-muted mb-0">{% trans "Staffing & medical facility oversight" %}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100 rounded-4">
+                        <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 fw-bold text-dark"><i class="bi bi-megaphone-fill me-2 text-primary"></i>{% trans "Unit News" %}</h6>
+                            <button class="btn btn-primary btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"><i class="bi bi-plus-lg"></i></button>
+                        </div>
+                        <div class="card-body p-3">
+                            {% for a in unit_announcements|slice:":3" %}
+                                <div class="p-2 mb-2 bg-light rounded-3 position-relative shadow-sm border-start border-3 border-primary">
+                                    <p class="small mb-1 text-dark fw-medium">{{ a.content|truncatechars:80 }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="extra-small text-muted">{{ a.created_at|date:"d M" }}</span>
+                                        <form action="{% url 'delete_announcement' a.pk %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-link text-danger p-0 extra-small shadow-none"><i class="bi bi-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <p class="text-center py-4 text-muted extra-small">{% trans "No active announcements." %}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                {% for post in announcements %}
+                    <div class="announcement-item">
+                        <p>{{ post.content|truncatechars:50 }}</p>
+                        <a href="{% url 'edit_announcement' post.pk %}" class="btn btn-sm btn-light">
+                            <i class="bi bi-pencil"></i> {% trans "Edit" %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row g-4 mb-4">
                 {% if user.is_staff %}
                 <div class="col-md-4">
-                    <a href="{% url 'bulk_payroll' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
+                    <a href="{% url 'gallery_list' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up rounded-4">
                         <div class="card-body text-center p-4">
-                            <div class="bg-warning-subtle text-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="bi bi-lightning-charge-fill fs-3"></i>
+                            <div class="bg-info-subtle text-info rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 55px; height: 55px;">
+                                <i class="bi bi-images fs-4"></i>
                             </div>
-                            <h5 class="fw-bold text-dark">{% trans "Bulk Payroll" %}</h5>
-                            <p class="small text-muted mb-0">{% trans "Process unit disbursements." %}</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="{% url 'members_list' %}" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
-                        <div class="card-body text-center p-4">
-                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="bi bi-people-fill fs-3"></i>
-                            </div>
-                            <h5 class="fw-bold text-dark">{% trans "Directory" %}</h5>
-                            <p class="small text-muted mb-0">{% trans "Manage unit personnel records." %}</p>
+                            <h6 class="fw-bold text-dark mb-0">{% trans "Unit Gallery" %}</h6>
+                            <p class="extra-small text-muted mt-1">{% trans "Upload activity photos" %}</p>
                         </div>
                     </a>
                 </div>
                 {% endif %}
-                <div class="col-md-4">
-                    <a href="#inboxSection" class="card border-0 shadow-sm text-decoration-none h-100 transition-up">
-                        <div class="card-body text-center p-4">
-                            <div class="bg-success-subtle text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="bi bi-envelope-paper-fill fs-3"></i>
-                            </div>
-                            <h5 class="fw-bold text-dark">{% trans "My Inbox" %}</h5>
-                            <p class="small text-muted mb-0">{% trans "Unit communications." %}</p>
-                            {% if messages_received.count > 0 %}
-                                <span class="badge bg-danger rounded-pill mt-2">{{ messages_received.count }} {% trans "New" %}</span>
-                            {% endif %}
-                        </div>
-                    </a>
-                </div>
             </div>
 
-            <div id="inboxSection" class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0 fw-bold">{% trans "Recent Messages" %}</h6>
-                    <a href="{% url 'inbox' %}" class="btn btn-sm btn-light text-success px-3">{% trans "View All" %}</a>
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
+                    <h6 class="mb-0 fw-bold"><i class="bi bi-chat-dots-fill me-2 text-secondary"></i>{% trans "Unit Inbox" %}</h6>
+                    <a href="{% url 'inbox' %}" class="btn btn-sm btn-outline-dark rounded-pill extra-small">{% trans "View All" %}</a>
                 </div>
-                <div class="list-group list-group-flush">
-                    <div class="list-group">
-                        {% for msg in messages_received %}
-                        <div class="list-group-item list-group-item-action border-0 mb-2 rounded-3 shadow-sm
-                                    {% if msg.is_read %}bg-success bg-opacity-10{% endif %}">
-
-                            <div class="d-flex w-100 justify-content-between align-items-center">
-                                <h6 class="mb-1 fw-bold {% if msg.is_read %}text-success{% endif %}">
-                                    {{ msg.subject }}
-                                </h6>
-                                <small class="text-muted">{{ msg.timestamp|timesince }} ago</small>
-                            </div>
-
-                            <p class="mb-2 small text-secondary">{{ msg.body|truncatewords:20 }}</p>
-
-                            <div class="d-flex gap-2">
-                                <a href="{% url 'mark_read_ajax' msg.id %}" class="btn btn-sm {% if msg.is_read %}btn-success{% else %}btn-outline-secondary{% endif %}">
-                                    <i class="bi {% if msg.is_read %}bi-envelope-open-fill{% else %}bi-envelope-fill{% endif %}"></i>
-                                </a>
-
-                                <a href="{% url 'mark_read_ajax' msg.id %}" class="btn btn-sm btn-outline-danger"
-                                   onclick="return confirm('Delete this message?')">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-
-                                {% if user.is_staff %}
-                                <button class="btn btn-sm btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#replyModal{{ msg.id }}">
-                                    <i class="bi bi-reply-fill"></i> {% trans "Reply" %}
-                                </button>
-
-                                <div class="modal fade" id="replyModal{{ msg.id }}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <form method="post" action="{% url 'leader_reply' msg.id %}" class="modal-content">
-                                            {% csrf_token %}
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Reply to {{ msg.sender.username }}</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <textarea name="body" class="form-control" rows="4" placeholder="Type your reply here..." required></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-success">Send Reply</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for msg in messages_received|slice:":3" %}
+                            <a href="{% url 'inbox' %}" class="list-group-item list-group-item-action border-0 py-3 px-4 {% if not msg.is_read %}bg-light fw-bold{% endif %}">
+                                <div class="d-flex w-100 justify-content-between mb-1">
+                                    <span class="small text-dark">{{ msg.subject }}</span>
+                                    <small class="text-muted extra-small">{{ msg.timestamp|timesince }}</small>
                                 </div>
-                                {% endif %}
-                            </div>
-                        </div>
+                                <p class="mb-0 extra-small text-muted text-truncate">{{ msg.body|truncatechars:100 }}</p>
+                            </a>
                         {% empty %}
-                        <p class="text-center text-muted py-4">No messages found.</p>
+                            <div class="text-center py-5 text-muted small">{% trans "Your inbox is clear." %}</div>
                         {% endfor %}
                     </div>
                 </div>
@@ -186,10 +330,33 @@
     </div>
 </div>
 
+<div class="modal fade" id="addAnnouncementModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <form action="{% url 'create_announcement' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">{% trans "Broadcast Message" %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="content" class="form-control rounded-4 p-3" rows="4" placeholder="Type unit announcement here..." required></textarea>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 shadow-sm w-100">{% trans "Publish Announcement" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <style>
-    .transition-up { transition: transform 0.2s ease; }
-    .transition-up:hover { transform: translateY(-5px); border: 1px solid #198754 !important; }
-    .list-group-item { transition: background 0.2s; }
-    .list-group-item:hover { background-color: #fcfcfc; }
+    .transition-up { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .transition-up:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important; }
+    .extra-small { font-size: 0.72rem; }
+    .bg-success-subtle { background-color: #f1fcf4 !important; }
+    .bg-warning-subtle { background-color: #fff9eb !important; }
+    .bg-primary-subtle { background-color: #f0f7ff !important; }
+    .bg-info-subtle { background-color: #f0fbff !important; }
 </style>
 {% endblock %}
