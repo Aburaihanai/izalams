@@ -8,8 +8,10 @@ from django import forms
 from .models import User, Profile, State, LGA, Ward, OrganizationUnit
 from django.contrib.auth import get_user_model
 from .constants import BANK_CHOICES
+from .models import Masjid, School, HospitalMembership, SchoolMembership, Hospital
+from django.utils.translation import gettext as _
 
-
+User = get_user_model()
 class ApprovedOnlyLoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
         # Check if any of the user's profiles are active
@@ -22,12 +24,14 @@ class ApprovedOnlyLoginForm(AuthenticationForm):
 class VideoUploadForm(forms.ModelForm):
     class Meta:
         model = VideoPost
-        fields = ['title', 'video_file']
+        fields = ['title', 'video_file', 'category', 'description']
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g. Friday Khutbah Summary'}),
-            'video_file': forms.FileInput(attrs={'class': 'form-control', 'accept': 'video/mp4,video/x-m4v,video/*'})
+            'category': forms.Select(attrs={'class': 'form-select'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter video title'}),
+            'video_file': forms.FileInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter video description', 'rows': 4})
         }
-
+        
 class RegistrationForm(forms.ModelForm):
     # 1. Security & Identity
     password = forms.CharField(
@@ -127,9 +131,10 @@ class MessageForm(forms.ModelForm):
 class GalleryForm(forms.ModelForm):
     class Meta:
         model = GalleryImage
-        fields = ['title', 'image', 'order']
+        fields = ['title', 'image', 'order', 'category']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter image title'}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'order': forms.NumberInput(attrs={'class': 'form-control'}),
         }
@@ -137,18 +142,18 @@ class GalleryForm(forms.ModelForm):
 class AnnouncementForm(forms.ModelForm):
     class Meta:
         model = Announcement
-        fields = ['content', 'is_active']
+        # Remove 'category' from this list
+        fields = ['content', 'is_active'] 
         widgets = {
             'content': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Write your announcement here...'
+                'placeholder': _('Write your announcement here...')
             }),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input text-success'}),
         }
-
+        
 class UserUpdateForm(forms.ModelForm):
-    # Override the bank_code field to be a dropdown
     bank_code = forms.ChoiceField(
         choices=BANK_CHOICES,
         widget=forms.Select(attrs={'class': 'form-select'})
@@ -162,3 +167,51 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_picture', 'education_level', 'course_of_study', 'graduation_year']
+
+class MasjidForm(forms.ModelForm):
+    class Meta:
+        model = Masjid
+        fields = ['name', 'masjid_types', 'capacity', 'imam', 'phone_number', 'address']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control rounded-pill'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control rounded-pill'}),
+            'masjid_types': forms.Select(attrs={'class': 'form-select rounded-pill'}),
+            'capacity': forms.NumberInput(attrs={'class': 'form-control rounded-pill'}),
+        }
+
+class SchoolForm(forms.ModelForm):
+    class Meta:
+        model = School
+        fields = ['name', 'school_type', 'total_male_students', 'total_female_students', 'total_teachers', 'head', 'phone_number']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control rounded-pill'}),
+            'school_type': forms.Select(attrs={'class': 'form-select rounded-pill'}),
+        }
+
+class HospitalForm(forms.ModelForm):
+    class Meta:
+        model = Hospital
+        fields = ['name', 'medical_director', 'num_staff', 'is_active']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control rounded-pill', 'placeholder': 'General Hospital Name'}),
+            'medical_director': forms.TextInput(attrs={'class': 'form-control rounded-pill', 'placeholder': 'Dr. Saifullahi Tanko Abubakar'}),
+            'num_staff': forms.NumberInput(attrs={'class': 'form-control rounded-pill'}),
+        }
+
+class SchoolMembershipForm(forms.ModelForm):
+    class Meta:
+        model = SchoolMembership
+        fields = ['member', 'membership_type', 'is_active']
+        widgets = {
+            'member': forms.Select(attrs={'class': 'form-select rounded-pill'}),
+            'membership_type': forms.Select(attrs={'class': 'form-select rounded-pill'}),
+        }
+
+class HospitalMembershipForm(forms.ModelForm):
+    class Meta:
+        model = HospitalMembership
+        fields = ['member', 'membership_type', 'is_active']
+        widgets = {
+            'member': forms.Select(attrs={'class': 'form-select rounded-pill'}),
+            'membership_type': forms.Select(attrs={'class': 'form-select rounded-pill'}),
+        }

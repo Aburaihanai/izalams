@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 from django.http import HttpResponse
@@ -9,6 +8,37 @@ from .models import (
     Announcement, State, LGA, Ward
 )
 
+from django.contrib import admin
+from .models import (
+    Masjid, School, SchoolMembership,
+    Hospital
+)
+
+# --- INLINES (View members inside the Institution page)
+
+class SchoolMembershipInline(admin.TabularInline):
+    model = SchoolMembership
+    extra = 1
+
+# --- ADMIN CLASSES ---
+@admin.register(Masjid)
+class MasjidAdmin(admin.ModelAdmin):
+    list_display = ('name', 'masjid_types', 'unit', 'imam', 'is_active', 'phone_number')
+    list_filter = ('masjid_types', 'is_active')
+    search_fields = ('name',)
+
+
+@admin.register(School)
+class SchoolAdmin(admin.ModelAdmin):
+    list_display = ('name', 'school_type', 'unit', 'head', 'is_active', 'phone_number')
+    list_filter = ('school_type', 'is_active')
+    search_fields = ('name',)
+    inlines = [SchoolMembershipInline]
+
+@admin.register(Hospital)
+class HospitalAdmin(admin.ModelAdmin):
+    list_display = ('name', 'medical_director', 'num_staff')
+    search_fields = ('name',)
 
 def export_to_csv(modeladmin, request, queryset):
     """
@@ -20,7 +50,7 @@ def export_to_csv(modeladmin, request, queryset):
     writer.writerow(['Username', 'Full Name', 'Email', 'Phone', 'Unit', 'Position', 'Education', 'Status'])
 
     for obj in queryset:
-        profile = obj.profiles.first()
+        profile = obj.profile
         unit_name = profile.unit.name if profile else "N/A"
         position = profile.position if profile else "N/A"
         status = "Active" if (profile and profile.is_active) else "Pending"
@@ -76,7 +106,7 @@ class CustomUserAdmin(UserAdmin):
     inlines = (ProfileInline,)
     actions = [export_to_csv]
     list_display = ('username', 'get_full_name', 'phone_number', 'education_level', 'get_unit', 'get_status')
-    list_filter = ('is_staff', 'education_level', 'profiles__is_active', 'profiles__unit__level')
+    list_filter = ('is_staff', 'education_level', 'profile__is_active', 'profile__unit__level')
     search_fields = ('username', 'first_name', 'last_name', 'phone_number')
 
     fieldsets = UserAdmin.fieldsets + (
@@ -89,12 +119,12 @@ class CustomUserAdmin(UserAdmin):
     )
 
     def get_unit(self, obj):
-        profile = obj.profiles.first()
+        profile = obj.profile
         return profile.unit.name if profile else "No Profile"
     get_unit.short_description = 'Unit'
 
     def get_status(self, obj):
-        profile = obj.profiles.first()
+        profile = obj.profile
         if profile:
             color = "green" if profile.is_active else "orange"
             text = "Active" if profile.is_active else "Pending"
